@@ -222,7 +222,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 	
 	[cachedItems removeAllObjects];
 	[smartPlaylistQuery stopQuery];
-	int resultCount = [smartPlaylistQuery resultCount];
+	int resultCount = (int)[smartPlaylistQuery resultCount];
 	for (NSInteger i = 0; i < resultCount; i++)
 	{
 		if (abortCaching)

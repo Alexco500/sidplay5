@@ -567,7 +567,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	NSInteger samplesRemaining = timeInSeconds * settings.mFrequency;
 	NSInteger samplesCompleted = 0;
 	const int maxSamplesPerSlice = 64 * 1024;
-	renderBufferSampleCount = samplesRemaining;
+	renderBufferSampleCount = (int)samplesRemaining;
 	if (renderBuffer != NULL)
 		delete[] renderBuffer;
 	renderBuffer = new char[renderBufferSampleCount * sizeof(short)];
@@ -575,7 +575,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	
 	while (samplesRemaining > 0)
 	{
-		UInt32 numSamplesThisSlice = samplesRemaining;
+		UInt32 numSamplesThisSlice = (int)samplesRemaining;
 		if (numSamplesThisSlice > maxSamplesPerSlice)
 			numSamplesThisSlice = maxSamplesPerSlice;
 		

@@ -352,7 +352,7 @@ bool PlayerLibSidplay::loadTuneByPath(const char* filename, int subtune, Playbac
 	if ( fp == NULL )
 		return false;
 
-	int length = fread(mTuneBuffer, 1, TUNE_BUFFER_SIZE, fp);
+	long length = fread(mTuneBuffer, 1,TUNE_BUFFER_SIZE, fp);
 	
 	if (length < 0)
 		return false;
@@ -361,7 +361,7 @@ bool PlayerLibSidplay::loadTuneByPath(const char* filename, int subtune, Playbac
 
 	fclose(fp);
 
-	mTuneLength = length;
+	mTuneLength = (int)length;
 	mCurrentSubtune = subtune;
 
 	return initSIDTune(settings);

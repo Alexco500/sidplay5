@@ -162,7 +162,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			[openPanel setTitle:@"Select HVSC collection folder (usually called C64Music) or other folder containing .sid music files"];
 			[openPanel setPrompt:@"Choose"];
 			
-			int result = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
+			long result = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
 			
 			if (result == NSOKButton)
 			{
@@ -731,7 +731,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	else
 	{
 		NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-		int count = [sharedCollectionItems count];
+		long count = [sharedCollectionItems count];
 		int index = 0;
 		for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
 		{
@@ -820,7 +820,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		if (itemWasRemoved)
 		{
 			[sourceListView deselectRow:row];
-			int newRow = row - 1;
+			long newRow = row - 1;
 			SPSourceListItem* newItem = [sourceListView itemAtRow:newRow];
 			if (newItem != nil && ![newItem isHeader])
 				[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
@@ -1356,9 +1356,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 // ----------------------------------------------------------------------------
 {
     if (item == nil)
-		return [rootItems count];
+		return (int)[rootItems count];
 	else
-		return [[item children] count];
+		return (int)[[item children] count];
 }
 
 
@@ -1559,7 +1559,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSArray* supportedTypes = [NSArray arrayWithObjects:SPSourceListCollectionItemPBoardType, NSFilenamesPboardType, SPBrowserItemPBoardType, nil];
 	NSString* bestType = [pasteboard availableTypeFromArray:supportedTypes];
 	SPSourceListItem* targetItem = item;
-	int targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : index;
+	long targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : index;
 	NSMutableArray* targetContainer = [targetItem children];
 	
 	if ([bestType isEqualToString:SPSourceListCollectionItemPBoardType])
@@ -1754,7 +1754,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		}
 	}
 	
-	int sharedServiceCount = sharedCollectionItems != nil ? [sharedCollectionItems count] : 0;
+	long sharedServiceCount = sharedCollectionItems != nil ? [sharedCollectionItems count] : 0;
 	[self addSharedCollectionItemForService:service atIndex:sharedServiceCount];
 	
 	[sourceListView reloadData];

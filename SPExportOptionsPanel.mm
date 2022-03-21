@@ -33,13 +33,13 @@
 	exportSettings = [exportController exportSettings];
 	
 	[timeStepper setIntegerValue:exportSettings.mTimeInSeconds];
-	[self updateTimeTextField:exportSettings.mTimeInSeconds];
+	[self updateTimeTextField:(int)exportSettings.mTimeInSeconds];
 	
 	exportSettings.mWithFadeOut = [fadeOutButton state] == NSOnState;
 	exportSettings.mFadeOutTime = [fadeOutTimeSlider intValue];
 	[fadeOutTimeSlider setEnabled:exportSettings.mWithFadeOut];
 
-	int bitrate = [[bitRatePopup selectedItem] tag];
+	int bitrate =(int)[[bitRatePopup selectedItem] tag];
 	exportSettings.mBitRate = bitrate;
 	exportSettings.mUseVBR = [variableBitrateButton state] == NSOnState;
 	exportSettings.mQuality = [qualitySlider floatValue];
@@ -85,7 +85,7 @@
 		
 		int subtuneToExport = [item subtune];
 		if (subtuneToExport == 0)
-			subtuneToExport = defaultSubTune;
+			subtuneToExport = (int)defaultSubTune;
 		
 		[subTunePopup selectItemWithTag:subtuneToExport];
 	}
@@ -161,7 +161,7 @@
 {
 	NSInteger timeInSeconds = [sender integerValue];
 	exportSettings.mTimeInSeconds = timeInSeconds;
-	[self updateTimeTextField:timeInSeconds];
+	[self updateTimeTextField:(int)timeInSeconds];
 	[self updateFileSizeTextField];
 }
 
@@ -211,14 +211,14 @@
 		if (item != nil)
 		{
 			SPExporter* exporter = [item exporter];
-			[item setSubtune:subTuneIndex];
+			[item setSubtune:(int)subTuneIndex];
 			[exporter unloadExportItem];
 			[exporter loadExportItem];
 			exportSettings.mTimeInSeconds = [exporter exportSettings].mTimeInSeconds;
 			[exportController setExportSettings:exportSettings];
 			
 			[timeStepper setIntegerValue:exportSettings.mTimeInSeconds];
-			[self updateTimeTextField:exportSettings.mTimeInSeconds];
+			[self updateTimeTextField:(int)exportSettings.mTimeInSeconds];
 			[self updateFileSizeTextField];
 		}
 	}
@@ -246,7 +246,7 @@
 - (IBAction) bitRatePopupChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	exportSettings.mBitRate = [[sender selectedItem] tag];
+	exportSettings.mBitRate = (int)[[sender selectedItem] tag];
 	[self updateFileSizeTextField];
 }
 

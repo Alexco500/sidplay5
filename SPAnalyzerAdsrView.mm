@@ -155,7 +155,7 @@
 
 			adsrStream[i] = [[SPAnalyzerWindowController sharedInstance] adsrStream:i];
 			
-			int size = adsrStream[i]->size();
+			long size = adsrStream[i]->size();
 			int searchIndex = 0;
 			while (searchIndex < size && (*adsrStream[i])[searchIndex].mTimeStamp < startTime)
 				searchIndex++;
@@ -165,7 +165,7 @@
 			while (searchIndex < size && (*adsrStream[i])[searchIndex].mTimeStamp < endTime)
 				searchIndex++;
 			
-			int endIndex = MIN(searchIndex + 1, size);
+			long endIndex = MIN(searchIndex + 1, size);
 			
 			if (size == 1)
 			{
@@ -175,7 +175,7 @@
 			
 			NSPoint currentPos = NSMakePoint(0.0f, 0.0f);
 			
-			for (int index = startIndex; index < endIndex; index++)
+			for (long index = startIndex; index < endIndex; index++)
 			{
 				SidAdsrState frame = (*adsrStream[i])[index];
 				SidAdsrState frame2 = (*adsrStream[i])[(index + 1) < size ? index + 1 : index];

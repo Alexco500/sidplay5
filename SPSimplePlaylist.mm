@@ -238,7 +238,7 @@
 		{
 			file = [line substringToIndex:range.location];
 			NSString* subtuneString = [line substringFromIndex:range.location + 2];
-			subtune = [subtuneString integerValue];
+			subtune = (int)[subtuneString integerValue];
 		}
 
 		if ([file characterAtIndex:0] != '/')

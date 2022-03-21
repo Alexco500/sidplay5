@@ -93,7 +93,7 @@
 - (IBAction) collapse:(id)sender
 // ----------------------------------------------------------------------------
 {
-	int state = [sender state];
+	int state = (int)[sender state];
 
 	// Better solution: disable disclosure cells of all info views during animation
 	if ([container isAnimating])

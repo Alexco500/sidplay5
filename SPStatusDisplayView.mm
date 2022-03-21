@@ -205,9 +205,9 @@
 	if (seconds >= 0)
 		currentPlaybackSeconds = seconds;
 	
-	int remainingTime = MAX(0, currentSonglengthInSeconds - currentPlaybackSeconds);
+	int remainingTime = (int)MAX(0, currentSonglengthInSeconds - currentPlaybackSeconds);
 	
-	int timeToShowInSeconds = showRemainingTime ? remainingTime: currentPlaybackSeconds;
+	int timeToShowInSeconds = (int)(showRemainingTime ? remainingTime: currentPlaybackSeconds);
 	
 	if (timeToShowInSeconds < 60)
 	{

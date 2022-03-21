@@ -93,7 +93,7 @@
 				releasedBuf[maxStringLength] = 0;
 				releaseInfo = [NSString stringWithCString:releasedBuf encoding:NSISOLatin1StringEncoding];
 				
-				int playtime = [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:filebuffer withBufferLength:length andSubtune:defaultSubTune];
+				int playtime = (int)[[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:filebuffer withBufferLength: (int)length andSubtune:defaultSubTune];
 				[self setPlayTimeInSeconds:playtime];
 			}
 		}

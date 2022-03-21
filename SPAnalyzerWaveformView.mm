@@ -144,7 +144,7 @@
 			
 			waveformStream[i] = [[SPAnalyzerWindowController sharedInstance] waveformStream:i];
 			
-			int size = waveformStream[i]->size();
+			int size = (int)waveformStream[i]->size();
 			int searchIndex = 0;
 			while (searchIndex < size && (*waveformStream[i])[searchIndex].mTimeStamp < startTime)
 				searchIndex++;

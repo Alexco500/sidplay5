@@ -147,7 +147,7 @@
 		if (![[SPAnalyzerWindowController sharedInstance] voiceEnabled:i])
 			continue;
 		
-		int size = pulseWidthStream[i]->size();
+		int size = (int)pulseWidthStream[i]->size();
 		int searchIndex = 0;
 		while (searchIndex < size && (*pulseWidthStream[i])[searchIndex].mTimeStamp < startTime)
 			searchIndex++;

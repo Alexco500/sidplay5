@@ -296,7 +296,7 @@ static SPPreferencesController* sharedInstance = nil;
 	gPreferences.mShuffleActive = [defaults boolForKey:SPDefaultKeyShuffleActive];
 	gPreferences.mFadeActive = [defaults boolForKey:SPDefaultKeyFadeActive];
 	gPreferences.mRepeatActive = [defaults boolForKey:SPDefaultKeyRepeatActive];
-	gPreferences.mDefaultPlayTime = [defaults integerForKey:SPDefaultKeyPlayTime];
+	gPreferences.mDefaultPlayTime = (int)[defaults integerForKey:SPDefaultKeyPlayTime];
 	gPreferences.mHideStilBrowserOnLinkClicked = [defaults boolForKey:SPDefaultKeyHideStilBrowserAutomatically];
 
 	gPreferences.mSyncUrl = [[defaults stringForKey:SPDefaultKeySyncUrl] mutableCopy];
@@ -309,20 +309,20 @@ static SPPreferencesController* sharedInstance = nil;
 	gPreferences.mSharedCollectionPath = [[defaults stringForKey:SPDefaultKeySharedCollectionPath] mutableCopy];
 	gPreferences.mShareAllPlaylists = [defaults boolForKey:SPDefaultKeyShareAllPlaylists];
 	gPreferences.mSharedPlaylists = [[defaults arrayForKey:SPDefaultKeySharedPlaylists] mutableCopy];
-	gPreferences.mUpdateRevision = [defaults integerForKey:SPDefaultKeyUpdateRevision];
+	gPreferences.mUpdateRevision = (int)[defaults integerForKey:SPDefaultKeyUpdateRevision];
 
 	gPreferences.mPlaybackSettings.mEnableFilterDistortion = [defaults boolForKey:SPDefaultKeyEnableFilterDistortion];
-	gPreferences.mPlaybackSettings.mOversampling = [defaults integerForKey:SPDefaultKeyOversampling];
-	gPreferences.mPlaybackSettings.mSidModel = [defaults integerForKey:SPDefaultKeySidModel];
+	gPreferences.mPlaybackSettings.mOversampling = (int)[defaults integerForKey:SPDefaultKeyOversampling];
+	gPreferences.mPlaybackSettings.mSidModel = (int)[defaults integerForKey:SPDefaultKeySidModel];
 	gPreferences.mPlaybackSettings.mForceSidModel = [defaults boolForKey:SPDefaultKeyForceSidModel];
-	gPreferences.mPlaybackSettings.mClockSpeed = [defaults integerForKey:SPDefaultKeyTiming];
-	gPreferences.mPlaybackSettings.mOptimization = [defaults integerForKey:SPDefaultKeyOptimization];
+	gPreferences.mPlaybackSettings.mClockSpeed = (int)[defaults integerForKey:SPDefaultKeyTiming];
+	gPreferences.mPlaybackSettings.mOptimization = (int)[defaults integerForKey:SPDefaultKeyOptimization];
 
 	gPreferences.mPlaybackSettings.mFilterType = (SPFilterType) [defaults integerForKey:SPDefaultKeyFilterType];
 	gPreferences.mCustomFilterSettings.mFilterSteepness = [defaults floatForKey:SPDefaultKeyFilterSteepness];
 	gPreferences.mCustomFilterSettings.mFilterOffset = [defaults floatForKey:SPDefaultKeyFilterOffset];
-	gPreferences.mCustomFilterSettings.mDistortionRate = [defaults integerForKey:SPDefaultKeyFilterDistortionRate];
-	gPreferences.mCustomFilterSettings.mDistortionHeadroom = [defaults integerForKey:SPDefaultKeyFilterDistortionHeadroom];
+	gPreferences.mCustomFilterSettings.mDistortionRate = (int)[defaults integerForKey:SPDefaultKeyFilterDistortionRate];
+	gPreferences.mCustomFilterSettings.mDistortionHeadroom = (int)[defaults integerForKey:SPDefaultKeyFilterDistortionHeadroom];
 
 	loaded = YES;
 }
@@ -604,7 +604,7 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 
 	if (gPreferences.mPlaybackSettings.mOptimization != 0)
 	{
-		oldDistortionState = [filterDistortionButton state];
+		oldDistortionState = (int)[filterDistortionButton state];
 		[filterDistortionButton setState:NSOffState];
 		[filterDistortionButton setEnabled:NO];
 		gPreferences.mPlaybackSettings.mEnableFilterDistortion = false;
@@ -625,7 +625,7 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 			gPreferences.mPlaybackSettings.mEnableFilterDistortion = oldDistortionState == NSOnState;
 		}
 		
-		oldOversamplingFactor = [[oversamplingPopup selectedItem] tag];
+		oldOversamplingFactor = (int)[[oversamplingPopup selectedItem] tag];
 		[oversamplingPopup selectItemWithTag:1];
 		[oversamplingPopup setEnabled:NO];
 		gPreferences.mPlaybackSettings.mOversampling = 1;
@@ -639,12 +639,12 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 {
 	int oldOptimization = gPreferences.mPlaybackSettings.mOptimization;
 
-	gPreferences.mPlaybackSettings.mOptimization = [[optimizationPopup selectedItem] tag];
+	gPreferences.mPlaybackSettings.mOptimization = (int)[[optimizationPopup selectedItem] tag];
 	gPreferences.mPlaybackSettings.mEnableFilterDistortion = [filterDistortionButton state] == NSOnState;
-	gPreferences.mPlaybackSettings.mOversampling = [[oversamplingPopup selectedItem] tag];
-	gPreferences.mPlaybackSettings.mSidModel = [[sidModelRadioButton selectedCell] tag];
+	gPreferences.mPlaybackSettings.mOversampling = (int)[[oversamplingPopup selectedItem] tag];
+	gPreferences.mPlaybackSettings.mSidModel = (int)[[sidModelRadioButton selectedCell] tag];
 	gPreferences.mPlaybackSettings.mForceSidModel = [forceSidModelButton state] == NSOnState;
-	gPreferences.mPlaybackSettings.mClockSpeed = [[timingRadioButton selectedCell] tag];
+	gPreferences.mPlaybackSettings.mClockSpeed = (int)[[timingRadioButton selectedCell] tag];
 
 	BOOL optimizationChanged = oldOptimization != gPreferences.mPlaybackSettings.mOptimization;
 	
@@ -711,8 +711,8 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 // ----------------------------------------------------------------------------
 {
 	NSInteger timeInSeconds = [sender integerValue];
-	gPreferences.mDefaultPlayTime = timeInSeconds;
-	[self updateTimeTextField:timeInSeconds];
+	gPreferences.mDefaultPlayTime = (int)timeInSeconds;
+	[self updateTimeTextField:(int)timeInSeconds];
 }
 
 
@@ -741,7 +741,7 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 		int seconds = [secondsString intValue];
 		
 		NSUInteger timeInSeconds = minutes * 60 + seconds;
-		gPreferences.mDefaultPlayTime = timeInSeconds;
+		gPreferences.mDefaultPlayTime = (int)timeInSeconds;
 		[timeStepper setIntegerValue:timeInSeconds];
 	}
 }
@@ -916,7 +916,7 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 {
 	SPSourceListItem* playlistsContainerItem = [sourceListDataSource playlistsContainerItem];
 	
-    return [[playlistsContainerItem children] count];
+    return (int)[[playlistsContainerItem children] count];
 }
 
 
@@ -953,7 +953,7 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 	if ([[tableColumn identifier] isEqualToString:@"checkbox"])
 	{
 		SPSourceListItem* playlistsContainerItem = [sourceListDataSource playlistsContainerItem];
-		SPSourceListItem* playlistItem = [playlistsContainerItem childAtIndex:rowIndex];
+		SPSourceListItem* playlistItem = [playlistsContainerItem childAtIndex:(int)rowIndex];
 		SPPlaylist* playlist = [playlistItem playlist];
 		NSString* identifier = [playlist identifier];
 		

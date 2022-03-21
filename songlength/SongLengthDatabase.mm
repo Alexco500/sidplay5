@@ -101,7 +101,7 @@ static SongLengthDatabase* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
 	char* dataBuffer = (char*) [downloadData bytes];
-	int size = [downloadData length];
+	int size = (int) [downloadData length];
 	
 	bool success = SongLength::init(dataBuffer, size);
 	

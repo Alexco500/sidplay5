@@ -197,7 +197,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 // ----------------------------------------------------------------------------
 {
-	bool success = player->playTuneFromBuffer((char*) [urlDownloadData bytes], [urlDownloadData length], urlDownloadSubtuneIndex, &gPreferences.mPlaybackSettings);
+	bool success = player->playTuneFromBuffer((char*) [urlDownloadData bytes], (int)[urlDownloadData length], (int)urlDownloadSubtuneIndex, &gPreferences.mPlaybackSettings);
 	if (success)
 	{
 		currentTunePath = nil;
@@ -264,7 +264,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
 	if (fadeOutInProgress)
 		[self stopFadeOut];
-	player->startSubtune(subtune);
+	player->startSubtune((int)subtune);
 	[self updateTuneInfo];
 }
 
@@ -477,8 +477,8 @@ NSString* SPUrlRequestUserAgentString = nil;
 	char* tuneBuffer = player->getTuneBuffer(tuneLength);
 	currentTuneLengthInSeconds = tuneBuffer == NULL ? 0 : [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:tuneBuffer withBufferLength:tuneLength andSubtune:currentSubtune];
 
-	[statusDisplay setTitle:title andAuthor:author andReleaseInfo:releaseInfo andSubtune:currentSubtune ofSubtunes:subtuneCount withSonglength:currentTuneLengthInSeconds];
-	[miniStatusDisplay setTitle:title andAuthor:author andReleaseInfo:releaseInfo andSubtune:currentSubtune ofSubtunes:subtuneCount withSonglength:currentTuneLengthInSeconds];
+	[statusDisplay setTitle:title andAuthor:author andReleaseInfo:releaseInfo andSubtune:currentSubtune ofSubtunes:subtuneCount withSonglength:(int)currentTuneLengthInSeconds];
+	[miniStatusDisplay setTitle:title andAuthor:author andReleaseInfo:releaseInfo andSubtune:currentSubtune ofSubtunes:subtuneCount withSonglength:(int)currentTuneLengthInSeconds];
 	
 	[[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
 	
@@ -808,7 +808,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) moveTempoSlider:(id)sender
 // ----------------------------------------------------------------------------
 {
-	player->setTempo([sender integerValue]);
+	player->setTempo((int)[sender integerValue]);
 }
 
 

@@ -16,7 +16,7 @@
 	itemsToExport = nil;
 	exportDirectoryPath = nil;
 	NSProcessInfo* processInfo = [NSProcessInfo processInfo];
-	numberOfConcurrentExportTasks = MIN(8, [processInfo activeProcessorCount]);
+	numberOfConcurrentExportTasks = (int)MIN(8, [processInfo activeProcessorCount]);
 	
 	exportSettings.Init();
 }
@@ -131,7 +131,7 @@
 - (int) calculateExpectedFileSizeForSettings:(ExportSettings*)settings
 // ----------------------------------------------------------------------------
 {
-	int fileSize = 0;
+	long fileSize = 0;
 	
 	switch(settings->mFileType)
 	{
@@ -161,7 +161,7 @@
 			break;
 	}
 	
-	return fileSize;
+	return (int)fileSize;
 }
 
 

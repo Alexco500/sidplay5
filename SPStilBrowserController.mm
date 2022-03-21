@@ -180,7 +180,7 @@ static SPStilBrowserController* sharedInstance = nil;
 	
 	while (fgets(lineBuffer, lineBufferSize - 1, fp) != NULL)
 	{
-		int length = strlen(lineBuffer);
+		long length = strlen(lineBuffer);
 		if (lineBuffer[length - 2] == '\r')
 		{
 			lineBuffer[length - 2] = '\n';
@@ -192,7 +192,7 @@ static SPStilBrowserController* sharedInstance = nil;
 			if (currentFile != nil && currentEntry != nil)
 				[indexedStilDatabase setObject:currentEntry forKey:currentFile];
 
-			int length = strlen(lineBuffer);
+			long length = strlen(lineBuffer);
 			if (lineBuffer[length - 1] == '\n')
 				lineBuffer[length - 1] = 0;
 
@@ -547,11 +547,11 @@ static SPStilBrowserController* sharedInstance = nil;
     NSView* contentView = [[self enclosingScrollView] contentView];
     NSPoint mouseLocInContentView = [contentView convertPoint:mousePositionInView fromView:self];
 
-	int charIndex;
+	long charIndex;
 
     if ([contentView mouse:mouseLocInContentView inRect:[contentView bounds]])
     {
-        int glyphIndex = [[self layoutManager] glyphIndexForPoint:mousePositionInView inTextContainer:[self textContainer]];
+        long glyphIndex = [[self layoutManager] glyphIndexForPoint:mousePositionInView inTextContainer:[self textContainer]];
         charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:glyphIndex];
     }
     else

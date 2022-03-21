@@ -100,7 +100,7 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 	else
 	{
 		char* dataBuffer = (char*) [downloadData bytes];
-		int length = [downloadData length];
+		long length = [downloadData length];
 		
 		if ((dataBuffer[0] != 'P' && dataBuffer[0] != 'R') ||
 			dataBuffer[1] != 'S' ||
@@ -149,7 +149,7 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 			releasedBuf[maxStringLength] = 0;
 			releaseInfo = [NSString stringWithCString:releasedBuf encoding:NSISOLatin1StringEncoding];
 			
-			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:dataBuffer withBufferLength:length andSubtune:defaultSubTune];
+			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:dataBuffer withBufferLength:(int)length andSubtune:defaultSubTune];
 			[self setPlayTimeInSeconds:playtime];
 		}
 		

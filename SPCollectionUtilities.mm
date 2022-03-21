@@ -85,7 +85,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 		if (folder)
 		{
 			NSArray* folderItems = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
-			[folderItemCounts setObject:[NSNumber numberWithInt:[folderItems count]] forKey:path];
+			[folderItemCounts setObject:[NSNumber numberWithInt:(int)[folderItems count]] forKey:path];
 		}
 		else
 			totalFiles++;
@@ -322,7 +322,7 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
     NSArray* filenameArray = [filename pathComponents];
 	NSArray* otherArray = [[otherFilename stringByStandardizingPath] pathComponents];
 
-    int minLength = MIN([filenameArray count], [otherArray count]);
+    int minLength = (int) MIN([filenameArray count], [otherArray count]);
 
     NSMutableArray* resultArray = [NSMutableArray arrayWithCapacity:minLength];
 
@@ -361,7 +361,7 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
     NSString* uniquePart = [[self stringByStandardizingPath] stringByRemovingPrefix:commonRoot];
     NSString* otherUniquePart = [[otherFilename stringByStandardizingPath] stringByRemovingPrefix:commonRoot];
 
-    int numberOfStepsUp = [[uniquePart pathComponents] count];
+    int numberOfStepsUp = (int)[[uniquePart pathComponents] count];
     if (![self hasSuffix:@"/"])
         numberOfStepsUp--; // Assume we're not a directory unless we end in /. May result in incorrect paths, but we can't do much about it.
 

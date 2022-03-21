@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     time_t seed;
     time(&seed);
-    srandom(seed);
+    srandom((unsigned int)seed);
 
     return NSApplicationMain(argc,  (const char **) argv);
 }

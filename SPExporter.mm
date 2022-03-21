@@ -572,7 +572,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		NSNumber* progress = [NSNumber numberWithFloat:(float)samplesCompleted / float(samplesCompleted + samplesRemaining)];
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
-		UInt32 numSamplesThisSlice = samplesRemaining;
+		UInt32 numSamplesThisSlice = (int)samplesRemaining;
 		if (numSamplesThisSlice > maxSamplesPerSlice)
 			numSamplesThisSlice = maxSamplesPerSlice;
 
@@ -686,7 +686,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		NSNumber* progress = [NSNumber numberWithFloat:(float)samplesCompleted / float(samplesCompleted + samplesRemaining)];
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
-		UInt32 numSamplesThisSlice = samplesRemaining;
+		UInt32 numSamplesThisSlice = (int)samplesRemaining;
 		if (numSamplesThisSlice > maxSamplesPerSlice)
 			numSamplesThisSlice = maxSamplesPerSlice;
 

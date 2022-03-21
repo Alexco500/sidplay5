@@ -75,7 +75,8 @@
 	int sampleCount = [[SPAnalyzerWindowController sharedInstance] renderBufferSampleCount];
 	int previousSampleOffset = 0;
 
-	int sampleRate = [[SPAnalyzerWindowController sharedInstance] effectiveSampleRate];
+	int sampleRate = (int)[[SPAnalyzerWindowController sharedInstance]
+                           effectiveSampleRate];
 	double clockRate = [[SPAnalyzerWindowController sharedInstance] effectiveCpuClockRate];
 	
 	const double detailThreshold = (double(sampleRate) / clockRate) / 32.0;

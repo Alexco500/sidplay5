@@ -247,7 +247,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (foundRemixes == nil)
 		return 0;
 	else
-		return [foundRemixes count];
+		return (int)[foundRemixes count];
 }
 
 

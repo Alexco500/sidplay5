@@ -208,7 +208,7 @@ static inline int sFindNoteIndexForFrequency(unsigned short inFrequency, float& 
 		
 		frequencyStream[i] = [[SPAnalyzerWindowController sharedInstance] frequencyStream:i];
 		
-		int size = frequencyStream[i]->size();
+		int size = (int)frequencyStream[i]->size();
 		int searchIndex = 0;
 		while (searchIndex < size && (*frequencyStream[i])[searchIndex].mTimeStamp < startTime)
 			searchIndex++;
