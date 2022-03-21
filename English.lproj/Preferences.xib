@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SPPreferencesWindowController">
+            <connections>
+                <outlet property="autoSyncButton" destination="115" id="185"/>
+                <outlet property="autoSyncIntervalPopup" destination="117" id="187"/>
+                <outlet property="defaultPrefsPaneItem" destination="20" id="114"/>
+                <outlet property="filterDistortionButton" destination="81" id="135"/>
+                <outlet property="forceSidModelButton" destination="171" id="183"/>
+                <outlet property="generalPreferencePane" destination="33" id="58"/>
+                <outlet property="hideStilBrowserButton" destination="165" id="169"/>
+                <outlet property="optimizationPopup" destination="123" id="136"/>
+                <outlet property="oversamplingPopup" destination="83" id="137"/>
+                <outlet property="playbackPreferencePane" destination="34" id="57"/>
+                <outlet property="playlistSharingRadioButton" destination="219" id="236"/>
+                <outlet property="prefsToolbar" destination="11" id="29"/>
+                <outlet property="publishSharedCollectionButton" destination="204" id="214"/>
+                <outlet property="rebuiltSpotlightProgressIndicator" destination="148" id="149"/>
+                <outlet property="searchForSharedCollectionsButton" destination="202" id="215"/>
+                <outlet property="sharedCollectionsPopup" destination="206" id="216"/>
+                <outlet property="sharedPlaylistsTableView" destination="226" id="235"/>
+                <outlet property="sharingPreferencePane" destination="200" id="212"/>
+                <outlet property="sidModelRadioButton" destination="93" id="138"/>
+                <outlet property="syncPreferencePane" destination="35" id="56"/>
+                <outlet property="syncUrlPopup" destination="157" id="184"/>
+                <outlet property="timeStepper" destination="49" id="152"/>
+                <outlet property="timeTextField" destination="48" id="153"/>
+                <outlet property="timingRadioButton" destination="173" id="182"/>
+                <outlet property="window" destination="1" id="28"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES"/>
+            <rect key="contentRect" x="586" y="515" width="467" height="212"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <view key="contentView" id="2">
+                <rect key="frame" x="0.0" y="0.0" width="467" height="212"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <animations/>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="639F4044-BCC2-4470-8A3B-C5A339636E15" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="11">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="17"/>
+                    <toolbarItem implicitItemIdentifier="3E04A271-D2DF-48CB-A62F-102DD4DFF798" label="General" paletteLabel="General" image="NSPreferencesGeneral" id="20">
+                        <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toolbarItemClicked:" target="-2" id="30"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C918FC74-AC57-40DA-8E45-B2C82407203E" label="Playback" paletteLabel="Playback" tag="1" image="SoundToolbarItem" id="27">
+                        <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toolbarItemClicked:" target="-2" id="32"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D25B130F-F378-494B-B74C-73D124405D23" label="Collection Sync" paletteLabel="Collection Sync" tag="2" image="SyncToolbarItem" id="21">
+                        <nil key="toolTip"/>
+                        <connections>
+                            <action selector="toolbarItemClicked:" target="-2" id="31"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="20"/>
+                    <toolbarItem reference="27"/>
+                    <toolbarItem reference="21"/>
+                    <toolbarItem reference="17"/>
+                </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="-2" id="113"/>
+                </connections>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="239"/>
+            </connections>
+        </window>
+        <customView id="33" userLabel="General Preference Pane">
+            <rect key="frame" x="0.0" y="0.0" width="504" height="203"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="166">
+                    <rect key="frame" x="32" y="50" width="89" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="STIL Browser:" id="167">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="165">
+                    <rect key="frame" x="137" y="48" width="286" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Hide automatically after clicking a link" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="168">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickHideStilBrowserButton:" target="-2" id="170"/>
+                    </connections>
+                </button>
+                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" minValue="16" maxValue="100" doubleValue="16" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="148">
+                    <rect key="frame" x="454" y="158" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                </progressIndicator>
+                <textField verticalHuggingPriority="750" id="54">
+                    <rect key="frame" x="136" y="75" width="275" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Song length will be used as a default if correct length of song can't be determined." id="55">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="52">
+                    <rect key="frame" x="228" y="115" width="84" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="minutes" id="53">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="49">
+                    <rect key="frame" x="201" y="110" width="19" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="3960" id="50"/>
+                    <connections>
+                        <action selector="clickTimeStepper:" target="-2" id="150"/>
+                    </connections>
+                </stepper>
+                <textField verticalHuggingPriority="750" id="48">
+                    <rect key="frame" x="139" y="113" width="61" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="03:00" drawsBackground="YES" id="51">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="timeChanged:" target="-2" id="151"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" id="46">
+                    <rect key="frame" x="37" y="115" width="84" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Song length:" id="47">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="44">
+                    <rect key="frame" x="56" y="158" width="65" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Spotlight:" id="45">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button hidden="YES" id="42">
+                    <rect key="frame" x="153" y="-2" width="286" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Include anonymous system profile" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="43">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" id="40">
+                    <rect key="frame" x="61" y="24" width="60" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Updates:" id="41">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button id="38">
+                    <rect key="frame" x="137" y="22" width="286" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Automatically check for SIDPLAY updates" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="39">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="154" name="value" keyPath="values.SUCheckAtStartup" id="156"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" id="36">
+                    <rect key="frame" x="133" y="148" width="319" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="push" title="Rebuild Spotlight index of current collection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="37">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rebuildSpotlightIndex:" target="-2" id="147"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+        </customView>
+        <customView id="34" userLabel="Playback Preference Pane">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="274"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="198">
+                    <rect key="frame" x="207" y="98" width="182" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="No oversampling required for &quot;best&quot; emulation accuracy" id="199">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="174">
+                    <rect key="frame" x="87" y="73" width="115" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preferred Timing:" id="175">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" id="173">
+                    <rect key="frame" x="207" y="72" width="198" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="97" height="18"/>
+                    <size key="intercellSpacing" width="4" height="2"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="176">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="PAL" imagePosition="left" alignment="left" state="on" inset="2" id="177">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="playbackSettingsChanged:" target="-2" id="179"/>
+                                </connections>
+                            </buttonCell>
+                        </column>
+                        <column>
+                            <buttonCell type="radio" title="NTSC" imagePosition="left" alignment="left" tag="1" inset="2" id="178">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="playbackSettingsChanged:" target="-2" id="180"/>
+                                </connections>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <button id="171">
+                    <rect key="frame" x="220" y="22" width="213" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Override settings in .sid file" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="172">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playbackSettingsChanged:" target="-2" id="181"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="163">
+                    <rect key="frame" x="223" y="164" width="211" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Filter distortion is only available with &quot;best&quot; emulation accuracy" id="164">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="124">
+                    <rect key="frame" x="70" y="231" width="132" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Emulation Accuracy:" id="125">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="123">
+                    <rect key="frame" x="204" y="225" width="147" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" title="Good" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" selectedItem="133" id="126">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="127">
+                            <items>
+                                <menuItem title="Normal (fastest)" tag="2" id="134"/>
+                                <menuItem title="Good" state="on" tag="1" id="133"/>
+                                <menuItem title="Best (slowest)" id="132"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="playbackSettingsChanged:" target="-2" id="140"/>
+                    </connections>
+                </popUpButton>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" id="93">
+                    <rect key="frame" x="207" y="46" width="198" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="97" height="18"/>
+                    <size key="intercellSpacing" width="4" height="2"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="94">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="MOS 6581" imagePosition="left" alignment="left" state="on" inset="2" id="95">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="playbackSettingsChanged:" target="-2" id="143"/>
+                                </connections>
+                            </buttonCell>
+                        </column>
+                        <column>
+                            <buttonCell type="radio" title="MOS 8580" imagePosition="left" alignment="left" tag="1" inset="2" id="97">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="playbackSettingsChanged:" target="-2" id="144"/>
+                                </connections>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <popUpButton verticalHuggingPriority="750" id="83">
+                    <rect key="frame" x="204" y="134" width="100" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" title="1x (off)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" selectedItem="86" id="84">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="85">
+                            <items>
+                                <menuItem title="1x (off)" state="on" tag="1" id="86"/>
+                                <menuItem title="2x" tag="2" id="87"/>
+                                <menuItem title="4x" tag="4" id="88"/>
+                                <menuItem title="6x" tag="6" id="89"/>
+                                <menuItem title="8x" tag="8" id="90"/>
+                                <menuItem title="10x" tag="10" id="91"/>
+                                <menuItem title="12x" tag="12" id="92"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="playbackSettingsChanged:" target="-2" id="142"/>
+                    </connections>
+                </popUpButton>
+                <button id="81">
+                    <rect key="frame" x="205" y="200" width="213" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Enable Filter Distortion" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="82">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="playbackSettingsChanged:" target="-2" id="141"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="69">
+                    <rect key="frame" x="68" y="47" width="134" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preferred SID Model:" id="70">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="67">
+                    <rect key="frame" x="106" y="140" width="96" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Oversampling:" id="68">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="61">
+                    <rect key="frame" x="95" y="201" width="107" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Filter Emulation:" id="62">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <animations/>
+        </customView>
+        <customView id="35" userLabel="Sync Preference Pane">
+            <rect key="frame" x="0.0" y="0.0" width="505" height="143"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" id="188">
+                    <rect key="frame" x="334" y="31" width="157" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="push" title="Refresh Mirror List" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="189">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="refreshRsyncMirrorsList:" target="-2" id="190"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" id="157">
+                    <rect key="frame" x="45" y="35" width="283" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" title="rsync://www.sidmusic.org/hvsc" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="191" id="158">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="159">
+                            <items>
+                                <menuItem title="rsync://www.sidmusic.org/hvsc" state="on" id="191"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" id="117">
+                    <rect key="frame" x="280" y="89" width="100" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" title="Daily" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="192" id="118">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="119">
+                            <items>
+                                <menuItem title="Daily" state="on" id="192">
+                                    <connections>
+                                        <action selector="selectAutoSyncInterval:" target="-2" id="194"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem title="Weekly" tag="1" id="120">
+                                    <connections>
+                                        <action selector="selectAutoSyncInterval:" target="-2" id="195"/>
+                                    </connections>
+                                </menuItem>
+                                <menuItem title="Monthly" tag="2" id="121">
+                                    <connections>
+                                        <action selector="selectAutoSyncInterval:" target="-2" id="196"/>
+                                    </connections>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button id="115">
+                    <rect key="frame" x="30" y="94" width="247" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Automatically sync your collection:" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="116">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickAutoSyncButton:" target="-2" id="197"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" id="111">
+                    <rect key="frame" x="45" y="67" width="227" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select preferred sync mirror server:" id="112">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <animations/>
+        </customView>
+        <customView id="200" userLabel="Sharing Preference Pane">
+            <rect key="frame" x="0.0" y="0.0" width="479" height="317"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="223">
+                    <rect key="frame" x="96" y="30" width="299" height="135"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" id="wtr-ZA-zhh">
+                        <rect key="frame" x="1" y="1" width="297" height="133"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="19" id="226" customClass="SPSharedPlaylistsTableView">
+                                <rect key="frame" x="0.0" y="0.0" width="269" height="21"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <animations/>
+                                <size key="intercellSpacing" width="3" height="2"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <tableColumns>
+                                    <tableColumn identifier="checkbox" width="18" minWidth="18" maxWidth="1000" id="228">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                        </tableHeaderCell>
+                                        <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" inset="2" id="233">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </tableColumn>
+                                    <tableColumn identifier="playlistname" editable="NO" width="245" minWidth="40" maxWidth="1000" id="229">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" alignment="left" title="Text Cell" id="230">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </tableColumn>
+                                </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="-2" id="232"/>
+                                    <outlet property="delegate" destination="-2" id="234"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </clipView>
+                    <animations/>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="225">
+                        <rect key="frame" x="-100" y="-100" width="254" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="224">
+                        <rect key="frame" x="255" y="1" width="15" height="133"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                </scrollView>
+                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" id="219">
+                    <rect key="frame" x="80" y="170" width="273" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    <size key="cellSize" width="273" height="18"/>
+                    <size key="intercellSpacing" width="4" height="2"/>
+                    <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="222">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <cells>
+                        <column>
+                            <buttonCell type="radio" title="Share all playlists" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="220">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="clickShareAllPlaylistsRadioButton:" target="-2" id="238"/>
+                                </connections>
+                            </buttonCell>
+                            <buttonCell type="radio" title="Share selected playlists:" imagePosition="left" alignment="left" inset="2" id="221">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="clickShareAllPlaylistsRadioButton:" target="-2" id="237"/>
+                                </connections>
+                            </buttonCell>
+                        </column>
+                    </cells>
+                </matrix>
+                <popUpButton verticalHuggingPriority="750" id="206">
+                    <rect key="frame" x="77" y="215" width="321" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="207">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" title="OtherViews" id="208"/>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button id="204">
+                    <rect key="frame" x="59" y="247" width="305" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Share this collection on my local network:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="205">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickPublishSharedCollectionButton:" target="-2" id="217"/>
+                    </connections>
+                </button>
+                <button id="202">
+                    <rect key="frame" x="59" y="269" width="213" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Look for shared collections" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="203">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickSearchForSharedCollectionsButton:" target="-2" id="218"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="154"/>
+    </objects>
+    <resources>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
+        <image name="SoundToolbarItem" width="40" height="40"/>
+        <image name="SyncToolbarItem" width="32" height="32"/>
+    </resources>
+</document>

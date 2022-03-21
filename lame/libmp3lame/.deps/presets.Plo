@@ -1,0 +1,22 @@
+presets.lo : \
+ ../include/lame.h /usr/include/stdio.h /usr/include/sys/types.h \
+  /usr/include/sys/appleapiopts.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/types.h /usr/include/ppc/types.h \
+  /usr/include/machine/ansi.h /usr/include/ppc/ansi.h \
+  /usr/include/machine/endian.h /usr/include/ppc/endian.h \
+  /usr/include/gcc/darwin/2.95.2/stdarg.h \
+  /usr/include/gcc/darwin/2.95.2/va-ppc.h 
+presets.o :
+../include/lame.h :
+/usr/include/stdio.h :
+/usr/include/sys/types.h :
+/usr/include/sys/appleapiopts.h :
+/usr/include/sys/cdefs.h :
+/usr/include/machine/types.h :
+/usr/include/ppc/types.h :
+/usr/include/machine/ansi.h :
+/usr/include/ppc/ansi.h :
+/usr/include/machine/endian.h :
+/usr/include/ppc/endian.h :
+/usr/include/gcc/darwin/2.95.2/stdarg.h :
+/usr/include/gcc/darwin/2.95.2/va-ppc.h :

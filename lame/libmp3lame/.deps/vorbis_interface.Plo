@@ -1,0 +1,4 @@
+vorbis_interface.lo : \
+ ../config.h 
+vorbis_interface.o :
+../config.h :

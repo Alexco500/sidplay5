@@ -1,0 +1,4 @@
+mpglib_interface.lo : \
+ ../config.h 
+mpglib_interface.o :
+../config.h :
