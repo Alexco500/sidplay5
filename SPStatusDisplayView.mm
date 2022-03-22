@@ -127,7 +127,7 @@
                 startTime = time;
             // Make sure we draw to the right context
             [context makeCurrentContext];
-            CGLLockContext(cgl_ctx);
+            [context lock]; //CGLLockContext(cgl_ctx);
             glClearColor([eraseColor redComponent], [eraseColor greenComponent], [eraseColor blueComponent], [eraseColor alphaComponent]);
             glClear(GL_COLOR_BUFFER_BIT);
             
@@ -135,7 +135,7 @@
                 [renderer renderAtTime:(time - startTime) arguments:nil];
             
             [context flushBuffer];
-            CGLUnlockContext(cgl_ctx);
+            [context unlock]; //CGLUnlockContext(cgl_ctx);
         }
         else
             skipUpdateCount--;
