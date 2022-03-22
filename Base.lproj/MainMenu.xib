@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -874,10 +875,8 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="432"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="433"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="434"/>
-                    <toolbarItem implicitItemIdentifier="9F2C79E4-EFCD-4D68-AD2F-7B542B3EC7BA" label="Search" paletteLabel="Search" id="525">
+                    <toolbarItem implicitItemIdentifier="9F2C79E4-EFCD-4D68-AD2F-7B542B3EC7BA" label="Search" paletteLabel="Search" sizingBehavior="auto" id="525">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="159" height="22"/>
-                        <size key="maxSize" width="160" height="22"/>
                         <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" verticalHuggingPriority="750" id="523">
                             <rect key="frame" x="0.0" y="14" width="159" height="22"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -894,10 +893,8 @@
                             </connections>
                         </searchField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D96617F5-1208-4F74-87EA-59CA03D1A1F9" label="Playback" paletteLabel="Playback" tag="-1" id="665">
+                    <toolbarItem implicitItemIdentifier="D96617F5-1208-4F74-87EA-59CA03D1A1F9" label="Playback" paletteLabel="Playback" tag="-1" sizingBehavior="auto" id="665">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="131" height="41"/>
-                        <size key="maxSize" width="131" height="41"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" id="664">
                             <rect key="frame" x="0.0" y="14" width="131" height="41"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -907,7 +904,7 @@
                                 <subviews>
                                     <button toolTip="Enable fast forwarding of playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="668">
                                         <rect key="frame" x="89" y="10" width="29" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="hud_warp" imagePosition="overlaps" alignment="center" continuous="YES" id="669">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -918,7 +915,7 @@
                                     </button>
                                     <button toolTip="Start/pause playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="679">
                                         <rect key="frame" x="49" y="0.0" width="32" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="hud_play" imagePosition="only" alignment="center" id="680">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -929,7 +926,7 @@
                                     </button>
                                     <button toolTip="Stop playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="666">
                                         <rect key="frame" x="12" y="10" width="29" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="hud_stop" imagePosition="only" alignment="center" id="671">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -944,10 +941,8 @@
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </box>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="7FF68482-4049-4504-BAF1-1B0DF9D2D1A5" label="Tempo" paletteLabel="Tempo" tag="-1" id="688">
+                    <toolbarItem implicitItemIdentifier="7FF68482-4049-4504-BAF1-1B0DF9D2D1A5" label="Tempo" paletteLabel="Tempo" tag="-1" sizingBehavior="auto" id="688">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="116" height="39"/>
-                        <size key="maxSize" width="156" height="39"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="687">
                             <rect key="frame" x="0.0" y="14" width="156" height="39"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -956,24 +951,26 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="721">
-                                        <rect key="frame" x="131" y="12" width="8" height="13"/>
+                                        <rect key="frame" x="114" y="12" width="8" height="13"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="tempo_right" id="722"/>
                                     </imageView>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
-                                        <rect key="frame" x="12" y="12" width="8" height="13"/>
+                                        <rect key="frame" x="29" y="12" width="8" height="13"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="tempo_left" id="1166"/>
                                     </imageView>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="691">
-                                        <rect key="frame" x="32" y="9" width="92" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="41" y="9" width="70" height="20"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="692"/>
                                         <connections>
                                             <action selector="moveTempoSlider:" target="371" id="1135"/>
                                         </connections>
                                     </slider>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="K1h-0x-nek"/>
+                                <viewLayoutGuide key="layoutMargins" id="qcW-yX-05Q"/>
                             </view>
                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1012,10 +1009,8 @@
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </box>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="F496D0B9-3EF8-4398-A96F-4DEEEFBD51E1" label="Status" paletteLabel="Status" tag="-1" id="748">
+                    <toolbarItem implicitItemIdentifier="F496D0B9-3EF8-4398-A96F-4DEEEFBD51E1" label="Status" paletteLabel="Status" tag="-1" sizingBehavior="auto" id="748">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="360" height="46"/>
-                        <size key="maxSize" width="401" height="46"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="line" borderWidth="0.0" titlePosition="noTitle" id="747" customClass="SPStatusDisplayView">
                             <rect key="frame" x="0.0" y="14" width="401" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1029,12 +1024,11 @@
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="434"/>
                     <toolbarItem reference="665"/>
+                    <toolbarItem reference="697"/>
                     <toolbarItem reference="433"/>
                     <toolbarItem reference="748"/>
-                    <toolbarItem reference="697"/>
-                    <toolbarItem reference="432"/>
+                    <toolbarItem reference="688"/>
                     <toolbarItem reference="525"/>
                 </defaultToolbarItems>
                 <connections>
