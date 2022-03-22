@@ -8,10 +8,8 @@
 	const char* formatString;
 }
 
-- (NSArray*) stepValues;
-- (void) setStepValues:(NSArray*)inStepValues;
+@property (NS_NONATOMIC_IOSONLY, copy) NSArray *stepValues;
 
-- (const char*) formatString;
-- (void) setFormatString:(const char*)inFormatString;
+@property (NS_NONATOMIC_IOSONLY) const char *formatString;
 
 @end

@@ -43,12 +43,11 @@
 
 - (void) setOwnerWindow:(SPPlayerWindow*)window;
 
-- (ExportSettings) exportSettings;
-- (void) setExportSettings:(ExportSettings)settings;
+@property (NS_NONATOMIC_IOSONLY) ExportSettings exportSettings;
 
-- (NSArray*) itemsToExport;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *itemsToExport;
 
-- (NSInteger) activeExportTasksCount;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger activeExportTasksCount;
 
 - (IBAction) toggleExportTasksWindow:(id)sender;
 

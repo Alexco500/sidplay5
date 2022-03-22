@@ -15,15 +15,14 @@
 
 - (IBAction) collapse:(id)sender;
 
-- (BOOL) isCollapsed;
-- (void) setCollapsed:(BOOL)flag;
+@property (NS_NONATOMIC_IOSONLY, getter=isCollapsed) BOOL collapsed;
 
-- (float) currentHeight;
-- (float) collapsedHeight;
-- (float) height;
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentHeight;
+@property (NS_NONATOMIC_IOSONLY, readonly) float collapsedHeight;
+@property (NS_NONATOMIC_IOSONLY, readonly) float height;
 
-- (SPInfoContainerView*) container;
-- (NSButton*) disclosureTriangle;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPInfoContainerView *container;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSButton *disclosureTriangle;
 
 - (void) containerBackgroundChanged:(NSNotification *)aNotification;
 

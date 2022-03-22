@@ -40,49 +40,40 @@ enum SourceListItemType
 	BOOL isPathValid;
 }
 
-- (id) initWithName:(NSAttributedString*)theName forPath:(NSString*)thePath withIcon:(NSImage*)theIcon;
+- (instancetype) initWithName:(NSAttributedString*)theName forPath:(NSString*)thePath withIcon:(NSImage*)theIcon NS_DESIGNATED_INITIALIZER;
 - (void) addChild:(SPSourceListItem*)item;
 - (void) insertChild:(SPSourceListItem*)item atIndex:(NSInteger)index;
 - (SPSourceListItem*) childAtIndex:(int)index;
 
-- (id) initWithCoder:(NSCoder*)coder;
+- (instancetype) initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
 - (void) encodeWithCoder:(NSCoder*)coder;
 
-- (NSAttributedString*)name;
-- (void) setName:(NSAttributedString*)nameString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSAttributedString *name;
 - (void) setNameFromString:(NSString*)nameString;
 
-- (NSString*) path;
-- (void) setPath:(NSString*)pathString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *path;
 
-- (NSImage*) icon;
-- (void) setIcon:(NSImage*)image;
+@property (NS_NONATOMIC_IOSONLY, copy) NSImage *icon;
 
-- (SPPlaylist*) playlist;
-- (void) setPlaylist:(SPPlaylist*)thePlaylist;
+@property (NS_NONATOMIC_IOSONLY, strong) SPPlaylist *playlist;
 
-- (NSNetService*) service;
-- (void) setService:(NSNetService*)theService;
+@property (NS_NONATOMIC_IOSONLY, strong) NSNetService *service;
 
-- (SourceListItemType) type;
-- (void) setType:(SourceListItemType)theType;
-- (BOOL) isHeader;
-- (BOOL) isCollectionItem;
-- (BOOL) isPlaylistItem;
-- (BOOL) isSmartPlaylistItem;
-- (BOOL) isSharedCollectionItem;
-- (BOOL) isSharedPlaylistItem;
-- (BOOL) isSharedSmartPlaylistItem;
+@property (NS_NONATOMIC_IOSONLY) SourceListItemType type;
+@property (NS_NONATOMIC_IOSONLY, getter=isHeader, readonly) BOOL header;
+@property (NS_NONATOMIC_IOSONLY, getter=isCollectionItem, readonly) BOOL collectionItem;
+@property (NS_NONATOMIC_IOSONLY, getter=isPlaylistItem, readonly) BOOL playlistItem;
+@property (NS_NONATOMIC_IOSONLY, getter=isSmartPlaylistItem, readonly) BOOL smartPlaylistItem;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedCollectionItem, readonly) BOOL sharedCollectionItem;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedPlaylistItem, readonly) BOOL sharedPlaylistItem;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedSmartPlaylistItem, readonly) BOOL sharedSmartPlaylistItem;
 
-- (BOOL) hasChildren;
-- (NSMutableArray*) children;
-- (void) setChildren:(NSMutableArray*)array;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasChildren;
+@property (NS_NONATOMIC_IOSONLY, copy) NSMutableArray *children;
 
-- (BOOL) isPathValid;
-- (void) setIsPathValid:(BOOL)valid;
+@property (NS_NONATOMIC_IOSONLY) BOOL isPathValid;
 
-- (BOOL) isPlaylistShared;
-- (void) setIsPlaylistShared:(BOOL)isShared;
+@property (NS_NONATOMIC_IOSONLY) BOOL isPlaylistShared;
 
 - (void) downloadSharedPlaylists;
 - (void) downloadSharedPlaylistFromUrl:(NSString*)urlString;

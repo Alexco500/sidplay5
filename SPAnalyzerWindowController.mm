@@ -39,7 +39,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	if (self = [super initWithWindowNibName:@"Analyzer"])
@@ -82,7 +82,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(windowWillClose:)
 												 name:NSWindowWillCloseNotification
-											   object:[self window]];
+											   object:self.window];
 
 	[frequencyContentScrollView setVerticalMasterScrollView:frequencySideContentScrollView];
 	[frequencySideContentScrollView setVerticalMasterScrollView:frequencyContentScrollView];
@@ -102,7 +102,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void)windowWillClose:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	[[ownerWindow analyzerWindowMenuItem] setTitle:@"Show SID Analyzer"];
+	[ownerWindow analyzerWindowMenuItem].title = @"Show SID Analyzer";
 }	
 
 
@@ -110,9 +110,9 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) toggleWindow:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSWindow* window = [self window];
+	NSWindow* window = self.window;
 	
-	if ([window isVisible])
+	if (window.visible)
 	{
 		[window orderOut:self];
 		[sender setTitle:@"Show SID Analyzer"];
@@ -131,7 +131,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
 	ownerWindow = window;
-	[[self window] orderOut:self];
+	[self.window orderOut:self];
 	
 	audioDriver = [ownerWindow audioDriver];
 }
@@ -141,21 +141,21 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) adjustScrollViewContentSizes
 // ----------------------------------------------------------------------------
 {
-	NSRect frame = [timelineDocumentView frame];
+	NSRect frame = timelineDocumentView.frame;
 	frame.size.width = double(totalCaptureTime) * cycleToPixelRatio;
-	[timelineDocumentView setFrame:frame];
+	timelineDocumentView.frame = frame;
 
-	frame = [sampleDocumentView frame];
+	frame = sampleDocumentView.frame;
 	frame.size.width = double(totalCaptureTime) * cycleToPixelRatio;
-	[sampleDocumentView setFrame:frame];
+	sampleDocumentView.frame = frame;
 	
-	frame = [frequencyDocumentView frame];
+	frame = frequencyDocumentView.frame;
 	frame.size.width = double(totalCaptureTime) * cycleToPixelRatio;
-	[frequencyDocumentView setFrame:frame];
+	frequencyDocumentView.frame = frame;
 
-	frame = [parameterDocumentView frame];
+	frame = parameterDocumentView.frame;
 	frame.size.width = double(totalCaptureTime) * cycleToPixelRatio;
-	[parameterDocumentView setFrame:frame];
+	parameterDocumentView.frame = frame;
 	
 }
 
@@ -164,9 +164,9 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) updateZoomFactor:(double)inZoomFactor
 // ----------------------------------------------------------------------------
 {
-	float viewWidth = [timelineScrollView frame].size.width;
+	float viewWidth = timelineScrollView.frame.size.width;
 
-	NSRect visibleRect = [timelineScrollView documentVisibleRect];
+	NSRect visibleRect = timelineScrollView.documentVisibleRect;
 	float middlePixel = visibleRect.origin.x + NSWidth(visibleRect) * 0.5f;
 	
 	//double timeAtCenter = gPixelToCycle(middlePixel, cycleToPixelRatio);
@@ -183,11 +183,11 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	
 	if (inZoomFactor > 1.0f && newMiddlePixel != middlePixel)
 	{
-		visibleRect = [timelineScrollView documentVisibleRect];
+		visibleRect = timelineScrollView.documentVisibleRect;
 		visibleRect.origin.x = floorf(newMiddlePixel - NSWidth(visibleRect) * 0.5f);
-		visibleRect.origin = [[timelineScrollView contentView] constrainScrollPoint:visibleRect.origin];
-		[[timelineScrollView contentView] scrollToPoint:visibleRect.origin];
-		[timelineScrollView reflectScrolledClipView:[timelineScrollView contentView]];
+		visibleRect.origin = [timelineScrollView.contentView constrainScrollPoint:visibleRect.origin];
+		[timelineScrollView.contentView scrollToPoint:visibleRect.origin];
+		[timelineScrollView reflectScrolledClipView:timelineScrollView.contentView];
 	}
 }
 
@@ -202,7 +202,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	[waveformView flushImageCache];
 	[adsrView flushImageCache];
 	
-	[[[self window] contentView] setNeedsDisplay:YES];
+	[self.window.contentView setNeedsDisplay:YES];
 	
 }
 
@@ -337,10 +337,10 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	{
 		if (scrollToCursor)
 		{
-			NSPoint scrollPoint = NSMakePoint(floorf(cursorPixelPosition - NSWidth([timelineScrollView frame]) * 0.5f), 0.0f);
-			scrollPoint = [[timelineScrollView contentView] constrainScrollPoint:scrollPoint];
-			[[timelineScrollView contentView] scrollToPoint:scrollPoint];
-			[timelineScrollView reflectScrolledClipView:[timelineScrollView contentView]];
+			NSPoint scrollPoint = NSMakePoint(floorf(cursorPixelPosition - NSWidth(timelineScrollView.frame) * 0.5f), 0.0f);
+			scrollPoint = [timelineScrollView.contentView constrainScrollPoint:scrollPoint];
+			[timelineScrollView.contentView scrollToPoint:scrollPoint];
+			[timelineScrollView reflectScrolledClipView:timelineScrollView.contentView];
 		}
 		
 		[timelineScrollView setNeedsDisplay:YES];
@@ -366,12 +366,12 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 		timeInSeconds -= seconds;
 		int milliseconds = floor(timeInSeconds * 1000);
 		NSString* cursorPositionString = [NSString stringWithFormat:@"%02d'%02d\"%03d", minutes, seconds, milliseconds];
-		[playbackPositionTextField setStringValue:cursorPositionString];
+		playbackPositionTextField.stringValue = cursorPositionString;
 	}
 	else
 	{
 		NSString* cursorPositionString = [NSString stringWithFormat:@"%ld", (long)cursorPosition];
-		[playbackPositionTextField setStringValue:cursorPositionString];
+		playbackPositionTextField.stringValue = cursorPositionString;
 	}
 }
 
@@ -382,13 +382,13 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 {
 	if (pause)
 	{
-		[playPauseButton setImage:[NSImage imageNamed:@"pause"]];
-		[playPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
+		playPauseButton.image = [NSImage imageNamed:@"pause"];
+		playPauseButton.alternateImage = [NSImage imageNamed:@"pause_pressed"];
 	}
 	else
 	{
-		[playPauseButton setImage:[NSImage imageNamed:@"play"]];
-		[playPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
+		playPauseButton.image = [NSImage imageNamed:@"play"];
+		playPauseButton.alternateImage = [NSImage imageNamed:@"play_pressed"];
 	}
 }
 
@@ -555,7 +555,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	int currentSubtune = player->getCurrentSubtune();
 	
 	NSString* windowTitle = [NSString stringWithFormat:@"SID Tune Analyzer - \"%@\" by \"%@\" (song %d)", title, author, currentSubtune];
-	[[self window] setTitle:windowTitle];
+	self.window.title = windowTitle;
 	
 	effectiveSampleRate = audioDriver->getSampleRate();
 	effectiveCpuClockRate = player->getCurrentCpuClockRate();
@@ -589,7 +589,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 		samplesRemaining -= numSamplesThisSlice;
 		samplesCompleted += numSamplesThisSlice;
 
-		NSNumber* progress = [NSNumber numberWithFloat:(float)samplesCompleted / float(samplesCompleted + samplesRemaining)];
+		NSNumber* progress = @((float)samplesCompleted / float(samplesCompleted + samplesRemaining));
 		[self performSelectorOnMainThread:@selector(analyzeProgressNotification:) withObject:progress waitUntilDone:NO];
 	}
 	
@@ -726,7 +726,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 	analyzeResultAvailable = YES;
 	
 	[self updateZoomFactor:1.0f];
-	[horizontalZoomSlider setDoubleValue:0.0];
+	horizontalZoomSlider.doubleValue = 0.0;
 	
 	[self reloadData];
 }
@@ -736,7 +736,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) analyzeProgressNotification:(id)progress
 // ----------------------------------------------------------------------------
 {
-	[analyzeProgressIndicator setDoubleValue:[progress floatValue]];
+	analyzeProgressIndicator.doubleValue = [progress floatValue];
 }
 
 
@@ -899,8 +899,8 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 		position = fmaxf(proposedPosition, 30.0f);
 	else if (offset == 1)
 	{
-		position = fmaxf(proposedPosition, [sender frame].size.height - 202.0f);
-		position = fminf(position, [sender frame].size.height - 20.0f);
+		position = fmaxf(proposedPosition, sender.frame.size.height - 202.0f);
+		position = fminf(position, sender.frame.size.height - 20.0f);
 	}
 	
 	return position;
@@ -916,13 +916,13 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) keyDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSString* characters = [event charactersIgnoringModifiers];
+	NSString* characters = event.charactersIgnoringModifiers;
 	unichar character = [characters characterAtIndex:0];
 	
 	switch(character)
 	{
 		case ' ':
-			[(SPAnalyzerWindowController*)[self delegate] clickPlayPauseButton:self];
+			[(SPAnalyzerWindowController*)self.delegate clickPlayPauseButton:self];
 			break;
 		default:
 			[super keyDown:event];
@@ -934,7 +934,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void) keyUp:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSString* characters = [event charactersIgnoringModifiers];
+	NSString* characters = event.charactersIgnoringModifiers;
 	unichar character = [characters characterAtIndex:0];
 	
 	switch(character)
@@ -997,7 +997,7 @@ static SPAnalyzerWindowController* sharedInstance = nil;
 - (void)drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	[[SPAnalyzerWindowController sharedInstance] drawBackgroundInRect:bounds];
 }	

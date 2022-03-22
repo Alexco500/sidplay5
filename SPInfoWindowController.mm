@@ -9,7 +9,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	if (self = [super initWithWindowNibName:@"InfoWindow"])
@@ -27,13 +27,13 @@
 - (void) windowDidLoad
 // ----------------------------------------------------------------------------
 {
-	[[self window] setAlphaValue:0.0f];
-	[[self window] orderOut:self];
+	self.window.alphaValue = 0.0f;
+	[self.window orderOut:self];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(windowWillClose:)
 												 name:NSWindowWillCloseNotification
-											   object:[self window]];
+											   object:self.window];
 }
 
 
@@ -41,7 +41,7 @@
 - (void)windowWillClose:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	[[ownerWindow infoWindowMenuItem] setTitle:@"Show Info Window"];
+	[ownerWindow infoWindowMenuItem].title = @"Show Info Window";
 	gPreferences.mInfoWindowVisible = NO;
 }	
 
@@ -60,18 +60,18 @@
 {
 	ownerWindow = window;
 	[containerView setOwnerWindow:ownerWindow];
-	infoScrollView = [containerView enclosingScrollView];
-	infoScrollViewFrame = [infoScrollView frame];
+	infoScrollView = containerView.enclosingScrollView;
+	infoScrollViewFrame = infoScrollView.frame;
 	
 	if (gPreferences.mInfoWindowVisible)
 	{
-		[[self window] setAlphaValue:1.0f];
-		[[self window] orderFront:self];
+		self.window.alphaValue = 1.0f;
+		[self.window orderFront:self];
 	}
 	else
 	{
-		[[self window] setAlphaValue:0.0f];
-		[[self window] orderOut:self];
+		self.window.alphaValue = 0.0f;
+		[self.window orderOut:self];
 	}
 }
 
@@ -84,32 +84,32 @@
 		[self togglePane:sender];
 	
 	NSArray* animations = nil;
-	NSWindow* window = [self window];
-	if ([window isVisible])
+	NSWindow* window = self.window;
+	if (window.visible)
 	{
 		[sender setTitle:@"Show Info Window"];
-		[window setAlphaValue:1.0f];
-		NSDictionary* windowFadeOut = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey,
-																			NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey, nil];
-		animations = [NSArray arrayWithObjects:windowFadeOut, nil];	
+		window.alphaValue = 1.0f;
+		NSDictionary* windowFadeOut = @{NSViewAnimationTargetKey: window,
+																			NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
+		animations = @[windowFadeOut];	
 		gPreferences.mInfoWindowVisible = NO;
 	}	
 	else
 	{
 		[sender setTitle:@"Hide Info Window"];
-		[window setAlphaValue:0.0f];
+		window.alphaValue = 0.0f;
 		[window orderFront:self];
-		NSDictionary* windowFadeIn = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey,
-																			NSViewAnimationFadeInEffect, NSViewAnimationEffectKey, nil];
-		animations = [NSArray arrayWithObjects:windowFadeIn, nil];	
+		NSDictionary* windowFadeIn = @{NSViewAnimationTargetKey: window,
+																			NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
+		animations = @[windowFadeIn];	
 		gPreferences.mInfoWindowVisible = YES;
 	}
 	
     NSViewAnimation* animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
-    [animation setAnimationBlockingMode:NSAnimationNonblocking];
+    animation.animationBlockingMode = NSAnimationNonblocking;
 	
-    [animation setDuration:0.2];
-	[animation setDelegate:self];
+    animation.duration = 0.2;
+	animation.delegate = self;
     [animation startAnimation];
 }
 
@@ -120,17 +120,17 @@
 {
 	if ([containerView attachedToMainWindow])
 	{
-		[infoScrollView setFrame:infoScrollViewFrame];
+		infoScrollView.frame = infoScrollViewFrame;
 		[containerView setHasDarkBackground:YES];
 		[containerView setAttachedToMainWindow:NO];
 		[ownerWindow removeRightSubView];
-		[[[self window] contentView] addSubview:infoScrollView];
+		[self.window.contentView addSubview:infoScrollView];
 		[containerView positionSubviewsWithAnimation:NO];
 	}
 	else
 	{
-		[[self window] orderOut:self];
-		infoScrollViewFrame = [infoScrollView frame];
+		[self.window orderOut:self];
+		infoScrollViewFrame = infoScrollView.frame;
 		[containerView setHasDarkBackground:NO];
 		[containerView setAttachedToMainWindow:YES];
 		[ownerWindow addInfoContainerView:infoScrollView];
@@ -154,10 +154,10 @@
 - (void) animationDidEnd:(NSAnimation *)animation
 // ----------------------------------------------------------------------------
 {
-	NSArray* animations = [(NSViewAnimation*)animation viewAnimations];
-	NSDictionary* windowFade = [animations objectAtIndex:0];
-	if ([windowFade objectForKey:NSViewAnimationEffectKey] == NSViewAnimationFadeOutEffect)
-		[[self window] orderOut:self];
+	NSArray* animations = ((NSViewAnimation*)animation).viewAnimations;
+	NSDictionary* windowFade = animations[0];
+	if (windowFade[NSViewAnimationEffectKey] == NSViewAnimationFadeOutEffect)
+		[self.window orderOut:self];
 }
 
 

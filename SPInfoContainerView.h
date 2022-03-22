@@ -46,16 +46,13 @@ enum
 - (void) startResizeAnimation;
 - (void) adjustConstraintsOfWindow:(NSWindow*)window withMaxWidth:(float)maxWidth andMaxHeight:(float)maxHeight;
 
-- (SPPlayerWindow*) ownerWindow;
-- (void) setOwnerWindow:(SPPlayerWindow*)window;
+@property (NS_NONATOMIC_IOSONLY, strong) SPPlayerWindow *ownerWindow;
 
-- (BOOL) hasDarkBackground;
-- (void) setHasDarkBackground:(BOOL)darkBackground;
-- (NSColor*) backgroundColor;
+@property (NS_NONATOMIC_IOSONLY) BOOL hasDarkBackground;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *backgroundColor;
 
-- (BOOL) attachedToMainWindow;
-- (void) setAttachedToMainWindow:(BOOL)attached;
+@property (NS_NONATOMIC_IOSONLY) BOOL attachedToMainWindow;
 
-- (BOOL) isAnimating;
+@property (NS_NONATOMIC_IOSONLY, getter=isAnimating, readonly) BOOL animating;
 
 @end

@@ -29,14 +29,13 @@
 	ExportSettings exportSettings;
 }
 
-- (SPExportController*) exportController;
-- (void) setExportController:(SPExportController*)controller;
+@property (NS_NONATOMIC_IOSONLY, strong) SPExportController *exportController;
 
 - (void) updateTimeTextField:(int)timeInSeconds;
 - (void) updateFileSizeTextField;
 - (void) updateFileListTextView:(NSArray*)exportItems;
 
-- (ExportSettings) exportSettings;
+@property (NS_NONATOMIC_IOSONLY, readonly) ExportSettings exportSettings;
 
 - (IBAction) clickTimeStepper:(id)sender;
 - (IBAction) timeChanged:(id)sender;

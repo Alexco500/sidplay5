@@ -5,7 +5,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithPath:(NSString*)path andItems:(NSMutableArray*)items andExpandedFolders:(NSMutableArray*)expandedFolders andSelectedItems:(NSMutableArray*)selected
+- (instancetype) initWithPath:(NSString*)path andItems:(NSMutableArray*)items andExpandedFolders:(NSMutableArray*)expandedFolders andSelectedItems:(NSMutableArray*)selected
 // ----------------------------------------------------------------------------
 {
 	self = [super init];

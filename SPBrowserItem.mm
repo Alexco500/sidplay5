@@ -8,7 +8,7 @@
 @implementation SPBrowserItem
 
 // ----------------------------------------------------------------------------
-- (id) initWithPath:(NSString*)thePath isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem withDefaultSubtune:(NSInteger)subtuneIndex
+- (instancetype) initWithPath:(NSString*)thePath isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem withDefaultSubtune:(NSInteger)subtuneIndex
 // ----------------------------------------------------------------------------
 {
     if (self = [super init]) 
@@ -26,7 +26,7 @@
 		
 		if (folder)
 		{
-			title = [path lastPathComponent];
+			title = path.lastPathComponent;
 			author = @"";
 			releaseInfo = @"";
 			
@@ -104,7 +104,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithMetaDataItem:(NSMetadataItem*)item
+- (instancetype) initWithMetaDataItem:(NSMetadataItem*)item
 // ----------------------------------------------------------------------------
 {
     if (self = [super init]) 
@@ -160,7 +160,7 @@
 		if (!exists)
 			continue;
 			
-		if (([[file pathExtension] caseInsensitiveCompare:@"sid"] == NSOrderedSame) || folder)
+		if (([file.pathExtension caseInsensitiveCompare:@"sid"] == NSOrderedSame) || folder)
 		{
 			SPBrowserItem* item = [[SPBrowserItem alloc] initWithPath:path isFolder:folder forParent:parentItem withDefaultSubtune:0];
 			if (item != nil)
@@ -216,8 +216,8 @@
 - (id) childAtIndex:(int)index
 // ----------------------------------------------------------------------------
 {
-	if (index < [children count])
-		return [children objectAtIndex:index];
+	if (index < children.count)
+		return children[index];
 	else
 		return nil;
 }
@@ -227,7 +227,7 @@
 - (BOOL) hasChildren
 // ----------------------------------------------------------------------------
 {
-	return ([children count] > 0);
+	return (children.count > 0);
 }
 
 

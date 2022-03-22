@@ -7,7 +7,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -62,7 +62,7 @@
 - (void)drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	[[SPAnalyzerWindowController sharedInstance] drawBackgroundInRect:bounds];
 	
@@ -72,7 +72,7 @@
 	NSColor* lineColor2 = [NSColor colorWithCalibratedWhite:0.51f alpha:1.0f];
 	
 	float textIntensity = 0.51f;
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 	CGContextSelectFont(context, "Monaco", 8.0f, kCGEncodingMacRoman); 
 	CGContextSetRGBStrokeColor(context, textIntensity, textIntensity, textIntensity, 1.0f);
 	CGContextSetRGBFillColor(context, textIntensity, textIntensity, textIntensity, 1.0f);
@@ -88,9 +88,9 @@
 	if (drawHeight < 14.0f)
 		return;
 	
-	for (int i = 0; i < [stepValues count]; i++)
+	for (int i = 0; i < stepValues.count; i++)
 	{
-		float yPos = floorf(drawHeight * float(i) / float([stepValues count] - 1) + yOffset) + 0.5f;
+		float yPos = floorf(drawHeight * float(i) / float(stepValues.count - 1) + yOffset) + 0.5f;
 		
 		[lineColor1 set];
 		[path1 moveToPoint:NSMakePoint(bounds.origin.x + rect.size.width - 7.0f, yPos + 1.0f)];
@@ -110,7 +110,7 @@
 		if (drawHeight >= 18.0f)
 		{
 			char stringBuffer[16];
-			snprintf(stringBuffer, 15, formatString, [(NSNumber*)[stepValues objectAtIndex:i] integerValue]);
+			snprintf(stringBuffer, 15, formatString, ((NSNumber*)stepValues[i]).integerValue);
 
 			CGPoint startPoint = CGContextGetTextPosition(context);
 			CGContextSetTextDrawingMode(context, kCGTextInvisible);

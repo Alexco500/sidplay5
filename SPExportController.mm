@@ -28,7 +28,7 @@
 {
 	exportSettings.mFileType = type;
 	
-	itemsToExport = [NSArray arrayWithObject:item];
+	itemsToExport = @[item];
 	SPExporter* exporter = [[SPExporter alloc] initWithItem:item withController:self andWindow:ownerWindow loadNow:YES];
 	if (exporter == nil)
 		return;
@@ -99,7 +99,7 @@
 
 	if (returnCode == NSModalResponseOK)
 	{
-		if ([itemsToExport count] == 1)
+		if (itemsToExport.count == 1)
 			[self selectDestinationFilename];
 		else
 			[self selectDestinationDirectory];
@@ -169,13 +169,13 @@
 - (void) selectDestinationFilename
 // ----------------------------------------------------------------------------
 {
-	SPExporter* exporter = [[itemsToExport objectAtIndex:0] exporter];
+	SPExporter* exporter = [itemsToExport[0] exporter];
 	NSString* suggestedFilename = [exporter suggestedFilename];
 	NSString* suggestedExtension = [exporter suggestedFileExtension]; 
 
 	NSSavePanel* savePanel = [NSSavePanel savePanel];
-    [savePanel setNameFieldStringValue:suggestedFilename];
-    savePanel.allowedFileTypes = [NSArray arrayWithObject:suggestedExtension];
+    savePanel.nameFieldStringValue = suggestedFilename;
+    savePanel.allowedFileTypes = @[suggestedExtension];
 	[savePanel setCanSelectHiddenExtension:YES];
 	
     [savePanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
@@ -184,9 +184,9 @@
         {
             [exportTaskWindow orderFront:self];
             
-            SPExporter* exporter = [[itemsToExport objectAtIndex:0] exporter];
+            SPExporter* exporter = [itemsToExport[0] exporter];
             [exporter setExportSettings:exportSettings];
-            [exporter setDestinationPath:[savePanel.URL path]];
+            [exporter setDestinationPath:(savePanel.URL).path];
             [exporterArray addObject:exporter];
             [self updateExporterState];
         }
@@ -200,12 +200,12 @@
 // ----------------------------------------------------------------------------
 {
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	openPanel.allowedFileTypes = [NSArray arrayWithObject:@""];
+	openPanel.allowedFileTypes = @[@""];
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setCanChooseFiles:NO];
 	[openPanel setAllowsMultipleSelection:NO];
-	[openPanel setTitle:@"Select export destination"];
-	[openPanel setPrompt:@"Choose"];
+	openPanel.title = @"Select export destination";
+	openPanel.prompt = @"Choose";
 
     [openPanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
      {
@@ -213,7 +213,7 @@
          {
              [exportTaskWindow orderFront:self];
              
-             NSMutableArray* exportersToAdd = [NSMutableArray arrayWithCapacity:[itemsToExport count]];
+             NSMutableArray* exportersToAdd = [NSMutableArray arrayWithCapacity:itemsToExport.count];
              
              for (SPExportItem* item in itemsToExport)
              {
@@ -226,7 +226,7 @@
                  [item setExporter:exporter];
                  [exporter setExportSettings:exportSettings];
                  
-                 exportDirectoryPath = [openPanel.URL path];
+                 exportDirectoryPath = (openPanel.URL).path;
                  
                  [exporter setFileName:[exporter suggestedFilename]];
                  [exportersToAdd addObject:exporter];
@@ -255,7 +255,7 @@
 {
 	int exportersInProgress = 0;
 	
-	for (SPExporter* exporter in [exporterArray arrangedObjects])
+	for (SPExporter* exporter in exporterArray.arrangedObjects)
 	{
 		if ([exporter exportInProgress])
 			exportersInProgress++;
@@ -264,7 +264,7 @@
 	if (exportersInProgress < numberOfConcurrentExportTasks)
 	{
 		int exportersToStart = numberOfConcurrentExportTasks - exportersInProgress;
-		for (SPExporter* exporter in [exporterArray arrangedObjects])
+		for (SPExporter* exporter in exporterArray.arrangedObjects)
 		{
 			if (![exporter exportInProgress] && ![exporter exportStopped])
 			{
@@ -282,7 +282,7 @@
 
 	exportersInProgress = 0;
 	
-	for (SPExporter* exporter in [exporterArray arrangedObjects])
+	for (SPExporter* exporter in exporterArray.arrangedObjects)
 	{
 		if ([exporter exportInProgress])
 			exportersInProgress++;
@@ -331,7 +331,7 @@
 - (void) windowWillClose:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	[[ownerWindow exportTaskWindowMenuItem] setTitle:@"Show Export Tasks"];
+	[ownerWindow exportTaskWindowMenuItem].title = @"Show Export Tasks";
 }	
 
 
@@ -341,7 +341,7 @@
 {
 	NSInteger count = 0;
 	
-	for (SPExporter* exporter in [exporterArray arrangedObjects])
+	for (SPExporter* exporter in exporterArray.arrangedObjects)
 	{
 		if (![exporter exportStopped])
 			count++;
@@ -355,7 +355,7 @@
 - (IBAction) toggleExportTasksWindow:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if ([exportTaskWindow isVisible])
+	if (exportTaskWindow.visible)
 	{
 		[sender setTitle:@"Show Export Tasks"];
 		[exportTaskWindow orderOut:sender];
@@ -373,7 +373,7 @@
 // ----------------------------------------------------------------------------
 {
 	NSMutableArray* exportersToRemove = [NSMutableArray arrayWithCapacity:10];
-	for (SPExporter* exporter in [exporterArray arrangedObjects])
+	for (SPExporter* exporter in exporterArray.arrangedObjects)
 	{
 		if ([exporter exportStopped])
 			[exportersToRemove addObject:exporter];
@@ -389,7 +389,7 @@
 - (IBAction) numberOfConcurrentExportTasksChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	[exportTasksCount setIntValue:[sender intValue]];
+	exportTasksCount.intValue = [sender intValue];
 	numberOfConcurrentExportTasks = [sender intValue]; 
 	[self updateExporterState];
 }

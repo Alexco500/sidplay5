@@ -8,16 +8,16 @@
 - (void) awakeFromNib
 // ----------------------------------------------------------------------------
 {
-	[collectionView setMaxNumberOfColumns:1];
-	[collectionView setMaxNumberOfRows:32768];
-	[collectionView setBackgroundColors:[NSColor controlAlternatingRowBackgroundColors]];
+	collectionView.maxNumberOfColumns = 1;
+	collectionView.maxNumberOfRows = 32768;
+	collectionView.backgroundColors = [NSColor controlAlternatingRowBackgroundColors];
 
-	NSScrollView* scrollView = [collectionView enclosingScrollView];
-	NSSize contentSize = [scrollView contentSize];
+	NSScrollView* scrollView = collectionView.enclosingScrollView;
+	NSSize contentSize = scrollView.contentSize;
 	const float minHeight = 54.0f;
 	float width = contentSize.width;
-	[collectionView setMaxItemSize:NSMakeSize(width, minHeight)];
-	[collectionView setMinItemSize:NSMakeSize(width, minHeight)];
+	collectionView.maxItemSize = NSMakeSize(width, minHeight);
+	collectionView.minItemSize = NSMakeSize(width, minHeight);
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(windowDidResize:)
@@ -35,7 +35,7 @@
 - (void)systemColorsDidChange:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	[collectionView setBackgroundColors:[NSColor controlAlternatingRowBackgroundColors]];
+	collectionView.backgroundColors = [NSColor controlAlternatingRowBackgroundColors];
 }
 
 
@@ -43,14 +43,14 @@
 - (void)windowDidResize:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	NSScrollView* scrollView = [collectionView enclosingScrollView];
-	NSSize contentSize = [scrollView contentSize];
+	NSScrollView* scrollView = collectionView.enclosingScrollView;
+	NSSize contentSize = scrollView.contentSize;
 	
 	const float minHeight = 54.0f;
 	float width = contentSize.width;
 
-	[collectionView setMaxItemSize:NSMakeSize(width, minHeight)];
-	[collectionView setMinItemSize:NSMakeSize(width, minHeight)];
+	collectionView.maxItemSize = NSMakeSize(width, minHeight);
+	collectionView.minItemSize = NSMakeSize(width, minHeight);
 }
 
 

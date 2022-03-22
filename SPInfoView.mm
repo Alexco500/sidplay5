@@ -16,7 +16,7 @@
 	index = 0;
 	collapsedHeight = 19.0f;
 	height = 128.0f;
-	container = (SPInfoContainerView*) [self superview];
+	container = (SPInfoContainerView*) self.superview;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(containerBackgroundChanged:) name:SPInfoContainerBackgroundChangedNotification object:nil];
 	[self containerBackgroundChanged:nil];
@@ -27,13 +27,13 @@
 - (void) mouseDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 	
-	if ((mousePositionInView.y > ([self currentHeight] - 15.0f)) && ([event clickCount] > 1))
+	if ((mousePositionInView.y > ([self currentHeight] - 15.0f)) && (event.clickCount > 1))
 	{
 		BOOL collapsed = !isCollapsed;
-		[disclosureTriangle setState:collapsed ? 0 : 1];
+		disclosureTriangle.state = collapsed ? 0 : 1;
 		[self collapse:disclosureTriangle];
 	}
 }
@@ -147,7 +147,7 @@
 // ----------------------------------------------------------------------------
 {
 	isCollapsed = flag;
-	[disclosureTriangle setState:flag ? 0 : 1];
+	disclosureTriangle.state = flag ? 0 : 1;
 }
 
 
@@ -195,21 +195,21 @@
 - (void) containerBackgroundChanged:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	if ([[disclosureTriangle cell] class] == [SPDisclosureCell class])
+	if ([disclosureTriangle.cell class] == [SPDisclosureCell class])
 	{
-		SPDisclosureCell* cell = [disclosureTriangle cell];
+		SPDisclosureCell* cell = disclosureTriangle.cell;
 
 		if ([container hasDarkBackground])
 		{
 			[cell setBackgroundIsDark:YES];
-			[cell setBackgroundColor:[container backgroundColor]];
+			cell.backgroundColor = [container backgroundColor];
 
-			[titleText setTextColor:[NSColor whiteColor]];
+			titleText.textColor = [NSColor whiteColor];
 		}
 		else
 		{
 			[cell setBackgroundIsDark:NO];
-			[titleText setTextColor:[NSColor blackColor]];
+			titleText.textColor = [NSColor blackColor];
 		}
 	}
 }
@@ -252,13 +252,13 @@ static NSImage* SPHudDisclosureTransient = nil;
 {
 	if (backgroundIsDark)
 	{
-		NSImage* image = [(NSButton*)controlView state] == 1 ? SPHudDisclosureExpanded : SPHudDisclosureCollapsed;
-		NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
+		NSImage* image = ((NSButton*)controlView).state == 1 ? SPHudDisclosureExpanded : SPHudDisclosureCollapsed;
+		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 		NSRect imageFrame = imageRect;
 		imageFrame.origin.x = (cellFrame.size.width - imageRect.size.width) / 2.0f;
 		imageFrame.origin.y = (cellFrame.size.height - imageRect.size.height) / 2.0f;
 			
-		[image setFlipped:[controlView isFlipped]];
+		[image setFlipped:controlView.flipped];
 		if (flag)
 		{
 			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositePlusDarker fraction:1.0f];
@@ -281,13 +281,13 @@ static NSImage* SPHudDisclosureTransient = nil;
 {
 	if (backgroundIsDark)
 	{
-		NSImage* image = [(NSButton*)controlView state] == 1 ? SPHudDisclosureExpanded : SPHudDisclosureCollapsed;
-		NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
+		NSImage* image = ((NSButton*)controlView).state == 1 ? SPHudDisclosureExpanded : SPHudDisclosureCollapsed;
+		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 		NSRect imageFrame = imageRect;
 		imageFrame.origin.x = (cellFrame.size.width - imageRect.size.width) / 2.0f;
 		imageFrame.origin.y = (cellFrame.size.height - imageRect.size.height) / 2.0f;
 			
-		[image setFlipped:[controlView isFlipped]];
+		[image setFlipped:controlView.flipped];
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
 	}
 	else

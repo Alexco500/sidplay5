@@ -57,7 +57,7 @@ static NSString* SPComposerUrlPrefix = @"http://twinbirds.com/sidplay/composers/
 - (void) updateWithComposerName:(NSString*)composer
 // ----------------------------------------------------------------------------
 {
-	if ([composer length] == 0)
+	if (composer.length == 0)
 		return;
 
 	//if (isCollapsed)
@@ -70,7 +70,7 @@ static NSString* SPComposerUrlPrefix = @"http://twinbirds.com/sidplay/composers/
 	// try to find handle in composer name
 	NSString* name = nil;
 	
-	for (int i = 0; i < [composer length]; i++)
+	for (int i = 0; i < composer.length; i++)
 	{
 		if ([composer characterAtIndex:i] == '(' )
 		{
@@ -89,10 +89,10 @@ static NSString* SPComposerUrlPrefix = @"http://twinbirds.com/sidplay/composers/
 	if (name != nil)
 	{
 		// if handle is longer than 3 characters, lowercase it, except for first character
-		if ([name length] > 3 )
+		if (name.length > 3 )
 		{
-			NSString* lowerCasedRest = [[name substringFromIndex:1] lowercaseString];
-			name = [name stringByReplacingCharactersInRange:NSMakeRange(1, [name length] - 1) withString:lowerCasedRest];
+			NSString* lowerCasedRest = [name substringFromIndex:1].lowercaseString;
+			name = [name stringByReplacingCharactersInRange:NSMakeRange(1, name.length - 1) withString:lowerCasedRest];
 		}
 		
 		if ([name isEqualToString:@"Odie"])
@@ -209,22 +209,22 @@ static NSString* SPComposerUrlPrefix = @"http://twinbirds.com/sidplay/composers/
 	else
 		image = [NSImage imageNamed:@"unknown_composer"];
 		
-	float imageWidth = [image size].width;
-	float imageHeight = [image size].height;
+	float imageWidth = image.size.width;
+	float imageHeight = image.size.height;
 	float diff = (imageHeight + 32.0f) - height;
 	
 	if (diff != 0.0f)
 	{
 		height = imageHeight + 32.0f;
-		NSRect photoFrame = [photoView frame];
+		NSRect photoFrame = photoView.frame;
 		photoFrame.origin.y -= diff;
 		photoFrame.size.width = imageWidth;
 		photoFrame.size.height = imageHeight;
-		[photoView setFrame:photoFrame];	
+		photoView.frame = photoFrame;	
 		[container positionSubviewsWithAnimation:YES];
 	}
 	
-	[photoView setImage:image];
+	photoView.image = image;
 }
 
 

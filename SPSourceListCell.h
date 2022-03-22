@@ -7,8 +7,7 @@
 	NSProgressIndicator* progressIndicator;
 }
 
-- (void) setImage:(NSImage *)anImage;
-- (NSImage*) image;
+@property (NS_NONATOMIC_IOSONLY, copy) NSImage *image;
 
 - (void) setProgressIndicator:(NSProgressIndicator*)indicator;
 

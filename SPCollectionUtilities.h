@@ -14,10 +14,9 @@
 
 + (SPCollectionUtilities*) sharedInstance;
 
-- (id) init;
+- (instancetype) init;
 
-- (NSString*) rootPath;
-- (void) setRootPath:(NSString*)path;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *rootPath;
 
 - (NSString*) pathOfRandomCollectionItemInPath:(NSString*)root;
 
@@ -26,7 +25,7 @@
 - (NSString*) absolutePathFromRelativePath:(NSString*)relativePath;
 
 - (void) downloadRsyncMirrorsListAndNotify:(SEL)selector ofTarget:(id)target;
-- (NSMutableArray*) rsyncMirrorList;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *rsyncMirrorList;
 
 @end
 

@@ -14,7 +14,7 @@ static const int sIconHeight = 16.0f;
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -80,7 +80,7 @@ static const int sIconHeight = 16.0f;
 	NSRect centeredFrame = [self drawingRectForBounds:rect];
     NSRect textFrame;
 	NSRect imageFrame;
-    NSDivideRect(centeredFrame, &imageFrame, &textFrame, sLeftMargin + sImageTextSpacing + [image size].width, NSMinXEdge);
+    NSDivideRect(centeredFrame, &imageFrame, &textFrame, sLeftMargin + sImageTextSpacing + image.size.width, NSMinXEdge);
 	textFrame.size.width -= 1.0f;
 	//NSAttributedString* string = [self attributedStringValue];
 	//textFrame.size.width = [string size].width + sLeftMargin;
@@ -95,7 +95,7 @@ static const int sIconHeight = 16.0f;
 	NSRect centeredFrame = [self drawingRectForBounds:rect];
     NSRect textFrame;
 	NSRect imageFrame;
-    NSDivideRect(centeredFrame, &imageFrame, &textFrame, sLeftMargin + sImageTextSpacing + [image size].width, NSMinXEdge);
+    NSDivideRect(centeredFrame, &imageFrame, &textFrame, sLeftMargin + sImageTextSpacing + image.size.width, NSMinXEdge);
 	textFrame.size.width -= 1.0f;
 	//NSAttributedString* string = [self attributedStringValue];
 	//textFrame.size.width = [string size].width + sLeftMargin;
@@ -137,9 +137,9 @@ static const int sIconHeight = 16.0f;
 		float iconWidth = sIconHeight;
 		
         NSDivideRect(cellFrame, &imageFrame, &cellFrame, sLeftMargin + iconWidth + sImageTextSpacing, NSMinXEdge);
-        if ([self drawsBackground]) 
+        if (self.drawsBackground) 
 		{
-            [[self backgroundColor] set];
+            [self.backgroundColor set];
             NSRectFill(imageFrame);
         }
 		
@@ -148,9 +148,9 @@ static const int sIconHeight = 16.0f;
         imageFrame.size.width = iconWidth;
         imageFrame.size.height = iconHeight;
 
-		NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
+		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 		
-		[image setFlipped:[controlView isFlipped]];
+		[image setFlipped:controlView.flipped];
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
 	}
 
@@ -160,11 +160,11 @@ static const int sIconHeight = 16.0f;
         NSDivideRect(cellFrame, &progressFrame, &cellFrame, 16.0f, NSMaxXEdge);
 		progressFrame = NSInsetRect(progressFrame, 0.0f, (cellFrame.size.height - 16.0f) / 2.0f);
 
-		if([progressIndicator superview] == nil)
+		if(progressIndicator.superview == nil)
 		{
 			[controlView addSubview:progressIndicator];
 		}
-		[progressIndicator setFrame:progressFrame];
+		progressIndicator.frame = progressFrame;
 	}
 
     [super drawInteriorWithFrame:cellFrame inView:controlView];
@@ -175,7 +175,7 @@ static const int sIconHeight = 16.0f;
 - (NSSize) cellSize
 // ----------------------------------------------------------------------------
 {
-    NSSize cellSize = [super cellSize];
+    NSSize cellSize = super.cellSize;
 	float imageSize = cellSize.height - 2.0f * sVerticalMargin;
     cellSize.width += (image ? imageSize : 0) + sLeftMargin + sImageTextSpacing;
 	

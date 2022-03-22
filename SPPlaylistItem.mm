@@ -5,7 +5,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithPath:(NSString*)relativePath andSubtuneIndex:(NSInteger)subtuneIndex andLoopCount:(NSInteger)loops
+- (instancetype) initWithPath:(NSString*)relativePath andSubtuneIndex:(NSInteger)subtuneIndex andLoopCount:(NSInteger)loops
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -20,7 +20,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithCoder:(NSCoder*)coder
+- (instancetype) initWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
 	if (self = [super init])

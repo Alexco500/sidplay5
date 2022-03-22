@@ -62,8 +62,8 @@ NSString* SPUrlRequestUserAgentString = nil;
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:SPPlayerInitializedNotification object:self];
 	
-	[volumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
-	[miniVolumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
+	volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
+	miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
 	volumeIsMuted = NO;
 	fadeOutInProgress = NO;
 	fadeOutVolume = 1.0f;
@@ -92,10 +92,10 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[visualizerView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
 	*/
      
-	NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
-	NSString* appNameString = [infoDictionary objectForKey:@"CFBundleName"];
-	NSString* appVersionString = [infoDictionary objectForKey:@"CFBundleVersion"];
-	NSString* osVersionString = [[NSProcessInfo processInfo] operatingSystemVersionString];
+	NSDictionary* infoDictionary = [NSBundle mainBundle].infoDictionary;
+	NSString* appNameString = infoDictionary[@"CFBundleName"];
+	NSString* appVersionString = infoDictionary[@"CFBundleVersion"];
+	NSString* osVersionString = [NSProcessInfo processInfo].operatingSystemVersionString;
 	SPUrlRequestUserAgentString = [NSString stringWithFormat:@"%@/%@ (Mac OS X, %@)", appNameString, appVersionString, osVersionString];
     
     
@@ -181,7 +181,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 // ----------------------------------------------------------------------------
 {
-	[urlDownloadData setLength:0];
+	urlDownloadData.length = 0;
 }
 
 
@@ -197,7 +197,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 // ----------------------------------------------------------------------------
 {
-	bool success = player->playTuneFromBuffer((char*) [urlDownloadData bytes], (int)[urlDownloadData length], (int)urlDownloadSubtuneIndex, &gPreferences.mPlaybackSettings);
+	bool success = player->playTuneFromBuffer((char*) urlDownloadData.bytes, (int)urlDownloadData.length, (int)urlDownloadSubtuneIndex, &gPreferences.mPlaybackSettings);
 	if (success)
 	{
 		currentTunePath = nil;
@@ -241,18 +241,18 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
 	if (pause)
 	{
-		[playPauseButton setImage:[NSImage imageNamed:@"hud_pause"]];
+		playPauseButton.image = [NSImage imageNamed:@"hud_pause"];
 		//[playPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
 		
-		[miniPlayPauseButton setImage:[NSImage imageNamed:@"hud_pause"]];
+		miniPlayPauseButton.image = [NSImage imageNamed:@"hud_pause"];
 		//[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
 	}
 	else
 	{
-		[playPauseButton setImage:[NSImage imageNamed:@"hud_play"]];
+		playPauseButton.image = [NSImage imageNamed:@"hud_play"];
 		//[playPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
 
-		[miniPlayPauseButton setImage:[NSImage imageNamed:@"hud_play"]];
+		miniPlayPauseButton.image = [NSImage imageNamed:@"hud_play"];
 		//[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
 	}
 }
@@ -273,7 +273,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) keyDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSString* characters = [event charactersIgnoringModifiers];
+	NSString* characters = event.charactersIgnoringModifiers;
 	unichar character = [characters characterAtIndex:0];
 
 	switch(character)
@@ -291,7 +291,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) keyUp:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSString* characters = [event charactersIgnoringModifiers];
+	NSString* characters = event.charactersIgnoringModifiers;
 	unichar character = [characters characterAtIndex:0];
 
 	switch(character)
@@ -313,13 +313,13 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[miniStatusDisplay setPlaybackSeconds:seconds];
 	[browserDataSource updateCurrentSong:seconds];
 	
-	if (player != NULL && [[NSRunLoop currentRunLoop] currentMode] != NSEventTrackingRunLoopMode)
+	if (player != NULL && [NSRunLoop currentRunLoop].currentMode != NSEventTrackingRunLoopMode)
 	{
 		int defaultTempo = 50;
 		if (player->getTempo() != defaultTempo)
 		{
 			player->setTempo(defaultTempo);
-			[tempoSlider setIntegerValue:defaultTempo];
+			tempoSlider.integerValue = defaultTempo;
 		}
 	}
 	
@@ -371,7 +371,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 		[self setFadeVolume:fadeOutVolume];
 	}
 	
-	BOOL isOptionPressed = [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
 	if (isOptionPressed)
 	{
 		[addPlaylistButton setHidden:YES];
@@ -412,7 +412,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 		 }
 		 */
 		
-		if (visualizerView != nil && [visualizerView superview] != nil)
+		if (visualizerView != nil && visualizerView.superview != nil)
 		{
 			VisualizerState state;
 			
@@ -487,10 +487,10 @@ NSString* SPUrlRequestUserAgentString = nil;
 	// update dock tile menu
 	NSMenuItem* titleItem = [dockTileMenu itemWithTag:2];
 	NSMenuItem* authorItem = [dockTileMenu itemWithTag:3];
-	[titleItem setTitle:[NSString stringWithFormat:@"   %@ (%d/%d)", title, currentSubtune, subtuneCount]];
-	[authorItem setTitle:[NSString stringWithFormat:@"   %@", author]];
+	titleItem.title = [NSString stringWithFormat:@"   %@ (%d/%d)", title, currentSubtune, subtuneCount];
+	authorItem.title = [NSString stringWithFormat:@"   %@", author];
 	
-	NSArray* menuItems = [[subtuneSelectionMenu itemArray] copy];
+	NSArray* menuItems = [subtuneSelectionMenu.itemArray copy];
 	for (NSMenuItem* menuItem in menuItems)
 		[subtuneSelectionMenu removeItem:menuItem];
 	
@@ -506,8 +506,8 @@ NSString* SPUrlRequestUserAgentString = nil;
 			keyEquivalent = @"";
 		
 		NSMenuItem* item = [subtuneSelectionMenu addItemWithTitle:subtuneString action:@selector(selectSubtune:) keyEquivalent:keyEquivalent];
-		[item setTarget:self];
-		[item setTag:i];
+		item.target = self;
+		item.tag = i;
 	}
 	
 }
@@ -576,15 +576,15 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) addTopSubView:(NSView*)subView withHeight:(float)height
 // ----------------------------------------------------------------------------
 {
-	NSRect browserFrame = [browserScrollView frame];
-	browserFrame.size.height = [rightView frame].size.height - [boxView frame].size.height;
+	NSRect browserFrame = browserScrollView.frame;
+	browserFrame.size.height = [rightView frame].size.height - boxView.frame.size.height;
 	NSRect subViewFrame;
 	NSRect newBrowserFrame;
 	NSDivideRect(browserFrame, &subViewFrame, &newBrowserFrame, height, NSMaxYEdge);
 
-	[subView setFrame:subViewFrame];
-	[browserScrollView setFrame:newBrowserFrame];
-	if ([subView window] != self)
+	subView.frame = subViewFrame;
+	browserScrollView.frame = newBrowserFrame;
+	if (subView.window != self)
 		[rightView addSubview:subView];
 	[subView setNeedsDisplay:YES];
 }
@@ -594,9 +594,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) removeTopSubView
 // ----------------------------------------------------------------------------
 {
-	NSRect browserFrame = [browserScrollView frame];
-	browserFrame.size.height = [rightView frame].size.height - [boxView frame].size.height;
-	[browserScrollView setFrame:browserFrame];
+	NSRect browserFrame = browserScrollView.frame;
+	browserFrame.size.height = [rightView frame].size.height - boxView.frame.size.height;
+	browserScrollView.frame = browserFrame;
 }
 
 
@@ -604,15 +604,15 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) addRightSubView:(NSView*)subView withWidth:(float)width
 // ----------------------------------------------------------------------------
 {
-	NSRect splitViewFrame = [splitView frame];
+	NSRect splitViewFrame = splitView.frame;
 	NSRect subViewFrame;
 	NSRect newSplitViewFrame;
 	NSDivideRect(splitViewFrame, &subViewFrame, &newSplitViewFrame, width, NSMaxXEdge);
 
-	[subView setFrame:subViewFrame];
-	[splitView setFrame:newSplitViewFrame];
-	if ([subView window] != self)
-		[[self contentView] addSubview:subView];
+	subView.frame = subViewFrame;
+	splitView.frame = newSplitViewFrame;
+	if (subView.window != self)
+		[self.contentView addSubview:subView];
 	[subView setNeedsDisplay:YES];
 }
 
@@ -621,7 +621,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) removeRightSubView
 // ----------------------------------------------------------------------------
 {
-	[splitView setFrame:[[self contentView] frame]];
+	splitView.frame = self.contentView.frame;
 }
 
 
@@ -629,9 +629,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) addAlternateBoxView:(NSView*)subView
 // ----------------------------------------------------------------------------
 {
-	NSRect boxFrame = [boxView frame];
+	NSRect boxFrame = boxView.frame;
 
-	[subView setFrame:boxFrame];
+	subView.frame = boxFrame;
 	[rightView addSubview:subView];
 	[subView setNeedsDisplay:YES];
 }
@@ -797,10 +797,10 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) clickFastForwardButton:(id)sender
 // ----------------------------------------------------------------------------
 {
-	BOOL isOptionPressed = [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
 	int tempo = isOptionPressed ? 88 : 75;
 	player->setTempo(tempo);
-	[tempoSlider setIntegerValue:tempo];
+	tempoSlider.integerValue = tempo;
 }
 
 
@@ -820,9 +820,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 	audioDriver->setVolume(gPreferences.mPlaybackVolume);
 	volumeIsMuted = NO;
 	if (sender == miniVolumeSlider)
-		[volumeSlider setFloatValue:[sender floatValue]];
+		volumeSlider.floatValue = [sender floatValue];
 	else if (sender == volumeSlider)
-		[miniVolumeSlider setFloatValue:[sender floatValue]];
+		miniVolumeSlider.floatValue = [sender floatValue];
 }
 
 
@@ -834,8 +834,8 @@ NSString* SPUrlRequestUserAgentString = nil;
 	if (gPreferences.mPlaybackVolume > 1.0f)
 		gPreferences.mPlaybackVolume = 1.0f;
 	audioDriver->setVolume(gPreferences.mPlaybackVolume);
-	[volumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
-	[miniVolumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
+	volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
+	miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
 	volumeIsMuted = NO;
 }
 
@@ -848,8 +848,8 @@ NSString* SPUrlRequestUserAgentString = nil;
 	if (gPreferences.mPlaybackVolume < 0.0f)
 		gPreferences.mPlaybackVolume = 0.0f;
 	audioDriver->setVolume(gPreferences.mPlaybackVolume);
-	[volumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
-	[miniVolumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
+	volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
+	miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
 }
 
 
@@ -861,15 +861,15 @@ NSString* SPUrlRequestUserAgentString = nil;
 	{
 		volumeIsMuted = NO;
 		audioDriver->setVolume(gPreferences.mPlaybackVolume);
-		[volumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
-		[miniVolumeSlider setFloatValue:gPreferences.mPlaybackVolume * 100.0f];
+		volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
+		miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
 	}
 	else
 	{
 		volumeIsMuted = YES;
 		audioDriver->setVolume(0.0f);
-		[volumeSlider setFloatValue:0.0f];
-		[miniVolumeSlider setFloatValue:0.0f];
+		volumeSlider.floatValue = 0.0f;
+		miniVolumeSlider.floatValue = 0.0f;
 	}
 }
 
@@ -968,18 +968,18 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) openFile:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (![self isVisible])
+	if (!self.visible)
 		return;
 
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	openPanel.allowedFileTypes = [NSArray arrayWithObject:@"sid"];
+	openPanel.allowedFileTypes = @[@"sid"];
 	
     [openPanel beginSheetModalForWindow:self completionHandler:^(NSInteger result)
      {
          if (result == NSFileHandlingPanelOKButton)
          {
              NSArray* urlsToOpen = openPanel.URLs;
-             NSString* file = [[urlsToOpen objectAtIndex:0] path];
+             NSString* file = [urlsToOpen[0] path];
              
              NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:file];
              if (relativePath != nil)
@@ -997,7 +997,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) openUrl:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (![self isVisible])
+	if (!self.visible)
 		return;
 		
 	[NSApp beginSheet:openUrlSheetPanel modalForWindow:self modalDelegate:self didEndSelector:@selector(didEndOpenUrlSheet:returnCode:contextInfo:) contextInfo:nil];
@@ -1018,7 +1018,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
 	if ([[sender title] isEqualToString:@"OK"])
 	{
-		NSString* urlString = [openUrlTextField stringValue];
+		NSString* urlString = openUrlTextField.stringValue;
 
 		[self playTuneAtURL:urlString];
 	}
@@ -1050,10 +1050,10 @@ NSString* SPUrlRequestUserAgentString = nil;
 	if (stilBrowserController == nil)
 		return;
 	
-	if ([[stilBrowserController window] isVisible])
+	if (stilBrowserController.window.visible)
 	{
-		[[stilBrowserController window] makeKeyWindow];
-		[[stilBrowserController window] makeFirstResponder:[stilBrowserController searchField]];
+		[stilBrowserController.window makeKeyWindow];
+		[stilBrowserController.window makeFirstResponder:[stilBrowserController searchField]];
 	}
 	else
 		[self makeFirstResponder:[browserDataSource toolbarSearchField]];
@@ -1065,7 +1065,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 // ----------------------------------------------------------------------------
 {
 	NSWindow* syncProgressDialog = [sourceListDataSource syncProgressDialog];
-	if (syncProgressDialog != nil && [syncProgressDialog isVisible])
+	if (syncProgressDialog != nil && syncProgressDialog.visible)
 		return;
 
 	if (prefsWindowController == nil)
@@ -1100,7 +1100,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	if (visualizerView == nil)
 		return;
 		
-	if ([visualizerView superview] != nil)
+	if (visualizerView.superview != nil)
 	{
 		//NSView* contentView = [self contentView];
 		//[contentView addSubview:splitView];
@@ -1108,9 +1108,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 	}
 	else
 	{
-		NSRect frame = [splitView frame];
-		[visualizerView setFrame:frame];
-		NSView* contentView = [self contentView];
+		NSRect frame = splitView.frame;
+		visualizerView.frame = frame;
+		NSView* contentView = self.contentView;
 		[contentView addSubview:visualizerView];
 		//[splitView removeFromSuperview];
 	}
@@ -1125,13 +1125,13 @@ NSString* SPUrlRequestUserAgentString = nil;
 		return;
 		
 	NSInteger index = [sender tag];
-	NSArray* menuItems = [[sender menu] itemArray];
+	NSArray* menuItems = [sender menu].itemArray;
 	for (NSMenuItem* menuItem in menuItems)
-		[menuItem setState:NSOffState];
+		menuItem.state = NSOffState;
 		
 	[sender setState:NSOnState];
 
-	NSString* visualizerPath = [visualizerCompositionPaths objectAtIndex:index];
+	NSString* visualizerPath = visualizerCompositionPaths[index];
 	[visualizerView loadCompositionFromFile:visualizerPath];
 }
 
@@ -1140,7 +1140,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void) populateVisualizerMenu
 // ----------------------------------------------------------------------------
 {
-	NSString* defaultVisualizerPath = [NSString stringWithFormat:@"%@%@",[[NSBundle mainBundle] resourcePath],@"/DefaultVisualizer.qtz"];
+	NSString* defaultVisualizerPath = [NSString stringWithFormat:@"%@%@",[NSBundle mainBundle].resourcePath,@"/DefaultVisualizer.qtz"];
 	visualizerCompositionPaths = [NSMutableArray arrayWithCapacity:3];
 	[visualizerCompositionPaths addObject:defaultVisualizerPath];
 
@@ -1151,16 +1151,16 @@ NSString* SPUrlRequestUserAgentString = nil;
 		if ([visualizerFile characterAtIndex:0] == '.')
 			continue;
 
-		if (![[visualizerFile pathExtension] isEqualToString:@"qtz"])
+		if (![visualizerFile.pathExtension isEqualToString:@"qtz"])
 			continue;
 
 		NSString* visualizerCompositionPath = [[SPApplicationStorageController visualizerPath] stringByAppendingPathComponent:visualizerFile];
 		[visualizerCompositionPaths addObject:visualizerCompositionPath];
 		
-		NSString* name = [visualizerFile stringByDeletingPathExtension];
+		NSString* name = visualizerFile.stringByDeletingPathExtension;
 		NSMenuItem* menuItem = [[NSMenuItem alloc] initWithTitle:name action:@selector(selectVisualizer:) keyEquivalent:@""];
-		[menuItem setTarget:self];
-		[menuItem setTag:index];
+		menuItem.target = self;
+		menuItem.tag = index;
 		[visualizerMenu addItem:menuItem];
 		
 		index++;
@@ -1199,7 +1199,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	//[NSTimer scheduledTimerWithTimeInterval:1.0f target:statusDisplay selector:@selector(startLogoRendering) userInfo:nil repeats:NO];
 
 	NSWindow* syncProgressDialog = [sourceListDataSource syncProgressDialog];
-	if (syncProgressDialog != nil && ![syncProgressDialog isVisible])
+	if (syncProgressDialog != nil && !syncProgressDialog.visible)
 		[self makeKeyAndOrderFront:self];
 }
 

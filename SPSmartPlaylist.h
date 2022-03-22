@@ -14,15 +14,14 @@ extern NSString* SPSmartPlaylistChangedNotification;
 	NSMetadataQuery* smartPlaylistQuery;
 }
 
-- (id) init;
-- (id) initWithCoder:(NSCoder*)coder;
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
 - (void) encodeWithCoder:(NSCoder*)coder;
 
-- (NSPredicate*) predicate;
-- (void) setPredicate:(NSPredicate*)thePredicate;
+@property (NS_NONATOMIC_IOSONLY, copy) NSPredicate *predicate;
 
-- (NSMutableArray*) items;
-- (NSInteger) count;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *items;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger count;
 - (SPPlaylistItem*) itemAtIndex:(NSInteger)index;
 
 - (void) startSpotlightQuery:(NSString*)rootPath;
@@ -30,9 +29,9 @@ extern NSString* SPSmartPlaylistChangedNotification;
 - (void) spotlightResultConsumerThread:(id)object;
 - (NSPredicate*) convertPredicate:(NSPredicate*)originalPredicate;
 
-- (BOOL) isCachingItems;
+@property (NS_NONATOMIC_IOSONLY, getter=isCachingItems, readonly) BOOL cachingItems;
 
-- (BOOL) saveToFile;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL saveToFile;
 
 + (NSString*) fileExtension;
 + (SPSmartPlaylist*) playlistFromFile:(NSString*)path;

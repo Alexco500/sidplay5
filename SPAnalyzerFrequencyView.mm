@@ -59,7 +59,7 @@ static inline int sFindNoteIndexForFrequency(unsigned short inFrequency, float& 
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -118,7 +118,7 @@ static inline int sFindNoteIndexForFrequency(unsigned short inFrequency, float& 
 - (void)drawContent:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	[NSBezierPath setDefaultLineWidth:1.0f];
 	NSBezierPath* path = [NSBezierPath bezierPath];

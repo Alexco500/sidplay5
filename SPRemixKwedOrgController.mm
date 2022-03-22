@@ -11,7 +11,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -51,7 +51,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 - (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 // ----------------------------------------------------------------------------
 {
-	[databaseDownloadData setLength:0];
+	databaseDownloadData.length = 0;
 }
 
 
@@ -77,27 +77,27 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 		
 		SPRemixKwedOrgDatabaseEntry* entry = [[SPRemixKwedOrgDatabaseEntry alloc] init];
 		
-		if ([rkoDatabaseLineComponents count] == 6)
+		if (rkoDatabaseLineComponents.count == 6)
 		{
-			entry.identifier = [[rkoDatabaseLineComponents objectAtIndex:0] integerValue];
-			entry.hvscPath = [rkoDatabaseLineComponents objectAtIndex:1];
-			entry.subtuneIndex = [[rkoDatabaseLineComponents objectAtIndex:2] integerValue];
-			entry.title = [rkoDatabaseLineComponents objectAtIndex:3];
-			entry.arranger = [rkoDatabaseLineComponents objectAtIndex:4];
-			entry.rating = [[rkoDatabaseLineComponents objectAtIndex:5] integerValue];
+			entry.identifier = [rkoDatabaseLineComponents[0] integerValue];
+			entry.hvscPath = rkoDatabaseLineComponents[1];
+			entry.subtuneIndex = [rkoDatabaseLineComponents[2] integerValue];
+			entry.title = rkoDatabaseLineComponents[3];
+			entry.arranger = rkoDatabaseLineComponents[4];
+			entry.rating = [rkoDatabaseLineComponents[5] integerValue];
 			
-			NSMutableArray* remixArray = [remixKwedOrgDatabase objectForKey:entry.hvscPath];
+			NSMutableArray* remixArray = remixKwedOrgDatabase[entry.hvscPath];
 			if (remixArray != nil)
 				[remixArray addObject:entry];
 			else
 			{
 				remixArray = [[NSMutableArray alloc] initWithObjects:entry, nil];
-				[remixKwedOrgDatabase setObject:remixArray forKey:entry.hvscPath];
+				remixKwedOrgDatabase[entry.hvscPath] = remixArray;
 			}
 		}
 	}
 	
-	databaseAvailable = [remixKwedOrgDatabase count] > 0;
+	databaseAvailable = remixKwedOrgDatabase.count > 0;
 
 	databaseDownloadData = nil;
 	databaseDownloadConnection = nil;
@@ -135,18 +135,18 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 		NSString* properPath = path;
 		if ([properPath characterAtIndex:0] == '/')
 			properPath = [path stringByRemovingPrefix:@"/"];
-		foundRemixes = [remixKwedOrgDatabase objectForKey:properPath];
+		foundRemixes = remixKwedOrgDatabase[properPath];
 
-		if ([foundRemixes count] > 0)
+		if (foundRemixes.count > 0)
 		{
-			[remixSelectionCaption setStringValue:[NSString stringWithFormat:@"Remixes of '%@' at Remix.Kwed.Org:", title]];
+			remixSelectionCaption.stringValue = [NSString stringWithFormat:@"Remixes of '%@' at Remix.Kwed.Org:", title];
 			
-			[remixTableView setDoubleAction:@selector(confirmRemixSheet:)];
-			[remixTableView setTarget:self];
+			remixTableView.doubleAction = @selector(confirmRemixSheet:);
+			remixTableView.target = self;
 			
 			NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"rating" ascending:NO selector:@selector(compare:)];
-			[remixTableView setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-			[foundRemixes sortUsingDescriptors:[remixTableView sortDescriptors]];
+			remixTableView.sortDescriptors = @[sortDescriptor];
+			[foundRemixes sortUsingDescriptors:remixTableView.sortDescriptors];
 
 			[remixTableView reloadData];
 
@@ -190,7 +190,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 - (IBAction) confirmRemixSheet:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (sender == remixTableView && [remixTableView clickedRow] == -1)
+	if (sender == remixTableView && remixTableView.clickedRow == -1)
 		return;
 		
 	[NSApp endSheet:(NSWindow*)remixSelectionPanel returnCode:NSOKButton];
@@ -205,10 +205,10 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	
 	if (returnCode == NSOKButton)
 	{
-		NSInteger selectedRow = [remixTableView selectedRow];
+		NSInteger selectedRow = remixTableView.selectedRow;
 		if (foundRemixes != nil)
 		{
-			SPRemixKwedOrgDatabaseEntry* remix = [foundRemixes objectAtIndex:selectedRow];
+			SPRemixKwedOrgDatabaseEntry* remix = foundRemixes[selectedRow];
 			if (remix != nil)
 			{
 				NSString* rkoUrlString = [NSString stringWithFormat:@"http://remix.kwed.org/?search_id=%ld", (long)remix.identifier];
@@ -223,10 +223,10 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 - (IBAction) showRemix64Page:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSInteger selectedRow = [remixTableView selectedRow];
+	NSInteger selectedRow = remixTableView.selectedRow;
 	if (foundRemixes != nil)
 	{
-		SPRemixKwedOrgDatabaseEntry* remix = [foundRemixes objectAtIndex:selectedRow];
+		SPRemixKwedOrgDatabaseEntry* remix = foundRemixes[selectedRow];
 		if (remix != nil)
 		{
 			//NSString* remix64UrlString = [NSString stringWithFormat:@"http://www.remix64.com/box.php?id=%d00", remix.identifier];
@@ -247,7 +247,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (foundRemixes == nil)
 		return 0;
 	else
-		return (int)[foundRemixes count];
+		return (int)foundRemixes.count;
 }
 
 
@@ -258,15 +258,15 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (foundRemixes == nil)
 		return @"";
 	
-	SPRemixKwedOrgDatabaseEntry* remix = [foundRemixes objectAtIndex:index];
+	SPRemixKwedOrgDatabaseEntry* remix = foundRemixes[index];
 	
-	if ([[tableColumn identifier] isEqualToString:@"rating"])
+	if ([tableColumn.identifier isEqualToString:@"rating"])
 		return ratingImages[remix.rating];
-	else if ([[tableColumn identifier] isEqualToString:@"title"])
+	else if ([tableColumn.identifier isEqualToString:@"title"])
 		return remix.title;
-	else if ([[tableColumn identifier] isEqualToString:@"arranger"])
+	else if ([tableColumn.identifier isEqualToString:@"arranger"])
 		return remix.arranger;
-	else if ([[tableColumn identifier] isEqualToString:@"subtune"])
+	else if ([tableColumn.identifier isEqualToString:@"subtune"])
 		return [NSString stringWithFormat:@"%ld", (long)remix.subtuneIndex];
 		
 	return @"";
@@ -280,7 +280,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (foundRemixes == nil)
 		return;
 	
-	[foundRemixes sortUsingDescriptors:[tableView sortDescriptors]];
+	[foundRemixes sortUsingDescriptors:tableView.sortDescriptors];
 	[tableView reloadData];
 }
 
@@ -304,9 +304,9 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (foundRemixes == nil)
 		return nil;
 	
-	if ([[tableColumn identifier] isEqualToString:@"rating"])
+	if ([tableColumn.identifier isEqualToString:@"rating"])
 	{
-		SPRemixKwedOrgDatabaseEntry* remix = [foundRemixes objectAtIndex:row];
+		SPRemixKwedOrgDatabaseEntry* remix = foundRemixes[row];
 		
 		switch (remix.rating)
 		{

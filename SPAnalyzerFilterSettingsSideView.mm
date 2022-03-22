@@ -7,7 +7,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithFrame:(NSRect)frame
+- (instancetype) initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -23,7 +23,7 @@
 - (void) drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	[[SPAnalyzerWindowController sharedInstance] drawBackgroundInRect:bounds];
 }

@@ -58,12 +58,12 @@
 // ----------------------------------------------------------------------------
 {
 	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
-	[offsetSlider setEnabled:enableFilterSliders];
-	[steepnessSlider setEnabled:enableFilterSliders];
+	offsetSlider.enabled = enableFilterSliders;
+	steepnessSlider.enabled = enableFilterSliders;
 
 	BOOL enableDistortionSliders = enableFilterSliders && gPreferences.mPlaybackSettings.mEnableFilterDistortion;
-	[rateSlider setEnabled:enableDistortionSliders];
-	[headroomSlider setEnabled:enableDistortionSliders];
+	rateSlider.enabled = enableDistortionSliders;
+	headroomSlider.enabled = enableDistortionSliders;
 	
 	[self tuneInfoChanged:aNotification];
 }
@@ -77,25 +77,25 @@
 
 	if ([container hasDarkBackground])
 	{
-		[distortionLabel setTextColor:[NSColor whiteColor]];
-		[typeLabel setTextColor:[NSColor whiteColor]];
+		distortionLabel.textColor = [NSColor whiteColor];
+		typeLabel.textColor = [NSColor whiteColor];
 		
-		[offsetLabel setTextColor:[NSColor whiteColor]];
-		[steepnessLabel setTextColor:[NSColor whiteColor]];
-		[strengthLabel setTextColor:[NSColor whiteColor]];
-		[rateLabel setTextColor:[NSColor whiteColor]];
-		[headroomLabel setTextColor:[NSColor whiteColor]];
+		offsetLabel.textColor = [NSColor whiteColor];
+		steepnessLabel.textColor = [NSColor whiteColor];
+		strengthLabel.textColor = [NSColor whiteColor];
+		rateLabel.textColor = [NSColor whiteColor];
+		headroomLabel.textColor = [NSColor whiteColor];
 	}
 	else
 	{
-		[distortionLabel setTextColor:[NSColor blackColor]];
-		[typeLabel setTextColor:[NSColor blackColor]];
+		distortionLabel.textColor = [NSColor blackColor];
+		typeLabel.textColor = [NSColor blackColor];
 		
-		[offsetLabel setTextColor:[NSColor blackColor]];
-		[steepnessLabel setTextColor:[NSColor blackColor]];
-		[strengthLabel setTextColor:[NSColor blackColor]];
-		[rateLabel setTextColor:[NSColor blackColor]];
-		[headroomLabel setTextColor:[NSColor blackColor]];
+		offsetLabel.textColor = [NSColor blackColor];
+		steepnessLabel.textColor = [NSColor blackColor];
+		strengthLabel.textColor = [NSColor blackColor];
+		rateLabel.textColor = [NSColor blackColor];
+		headroomLabel.textColor = [NSColor blackColor];
 	}
 }
 
@@ -106,19 +106,19 @@
 {
 	[typePopUpButton selectItemWithTag:gPreferences.mPlaybackSettings.mFilterType];
 	
-	[offsetSlider setFloatValue:gPreferences.mPlaybackSettings.mFilterOffset];
-	[steepnessSlider setFloatValue:gPreferences.mPlaybackSettings.mFilterSteepness];
+	offsetSlider.floatValue = gPreferences.mPlaybackSettings.mFilterOffset;
+	steepnessSlider.floatValue = gPreferences.mPlaybackSettings.mFilterSteepness;
 
-	[rateSlider setIntValue:gPreferences.mPlaybackSettings.mDistortionRate];
-	[headroomSlider setIntValue:gPreferences.mPlaybackSettings.mDistortionHeadroom];
+	rateSlider.intValue = gPreferences.mPlaybackSettings.mDistortionRate;
+	headroomSlider.intValue = gPreferences.mPlaybackSettings.mDistortionHeadroom;
 
 	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
-	[offsetSlider setEnabled:enableFilterSliders];
-	[steepnessSlider setEnabled:enableFilterSliders];
+	offsetSlider.enabled = enableFilterSliders;
+	steepnessSlider.enabled = enableFilterSliders;
 
 	BOOL enableDistortionSliders = enableFilterSliders && gPreferences.mPlaybackSettings.mEnableFilterDistortion;
-	[rateSlider setEnabled:enableDistortionSliders];
-	[headroomSlider setEnabled:enableDistortionSliders];
+	rateSlider.enabled = enableDistortionSliders;
+	headroomSlider.enabled = enableDistortionSliders;
 
 	if (player != NULL)
 	{
@@ -136,11 +136,11 @@
 {
 	gPreferences.mPlaybackSettings.mFilterType = SID_FILTER_CUSTOM;
 	
-	gPreferences.mPlaybackSettings.mFilterOffset = [offsetSlider floatValue];
-	gPreferences.mPlaybackSettings.mFilterSteepness = [steepnessSlider floatValue];
+	gPreferences.mPlaybackSettings.mFilterOffset = offsetSlider.floatValue;
+	gPreferences.mPlaybackSettings.mFilterSteepness = steepnessSlider.floatValue;
 
-	gPreferences.mPlaybackSettings.mDistortionRate = [rateSlider intValue];
-	gPreferences.mPlaybackSettings.mDistortionHeadroom = [headroomSlider intValue];
+	gPreferences.mPlaybackSettings.mDistortionRate = rateSlider.intValue;
+	gPreferences.mPlaybackSettings.mDistortionHeadroom = headroomSlider.intValue;
 	
 	gPreferences.mCustomFilterSettings.mFilterKinkiness = gPreferences.mPlaybackSettings.mFilterKinkiness;
 	gPreferences.mCustomFilterSettings.mFilterBaseLevel = gPreferences.mPlaybackSettings.mFilterBaseLevel;
@@ -171,10 +171,10 @@
 	gPreferences.setDistortionParametersBasedOnFilterType();
 	
 	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
-	[offsetSlider setEnabled:enableFilterSliders];
-	[steepnessSlider setEnabled:enableFilterSliders];
-	[rateSlider setEnabled:enableFilterSliders];
-	[headroomSlider setEnabled:enableFilterSliders];
+	offsetSlider.enabled = enableFilterSliders;
+	steepnessSlider.enabled = enableFilterSliders;
+	rateSlider.enabled = enableFilterSliders;
+	headroomSlider.enabled = enableFilterSliders;
 }
 
 
@@ -213,7 +213,7 @@
 - (void) drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 
 	NSColor* darkColor = nil;
 	NSColor* brightColor = nil;

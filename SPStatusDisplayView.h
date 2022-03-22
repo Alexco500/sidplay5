@@ -61,12 +61,10 @@
 }
 
 - (void) loadResources;
-- (BOOL) displayVisible;
-- (void) setDisplayVisible:(BOOL)visible;
-- (BOOL) logoVisible;
-- (void) setLogoVisible:(BOOL)visible;
+@property (NS_NONATOMIC_IOSONLY) BOOL displayVisible;
+@property (NS_NONATOMIC_IOSONLY) BOOL logoVisible;
 - (void) startLogoRendering;
-- (NSOpenGLView*) logoView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSOpenGLView *logoView;
 - (void) setPlaybackSeconds:(NSInteger)seconds;
 - (void) setTitle:(NSString*)title andAuthor:(NSString*)author andReleaseInfo:(NSString*)releaseInfo andSubtune:(NSInteger)subtune ofSubtunes:(NSInteger)subtuneCount withSonglength:(int)timeInSeconds;
 //- (void) updateUvMetersWithVoice1:(float)levelVoice1 andVoice2:(float)levelVoice2 andVoice3:(float)levelVoice3;

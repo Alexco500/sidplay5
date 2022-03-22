@@ -101,13 +101,12 @@ extern NSString* SPUrlRequestUserAgentString;
 - (void) updateFastTimer;
 - (void) updateSlowTimer;
 - (void) updateTuneInfo;
-- (float) fadeVolume;
-- (void) setFadeVolume:(float)volume;
+@property (NS_NONATOMIC_IOSONLY) float fadeVolume;
 - (void) startFadeOut;
 - (void) stopFadeOut;
 
-- (AudioDriver*) audioDriver;
-- (PlayerLibSidplay*) player;
+@property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
+@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplay *player;
 
 - (void) addInfoContainerView:(NSScrollView*)infoContainerScrollView;
 
@@ -119,20 +118,19 @@ extern NSString* SPUrlRequestUserAgentString;
 
 - (void) addAlternateBoxView:(NSView*)subView;
 
-- (SPBrowserDataSource*) browserDataSource;
-- (SPExportController*) exportController;
-- (NSInteger) currentTuneLengthInSeconds;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPBrowserDataSource *browserDataSource;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPExportController *exportController;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger currentTuneLengthInSeconds;
 
-- (NSMenuItem*) infoWindowMenuItem;
-- (NSMenuItem*) stilBrowserMenuItem;
-- (NSMenuItem*) analyzerWindowMenuItem;
-- (NSMenuItem*) exportTaskWindowMenuItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *infoWindowMenuItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *stilBrowserMenuItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *analyzerWindowMenuItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *exportTaskWindowMenuItem;
 
-- (SPStatusDisplayView*) statusDisplay;
-- (void) setStatusDisplay:(SPStatusDisplayView*)view;
-- (SPStatusDisplayView*) miniStatusDisplay;
+@property (NS_NONATOMIC_IOSONLY, strong) SPStatusDisplayView *statusDisplay;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPStatusDisplayView *miniStatusDisplay;
 
-- (SPRemixKwedOrgController*) remixKwedOrgController;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPRemixKwedOrgController *remixKwedOrgController;
 
 - (void) populateVisualizerMenu;
 

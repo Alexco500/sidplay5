@@ -26,7 +26,7 @@ static SongLengthDatabase* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithRootPath:(NSString*)rootPath
+- (instancetype) initWithRootPath:(NSString*)rootPath
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -53,7 +53,7 @@ static SongLengthDatabase* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithRootUrlString:(NSString*)urlString
+- (instancetype) initWithRootUrlString:(NSString*)urlString
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -84,7 +84,7 @@ static SongLengthDatabase* sharedInstance = nil;
 - (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 // ----------------------------------------------------------------------------
 {
-	[downloadData setLength:0];
+	downloadData.length = 0;
 }
 
 
@@ -100,8 +100,8 @@ static SongLengthDatabase* sharedInstance = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 // ----------------------------------------------------------------------------
 {
-	char* dataBuffer = (char*) [downloadData bytes];
-	int size = (int) [downloadData length];
+	char* dataBuffer = (char*) downloadData.bytes;
+	int size = (int) downloadData.length;
 	
 	bool success = SongLength::init(dataBuffer, size);
 	

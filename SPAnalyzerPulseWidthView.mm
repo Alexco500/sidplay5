@@ -8,7 +8,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -63,7 +63,7 @@
 	if (![SPAnalyzerWindowController isInitialized])
 		return;
 	
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	
 	[NSBezierPath setDefaultLineWidth:1.0f];
 	NSBezierPath* path = [NSBezierPath bezierPath];
@@ -78,7 +78,7 @@
 	[backgroundLineColor set];
 	
 	double cycleToPixelRatio = 1.0f;
-	double totalTime = [self frame].size.width;
+	double totalTime = self.frame.size.width;
 	
 	cycleToPixelRatio = [[SPAnalyzerWindowController sharedInstance] cycleToPixelRatio];
 	totalTime = [[SPAnalyzerWindowController sharedInstance] totalCaptureTime];
@@ -133,9 +133,9 @@
 	float width = 9.0f;
 	float height = 9.0f;
 	NSRect imageRect = NSMakeRect(0.0f, 0.0f, width, height);
-	[voiceParamKnobImage[0] setFlipped:[self isFlipped]];
-	[voiceParamKnobImage[1] setFlipped:[self isFlipped]];
-	[voiceParamKnobImage[2] setFlipped:[self isFlipped]];
+	[voiceParamKnobImage[0] setFlipped:self.flipped];
+	[voiceParamKnobImage[1] setFlipped:self.flipped];
+	[voiceParamKnobImage[2] setFlipped:self.flipped];
 
 	NSPoint knobPositions[SID_VOICE_COUNT][2000];
 	int knobPositionCount[SID_VOICE_COUNT] = { 0, 0, 0 };

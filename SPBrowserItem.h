@@ -25,8 +25,8 @@
 	SPBrowserItem* parent;
 }
 
-- (id) initWithPath:(NSString*)thePath isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem withDefaultSubtune:(NSInteger)subtuneIndex;
-- (id) initWithMetaDataItem:(NSMetadataItem*)item;
+- (instancetype) initWithPath:(NSString*)thePath isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem withDefaultSubtune:(NSInteger)subtuneIndex NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithMetaDataItem:(NSMetadataItem*)item NS_DESIGNATED_INITIALIZER;
 - (void) addChild:(SPBrowserItem*)item;
 - (id) childAtIndex:(int)index;
 
@@ -34,43 +34,34 @@
 + (void) fillArray:(NSMutableArray*)browserItems withMetaDataQueryResults:(NSArray*)results;
 + (void) fillArray:(NSMutableArray*)browserItems withPlaylist:(SPPlaylist*)playlist;
 
-- (BOOL) isFolder;
-- (void) setIsFolder:(BOOL)flag;
+@property (NS_NONATOMIC_IOSONLY) BOOL isFolder;
 
-- (NSString*) title;
-- (void) setTitle:(NSString*)newTitle;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *title;
 
-- (NSString*) author;
-- (void) setAuthor:(NSString*)newAuthor;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *author;
 
-- (NSString*) releaseInfo;
-- (void) setReleaseInfo:(NSString*)newReleaseInfo;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *releaseInfo;
 
-- (NSString*) path;
-- (void) setPath:(NSString*)newPath;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *path;
 
-- (int) playTimeInSeconds;
-- (void) setPlayTimeInSeconds:(int)seconds;
-- (int) playTimeMinutes;
-- (int) playTimeSeconds;
+@property (NS_NONATOMIC_IOSONLY) int playTimeInSeconds;
+@property (NS_NONATOMIC_IOSONLY, readonly) int playTimeMinutes;
+@property (NS_NONATOMIC_IOSONLY, readonly) int playTimeSeconds;
 
 - (unsigned short) defaultSubTune;
 - (void) setDefaultSubTune:(unsigned short)subtune;
 
-- (unsigned short) subTuneCount;
-- (void) setSubTuneCount:(unsigned short)count;
+@property (NS_NONATOMIC_IOSONLY) unsigned short subTuneCount;
 
-- (NSInteger) playlistIndex;
-- (void) setPlaylistIndex:(NSInteger)indexValue;
+@property (NS_NONATOMIC_IOSONLY) NSInteger playlistIndex;
 
-- (NSInteger) loopCount;
-- (void) setLoopCount:(NSInteger)count;
+@property (NS_NONATOMIC_IOSONLY) NSInteger loopCount;
 
-- (BOOL) fileDoesNotExist;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL fileDoesNotExist;
 
-- (BOOL) hasChildren;
-- (NSMutableArray*) children;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasChildren;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *children;
 
-- (SPBrowserItem*) parent;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPBrowserItem *parent;
 
 @end

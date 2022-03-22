@@ -32,32 +32,32 @@
 	exportController = controller;
 	exportSettings = [exportController exportSettings];
 	
-	[timeStepper setIntegerValue:exportSettings.mTimeInSeconds];
+	timeStepper.integerValue = exportSettings.mTimeInSeconds;
 	[self updateTimeTextField:(int)exportSettings.mTimeInSeconds];
 	
-	exportSettings.mWithFadeOut = [fadeOutButton state] == NSOnState;
-	exportSettings.mFadeOutTime = [fadeOutTimeSlider intValue];
-	[fadeOutTimeSlider setEnabled:exportSettings.mWithFadeOut];
+	exportSettings.mWithFadeOut = fadeOutButton.state == NSOnState;
+	exportSettings.mFadeOutTime = fadeOutTimeSlider.intValue;
+	fadeOutTimeSlider.enabled = exportSettings.mWithFadeOut;
 
-	int bitrate =(int)[[bitRatePopup selectedItem] tag];
+	int bitrate =(int)bitRatePopup.selectedItem.tag;
 	exportSettings.mBitRate = bitrate;
-	exportSettings.mUseVBR = [variableBitrateButton state] == NSOnState;
-	exportSettings.mQuality = [qualitySlider floatValue];
+	exportSettings.mUseVBR = variableBitrateButton.state == NSOnState;
+	exportSettings.mQuality = qualitySlider.floatValue;
 	
 	[self updateFileSizeTextField];
-	[mp3InfoText setHidden:exportSettings.mFileType != EXPORT_TYPE_MP3];
+	mp3InfoText.hidden = exportSettings.mFileType != EXPORT_TYPE_MP3;
 	
-	exportSettings.mBlankScreen = [blankScreenButton state] == NSOnState;
-	exportSettings.mIncludeStilComment = [includeStilCommentButton state] == NSOnState;
-	exportSettings.mCompressOutputFile = [useCompressionButton state] == NSOnState;
+	exportSettings.mBlankScreen = blankScreenButton.state == NSOnState;
+	exportSettings.mIncludeStilComment = includeStilCommentButton.state == NSOnState;
+	exportSettings.mCompressOutputFile = useCompressionButton.state == NSOnState;
 	
 	NSArray* itemsToExport = [exportController itemsToExport];
-	if ([itemsToExport count] == 1)
+	if (itemsToExport.count == 1)
 	{
 		NSUInteger subTuneCount = 1;
 		NSUInteger defaultSubTune = 1;
 
-		SPExportItem* item = [itemsToExport objectAtIndex:0];
+		SPExportItem* item = itemsToExport[0];
 		if (item != nil)
 		{
 			SPExporter* exporter = [item exporter];
@@ -80,7 +80,7 @@
 			else
 				[subTunePopup addItemWithTitle:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
 			
-			[[subTunePopup itemAtIndex:i - 1] setTag:i];
+			[subTunePopup itemAtIndex:i - 1].tag = i;
 		}
 		
 		int subtuneToExport = [item subtune];
@@ -113,7 +113,7 @@
 	if (seconds > 59)
 		seconds = 59;
 	
-	[timeTextField setStringValue:[NSString stringWithFormat:@"%02d:%02d", minutes, seconds]];
+	timeTextField.stringValue = [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
 }
 
 
@@ -132,7 +132,7 @@
 	else
 		fileSizeText = [NSString stringWithFormat:@"(resulting file size: %d K)", fileSize / 1024];
 	
-	[fileSizeLabel setStringValue:fileSizeText];
+	fileSizeLabel.stringValue = fileSizeText;
 }
 
 
@@ -150,8 +150,8 @@
 			filenameList = [filenameList stringByAppendingFormat:@"%@ (song: %d)\n", [item path], [item subtune]];
 	}
 
-	[exportFilesTextView setString:filenameList];
-	[exportFilesTextView setFont:[NSFont systemFontOfSize:10.0f]];
+	exportFilesTextView.string = filenameList;
+	exportFilesTextView.font = [NSFont systemFontOfSize:10.0f];
 }
 
 
@@ -170,7 +170,7 @@
 - (void) timeChangedNotification:(NSNotification*)notification
 // ----------------------------------------------------------------------------
 {
-	if ([notification object] == timeTextField)
+	if (notification.object == timeTextField)
 		[self timeChanged:timeTextField];
 }
 
@@ -181,18 +181,18 @@
 {
 	NSTextField* textField = sender != nil ? sender : timeTextField;
 	
-	NSString* timeString = [textField stringValue];
-	if ([timeString length] == 5 && [timeString characterAtIndex:2] == ':')
+	NSString* timeString = textField.stringValue;
+	if (timeString.length == 5 && [timeString characterAtIndex:2] == ':')
 	{
 		NSString* minutesString = [timeString substringToIndex:2];
 		NSString* secondsString = [timeString substringFromIndex:3];
 
-		int minutes = [minutesString intValue];
-		int seconds = [secondsString intValue];
+		int minutes = minutesString.intValue;
+		int seconds = secondsString.intValue;
 		
 		NSUInteger timeInSeconds = minutes * 60 + seconds;
 		exportSettings.mTimeInSeconds = timeInSeconds;
-		[timeStepper setIntegerValue:timeInSeconds];
+		timeStepper.integerValue = timeInSeconds;
 		[self updateFileSizeTextField];
 	}
 }
@@ -202,12 +202,12 @@
 - (IBAction) subTunePopupChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSInteger subTuneIndex = [[sender selectedItem] tag];
+	NSInteger subTuneIndex = [sender selectedItem].tag;
 	
 	NSArray* itemsToExport = [exportController itemsToExport];
-	if ([itemsToExport count] == 1)
+	if (itemsToExport.count == 1)
 	{
-		SPExportItem* item = [itemsToExport objectAtIndex:0];
+		SPExportItem* item = itemsToExport[0];
 		if (item != nil)
 		{
 			SPExporter* exporter = [item exporter];
@@ -217,7 +217,7 @@
 			exportSettings.mTimeInSeconds = [exporter exportSettings].mTimeInSeconds;
 			[exportController setExportSettings:exportSettings];
 			
-			[timeStepper setIntegerValue:exportSettings.mTimeInSeconds];
+			timeStepper.integerValue = exportSettings.mTimeInSeconds;
 			[self updateTimeTextField:(int)exportSettings.mTimeInSeconds];
 			[self updateFileSizeTextField];
 		}
@@ -230,7 +230,7 @@
 // ----------------------------------------------------------------------------
 {
 	exportSettings.mWithFadeOut = [sender state] == NSOnState;
-	[fadeOutTimeSlider setEnabled:exportSettings.mWithFadeOut];
+	fadeOutTimeSlider.enabled = exportSettings.mWithFadeOut;
 }
 
 
@@ -246,7 +246,7 @@
 - (IBAction) bitRatePopupChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	exportSettings.mBitRate = (int)[[sender selectedItem] tag];
+	exportSettings.mBitRate = (int)[sender selectedItem].tag;
 	[self updateFileSizeTextField];
 }
 

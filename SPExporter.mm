@@ -33,7 +33,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithItem:(SPExportItem*)item withController:(SPExportController*)theController andWindow:(SPPlayerWindow*)window loadNow:(BOOL)loadItem
+- (instancetype) initWithItem:(SPExportItem*)item withController:(SPExportController*)theController andWindow:(SPPlayerWindow*)window loadNow:(BOOL)loadItem
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -139,7 +139,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 // ----------------------------------------------------------------------------
 {
 	NSString* suggestedFilename = [self suggestedFilename];
-	NSString* suggestedFilenameWithoutExtension = [suggestedFilename stringByDeletingPathExtension];
+	NSString* suggestedFilenameWithoutExtension = suggestedFilename.stringByDeletingPathExtension;
 	NSString* suggestedExtension = [self suggestedFileExtension]; 
 
 	NSString* filename = [suggestedFilenameWithoutExtension stringByAppendingPathExtension:suggestedExtension];
@@ -210,7 +210,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 // ----------------------------------------------------------------------------
 {
 	destinationPath = path;
-	[self setFileName:[path lastPathComponent]];
+	[self setFileName:path.lastPathComponent];
 }
 
 
@@ -342,7 +342,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 {
 	[self setExportProgressIsIndeterminate:YES];
 	
-	NSString* psid64ExecutablePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"psid64"];
+	NSString* psid64ExecutablePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"psid64"];
 	NSMutableArray* psid64Arguments = [NSMutableArray arrayWithCapacity:3];
 
 	if (exportSettings.mBlankScreen)
@@ -364,9 +364,9 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(psid64TaskFinished:) name:NSTaskDidTerminateNotification object:nil];	
 	psid64Task = [[NSTask alloc] init];
-	[psid64Task setLaunchPath:psid64ExecutablePath];
-	[psid64Task setCurrentDirectoryPath:[[NSBundle mainBundle] resourcePath]];
-	[psid64Task setArguments:psid64Arguments];
+	psid64Task.launchPath = psid64ExecutablePath;
+	psid64Task.currentDirectoryPath = [NSBundle mainBundle].resourcePath;
+	psid64Task.arguments = psid64Arguments;
 	[psid64Task launch];
 }
 
@@ -375,7 +375,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 - (void) psid64TaskFinished:(NSNotification*)aNotification
 // ----------------------------------------------------------------------------
 {
-	NSTask* task = (NSTask*) [aNotification object];
+	NSTask* task = (NSTask*) aNotification.object;
 	if (task != psid64Task)
 		return;
 
@@ -383,12 +383,12 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	
 	NSNumber* creatorCode = [NSNumber numberWithUnsignedLong:'C=64'];
 	NSNumber* typeCode = [NSNumber numberWithUnsignedLong:'C64F'];
-	NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:creatorCode, NSFileHFSCreatorCode, typeCode, NSFileHFSTypeCode, nil];
+	NSDictionary* attributes = @{NSFileHFSCreatorCode: creatorCode, NSFileHFSTypeCode: typeCode};
 	[[NSFileManager defaultManager] changeFileAttributes:attributes atPath:destinationPath];
 
 	NSImage* icon = [[NSWorkspace sharedWorkspace] iconForFile:destinationPath];
 	[icon setScalesWhenResized:NO];
-	[icon setSize:NSMakeSize(32, 32)];
+	icon.size = NSMakeSize(32, 32);
 	[self setFileIcon:icon];
 
 	exportInProgress = NO;
@@ -411,15 +411,15 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
     // create the file
     if (outputFileRef == NULL)
 	{
-		NSString* directory = [destinationPath stringByDeletingLastPathComponent];
-		NSString* filename = [[NSString alloc] initWithString:[destinationPath lastPathComponent]];
+		NSString* directory = destinationPath.stringByDeletingLastPathComponent;
+		NSString* filename = [[NSString alloc] initWithString:destinationPath.lastPathComponent];
 
 		BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:destinationPath];
 		if (exists)
 			[[NSFileManager defaultManager] removeFileAtPath:destinationPath handler:nil];
 
 		FSRef directoryFileRef;
-		err = FSPathMakeRef((const UInt8*)[directory fileSystemRepresentation], &directoryFileRef, NULL);
+		err = FSPathMakeRef((const UInt8*)directory.fileSystemRepresentation, &directoryFileRef, NULL);
 
 		// The format in which we render the SID output
 		inputFormat.mChannelsPerFrame = 1;
@@ -469,7 +469,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 		NSImage* icon = [[NSWorkspace sharedWorkspace] iconForFile:destinationPath];
 		[icon setScalesWhenResized:NO];
-		[icon setSize:NSMakeSize(32, 32)];
+		icon.size = NSMakeSize(32, 32);
 		[self performSelectorOnMainThread:@selector(setFileIcon:) withObject:icon waitUntilDone:NO];
 
 		err = ExtAudioFileSetProperty(outputFileRef, kExtAudioFileProperty_ClientDataFormat, sizeof(AudioStreamBasicDescription), &inputFormat);
@@ -569,7 +569,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 			break;
 
 		// progress update
-		NSNumber* progress = [NSNumber numberWithFloat:(float)samplesCompleted / float(samplesCompleted + samplesRemaining)];
+		NSNumber* progress = @((float)samplesCompleted / float(samplesCompleted + samplesRemaining));
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
 		UInt32 numSamplesThisSlice = (int)samplesRemaining;
@@ -627,11 +627,11 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
     OSStatus err = noErr;
 
-	FILE* outputFileHandle = fopen([destinationPath fileSystemRepresentation], "wb");
+	FILE* outputFileHandle = fopen(destinationPath.fileSystemRepresentation, "wb");
 
 	NSImage* icon = [[NSWorkspace sharedWorkspace] iconForFile:destinationPath];
 	[icon setScalesWhenResized:NO];
-	[icon setSize:NSMakeSize(32, 32)];
+	icon.size = NSMakeSize(32, 32);
 	[self performSelectorOnMainThread:@selector(setFileIcon:) withObject:icon waitUntilDone:NO];
 
 	lame_global_flags *lameState;
@@ -658,7 +658,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	id3tag_set_title(lameState, [title cStringUsingEncoding:NSISOLatin1StringEncoding]);
 	id3tag_set_artist(lameState, [author cStringUsingEncoding:NSISOLatin1StringEncoding]);
 
-	if ([releaseInfo length] > 3)
+	if (releaseInfo.length > 3)
 	{
 		NSString* year = [releaseInfo substringWithRange:NSMakeRange(0, 4)];
 		id3tag_set_year(lameState, [year cStringUsingEncoding:NSISOLatin1StringEncoding]);
@@ -683,7 +683,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 			break;
 
 		// progress update
-		NSNumber* progress = [NSNumber numberWithFloat:(float)samplesCompleted / float(samplesCompleted + samplesRemaining)];
+		NSNumber* progress = @((float)samplesCompleted / float(samplesCompleted + samplesRemaining));
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
 		UInt32 numSamplesThisSlice = (int)samplesRemaining;
@@ -765,7 +765,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 @implementation SPExportItem
 
 // ----------------------------------------------------------------------------
-- (id) initWithPath:(NSString*)filePath andTitle:(NSString*)titleString andAuthor:(NSString*)authorString andSubtune:(int)subtuneIndex andLoopCount:(int)loops
+- (instancetype) initWithPath:(NSString*)filePath andTitle:(NSString*)titleString andAuthor:(NSString*)authorString andSubtune:(int)subtuneIndex andLoopCount:(int)loops
 // ----------------------------------------------------------------------------
 {
 	self = [super init];

@@ -7,7 +7,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -20,12 +20,12 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithCoder:(NSCoder*)coder
+- (instancetype) initWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
 	if (self = [super initWithCoder:coder])
 	{
-		if ([coder allowsKeyedCoding])
+		if (coder.allowsKeyedCoding)
 			[self setItems:[coder decodeObjectForKey:@"SPKeyItems"]];
 		else
 			[self setItems:[coder decodeObject]];
@@ -39,7 +39,7 @@
 // ----------------------------------------------------------------------------
 {
 	[super encodeWithCoder:coder];
-    if ([coder allowsKeyedCoding])
+    if (coder.allowsKeyedCoding)
         [coder encodeObject:items forKey:@"SPKeyItems"];
 	else
 		[coder encodeObject:items];
@@ -68,9 +68,9 @@
 {
 	NSInteger newBaseIndex = index;
 	
-	if (index < [items count])
+	if (index < items.count)
 	{
-		SPPlaylistItem* itemAtIndex = [items objectAtIndex:index];
+		SPPlaylistItem* itemAtIndex = items[index];
 		
 		NSArray* movedItems = [items objectsAtIndexes:indices];
 		[items removeObjectsAtIndexes:indices];
@@ -89,7 +89,7 @@
 		NSArray* movedItems = [items objectsAtIndexes:indices];
 		[items removeObjectsAtIndexes:indices];
 
-		newBaseIndex = [items count];
+		newBaseIndex = items.count;
 		
 		for (SPPlaylistItem* item in movedItems)
 			[items addObject:item];
@@ -119,7 +119,7 @@
 - (NSInteger) count
 // ----------------------------------------------------------------------------
 {
-	return [items count];
+	return items.count;
 }
 
 
@@ -127,7 +127,7 @@
 - (SPPlaylistItem*) itemAtIndex:(NSInteger)index
 // ----------------------------------------------------------------------------
 {
-	return [items objectAtIndex:index];
+	return items[index];
 }
 
 
@@ -183,7 +183,7 @@
 	
 	for (NSString* playlistPath in playlistPaths)
 	{
-		if ([playlistPath length] > 1)
+		if (playlistPath.length > 1)
 		{
 			SPPlaylistItem* item = [[SPPlaylistItem alloc] initWithPath:playlistPath andSubtuneIndex:0 andLoopCount:1];
 			[playlist addItem:item];
@@ -213,19 +213,19 @@
 		return nil;
 
 	SPSimplePlaylist* playlist = [[SPSimplePlaylist alloc] init];
-	[playlist setName:[path lastPathComponent]];	
+	[playlist setName:path.lastPathComponent];	
 	
 	const int lineBufferSize = 256;
 	char lineBuffer[lineBufferSize];
 	
 	while (fgets(lineBuffer, lineBufferSize - 1, fp) != NULL)
 	{
-		NSString* line = [NSString stringWithCString:lineBuffer encoding:NSASCIIStringEncoding];
+		NSString* line = @(lineBuffer);
 		NSString* file = nil;
 		int subtune = 0;
 
 		line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		if ([line length] == 0)
+		if (line.length == 0)
 			continue;
 		
 		NSRange range = [line rangeOfString:@":"];
@@ -238,7 +238,7 @@
 		{
 			file = [line substringToIndex:range.location];
 			NSString* subtuneString = [line substringFromIndex:range.location + 2];
-			subtune = (int)[subtuneString integerValue];
+			subtune = (int)subtuneString.integerValue;
 		}
 
 		if ([file characterAtIndex:0] != '/')

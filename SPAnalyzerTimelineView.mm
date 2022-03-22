@@ -7,7 +7,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -53,7 +53,7 @@
 	if (![SPAnalyzerWindowController isInitialized])
 		return;
 	
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 
 	NSGradient* gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.463f alpha:1.0f] endingColor:[NSColor colorWithCalibratedWhite:0.333f alpha:1.0f]];
     [gradient drawInRect:bounds angle:-90];
@@ -64,7 +64,7 @@
 	[drawColor set];
 
 	float textIntensity = 0.7f;
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 	CGContextSelectFont(context, "Monaco", 9.0f, kCGEncodingMacRoman); 
 	CGContextSetRGBStrokeColor(context, textIntensity, textIntensity, textIntensity, 1.0f);
 	CGContextSetRGBFillColor(context, textIntensity, textIntensity, textIntensity, 1.0f);
@@ -124,10 +124,10 @@
 		}
 	}
 	
-	float width = [cursorImage size].width;
-	float height = [cursorImage size].height;
+	float width = cursorImage.size.width;
+	float height = cursorImage.size.height;
 	NSRect imageRect = NSMakeRect(0.0f, 0.0f, width, height);
-	[cursorImage setFlipped:[self isFlipped]];
+	[cursorImage setFlipped:self.flipped];
 	
 	double cursorPosition = [[SPAnalyzerWindowController sharedInstance] cursorPosition];
 	float cursorXPos = floorf(cursorPosition * cycleToPixelRatio);
@@ -143,7 +143,7 @@
 - (void) mouseDown:(NSEvent*) event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 
 	double cycleToPixelRatio = [[SPAnalyzerWindowController sharedInstance] cycleToPixelRatio];
@@ -157,7 +157,7 @@
 - (void) mouseDragged:(NSEvent*) event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 	
 	double cycleToPixelRatio = [[SPAnalyzerWindowController sharedInstance] cycleToPixelRatio];

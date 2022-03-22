@@ -14,9 +14,9 @@ extern NSString* SPHttpBrowserItemIndexDownloadedNotification;
     NSURLConnection* indexDownloadConnection;
 }
 
-- (id) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem;
+- (instancetype) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem NS_DESIGNATED_INITIALIZER;
 - (void) cancelDownload;
-- (BOOL) isValid;
+@property (NS_NONATOMIC_IOSONLY, getter=isValid, readonly) BOOL valid;
 
 + (void) fillArray:(NSMutableArray*)browserItems withIndexDataItems:(NSArray*)indexItems fromUrl:(NSString*)urlString andParent:(SPBrowserItem*)parentItem;
 + (void) fillArray:(NSMutableArray*)browserItems withSharedPlaylist:(SPPlaylist*)playlist fromUrl:(NSString*)urlString;

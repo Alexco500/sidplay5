@@ -23,7 +23,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	if (self = [super init])
@@ -38,7 +38,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		httpServer = nil;
 		serviceBrowser = [[NSNetServiceBrowser alloc] init];
-        [serviceBrowser setDelegate:self];
+        serviceBrowser.delegate = self;
 		currentSharedCollectionService = nil;
 		serviceBeingResolved = nil;
 	}
@@ -53,13 +53,13 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	[[SPPreferencesController sharedInstance] load];
 	
-	[sourceListView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, nil]];
+	[sourceListView registerForDraggedTypes:@[NSFilenamesPboardType, NSStringPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType]];
 	[sourceListView setVerticalMotionCanBeginDrag:YES];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sharedPlaylistsIndexDownloaded:) name:SPSharedPlaylistIndexDownloaded object:nil];	
 	
-	NSRect frame = [syncProgressDialog frame];
-	frame.size.height = [syncProgressDialog minSize].height;
+	NSRect frame = syncProgressDialog.frame;
+	frame.size.height = syncProgressDialog.minSize.height;
 	[syncProgressDialog setFrame:frame display:YES];
 	
 	[rootItems removeAllObjects];
@@ -76,16 +76,16 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 
 	[setupCollectionWindow setExcludedFromWindowsMenu:YES];
 	
-	if ([gPreferences.mCollections count] == 0)
+	if (gPreferences.mCollections.count == 0)
 	{
 		[self setupInitialCollection];
 	}
 	else
 		setupCollectionWindow = nil;
 
-	if ([gPreferences.mCollections count] > 0)
+	if (gPreferences.mCollections.count > 0)
 	{
-		NSString* firstCollectionPath = (NSString*) [gPreferences.mCollections objectAtIndex:0];
+		NSString* firstCollectionPath = (NSString*) gPreferences.mCollections[0];
 		[browserDataSource setRootPath:firstCollectionPath];
 	}
 
@@ -120,8 +120,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		}
 	}
 	
-	if (!selectedRsyncMirrorExists && [[collectionUtilities rsyncMirrorList] count] > 0)
-		gPreferences.mSyncUrl = [[[collectionUtilities rsyncMirrorList] objectAtIndex:0] mutableCopy];
+	if (!selectedRsyncMirrorExists && [collectionUtilities rsyncMirrorList].count > 0)
+		gPreferences.mSyncUrl = [[collectionUtilities rsyncMirrorList][0] mutableCopy];
 		
 	rsyncMirrorsListDownloaded = YES;	
 }
@@ -155,19 +155,19 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		if (result == 1)
 		{
 			NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-			NSArray* fileTypes = [NSArray arrayWithObject:@""];
+			NSArray* fileTypes = @[@""];
 			[openPanel setCanChooseDirectories:YES];
 			[openPanel setCanChooseFiles:NO];
 			[openPanel setAllowsMultipleSelection:NO];
-			[openPanel setTitle:@"Select HVSC collection folder (usually called C64Music) or other folder containing .sid music files"];
-			[openPanel setPrompt:@"Choose"];
+			openPanel.title = @"Select HVSC collection folder (usually called C64Music) or other folder containing .sid music files";
+			openPanel.prompt = @"Choose";
 			
 			long result = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
 			
 			if (result == NSOKButton)
 			{
 				NSArray* filesToOpen = [openPanel filenames];
-				NSString* path = [filesToOpen objectAtIndex:0];
+				NSString* path = filesToOpen[0];
 				[gPreferences.mCollections addObject:path];
 			}
 		}
@@ -237,17 +237,17 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		SPPlaylist* playlist = nil;
 		BOOL isSmartPlaylist = NO;
 		
-		if ([[playlistPath pathExtension] isEqualToString:@""] && !gPreferences.mLegacyPlaylistsMigrated)
+		if ([playlistPath.pathExtension isEqualToString:@""] && !gPreferences.mLegacyPlaylistsMigrated)
 		{
 			// Migrate the existing old playlist file from SIDPLAY 3.x
 			[playlistsToMigrate addObject:playlistPath];
 		}
-		else if ([[playlistPath pathExtension] caseInsensitiveCompare:[SPSimplePlaylist fileExtension]] == NSOrderedSame)
+		else if ([playlistPath.pathExtension caseInsensitiveCompare:[SPSimplePlaylist fileExtension]] == NSOrderedSame)
 		{
 			playlist = [SPSimplePlaylist playlistFromFile:playlistPath];
 			isSmartPlaylist = NO;
 		}
-		else if ([[playlistPath pathExtension] caseInsensitiveCompare:[SPSmartPlaylist fileExtension]] == NSOrderedSame)
+		else if ([playlistPath.pathExtension caseInsensitiveCompare:[SPSmartPlaylist fileExtension]] == NSOrderedSame)
 		{
 			playlist = [SPSmartPlaylist playlistFromFile:playlistPath];
 			isSmartPlaylist = YES;
@@ -266,7 +266,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		NSMutableArray* playlistItems = [playlistsContainerItem children];
 		for (SPSourceListItem* item in playlistItems)
 		{
-			if ([[[item name] string] isEqualToString:[playlist name]])
+			if ([[item name].string isEqualToString:[playlist name]])
 			{
 				found = YES;
 				break;
@@ -286,7 +286,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSMutableArray* playlistItems = [playlistsContainerItem children];
 	for (SPSourceListItem* item in playlistItems)
 	{
-		if ([[[item name] string] caseInsensitiveCompare:favoritesPlaylistName] == NSOrderedSame)
+		if ([[item name].string caseInsensitiveCompare:favoritesPlaylistName] == NSOrderedSame)
 		{
 			foundFavorites = YES;
 			break;
@@ -319,10 +319,10 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	}
 
 	NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
-	NSDictionary* headerAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:12.0f], NSFontAttributeName,
-																			paragraphStyle, NSParagraphStyleAttributeName, nil];
+	NSDictionary* headerAttrs = @{NSFontAttributeName: [NSFont systemFontOfSize:12.0f],
+																			NSParagraphStyleAttributeName: paragraphStyle};
 	NSAttributedString* listItemName = [[NSAttributedString alloc] initWithString:name attributes:headerAttrs];
 
 	SPSourceListItem* item = [[SPSourceListItem alloc] initWithName:listItemName forPath:path withIcon:image];
@@ -350,10 +350,10 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 // ----------------------------------------------------------------------------
 {
 	NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
-	NSDictionary* headerAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12.0f], NSFontAttributeName,
-																			paragraphStyle, NSParagraphStyleAttributeName, nil];
+	NSDictionary* headerAttrs = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:12.0f],
+																			NSParagraphStyleAttributeName: paragraphStyle};
 	NSAttributedString* headerName = [[NSAttributedString alloc] initWithString:name attributes:headerAttrs];
 	
 	SPSourceListItem* headerItem = [[SPSourceListItem alloc] initWithName:headerName forPath:@"" withIcon:nil];
@@ -372,7 +372,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSString* name = [[SPCollectionUtilities sharedInstance] collectionNameOfPath:path];
 	SPSourceListItem* item = [SPSourceListDataSource addSourceListItemToItem:collectionsContainerItem atIndex:index forPath:path withName:name withImage:image];
 	[item setType:SOURCELIST_COLLECTION];
-	if ([[collectionsContainerItem children] count] == 1)
+	if ([collectionsContainerItem children].count == 1)
 		currentCollection = item;
 	
 	return item;	
@@ -392,13 +392,13 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		//NSLog(@"Added sharedCollectionsContainerItem: %@\n", sharedCollectionsContainerItem);
 	}
 	
-	NSString* host = [service hostName];
-	NSInteger port = [service port];
+	NSString* host = service.hostName;
+	NSInteger port = service.port;
 	NSString* urlString = nil;
 	if (port != -1)
 		urlString = [NSString stringWithFormat:@"http://%@:%d/", host, (int)port];
 		
-	SPSourceListItem* item = [SPSourceListDataSource addSourceListItemToItem:sharedCollectionsContainerItem atIndex:index forPath:urlString withName:[service name] withImage:[SPSourceListItem sharedCollectionIcon]];
+	SPSourceListItem* item = [SPSourceListDataSource addSourceListItemToItem:sharedCollectionsContainerItem atIndex:index forPath:urlString withName:service.name withImage:[SPSourceListItem sharedCollectionIcon]];
 	[item setType:SOURCELIST_SHAREDCOLLECTION];
 	[item setService:service];
 
@@ -485,7 +485,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		{
 			[[container children] removeObject:item];
 			
-			if ([[container children] count] < 1)
+			if ([container children].count < 1)
 			{
 				[rootItems removeObject:container];
 				sharedCollectionsContainerItem = nil;
@@ -517,7 +517,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			
 			if ([alert runModal] == NSAlertAlternateReturn)
 			{
-				if ([[alert suppressionButton] state] == NSOnState)
+				if (alert.suppressionButton.state == NSOnState)
 					[[NSUserDefaults standardUserDefaults] setBool:YES forKey:SPDefaultKeyDontShowDeletePlaylistAlert];
 				
 				deletePlaylist = YES;
@@ -731,7 +731,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	else
 	{
 		NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-		long count = [sharedCollectionItems count];
+		long count = sharedCollectionItems.count;
 		int index = 0;
 		for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
 		{
@@ -764,7 +764,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	[sourceListView reloadData];
 	
-	NSInteger selectedRow = [sourceListView selectedRow];
+	NSInteger selectedRow = sourceListView.selectedRow;
 	if (selectedRow != -1)
 	{
 		SPSourceListItem* firstCollectionItem = [collectionsContainerItem childAtIndex:0];
@@ -811,7 +811,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) removeSelectedSourceListItem:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSInteger row = [sourceListView selectedRow];
+	NSInteger row = sourceListView.selectedRow;
     if (row != -1)
 	{
         SPSourceListItem* item = [sourceListView itemAtRow:row];
@@ -824,7 +824,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			SPSourceListItem* newItem = [sourceListView itemAtRow:newRow];
 			if (newItem != nil && ![newItem isHeader])
 				[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
-			else if (newItem != nil && [newItem isHeader] && [[newItem children] count] > 0)
+			else if (newItem != nil && [newItem isHeader] && [newItem children].count > 0)
 				[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow+1] byExtendingSelection:NO];
 
 			
@@ -838,10 +838,10 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) addNewPlaylist:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (![[sourceListView window] isVisible])
+	if (!sourceListView.window.visible)
 		return;
 		
-	BOOL isOptionPressed = [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
 	if (isOptionPressed)
 	{
 		[self addNewSmartPlaylist:sender];
@@ -859,7 +859,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) addNewSmartPlaylist:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (![[sourceListView window] isVisible])
+	if (!sourceListView.window.visible)
 		return;
 
 	SPSmartPlaylist* playlist = [[SPSmartPlaylist alloc] init];
@@ -887,7 +887,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) editSmartPlaylist:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSInteger row = [sourceListView selectedRow];
+	NSInteger row = sourceListView.selectedRow;
     if (row != -1)
 	{
         SPSourceListItem* item = [sourceListView itemAtRow:row];
@@ -927,15 +927,15 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) savePlaylistToM3U:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSInteger row = [sourceListView selectedRow];
+	NSInteger row = sourceListView.selectedRow;
     if (row != -1)
 	{
         SPSourceListItem* item = [sourceListView itemAtRow:row];
 		if (![item isPlaylistItem] && ![item isSmartPlaylistItem])
 			return;
 		
-		[NSApp beginSheet:m3uExportOptionsPanel modalForWindow:[sourceListView window] modalDelegate:nil didEndSelector:nil contextInfo:nil];
-		NSInteger result = [NSApp runModalForWindow:[sourceListView window]];
+		[NSApp beginSheet:m3uExportOptionsPanel modalForWindow:sourceListView.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		NSInteger result = [NSApp runModalForWindow:sourceListView.window];
 		[NSApp endSheet:m3uExportOptionsPanel];
 		[m3uExportOptionsPanel orderOut:self];
 
@@ -944,20 +944,20 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			SPPlaylist* playlist = [item playlist];
 
 			NSSavePanel* savePanel = [NSSavePanel savePanel];
-            savePanel.allowedFileTypes = [NSArray arrayWithObject:@"m3u"];
+            savePanel.allowedFileTypes = @[@"m3u"];
 			[savePanel setCanSelectHiddenExtension:YES];
 			
 			NSString* filename = [NSString stringWithFormat:@"%@.m3u", [playlist name]];
-            [savePanel setNameFieldStringValue:filename];
+            savePanel.nameFieldStringValue = filename;
             
-            [savePanel beginSheetModalForWindow:[sourceListView window] completionHandler:^(NSInteger result)
+            [savePanel beginSheetModalForWindow:sourceListView.window completionHandler:^(NSInteger result)
              {
                  if (result == NSFileHandlingPanelOKButton)
                  {
-                     BOOL exportRelativePaths = ([m3uExportRelativePathsButton state] == NSOnState);
-                     NSString* exportPathPrefix = [m3uExportPathPrefixTextField stringValue];
+                     BOOL exportRelativePaths = (m3uExportRelativePathsButton.state == NSOnState);
+                     NSString* exportPathPrefix = m3uExportPathPrefixTextField.stringValue;
                      
-                     [playlist saveToM3U:[savePanel.URL path] withRelativePaths:exportRelativePaths andPathPrefix:exportPathPrefix];
+                     [playlist saveToM3U:(savePanel.URL).path withRelativePaths:exportRelativePaths andPathPrefix:exportPathPrefix];
                  }
              }
              ];
@@ -1000,7 +1000,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSMutableArray* playlistItems = [playlistsContainerItem children];
 	for (SPSourceListItem* item in playlistItems)
 	{
-		if ([[[item name] string] caseInsensitiveCompare:@"Favorites"] == NSOrderedSame)
+		if ([[item name].string caseInsensitiveCompare:@"Favorites"] == NSOrderedSame)
 		{
 			NSInteger row = [sourceListView rowForItem:item];
 			if (row != -1)
@@ -1014,11 +1014,11 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (BOOL) validateMenuItem:(NSMenuItem*)item
 // ----------------------------------------------------------------------------
 {
-    SEL action = [item action];
+    SEL action = item.action;
 
     if (action == @selector(editSmartPlaylist:))
     {
-		NSInteger row = [sourceListView selectedRow];
+		NSInteger row = sourceListView.selectedRow;
 		if (row != -1)
 		{
 			SPSourceListItem* item = [sourceListView itemAtRow:row];
@@ -1094,7 +1094,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	{
 		if (triggeredByAutoInterval)
 		{
-			NSString* alertText = [NSString stringWithFormat:@"Do you want to sync the collection '%@' with the latest available HVSC version now?", [[currentCollection name] string]];
+			NSString* alertText = [NSString stringWithFormat:@"Do you want to sync the collection '%@' with the latest available HVSC version now?", [currentCollection name].string];
 			NSAlert* alert = [NSAlert alertWithMessageText:alertText
 											 defaultButton:@"Remind me later"
 										   alternateButton:@"Sync Collection"
@@ -1109,7 +1109,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		}
 		else
 		{
-			NSString* alertText = [NSString stringWithFormat:@"Do you really want to sync the collection '%@' with the latest available HVSC version?", [[currentCollection name] string]];
+			NSString* alertText = [NSString stringWithFormat:@"Do you really want to sync the collection '%@' with the latest available HVSC version?", [currentCollection name].string];
 			NSAlert* alert = [NSAlert alertWithMessageText:alertText
 											 defaultButton:@"Cancel"
 										   alternateButton:@"Sync Collection"
@@ -1126,12 +1126,12 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	if (!doSync)
 		return;
 		
-	if ([rsyncTask isRunning])
+	if (rsyncTask.running)
 		return;
 	
 	gPreferences.mLastSyncTime = [NSDate date];
 
-	SPPlayerWindow* window = (SPPlayerWindow*) [sourceListView window];
+	SPPlayerWindow* window = (SPPlayerWindow*) sourceListView.window;
 	[window clickStopButton:self];
 	[window orderOut:self];
 
@@ -1139,7 +1139,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rsyncTaskFinished:) name:NSTaskDidTerminateNotification object:nil];
 
-	NSString* destinationPath = [[currentCollection path] stringByStandardizingPath];
+	NSString* destinationPath = [currentCollection path].stringByStandardizingPath;
 	BOOL isFolder = NO;
 	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:destinationPath isDirectory:&isFolder];
 	if (!exists)
@@ -1152,23 +1152,23 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	{
 		rsyncTask = [[NSTask alloc] init];
 		NSPipe* outputPipe = [NSPipe pipe];
-		[rsyncTask setStandardOutput:outputPipe];
+		rsyncTask.standardOutput = outputPipe;
 		//[rsyncTask setStandardError:outputPipe];
-		[rsyncTask setLaunchPath:@"/usr/bin/rsync"];
+		rsyncTask.launchPath = @"/usr/bin/rsync";
 		//[rsyncTask setCurrentDirectoryPath:destinationPath];
-		[rsyncTask setArguments:[NSArray arrayWithObjects:@"-rtvz", @"--safe-links", @"--delete", @"--progress", gPreferences.mSyncUrl, destinationPath, nil]];
+		rsyncTask.arguments = @[@"-rtvz", @"--safe-links", @"--delete", @"--progress", gPreferences.mSyncUrl, destinationPath];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rsyncOutputPending:) name:NSFileHandleReadCompletionNotification object:[[rsyncTask standardOutput] fileHandleForReading]];
-		[[[rsyncTask standardOutput] fileHandleForReading] readInBackgroundAndNotify];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rsyncOutputPending:) name:NSFileHandleReadCompletionNotification object:[rsyncTask.standardOutput fileHandleForReading]];
+		[[rsyncTask.standardOutput fileHandleForReading] readInBackgroundAndNotify];
 		
-		[syncProgressActionTextView setString:@" "];
-		[syncProgressActionTextView setFont:[NSFont systemFontOfSize:10.0f]];
+		syncProgressActionTextView.string = @" ";
+		syncProgressActionTextView.font = [NSFont systemFontOfSize:10.0f];
 		
 		[syncProgressIndicator setIndeterminate:YES];
 		[syncProgressIndicator startAnimation:self];
 		[rsyncTask launch];
 
-		[syncProgressDialog setShowsResizeIndicator:[syncProgressDisclosureTriangle state] == NSOnState];
+		syncProgressDialog.showsResizeIndicator = syncProgressDisclosureTriangle.state == NSOnState;
 		[syncProgressDialog makeKeyAndOrderFront:self];
 	}
 	else
@@ -1181,7 +1181,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		[alert runModal];
 		
-		SPPlayerWindow* window = (SPPlayerWindow*) [sourceListView window];
+		SPPlayerWindow* window = (SPPlayerWindow*) sourceListView.window;
 		[window makeKeyAndOrderFront:self];
 	}
 }
@@ -1202,17 +1202,17 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (IBAction) discloseSyncProgressDetails:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSRect frame = [syncProgressDialog frame];
+	NSRect frame = syncProgressDialog.frame;
 	BOOL isExpanded = ([sender state] == NSOnState);
 	
-	float desiredHeight = isExpanded ? 300.0f : [syncProgressDialog minSize].height;
+	float desiredHeight = isExpanded ? 300.0f : syncProgressDialog.minSize.height;
 
 	float diff = desiredHeight - frame.size.height;
 	frame.size.height += diff;
 	frame.origin.y -= diff;
 	[syncProgressDialog setFrame:frame display:YES animate:YES];
-	[syncProgressDialog setShowsResizeIndicator:isExpanded];
-	[syncProgressActionTextView setHidden:!isExpanded];
+	syncProgressDialog.showsResizeIndicator = isExpanded;
+	syncProgressActionTextView.hidden = !isExpanded;
 }
 
 
@@ -1220,13 +1220,13 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (void) rsyncOutputPending:(NSNotification*)aNotification
 // ----------------------------------------------------------------------------
 {
-    NSData* data = [[aNotification userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    NSData* data = aNotification.userInfo[NSFileHandleNotificationDataItem];
 
 	static NSString* overflowFromPreviousOutput = nil;
 
     // If the length of the data is zero, then the task is basically over - there is nothing
     // more to get from the handle so we may as well shut down.
-    if ([data length])
+    if (data.length)
     {
 		NSString* output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
@@ -1238,16 +1238,16 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		// If block of output data doesn't end with a linebreak, we have to take the last line
 		// and consider it with the next block
-		if ([output characterAtIndex:[output length] - 1] != '\n');
+		if ([output characterAtIndex:output.length - 1] != '\n');
 		{
-			overflowFromPreviousOutput = [lines lastObject];
+			overflowFromPreviousOutput = lines.lastObject;
 			[lines removeLastObject];
 		}
 		
 		NSMutableString* filteredOutput = [[NSMutableString alloc] init];
 		for (NSString* line in lines)
 		{
-			if ([line length] == 0)
+			if (line.length == 0)
 				continue;
 
 			if ([line characterAtIndex:0] != ' ')
@@ -1255,29 +1255,29 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			else
 			{
 				NSArray* components = [line componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()"]];
-				if ([components count] > 1)
+				if (components.count > 1)
 				{
-					NSString* bracketContents = [components objectAtIndex:1];
+					NSString* bracketContents = components[1];
 					NSArray* componentsOfBacketContents = [bracketContents componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]];
-					if ([componentsOfBacketContents count] == 5)
+					if (componentsOfBacketContents.count == 5)
 					{
-						NSString* percentString = [componentsOfBacketContents objectAtIndex:2];
-						float progress = [[percentString substringWithRange:NSMakeRange(0, [percentString length] - 1)] floatValue];
+						NSString* percentString = componentsOfBacketContents[2];
+						float progress = [percentString substringWithRange:NSMakeRange(0, percentString.length - 1)].floatValue;
 						[syncProgressIndicator setIndeterminate:NO];
-						[syncProgressIndicator setDoubleValue:progress];
+						syncProgressIndicator.doubleValue = progress;
 					}
 				}
 			}
 		}
 		
-		NSRange range = NSMakeRange([[syncProgressActionTextView textStorage] length], 0);
+		NSRange range = NSMakeRange(syncProgressActionTextView.textStorage.length, 0);
 		[syncProgressActionTextView replaceCharactersInRange:range withString:filteredOutput];
 		[syncProgressActionTextView scrollRangeToVisible:range];
 		[syncProgressActionTextView setNeedsDisplay:YES];
     }
     
     // we need to schedule the file handle go read more data in the background again.
-    [[aNotification object] readInBackgroundAndNotify];  
+    [aNotification.object readInBackgroundAndNotify];  
 }
 
 
@@ -1285,11 +1285,11 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (void) rsyncTaskFinished:(NSNotification*)aNotification
 // ----------------------------------------------------------------------------
 {
-	NSTask* task = (NSTask*) [aNotification object];
+	NSTask* task = (NSTask*) aNotification.object;
 	if (task != rsyncTask)
 		return;
 	
-	int result = [rsyncTask	terminationStatus];
+	int result = rsyncTask.terminationStatus;
 	rsyncTask = nil;
 
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadCompletionNotification object:nil];
@@ -1304,7 +1304,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	
 	if (result == 0)
 	{
-		[syncProgressIndicator setDoubleValue:100.0f];
+		syncProgressIndicator.doubleValue = 100.0f;
 		
 		alert = [NSAlert alertWithMessageText:@"Sync operation has completed."
 										 defaultButton:@"OK"
@@ -1332,7 +1332,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	[alert runModal];
 
 
-	SPPlayerWindow* window = (SPPlayerWindow*) [sourceListView window];
+	SPPlayerWindow* window = (SPPlayerWindow*) sourceListView.window;
 	[window makeKeyAndOrderFront:self];
 
 	[syncProgressDialog orderOut:self];
@@ -1356,9 +1356,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 // ----------------------------------------------------------------------------
 {
     if (item == nil)
-		return (int)[rootItems count];
+		return (int)rootItems.count;
 	else
-		return (int)[[item children] count];
+		return (int)[item children].count;
 }
 
 
@@ -1375,7 +1375,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 // ----------------------------------------------------------------------------
 {
 	if (item == nil)
-		return [rootItems objectAtIndex:index];
+		return rootItems[index];
 	else
 		return [(SPSourceListItem *)item childAtIndex:index];
 }
@@ -1403,12 +1403,12 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	SPPlaylist* playlist = [sourceListItem playlist];
 
 	NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
-	NSDictionary* attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:12.0f], NSFontAttributeName,
-																			paragraphStyle, NSParagraphStyleAttributeName, nil];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingMiddle;
+	NSDictionary* attrs = @{NSFontAttributeName: [NSFont systemFontOfSize:12.0f],
+																			NSParagraphStyleAttributeName: paragraphStyle};
 	NSAttributedString* listItemName = [[NSAttributedString alloc] initWithString:object attributes:attrs];
 	
-	if ([listItemName length] == 0)
+	if (listItemName.length == 0)
 		return;
 	
 	[playlist setName:object];
@@ -1448,12 +1448,12 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	if (item != nil && cell != nil)
 	{
-		SPSourceListItem* selectedItem = [outlineView itemAtRow:[outlineView selectedRow]];
+		SPSourceListItem* selectedItem = [outlineView itemAtRow:outlineView.selectedRow];
 		if(selectedItem == item || currentCollection == item)
 		{
 			NSMutableDictionary* attrs = [[[(SPSourceListItem*)item name] attributesAtIndex:0 effectiveRange:NULL] mutableCopy];
-			[attrs setObject:[NSFont boldSystemFontOfSize:12.0f] forKey:NSFontAttributeName];
-			NSAttributedString* name = [[NSAttributedString alloc] initWithString:[[(SPSourceListItem*)item name] string]  attributes:attrs];
+			attrs[NSFontAttributeName] = [NSFont boldSystemFontOfSize:12.0f];
+			NSAttributedString* name = [[NSAttributedString alloc] initWithString:[(SPSourceListItem*)item name].string  attributes:attrs];
 			[cell setAttributedStringValue:name];
 		}
 		else
@@ -1490,17 +1490,17 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard*)pasteboard
 // ----------------------------------------------------------------------------
 {
-	SPSourceListItem* firstItem = (SPSourceListItem*) [items objectAtIndex:0];
+	SPSourceListItem* firstItem = (SPSourceListItem*) items[0];
 	if (![firstItem isCollectionItem])
 		return NO;
 	
 	draggedItems = items;
-    [pasteboard declareTypes:[NSArray arrayWithObjects:SPSourceListCollectionItemPBoardType, NSStringPboardType, nil] owner:self];
+    [pasteboard declareTypes:@[SPSourceListCollectionItemPBoardType, NSStringPboardType] owner:self];
 	//[pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:items] forType:SPSourceListCollectionItemPBoardType];
     [pasteboard setData:[NSData data] forType:SPSourceListCollectionItemPBoardType];
 	
-	if ([items count] == 1)
-		[pasteboard setString:[[items objectAtIndex:0] path] forType:NSStringPboardType];
+	if (items.count == 1)
+		[pasteboard setString:[items[0] path] forType:NSStringPboardType];
 	
     return YES;
 }
@@ -1512,17 +1512,17 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	SPSourceListItem* proposedItem = item;
 
-	NSString* type = [[info draggingPasteboard] availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, nil]];
+	NSString* type = [info.draggingPasteboard availableTypeFromArray:@[NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType]];
 	if (type == nil)
 		return NSDragOperationNone;
 	
 	if (proposedItem == nil)
 		return NSDragOperationNone;
 	
-	if ([info draggingSource] == outlineView)
+	if (info.draggingSource == outlineView)
 	{
 		// Items from the list can not be dropped on items in the list
-		if ([type isEqualToString:SPSourceListCollectionItemPBoardType] && [proposedItem isHeader] && proposedItem == collectionsContainerItem && [[draggedItems objectAtIndex:0] isCollectionItem])
+		if ([type isEqualToString:SPSourceListCollectionItemPBoardType] && [proposedItem isHeader] && proposedItem == collectionsContainerItem && [draggedItems[0] isCollectionItem])
 		{
 			return NSDragOperationGeneric;
 		}
@@ -1538,10 +1538,10 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		else if (([type isEqualToString:NSFilenamesPboardType] || [type isEqualToString:SPSourceListCollectionItemPBoardType]) && [proposedItem isHeader] && proposedItem == collectionsContainerItem)
 		{
 			// If there are files in the list of paths, we can't accept the drop
-			NSPasteboard *pasteBoard = [info draggingPasteboard];
+			NSPasteboard *pasteBoard = info.draggingPasteboard;
 			NSArray *files = [pasteBoard propertyListForType:NSFilenamesPboardType];
 			BOOL isFolder = NO;
-			[[NSFileManager defaultManager] fileExistsAtPath:[files objectAtIndex:0] isDirectory:&isFolder];
+			[[NSFileManager defaultManager] fileExistsAtPath:files[0] isDirectory:&isFolder];
 			
 			return isFolder ? NSDragOperationGeneric : NSDragOperationNone;
 		}
@@ -1555,8 +1555,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 // ----------------------------------------------------------------------------
 {
-	NSPasteboard* pasteboard = [info draggingPasteboard];
-	NSArray* supportedTypes = [NSArray arrayWithObjects:SPSourceListCollectionItemPBoardType, NSFilenamesPboardType, SPBrowserItemPBoardType, nil];
+	NSPasteboard* pasteboard = info.draggingPasteboard;
+	NSArray* supportedTypes = @[SPSourceListCollectionItemPBoardType, NSFilenamesPboardType, SPBrowserItemPBoardType];
 	NSString* bestType = [pasteboard availableTypeFromArray:supportedTypes];
 	SPSourceListItem* targetItem = item;
 	long targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : index;
@@ -1573,7 +1573,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		// Add the dragged items at the desired index
 		for (SPSourceListItem* draggedItem in draggedItems)
 		{
-			if (targetIndex >= [targetContainer count])
+			if (targetIndex >= targetContainer.count)
 				[targetContainer addObject:draggedItem];
 			else
 				[targetContainer insertObject:draggedItem atIndex:targetIndex];
@@ -1657,7 +1657,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	while (serviceBeingResolved != nil)
 		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
 	
-	[service setDelegate:(id<NSNetServiceDelegate>)self];
+	service.delegate = (id<NSNetServiceDelegate>)self;
 	[service resolveWithTimeout:10.0f];
 	serviceBeingResolved = service;
 }	
@@ -1680,7 +1680,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			[itemsToRemove addObject:sharedCollectionItem];
 	}
 
-	SPSourceListItem* itemToRemove = [itemsToRemove objectAtIndex:0]; 
+	SPSourceListItem* itemToRemove = itemsToRemove[0]; 
 	
 	if ([service isEqualTo:currentSharedCollectionService] && [collectionsContainerItem hasChildren])
 	{
@@ -1701,7 +1701,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	{
 		// If something else is selected, preserve the selection
 		SPSourceListItem* selectedItem = nil;
-		NSInteger selectedRow = [sourceListView selectedRow];
+		NSInteger selectedRow = sourceListView.selectedRow;
 		if (selectedRow != -1)
 			selectedItem = [sourceListView itemAtRow:selectedRow];
 		
@@ -1739,7 +1739,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	
 	// Preserve the current selection
 	SPSourceListItem* selectedItem = nil;
-	NSInteger selectedRow = [sourceListView selectedRow];
+	NSInteger selectedRow = sourceListView.selectedRow;
 	if (selectedRow != -1)
 		selectedItem = [sourceListView itemAtRow:selectedRow];
 	
@@ -1747,14 +1747,14 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
 	for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
 	{
-		if ([[[sharedCollectionItem service] hostName] isEqualToString:[service hostName]])
+		if ([[sharedCollectionItem service].hostName isEqualToString:service.hostName])
 		{
 			serviceBeingResolved = nil;
 			return;
 		}
 	}
 	
-	long sharedServiceCount = sharedCollectionItems != nil ? [sharedCollectionItems count] : 0;
+	long sharedServiceCount = sharedCollectionItems != nil ? sharedCollectionItems.count : 0;
 	[self addSharedCollectionItemForService:service atIndex:sharedServiceCount];
 	
 	[sourceListView reloadData];
@@ -1818,7 +1818,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 // ----------------------------------------------------------------------------
 {
 	isActive = NO;
-	[self setDoubleAction:@selector(doubleClick:)];
+	self.doubleAction = @selector(doubleClick:);
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(itemDidCollapse:)
@@ -1832,7 +1832,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	[super reloadData];
 		
-	SPSourceListDataSource* source = (SPSourceListDataSource*)[self dataSource];
+	SPSourceListDataSource* source = (SPSourceListDataSource*)self.dataSource;
 	int rootItemCount = [source outlineView:self numberOfChildrenOfItem:nil];
 	for (int i = 0; i < rootItemCount; i++)
 	{
@@ -1848,9 +1848,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 {
 	[super selectRowIndexes:indexes byExtendingSelection:extend];
 
-	if ([indexes count] == 1)
+	if (indexes.count == 1)
 	{
-		SPSourceListItem* selectedItem = [self itemAtRow:[indexes firstIndex]];
+		SPSourceListItem* selectedItem = [self itemAtRow:indexes.firstIndex];
 		[self activateSourceListItem:selectedItem];
 	}
 }
@@ -1863,7 +1863,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	if (selectedItem == nil || [selectedItem isHeader])
 		return;
 	
-	SPSourceListDataSource* dataSource = (SPSourceListDataSource*)[self dataSource];
+	SPSourceListDataSource* dataSource = (SPSourceListDataSource*)self.dataSource;
 	SPBrowserDataSource* browserDataSource = [dataSource browserDataSource];
 	SPPlaylist* currentPlaylist = [browserDataSource playlist];
 	
@@ -1911,7 +1911,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			if (service != nil)
 			{
 				[dataSource setCurrentSharedCollectionService:service];
-				[browserDataSource setSharedCollectionRootPath:[selectedItem path] withServiceName:[service name]];
+				[browserDataSource setSharedCollectionRootPath:[selectedItem path] withServiceName:service.name];
 			}
 		}
 		break;
@@ -1940,7 +1940,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (void) windowDidChangeKeyNotification:(NSNotification*)notification
 // ----------------------------------------------------------------------------
 {
-	if ([[notification name] isEqualToString:NSWindowDidBecomeKeyNotification])
+	if ([notification.name isEqualToString:NSWindowDidBecomeKeyNotification])
 		isActive = YES;
 	else
 		isActive = NO;
@@ -1951,12 +1951,12 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (void) keyDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSString* characters = [event charactersIgnoringModifiers];
+	NSString* characters = event.charactersIgnoringModifiers;
 	unichar character = [characters characterAtIndex:0];
 	
 	if (character == 63272 || character == 127)
 	{
-		[(SPSourceListDataSource*)[self dataSource] removeSelectedSourceListItem:self];
+		[(SPSourceListDataSource*)self.dataSource removeSelectedSourceListItem:self];
 		return;
 	}
 	
@@ -1992,7 +1992,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 - (NSMenu*) menuForEvent:(NSEvent *)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint position = [self convertPoint:[event locationInWindow] fromView:nil];
+	NSPoint position = [self convertPoint:event.locationInWindow fromView:nil];
 	NSInteger row = [self rowAtPoint:position];
 	[self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 

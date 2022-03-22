@@ -16,14 +16,14 @@
 	predicateEditorVisible = NO;
 	
 	// Make the text field in the predicate editor a little wider
-	NSArray* templates = [predicateEditor rowTemplates];
-	NSPredicateEditorRowTemplate* rowTemplate = [templates objectAtIndex:1];
-	NSArray* views = [rowTemplate templateViews];
-	templateTextField = [views objectAtIndex:2];
-	NSRect frame = [templateTextField frame];
+	NSArray* templates = predicateEditor.rowTemplates;
+	NSPredicateEditorRowTemplate* rowTemplate = templates[1];
+	NSArray* views = rowTemplate.templateViews;
+	templateTextField = views[2];
+	NSRect frame = templateTextField.frame;
 	frame.size.width = 200.0f;
-	[templateTextField setFrame:frame];
-	[templateTextField setTag:6581];
+	templateTextField.frame = frame;
+	templateTextField.tag = 6581;
 	[templateTextField setContinuous:YES];
 	[predicateEditor setContinuous:YES];
 	
@@ -38,8 +38,8 @@
 - (void) setPredicate:(NSPredicate*)predicate
 // ----------------------------------------------------------------------------
 {
-	[predicateEditor setObjectValue:predicate];
-	if ([predicateEditor numberOfRows] == 0)
+	predicateEditor.objectValue = predicate;
+	if (predicateEditor.numberOfRows == 0)
 		[predicateEditor addRow:self];
 }
 
@@ -51,7 +51,7 @@
 	if (predicateEditorVisible)
 		return;
 	
-	float height = [predicateEditor numberOfRows] * [predicateEditor rowHeight];
+	float height = predicateEditor.numberOfRows * predicateEditor.rowHeight;
 	[window addTopSubView:predicateEditor withHeight:height];
 	
 	predicateEditorVisible = YES;
@@ -65,7 +65,7 @@
 	if (!predicateEditorVisible)
 		return;
 	
-	SPPlayerWindow* window = (SPPlayerWindow*) [predicateEditor window];
+	SPPlayerWindow* window = (SPPlayerWindow*) predicateEditor.window;
 	[window removeTopSubView];
 	[predicateEditor removeFromSuperview];
 	
@@ -77,7 +77,7 @@
 - (IBAction) predicateEditorChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSPredicate* predicate = [predicateEditor objectValue];
+	NSPredicate* predicate = predicateEditor.objectValue;
 	if (predicate != nil)
 	{
 		//NSLog(@"predicate: %@\n", predicate);
@@ -96,7 +96,7 @@
 - (void) predicateChangedNotification:(NSNotification*)notification
 // ----------------------------------------------------------------------------
 {
-	if ([[notification object] tag] == 6581)
+	if ([notification.object tag] == 6581)
 		[self predicateEditorChanged:predicateEditor];
 }
 
@@ -113,8 +113,8 @@
 	if (!predicateEditorVisible)
 		return;
 
-	SPPlayerWindow* window = (SPPlayerWindow*) [predicateEditor window];
-	float height = [predicateEditor numberOfRows] * [predicateEditor rowHeight];
+	SPPlayerWindow* window = (SPPlayerWindow*) predicateEditor.window;
+	float height = predicateEditor.numberOfRows * predicateEditor.rowHeight;
 	[window addTopSubView:predicateEditor withHeight:height];
 }
 

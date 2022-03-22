@@ -14,7 +14,7 @@
 	
 	NSMutableArray* valueArray = [NSMutableArray arrayWithCapacity:steps];
 	for (int i = 0; i < steps; i++)
-		[valueArray addObject:[NSNumber numberWithInteger:values[i]]];
+		[valueArray addObject:@(values[i])];
 	
 	[super setStepValues:valueArray];
 	[super setFormatString:"%d"];

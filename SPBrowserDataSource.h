@@ -109,9 +109,9 @@ enum BrowserMode
 - (void) awakeFromNib;
 - (void) updateCurrentSong:(NSInteger)seconds;
 
-- (NSMutableArray*) rootItems;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *rootItems;
 
-- (SPPlaylist*) playlist;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPPlaylist *playlist;
 - (void) switchToPlaylist:(SPPlaylist*)thePlaylist;
 - (void) switchToSharedPlaylist:(SPPlaylist*)thePlaylist withService:(NSNetService*)service isSmartPlaylist:(BOOL)smartPlaylist;
 
@@ -121,9 +121,8 @@ enum BrowserMode
 - (void) switchToSharedCollectionURL:(NSString*)urlString withServiceName:(NSString*)serviceName;
 - (void) setSharedCollectionRootPath:(NSString*)urlString withServiceName:(NSString*)serviceName;
 
-- (NSString*) rootPath;
-- (void) setRootPath:(NSString*)path;
-- (NSString*) currentPath;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *rootPath;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *currentPath;
 - (void) switchToPath:(NSString*)path;
 - (void) browseToPath:(NSString*)path;
 - (void) browseToFile:(NSString*)path andSetAsCurrentItem:(BOOL)setAsCurrentItem;
@@ -136,11 +135,11 @@ enum BrowserMode
 
 - (void) findExpandedItems:(NSMutableArray*)expandedItems inItems:(NSMutableArray*)items;
 - (void) saveBrowserState;
-- (BOOL) restoreBrowserState;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL restoreBrowserState;
 
 - (void) setInProgress:(BOOL)active;
 - (void) setCurrentItem:(SPBrowserItem*)item;
-- (BOOL) playSelectedItem;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL playSelectedItem;
 
 - (void) stopSearchAndClearSearchString;
 - (void) searchInPlaylist:(NSString*)searchString;
@@ -148,15 +147,14 @@ enum BrowserMode
 
 - (void) setPlaybackModeControlImages;
 
-- (NSArray*) draggedItems;
-- (NSSearchField*) toolbarSearchField;
-- (BOOL) isSmartPlaylist;
-- (BOOL) isSpotlightResult;
-- (BOOL) isSharedCollection;
-- (BOOL) isSharedPlaylist;
-- (BOOL) isSharedSmartPlaylist;
-- (BrowserMode) browserMode;
-- (void) setBrowserMode:(BrowserMode)mode;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *draggedItems;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *toolbarSearchField;
+@property (NS_NONATOMIC_IOSONLY, getter=isSmartPlaylist, readonly) BOOL smartPlaylist;
+@property (NS_NONATOMIC_IOSONLY, getter=isSpotlightResult, readonly) BOOL spotlightResult;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedCollection, readonly) BOOL sharedCollection;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedPlaylist, readonly) BOOL sharedPlaylist;
+@property (NS_NONATOMIC_IOSONLY, getter=isSharedSmartPlaylist, readonly) BOOL sharedSmartPlaylist;
+@property (NS_NONATOMIC_IOSONLY) BrowserMode browserMode;
 
 - (IBAction) clickNavigateControl:(id)sender;
 - (IBAction) clickPathControl:(id)sender;

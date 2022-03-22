@@ -7,7 +7,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -45,7 +45,7 @@
 - (void)drawContent:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 
 	NSColor* upperColor = [NSColor colorWithCalibratedRed:0.478f green:0.564f blue:0.655f alpha:1.0f];
 	NSColor* lowerColor = [NSColor colorWithCalibratedRed:0.353f green:0.482f blue:0.557f alpha:1.0f];

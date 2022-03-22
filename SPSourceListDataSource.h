@@ -62,16 +62,15 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (SPSourceListItem*) findItemWithPath:(NSString*)path;
 - (SPSourceListItem*) findItemWithPath:(NSString*)path inParentItem:(SPSourceListItem*)parentItem;
 
-- (SPBrowserDataSource*) browserDataSource;
-- (SPSourceListView*) sourceListView;
-- (NSArray*) draggedItems;
-- (NSWindow*) syncProgressDialog;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPBrowserDataSource *browserDataSource;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPSourceListView *sourceListView;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *draggedItems;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSWindow *syncProgressDialog;
 
-- (SPSourceListItem*) currentCollection;
-- (void) setCurrentCollection:(SPSourceListItem*)collectionItem;
+@property (NS_NONATOMIC_IOSONLY, strong) SPSourceListItem *currentCollection;
 
-- (SPSourceListItem*) collectionsContainerItem;
-- (SPSourceListItem*) playlistsContainerItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPSourceListItem *collectionsContainerItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPSourceListItem *playlistsContainerItem;
 
 - (void) sortPlaylists;
 - (void) recacheSmartPlaylists;
@@ -125,6 +124,6 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (void) reloadData;
 - (void) activateSourceListItem:(SPSourceListItem*)selectedItem;
 - (void) itemDidCollapse:(NSNotification*)notification;
-- (BOOL) isActive;
+@property (NS_NONATOMIC_IOSONLY, getter=isActive, readonly) BOOL active;
 
 @end

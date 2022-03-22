@@ -15,13 +15,13 @@ class SidTuneWrapper;
 + (SongLengthDatabase*) sharedInstance;
 + (void) setSharedInstance:(SongLengthDatabase*)database;
 
-- (id) initWithRootPath:(NSString*)rootPath;
-- (id) initWithRootUrlString:(NSString*)urlString;
+- (instancetype) initWithRootPath:(NSString*)rootPath NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithRootUrlString:(NSString*)urlString NS_DESIGNATED_INITIALIZER;
 
 - (int) getSongLengthByPath:(NSString*)path andSubtune:(int)subtune;
 - (int) getSongLengthFromBuffer:(void*)buffer withBufferLength:(int)length andSubtune:(int)subtune;
 - (int) getSongLengthFromSidTune:(SidTuneWrapper*)sidtune andSubtune:(int)subtune;
 
-- (NSString*) databasePath;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *databasePath;
 
 @end

@@ -20,7 +20,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -65,7 +65,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 		
 	// Get directories in root
 	NSArray* rootItems = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:root error:NULL];
-	NSMutableDictionary* folderItemCounts = [NSMutableDictionary dictionaryWithCapacity:[rootItems count]];
+	NSMutableDictionary* folderItemCounts = [NSMutableDictionary dictionaryWithCapacity:rootItems.count];
 	
 	int totalFiles = 0;
 	
@@ -85,7 +85,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 		if (folder)
 		{
 			NSArray* folderItems = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
-			[folderItemCounts setObject:[NSNumber numberWithInt:(int)[folderItems count]] forKey:path];
+			folderItemCounts[path] = @((int)folderItems.count);
 		}
 		else
 			totalFiles++;
@@ -93,19 +93,19 @@ static SPCollectionUtilities* sharedInstance = nil;
 	
 	//NSLog(@"folderItemCounts: %@\n", folderItemCounts);
 	
-	NSArray* folders = [folderItemCounts allKeys];
+	NSArray* folders = folderItemCounts.allKeys;
 	int totalSubFolders = 0;
 	for (NSString* folder in folders)
 	{	
-		totalSubFolders += [[folderItemCounts objectForKey:folder] integerValue];
+		totalSubFolders += [folderItemCounts[folder] integerValue];
 	}
 
 	if (totalSubFolders == 0 && totalFiles != 0)
 	{
 		int randomFileIndex = random() % totalFiles;
 		//NSLog(@"total sub folders: %d, totalFiles: %d, random: %d\n", totalSubFolders, totalFiles, randomFileIndex);
-		NSString* randomFile = [rootItems objectAtIndex:randomFileIndex];
-		if ([[randomFile pathExtension] caseInsensitiveCompare:@"sid"] == NSOrderedSame)
+		NSString* randomFile = rootItems[randomFileIndex];
+		if ([randomFile.pathExtension caseInsensitiveCompare:@"sid"] == NSOrderedSame)
 			return [root stringByAppendingPathComponent:randomFile];
 	}
 	
@@ -122,7 +122,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 	{
 		int oldSubFolderIndex = subFolderIndex;
 		
-		NSInteger itemCount = [[folderItemCounts objectForKey:folder] integerValue];
+		NSInteger itemCount = [folderItemCounts[folder] integerValue];
 		folderToPick = folder;
 		
 		subFolderIndex += itemCount;
@@ -137,7 +137,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 	//NSLog(@"pick: %@, subfolder %d\n", folderToPick, subFolderIndex);
 
 	NSArray* subFolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:folderToPick error:NULL];
-	NSString* subFolder = [subFolders objectAtIndex:subFolderIndex];
+	NSString* subFolder = subFolders[subFolderIndex];
 	NSString* path = [folderToPick stringByAppendingPathComponent:subFolder];
 	
 	BOOL folder = NO;
@@ -148,7 +148,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 	}
 	else
 	{
-		if (exists && ([[path pathExtension] caseInsensitiveCompare:@"sid"] == NSOrderedSame) )
+		if (exists && ([path.pathExtension caseInsensitiveCompare:@"sid"] == NSOrderedSame) )
 			return path;
 		else
 			return [self pathOfRandomCollectionItemInPath:nil];
@@ -172,7 +172,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 			{
 				NSRange versionRange = NSMakeRange(range.location + range.length + 1, 4);
 				NSString* versionString = [string substringWithRange:versionRange];
-				float version = [versionString floatValue];
+				float version = versionString.floatValue;
 				if (version == floorf(version) && version > 6.0f)
 					return [NSString stringWithFormat:@"HVSC #%d", (int) version];
 				else
@@ -181,7 +181,7 @@ static SPCollectionUtilities* sharedInstance = nil;
 		}
 	}
 
-	return [path lastPathComponent];
+	return path.lastPathComponent;
 }
 
 
@@ -251,7 +251,7 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
 	if (ryncMirrorListData == nil)
 		return;
 		
-	[ryncMirrorListData setLength:0];
+	ryncMirrorListData.length = 0;
 }
 
 
@@ -294,7 +294,7 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
 
 	for (NSString* rsyncMirror in rsyncMirrors)
 	{
-		if ([rsyncMirror length] == 0 || [rsyncMirror characterAtIndex:0] == '#')
+		if (rsyncMirror.length == 0 || [rsyncMirror characterAtIndex:0] == '#')
 			continue;
 
 		[rsyncMirrorList addObject:rsyncMirror];
@@ -319,18 +319,18 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
 + (NSString*) commonRootPathOfFilename:(NSString*)filename andFilename:(NSString*)otherFilename
 // ----------------------------------------------------------------------------
 {
-    NSArray* filenameArray = [filename pathComponents];
-	NSArray* otherArray = [[otherFilename stringByStandardizingPath] pathComponents];
+    NSArray* filenameArray = filename.pathComponents;
+	NSArray* otherArray = otherFilename.stringByStandardizingPath.pathComponents;
 
     int minLength = (int) MIN([filenameArray count], [otherArray count]);
 
     NSMutableArray* resultArray = [NSMutableArray arrayWithCapacity:minLength];
 
     for (int i = 0; i < minLength; i++)
-        if ([[filenameArray objectAtIndex:i] caseInsensitiveCompare:[otherArray objectAtIndex:i]] == NSOrderedSame)
-            [resultArray addObject:[filenameArray objectAtIndex:i]];
+        if ([filenameArray[i] caseInsensitiveCompare:otherArray[i]] == NSOrderedSame)
+            [resultArray addObject:filenameArray[i]];
         
-    if ([resultArray count] == 0)
+    if (resultArray.count == 0)
         return nil;
 
     return [NSString pathWithComponents:resultArray];
@@ -358,10 +358,10 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
     if (commonRoot == nil)
         return otherFilename;
     
-    NSString* uniquePart = [[self stringByStandardizingPath] stringByRemovingPrefix:commonRoot];
-    NSString* otherUniquePart = [[otherFilename stringByStandardizingPath] stringByRemovingPrefix:commonRoot];
+    NSString* uniquePart = [self.stringByStandardizingPath stringByRemovingPrefix:commonRoot];
+    NSString* otherUniquePart = [otherFilename.stringByStandardizingPath stringByRemovingPrefix:commonRoot];
 
-    int numberOfStepsUp = (int)[[uniquePart pathComponents] count];
+    int numberOfStepsUp = (int)uniquePart.pathComponents.count;
     if (![self hasSuffix:@"/"])
         numberOfStepsUp--; // Assume we're not a directory unless we end in /. May result in incorrect paths, but we can't do much about it.
 
@@ -371,7 +371,7 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
         [stepsUpString appendString:@"/"];
     }
 
-    return [[stepsUpString stringByAppendingString:otherUniquePart] stringByStandardizingPath];
+    return [stepsUpString stringByAppendingString:otherUniquePart].stringByStandardizingPath;
 }
 
 @end

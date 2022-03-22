@@ -540,26 +540,26 @@
         <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="333" y="173" width="978" height="708"/>
+            <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="940" height="450"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="978" height="708"/>
+                <rect key="frame" x="0.0" y="0.0" width="1269" height="633"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView identifier="Main Window SplitView" focusRingType="none" fixedFrame="YES" autosaveName="SidplaySplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="505">
-                        <rect key="frame" x="0.0" y="0.0" width="978" height="708"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1269" height="633"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" id="454">
-                                <rect key="frame" x="0.0" y="0.0" width="209" height="708"/>
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="633"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="aaw-WU-sqO" customClass="SPGradientBox">
-                                        <rect key="frame" x="0.0" y="0.0" width="209" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="28"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" id="R2g-ZB-2C5">
-                                            <rect key="frame" x="0.0" y="0.0" width="209" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="500" height="28"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button hidden="YES" toolTip="Add Smart Playlist" focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1060">
@@ -601,20 +601,20 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </box>
                                     <scrollView focusRingType="none" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="470">
-                                        <rect key="frame" x="0.0" y="29" width="209" height="679"/>
+                                        <rect key="frame" x="0.0" y="29" width="500" height="604"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="uZp-yr-OUR">
-                                            <rect key="frame" x="0.0" y="0.0" width="209" height="679"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" indentationPerLevel="14" outlineTableColumn="475" id="473" customClass="SPSourceListView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="209" height="679"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="177" minWidth="16" maxWidth="1000" id="475">
+                                                        <tableColumn width="468" minWidth="16" maxWidth="1000" id="475">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -651,18 +651,18 @@
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" id="504">
-                                <rect key="frame" x="210" y="0.0" width="768" height="708"/>
+                                <rect key="frame" x="501" y="0.0" width="768" height="633"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="456">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="680"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Lau-qN-6GF">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="680"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="SidPlayBrowser" rowHeight="15" headerView="460" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="461" id="459" customClass="SPBrowserView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="832" height="657"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="832" height="582"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -787,7 +787,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="458">
-                                            <rect key="frame" x="0.0" y="664" width="768" height="16"/>
+                                            <rect key="frame" x="0.0" y="589" width="768" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="457">
@@ -800,7 +800,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="519" customClass="SPGradientBox">
-                                        <rect key="frame" x="0.0" y="680" width="768" height="28"/>
+                                        <rect key="frame" x="0.0" y="605" width="768" height="28"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <view key="contentView" id="aub-r1-khs">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="28"/>
@@ -868,7 +868,7 @@
                     </splitView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="4160A338-4B68-4901-85A1-A6940E89E30B" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="427">
+            <toolbar key="toolbar" implicitIdentifier="4160A338-4B68-4901-85A1-A6940E89E30B" centeredItem="697" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="427">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="430"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="432"/>
@@ -906,7 +906,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Enable fast forwarding of playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="668">
-                                        <rect key="frame" x="89" y="9" width="29" height="21"/>
+                                        <rect key="frame" x="89" y="10" width="29" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="hud_warp" imagePosition="overlaps" alignment="center" continuous="YES" id="669">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -928,7 +928,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Stop playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="666">
-                                        <rect key="frame" x="12" y="9" width="29" height="21"/>
+                                        <rect key="frame" x="12" y="10" width="29" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="hud_stop" imagePosition="only" alignment="center" id="671">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -956,7 +956,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="721">
-                                        <rect key="frame" x="125" y="12" width="8" height="13"/>
+                                        <rect key="frame" x="131" y="12" width="8" height="13"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="tempo_right" id="722"/>
                                     </imageView>
@@ -966,7 +966,7 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="tempo_left" id="1166"/>
                                     </imageView>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="691">
-                                        <rect key="frame" x="32" y="8" width="92" height="20"/>
+                                        <rect key="frame" x="32" y="9" width="92" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="692"/>
                                         <connections>
@@ -979,10 +979,8 @@
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </box>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="569A0D8D-FE75-4387-8036-176B1FE1416B" label="Volume" paletteLabel="Volume" tag="-1" id="697">
+                    <toolbarItem implicitItemIdentifier="569A0D8D-FE75-4387-8036-176B1FE1416B" label="Volume" paletteLabel="Volume" tag="-1" sizingBehavior="auto" id="697">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="116" height="39"/>
-                        <size key="maxSize" width="156" height="39"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="698">
                             <rect key="frame" x="0.0" y="14" width="156" height="39"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -991,19 +989,19 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="699">
-                                        <rect key="frame" x="119" y="11" width="19" height="13"/>
+                                        <rect key="frame" x="113" y="13" width="19" height="13"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="volume_right" id="706"/>
                                     </imageView>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1167">
-                                        <rect key="frame" x="10" y="11" width="14" height="12"/>
+                                        <rect key="frame" x="28" y="13" width="14" height="12"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="volume_left" id="1168"/>
                                     </imageView>
                                     <slider toolTip="Change playback volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="702">
-                                        <rect key="frame" x="36" y="11" width="80" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="703"/>
+                                        <rect key="frame" x="43" y="9" width="70" height="20"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="below" sliderType="linear" id="703"/>
                                         <connections>
                                             <action selector="moveVolumeSlider:" target="371" id="709"/>
                                         </connections>
@@ -1031,12 +1029,12 @@
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
+                    <toolbarItem reference="434"/>
                     <toolbarItem reference="665"/>
-                    <toolbarItem reference="697"/>
                     <toolbarItem reference="433"/>
                     <toolbarItem reference="748"/>
-                    <toolbarItem reference="433"/>
-                    <toolbarItem reference="688"/>
+                    <toolbarItem reference="697"/>
+                    <toolbarItem reference="432"/>
                     <toolbarItem reference="525"/>
                 </defaultToolbarItems>
                 <connections>
@@ -1073,7 +1071,7 @@
                 <outlet property="visualizerMenu" destination="1927" id="1930"/>
                 <outlet property="volumeSlider" destination="702" id="766"/>
             </connections>
-            <point key="canvasLocation" x="241" y="189"/>
+            <point key="canvasLocation" x="386.5" y="151.5"/>
         </window>
         <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SIDPLAY Mini Player" animationBehavior="default" id="1888" customClass="SPMiniPlayerWindow">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" texturedBackground="YES"/>
@@ -1294,7 +1292,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="F3B-Cn-Urn">
                             <rect key="frame" x="1" y="1" width="347" height="154"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesRuler="YES" spellingCorrection="YES" id="861">
                                     <rect key="frame" x="0.0" y="-14" width="347" height="154"/>
@@ -2254,7 +2252,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="LwW-yl-dEH">
                             <rect key="frame" x="1" y="1" width="479" height="163"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1473">
                                     <rect key="frame" x="0.0" y="-14" width="479" height="163"/>
@@ -2771,7 +2769,7 @@ http://lame.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="6rL-AI-JWl">
                             <rect key="frame" x="1" y="1" width="471" height="137"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1686">
                                     <rect key="frame" x="0.0" y="-14" width="471" height="137"/>
@@ -3008,7 +3006,7 @@ http://psid64.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="Zw1-pO-vgT">
                             <rect key="frame" x="1" y="1" width="500" height="137"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1818">
                                     <rect key="frame" x="0.0" y="-14" width="500" height="137"/>
@@ -3524,7 +3522,7 @@ Gw
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="2bm-2Y-l0Y">
                             <rect key="frame" x="1" y="1" width="565" height="289"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" autosaveName="RemixTableView" headerView="2255" id="2254">
                                     <rect key="frame" x="0.0" y="0.0" width="565" height="266"/>

@@ -15,7 +15,7 @@
     horizontalMasterScrollView = scrollview;
 
     // get the content view of the
-    NSClipView* masterContentView = [horizontalMasterScrollView contentView];
+    NSClipView* masterContentView = horizontalMasterScrollView.contentView;
 	
     // Make sure the watched view is sending bounds changed notifications (which is probably does anyway, but calling this again won't hurt).
     [masterContentView setPostsBoundsChangedNotifications:YES];
@@ -39,7 +39,7 @@
     verticalMasterScrollView = scrollview;
 	
     // get the content view of the
-    NSClipView* masterContentView = [verticalMasterScrollView contentView];
+    NSClipView* masterContentView = verticalMasterScrollView.contentView;
 	
     // Make sure the watched view is sending bounds changed notifications (which is probably does anyway, but calling this again won't hurt).
     [masterContentView setPostsBoundsChangedNotifications:YES];
@@ -70,13 +70,13 @@
 	*/
 	
     // get the changed content view from the notification
-    NSView* changedContentView = [notification object];
+    NSView* changedContentView = notification.object;
 	
     // get the origin of the NSClipView of the scroll view that we're watching
-    NSPoint changedBoundsOrigin = [changedContentView bounds].origin;
+    NSPoint changedBoundsOrigin = changedContentView.bounds.origin;
 	
     // get our current origin
-    NSPoint curOffset = [[self contentView] bounds].origin;
+    NSPoint curOffset = self.contentView.bounds.origin;
     NSPoint newOffset = curOffset;
 	
 	newOffset.x = changedBoundsOrigin.x;
@@ -85,10 +85,10 @@
     if (!NSEqualPoints(curOffset, changedBoundsOrigin))
     {
 		// note that a scroll view watching this one will get notified here
-		[[self contentView] scrollToPoint:newOffset];
+		[self.contentView scrollToPoint:newOffset];
 		
 		// we have to tell the NSScrollView to update its scrollers
-		[self reflectScrolledClipView:[self contentView]];
+		[self reflectScrolledClipView:self.contentView];
     }
 }
 
@@ -98,13 +98,13 @@
 // ----------------------------------------------------------------------------
 {
     // get the changed content view from the notification
-    NSView* changedContentView = [notification object];
+    NSView* changedContentView = notification.object;
 	
     // get the origin of the NSClipView of the scroll view that we're watching
-    NSPoint changedBoundsOrigin = [changedContentView bounds].origin;
+    NSPoint changedBoundsOrigin = changedContentView.bounds.origin;
 	
     // get our current origin
-    NSPoint curOffset = [[self contentView] bounds].origin;
+    NSPoint curOffset = self.contentView.bounds.origin;
     NSPoint newOffset = curOffset;
 	
 	newOffset.y = changedBoundsOrigin.y;
@@ -113,10 +113,10 @@
     if (!NSEqualPoints(curOffset, changedBoundsOrigin))
     {
 		// note that a scroll view watching this one will get notified here
-		[[self contentView] scrollToPoint:newOffset];
+		[self.contentView scrollToPoint:newOffset];
 		
 		// we have to tell the NSScrollView to update its scrollers
-		[self reflectScrolledClipView:[self contentView]];
+		[self reflectScrolledClipView:self.contentView];
     }
 }
 
@@ -127,7 +127,7 @@
 {
     if (horizontalMasterScrollView != nil)
 	{
-		NSView* masterContentView = [horizontalMasterScrollView contentView];
+		NSView* masterContentView = horizontalMasterScrollView.contentView;
 		
 		// remove any existing notification registration
 		[[NSNotificationCenter defaultCenter] removeObserver:self
@@ -145,7 +145,7 @@
 {
     if (verticalMasterScrollView != nil)
 	{
-		NSView* masterContentView = [verticalMasterScrollView contentView];
+		NSView* masterContentView = verticalMasterScrollView.contentView;
 		
 		// remove any existing notification registration
 		[[NSNotificationCenter defaultCenter] removeObserver:self

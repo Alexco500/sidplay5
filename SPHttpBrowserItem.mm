@@ -13,7 +13,7 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem
+- (instancetype) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem
 // ----------------------------------------------------------------------------
 {
     if (self = [super init]) 
@@ -29,13 +29,13 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 		
 		if (folder)
 		{
-			title = [path lastPathComponent];
+			title = path.lastPathComponent;
             isValid = YES;
 		}
 		else
 		{
             // Intermediate title
-            title = [[path lastPathComponent] stringByDeletingPathExtension];
+            title = path.lastPathComponent.stringByDeletingPathExtension;
 			author = @"<LOADING...>";
 			releaseInfo = @"<LOADING...>";
             isValid = NO;
@@ -60,9 +60,9 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 // ----------------------------------------------------------------------------
 {
 	if (connection == indexDownloadConnection)
-		[indexData setLength:0];
+		indexData.length = 0;
 	else
-		[downloadData setLength:0];
+		downloadData.length = 0;
 }
 
 
@@ -99,8 +99,8 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 	}
 	else
 	{
-		char* dataBuffer = (char*) [downloadData bytes];
-		long length = [downloadData length];
+		char* dataBuffer = (char*) downloadData.bytes;
+		long length = downloadData.length;
 		
 		if ((dataBuffer[0] != 'P' && dataBuffer[0] != 'R') ||
 			dataBuffer[1] != 'S' ||
@@ -208,7 +208,7 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 {
     for (NSString* indexItem in indexItems)
     {
-        if ([indexItem length] == 0)
+        if (indexItem.length == 0)
             continue;
             
         BOOL isFolder = [indexItem hasSuffix:@"/"];

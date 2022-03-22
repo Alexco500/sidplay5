@@ -8,7 +8,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithFrame:(NSRect)frame
+- (instancetype) initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -66,7 +66,7 @@
 - (void)drawContent:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	NSBezierPath* path = [NSBezierPath bezierPath];
 	
 	const float rowHeight = 22.0f;
@@ -144,14 +144,14 @@
 		int knobPositionCount[SID_VOICE_COUNT] = { 0, 0, 0 };
 		BOOL drawKnobs = YES;
 		
-		NSRect visibleRect = [[self enclosingScrollView] documentVisibleRect];
+		NSRect visibleRect = self.enclosingScrollView.documentVisibleRect;
 		
 		for (int i = 0; i < SID_VOICE_COUNT; i++)
 		{
 			if (![[SPAnalyzerWindowController sharedInstance] voiceEnabled:i])
 				continue;
 			
-			[voiceParamKnobImage[i] setFlipped:[self isFlipped]];
+			[voiceParamKnobImage[i] setFlipped:self.flipped];
 
 			adsrStream[i] = [[SPAnalyzerWindowController sharedInstance] adsrStream:i];
 			

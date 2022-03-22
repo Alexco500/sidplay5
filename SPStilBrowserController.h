@@ -32,7 +32,7 @@
 - (void) displayEntryForRelativePath:(NSString*)relativePath;
 - (void) displaySharedCollectionMessage;
 
-- (NSSearchField*) searchField;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *searchField;
 
 - (void) searchForEntryThread:(id)object;
 - (void) updateSearchResult:(id)object;

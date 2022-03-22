@@ -14,7 +14,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithName:(NSAttributedString*)theName forPath:(NSString*)thePath withIcon:(NSImage*)theIcon
+- (instancetype) initWithName:(NSAttributedString*)theName forPath:(NSString*)thePath withIcon:(NSImage*)theIcon
 // ----------------------------------------------------------------------------
 {
     if (self = [super init]) 
@@ -35,7 +35,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithCoder:(NSCoder*)coder
+- (instancetype) initWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
 	if (self = [super init])
@@ -105,10 +105,10 @@ static NSImage* sSmartPlaylistIcon = nil;
 // ----------------------------------------------------------------------------
 {
 	NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
-	NSDictionary* headerAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:11.0f], NSFontAttributeName, 
-																			paragraphStyle, NSParagraphStyleAttributeName, nil];
+	NSDictionary* headerAttrs = @{NSFontAttributeName: [NSFont systemFontOfSize:11.0f], 
+																			NSParagraphStyleAttributeName: paragraphStyle};
 	name = [[NSAttributedString alloc] initWithString:nameString attributes:headerAttrs];
 }
 
@@ -280,8 +280,8 @@ static NSImage* sSmartPlaylistIcon = nil;
 	if (children == nil)
 		return nil;
 	
-	if (index < [children count])
-		return [children objectAtIndex:index];
+	if (index < children.count)
+		return children[index];
 	else
 		return nil;
 }
@@ -294,7 +294,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 	if (children == nil)
 		return NO;
 
-	return ([children count] > 0);
+	return (children.count > 0);
 }
 
 
@@ -385,11 +385,11 @@ static NSImage* sSmartPlaylistIcon = nil;
 // ----------------------------------------------------------------------------
 {
 	if (connection == playlistIndexDownloadConnection)
-		[playlistIndexDownloadData setLength:0];
+		playlistIndexDownloadData.length = 0;
 	else if (connection == playlistDownloadConnection)
-		[playlistDownloadData setLength:0];
+		playlistDownloadData.length = 0;
 	else if (connection == updateRevisionConnection)
-		[updateRevisionData setLength:0];
+		updateRevisionData.length = 0;
 }
 
 
@@ -418,16 +418,16 @@ static NSImage* sSmartPlaylistIcon = nil;
 		for (NSString* playlistIndexItem in playlistIndexItems)
 		{
 			NSArray* playlistIndexItemComponents = [playlistIndexItem componentsSeparatedByString:@":"];
-			if ([playlistIndexItemComponents count] == 3)
+			if (playlistIndexItemComponents.count == 3)
 			{
-				NSString* playlistIndexSpecifier = [playlistIndexItemComponents objectAtIndex:0];
-				NSInteger playlistIndex = [playlistIndexSpecifier integerValue];
+				NSString* playlistIndexSpecifier = playlistIndexItemComponents[0];
+				NSInteger playlistIndex = playlistIndexSpecifier.integerValue;
 				
-				NSString* playlistTypeSpecifier = [playlistIndexItemComponents objectAtIndex:1];
-				if ([playlistTypeSpecifier length] == 1)
+				NSString* playlistTypeSpecifier = playlistIndexItemComponents[1];
+				if (playlistTypeSpecifier.length == 1)
 				{
 					BOOL isSmartPlaylist = [playlistTypeSpecifier isEqualToString:@"S"];
-					NSString* playlistName = [playlistIndexItemComponents objectAtIndex:2];
+					NSString* playlistName = playlistIndexItemComponents[2];
 
 					NSString* urlString = path;
 					NSString* playlistURLString = [urlString stringByAppendingFormat:@"_PLAYLISTS/%ld", (long)playlistIndex];
@@ -452,7 +452,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 		if (type == SOURCELIST_SHAREDSMARTPLAYLIST)
 		{
 			playlist = [SPSimplePlaylist playlistFromSharedSmartPlaylistData:playlistDownloadData];
-			[playlist setName:[name string]];
+			[playlist setName:name.string];
 		}
 		else
 			playlist = [SPSimplePlaylist playlistFromData:playlistDownloadData];
@@ -463,7 +463,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 	else if (connection == updateRevisionConnection)
 	{
 		NSString* updateRevisionDataString = [[NSString alloc] initWithData:updateRevisionData encoding:NSUTF8StringEncoding];
-		NSInteger remoteUpdateRevision = [updateRevisionDataString integerValue];
+		NSInteger remoteUpdateRevision = updateRevisionDataString.integerValue;
 		//NSLog(@"update revision of %@: %d\n", [name string], remoteUpdateRevision);
 		
 		if (currentRemoveUpdateRevision == -1)
@@ -496,7 +496,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 - (NSComparisonResult) compare:(SPSourceListItem *)otherItem;
 // ----------------------------------------------------------------------------
 {
-	return [[name string] localizedCaseInsensitiveCompare:[[otherItem name] string]];
+	return [name.string localizedCaseInsensitiveCompare:[otherItem name].string];
 }
 
 

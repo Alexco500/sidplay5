@@ -10,22 +10,20 @@
 	NSString* path;
 }
 
-- (id) initWithCoder:(NSCoder*)coder;
+- (instancetype) initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
 - (void) encodeWithCoder:(NSCoder*)coder;
 
-- (NSInteger) count;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger count;
 - (SPPlaylistItem*) itemAtIndex:(NSInteger)index;
-- (NSMutableArray*) items;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *items;
 
-- (NSString*) name;
-- (void) setName:(NSString*)nameString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *name;
 
-- (NSString*) identifier;
-- (void) setIdentifier:(NSString*)idString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *identifier;
 
-- (NSString*) path;
-- (NSData*) dataRepresentation;
-- (BOOL) saveToFile;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *path;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData *dataRepresentation;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL saveToFile;
 - (BOOL) saveToM3U:(NSString*)filename withRelativePaths:(BOOL)exportRelativePaths andPathPrefix:(NSString*)pathPrefix;
 
 @end

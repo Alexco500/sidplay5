@@ -22,7 +22,7 @@ static SPStilBrowserController* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	if (self = [super initWithWindowNibName:@"StilBrowser"])
@@ -48,17 +48,17 @@ static SPStilBrowserController* sharedInstance = nil;
 - (void) windowDidLoad
 // ----------------------------------------------------------------------------
 {
-	[textView setTextColor:[NSColor blackColor]];
-	[textView setString:@" "];
-	[[self window] setAlphaValue:0.0f];
-	[[self window] orderOut:self];
+	textView.textColor = [NSColor blackColor];
+	textView.string = @" ";
+	self.window.alphaValue = 0.0f;
+	[self.window orderOut:self];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(windowWillClose:)
 												 name:NSWindowWillCloseNotification
-											   object:[self window]];
+											   object:self.window];
     
-    [databasePathTextField setStringValue:@""];
+    databasePathTextField.stringValue = @"";
 }
 
 
@@ -66,7 +66,7 @@ static SPStilBrowserController* sharedInstance = nil;
 - (void)windowWillClose:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	[[ownerWindow stilBrowserMenuItem] setTitle:@"Show STIL Browser"];
+	[ownerWindow stilBrowserMenuItem].title = @"Show STIL Browser";
 }	
 
 
@@ -75,35 +75,35 @@ static SPStilBrowserController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
 	NSArray* animations = nil;
-	NSWindow* window = [self window];
+	NSWindow* window = self.window;
 
-	if ([window isVisible])
+	if (window.visible)
 	{
 		[sender setTitle:@"Show STIL Browser"];
-		[window setAlphaValue:1.0f];
-		NSDictionary* windowFadeOut = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey,
-																			NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey, nil];
-		animations = [NSArray arrayWithObjects:windowFadeOut, nil];	
+		window.alphaValue = 1.0f;
+		NSDictionary* windowFadeOut = @{NSViewAnimationTargetKey: window,
+																			NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
+		animations = @[windowFadeOut];	
 	}	
 	else
 	{
 		[sender setTitle:@"Hide STIL Browser"];
-		[window setAlphaValue:0.0f];
+		window.alphaValue = 0.0f;
 		[window orderFront:self];
-		NSDictionary* windowFadeIn = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey,
-																			NSViewAnimationFadeInEffect, NSViewAnimationEffectKey, nil];
-		animations = [NSArray arrayWithObjects:windowFadeIn, nil];
+		NSDictionary* windowFadeIn = @{NSViewAnimationTargetKey: window,
+																			NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
+		animations = @[windowFadeIn];
         
-        [databasePathTextField setStringValue:stilDatabasePath];
+        databasePathTextField.stringValue = stilDatabasePath;
 	}
 	
     animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
-    [animation setAnimationBlockingMode:NSAnimationNonblocking];
+    animation.animationBlockingMode = NSAnimationNonblocking;
 	
-	BOOL isShiftPressed = [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask ? YES : NO;
+	BOOL isShiftPressed = NSApp.currentEvent.modifierFlags & NSShiftKeyMask ? YES : NO;
 
-    [animation setDuration:isShiftPressed ? 3.0 : 0.2];
-	[animation setDelegate:self];
+    animation.duration = isShiftPressed ? 3.0 : 0.2;
+	animation.delegate = self;
     [animation startAnimation];
 }
 
@@ -113,7 +113,7 @@ static SPStilBrowserController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
 	ownerWindow = window;
-	[[self window] orderOut:self];
+	[self.window orderOut:self];
 }
 
 
@@ -127,10 +127,10 @@ static SPStilBrowserController* sharedInstance = nil;
 		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
 	}
 
-	[textView setString:@" "];
+	textView.string = @" ";
 	stilDataBaseValid = NO;
 	indexingInProgress = YES;
-	[databasePathTextField setStringValue:@"No STIL database available"];
+	databasePathTextField.stringValue = @"No STIL database available";
 	
 	// Index the STIL database file if it exists in this collection
 	stilDatabasePath = [rootPath stringByAppendingPathComponent:@"/DOCUMENTS/STIL.txt"];
@@ -148,9 +148,9 @@ static SPStilBrowserController* sharedInstance = nil;
 {
 	NSNumber* result = (NSNumber*) object;
 
-	if ([result boolValue])
+	if (result.boolValue)
 	{
-		[databasePathTextField setStringValue:stilDatabasePath];
+		databasePathTextField.stringValue = stilDatabasePath;
 		stilDataBaseValid = YES;
 	}
 	else
@@ -169,7 +169,7 @@ static SPStilBrowserController* sharedInstance = nil;
 	FILE* fp = fopen([path cStringUsingEncoding:NSASCIIStringEncoding], "r");
 	if (fp == NULL)
 	{
-		[self performSelectorOnMainThread:@selector(indexingFinished:) withObject:[NSNumber numberWithBool:NO] waitUntilDone:NO];
+		[self performSelectorOnMainThread:@selector(indexingFinished:) withObject:@NO waitUntilDone:NO];
 		return;
 	}
 		
@@ -190,7 +190,7 @@ static SPStilBrowserController* sharedInstance = nil;
 		if (lineBuffer[0] == '/')
 		{
 			if (currentFile != nil && currentEntry != nil)
-				[indexedStilDatabase setObject:currentEntry forKey:currentFile];
+				indexedStilDatabase[currentFile] = currentEntry;
 
 			long length = strlen(lineBuffer);
 			if (lineBuffer[length - 1] == '\n')
@@ -212,7 +212,7 @@ static SPStilBrowserController* sharedInstance = nil;
 	//NSDate* end = [NSDate date];
 	//NSLog(@"Indexing STIL database %@ took %f seconds\n", path, [end timeIntervalSinceDate:start]);
 
-	[self performSelectorOnMainThread:@selector(indexingFinished:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(indexingFinished:) withObject:@YES waitUntilDone:NO];
 }
 
 
@@ -235,30 +235,30 @@ static SPStilBrowserController* sharedInstance = nil;
 	
 	if (relativePath == nil)
 	{
-		[textView setString:@" "];
+		textView.string = @" ";
 		return;
 	}
 	
 	currentPath = relativePath;
 	NSString* result = nil;
-	NSString* entry = [indexedStilDatabase objectForKey:relativePath];
+	NSString* entry = indexedStilDatabase[relativePath];
 	if (entry != nil)
 		result = [NSString stringWithFormat:@"STIL information for %@:\n\n%@", relativePath, entry];
 	else
 		result = [NSString stringWithFormat:@"No STIL information for %@", relativePath];
 		
-	NSDictionary* defaultAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Monaco" size:9.0f], NSFontAttributeName, nil];
+	NSDictionary* defaultAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:9.0f]};
 
 	NSMutableAttributedString* attributedResult = [[NSMutableAttributedString alloc] initWithString:result attributes:defaultAttributes];
 
 	NSRange keyRange = [result rangeOfString:relativePath];
-	NSDictionary* linkAttributes = [NSDictionary dictionaryWithObjectsAndKeys:relativePath, NSLinkAttributeName,
-																			  [NSColor blueColor], NSForegroundColorAttributeName,
-																			  [NSNumber numberWithBool:YES], NSUnderlineStyleAttributeName, nil];
+	NSDictionary* linkAttributes = @{NSLinkAttributeName: relativePath,
+																			  NSForegroundColorAttributeName: [NSColor blueColor],
+																			  NSUnderlineStyleAttributeName: @YES};
 	[attributedResult addAttributes:linkAttributes range:keyRange];
 
-	NSString* lowerCaseResult = [result lowercaseString];
-	NSRange currentRange = NSMakeRange(0, [lowerCaseResult length]);
+	NSString* lowerCaseResult = result.lowercaseString;
+	NSRange currentRange = NSMakeRange(0, lowerCaseResult.length);
 	NSRange itemRange = NSMakeRange(0, 0);
 
 	while (itemRange.location != NSNotFound)
@@ -268,28 +268,28 @@ static SPStilBrowserController* sharedInstance = nil;
 		{
 			itemRange.location++;
 			currentRange.location = itemRange.location;
-			currentRange.length = [lowerCaseResult length] - currentRange.location;
+			currentRange.length = lowerCaseResult.length - currentRange.location;
 		
 			NSRange endRange = [lowerCaseResult rangeOfString:@".sid" options:NSLiteralSearch range:currentRange];
 			if (endRange.location != NSNotFound)
 			{
 				itemRange.length = endRange.location + 4 - itemRange.location;
 				NSString* foundFile = [result substringWithRange:itemRange];
-				NSDictionary* linkAttributes = [NSDictionary dictionaryWithObjectsAndKeys:foundFile, NSLinkAttributeName,
-																						  [NSColor blueColor], NSForegroundColorAttributeName,
-																						  [NSNumber numberWithBool:YES], NSUnderlineStyleAttributeName, nil];
+				NSDictionary* linkAttributes = @{NSLinkAttributeName: foundFile,
+																						  NSForegroundColorAttributeName: [NSColor blueColor],
+																						  NSUnderlineStyleAttributeName: @YES};
 
 				[attributedResult addAttributes:linkAttributes range:itemRange];
 				
 				currentRange.location = itemRange.location + itemRange.length;
-				currentRange.length = [lowerCaseResult length] - currentRange.location;
+				currentRange.length = lowerCaseResult.length - currentRange.location;
 			}
 			else
 				itemRange.location = NSNotFound;
 		}
 	}
 		
-	[[textView textStorage] setAttributedString:attributedResult];	
+	[textView.textStorage setAttributedString:attributedResult];	
 }
 
 
@@ -297,9 +297,9 @@ static SPStilBrowserController* sharedInstance = nil;
 - (void) displaySharedCollectionMessage
 // ----------------------------------------------------------------------------
 {
-	NSDictionary* defaultAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Monaco" size:9.0f], NSFontAttributeName, nil];
+	NSDictionary* defaultAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:9.0f]};
 	NSMutableAttributedString* attributedMessageString = [[NSMutableAttributedString alloc] initWithString:@"No STIL information for shared collection files" attributes:defaultAttributes];
-	[[textView textStorage] setAttributedString:attributedMessageString];	
+	[textView.textStorage setAttributedString:attributedMessageString];	
 }
 
 
@@ -330,15 +330,15 @@ static SPStilBrowserController* sharedInstance = nil;
 		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
 	}
 	
-	NSString* searchString = [[sender stringValue] lowercaseString];
+	NSString* searchString = [sender stringValue].lowercaseString;
 
-	if ([searchString length] < 3)
+	if (searchString.length < 3)
 	{
 		[self displayEntryForRelativePath:currentPath];
 		return;
 	}
 	
-	[textView setString:@""];
+	textView.string = @"";
 	cancelSearch = NO;
 	searchInProgress = YES;
 	[NSThread detachNewThreadSelector:@selector(searchForEntryThread:) toTarget:self withObject:searchString];
@@ -350,8 +350,8 @@ static SPStilBrowserController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
 	NSString* searchString = object;
-	NSDictionary* defaultAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Monaco" size:9.0f], NSFontAttributeName, nil];
-	NSArray* keys = [indexedStilDatabase allKeys];
+	NSDictionary* defaultAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:9.0f]};
+	NSArray* keys = indexedStilDatabase.allKeys;
 
 	for (NSString* key in keys)
 	{
@@ -361,15 +361,15 @@ static SPStilBrowserController* sharedInstance = nil;
 		BOOL match = NO;
 		NSString* result = nil;
 		
-		if ([[key lowercaseString] rangeOfString:searchString].location != NSNotFound)
+		if ([key.lowercaseString rangeOfString:searchString].location != NSNotFound)
 		{
-			result = [NSString stringWithFormat:@"STIL information for %@:\n\n%@\n", key, [indexedStilDatabase objectForKey:key]];
+			result = [NSString stringWithFormat:@"STIL information for %@:\n\n%@\n", key, indexedStilDatabase[key]];
 			match = YES;
 		}
 		else
 		{
-			NSString* entry = [indexedStilDatabase objectForKey:key];
-			if (entry != nil && [[entry lowercaseString] rangeOfString:searchString].location != NSNotFound)
+			NSString* entry = indexedStilDatabase[key];
+			if (entry != nil && [entry.lowercaseString rangeOfString:searchString].location != NSNotFound)
 			{
 				result = [NSString stringWithFormat:@"STIL information for %@:\n\n%@\n", key, entry];
 				match = YES;
@@ -381,16 +381,16 @@ static SPStilBrowserController* sharedInstance = nil;
 			NSMutableAttributedString* attributedResult = [[NSMutableAttributedString alloc] initWithString:result attributes:defaultAttributes];
 		
 			NSRange keyRange = [result rangeOfString:key];
-			NSDictionary* linkAttributes = [NSDictionary dictionaryWithObjectsAndKeys:key, NSLinkAttributeName,
-																					  [NSColor blueColor], NSForegroundColorAttributeName,
-																					  [NSNumber numberWithBool:YES], NSUnderlineStyleAttributeName, nil];
+			NSDictionary* linkAttributes = @{NSLinkAttributeName: key,
+																					  NSForegroundColorAttributeName: [NSColor blueColor],
+																					  NSUnderlineStyleAttributeName: @YES};
 			[attributedResult addAttributes:linkAttributes range:keyRange];
 
-			NSString* lowerCaseResult = [result lowercaseString];
-			NSRange currentRange = NSMakeRange(0, [lowerCaseResult length]);
+			NSString* lowerCaseResult = result.lowercaseString;
+			NSRange currentRange = NSMakeRange(0, lowerCaseResult.length);
 			NSRange itemRange = NSMakeRange(0, 0);
 			NSColor* foundStringBackgroundColor = [NSColor colorWithCalibratedWhite:0.8f alpha:1.0f];
-			NSDictionary* foundStringAttributes = [NSDictionary dictionaryWithObjectsAndKeys:foundStringBackgroundColor, NSBackgroundColorAttributeName, nil];
+			NSDictionary* foundStringAttributes = @{NSBackgroundColorAttributeName: foundStringBackgroundColor};
 
 			while (itemRange.location != NSNotFound)
 			{
@@ -400,11 +400,11 @@ static SPStilBrowserController* sharedInstance = nil;
 					[attributedResult addAttributes:foundStringAttributes range:itemRange];
 					
 					currentRange.location = itemRange.location + itemRange.length;
-					currentRange.length = [lowerCaseResult length] - currentRange.location;
+					currentRange.length = lowerCaseResult.length - currentRange.location;
 				}
 			}
 
-			currentRange = NSMakeRange(0, [lowerCaseResult length]);
+			currentRange = NSMakeRange(0, lowerCaseResult.length);
 			itemRange = NSMakeRange(0, 0);
 			while (itemRange.location != NSNotFound)
 			{
@@ -413,21 +413,21 @@ static SPStilBrowserController* sharedInstance = nil;
 				{
 					itemRange.location++;
 					currentRange.location = itemRange.location;
-					currentRange.length = [lowerCaseResult length] - currentRange.location;
+					currentRange.length = lowerCaseResult.length - currentRange.location;
 
 					NSRange endRange = [lowerCaseResult rangeOfString:@".sid" options:NSLiteralSearch range:currentRange];
 					if (endRange.location != NSNotFound)
 					{
 						itemRange.length = endRange.location + 4 - itemRange.location;
 						NSString* foundFile = [result substringWithRange:itemRange];
-						NSDictionary* linkAttributes = [NSDictionary dictionaryWithObjectsAndKeys:foundFile, NSLinkAttributeName,
-																								  [NSColor blueColor], NSForegroundColorAttributeName,
-																								  [NSNumber numberWithBool:YES], NSUnderlineStyleAttributeName, nil];
+						NSDictionary* linkAttributes = @{NSLinkAttributeName: foundFile,
+																								  NSForegroundColorAttributeName: [NSColor blueColor],
+																								  NSUnderlineStyleAttributeName: @YES};
 
 						[attributedResult addAttributes:linkAttributes range:itemRange];
 						
 						currentRange.location = itemRange.location + itemRange.length;
-						currentRange.length = [lowerCaseResult length] - currentRange.location;
+						currentRange.length = lowerCaseResult.length - currentRange.location;
 					}
 					else
 						itemRange.location = NSNotFound;
@@ -454,7 +454,7 @@ static SPStilBrowserController* sharedInstance = nil;
 {
 	NSAttributedString* result = (NSAttributedString*) object;
 	
-	[[textView textStorage] appendAttributedString:result];
+	[textView.textStorage appendAttributedString:result];
 }
 
 
@@ -474,10 +474,10 @@ static SPStilBrowserController* sharedInstance = nil;
 - (void) animationDidEnd:(NSAnimation *)theAnimation
 // ----------------------------------------------------------------------------
 {
-	NSArray* animations = [(NSViewAnimation*)theAnimation viewAnimations];
-	NSDictionary* windowFade = [animations objectAtIndex:0];
-	if ([windowFade objectForKey:NSViewAnimationEffectKey] == NSViewAnimationFadeOutEffect)
-		[[self window] orderOut:self];
+	NSArray* animations = ((NSViewAnimation*)theAnimation).viewAnimations;
+	NSDictionary* windowFade = animations[0];
+	if (windowFade[NSViewAnimationEffectKey] == NSViewAnimationFadeOutEffect)
+		[self.window orderOut:self];
 }
 
 
@@ -541,18 +541,18 @@ static SPStilBrowserController* sharedInstance = nil;
 - (void) mouseMoved:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 
-    NSView* contentView = [[self enclosingScrollView] contentView];
+    NSView* contentView = self.enclosingScrollView.contentView;
     NSPoint mouseLocInContentView = [contentView convertPoint:mousePositionInView fromView:self];
 
 	long charIndex;
 
-    if ([contentView mouse:mouseLocInContentView inRect:[contentView bounds]])
+    if ([contentView mouse:mouseLocInContentView inRect:contentView.bounds])
     {
-        long glyphIndex = [[self layoutManager] glyphIndexForPoint:mousePositionInView inTextContainer:[self textContainer]];
-        charIndex = [[self layoutManager] characterIndexForGlyphAtIndex:glyphIndex];
+        long glyphIndex = [self.layoutManager glyphIndexForPoint:mousePositionInView inTextContainer:self.textContainer];
+        charIndex = [self.layoutManager characterIndexForGlyphAtIndex:glyphIndex];
     }
     else
         charIndex = -1;
@@ -560,9 +560,9 @@ static SPStilBrowserController* sharedInstance = nil;
     if (charIndex != -1)
     {
         //	They're pointing at some text; get its attributes and show them.
-        NSDictionary* attributes = [[self textStorage] attributesAtIndex:charIndex  effectiveRange:NULL];
+        NSDictionary* attributes = [self.textStorage attributesAtIndex:charIndex  effectiveRange:NULL];
 
-		NSObject* link = [attributes objectForKey:NSLinkAttributeName];
+		NSObject* link = attributes[NSLinkAttributeName];
 
 		if (link != nil)
 		{

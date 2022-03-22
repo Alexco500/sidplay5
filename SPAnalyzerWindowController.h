@@ -149,31 +149,30 @@ enum SPAnalyzerTimeUnit
 - (void) analyzeComplete:(id)inObject;
 - (void) analyzeProgressNotification:(id)progress;
 
-- (NSUInteger) totalCaptureTime;
-- (double) cycleToPixelRatio;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger totalCaptureTime;
+@property (NS_NONATOMIC_IOSONLY, readonly) double cycleToPixelRatio;
 
-- (NSInteger) cursorPosition;
-- (void) setCursorPosition:(NSInteger)inCursorPosition;
+@property (NS_NONATOMIC_IOSONLY) NSInteger cursorPosition;
 - (void) setCursorPosition:(NSInteger)inCursorPosition andUpdateScrollViews:(BOOL)scrollToCursor;
 
 - (BOOL) voiceEnabled:(int)inVoice;
 
-- (BOOL) analyzeResultAvailable;
-- (SidFrequencyStream*) frequencyStream:(int)inVoice;
-- (SidPulseWidthStream*) pulseWidthStream:(int)inVoice;
-- (SidGateStream*) gateStream:(int)inVoice;
-- (SidWaveformStream*) waveformStream:(int)inVoice;
-- (SidAdsrStream*) adsrStream:(int)inVoice;
-- (SidFilterSettingsStream*) filterSettingsStream;
-- (SidFilterResonanceStream*) filterResonanceStream;
-- (SidFilterCutoffStream*) filterCutoffStream;
-- (SidVolumeStream*) volumeStream;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL analyzeResultAvailable;
+- (SidFrequencyStream*) frequencyStream:(int)inVoice NS_RETURNS_INNER_POINTER;
+- (SidPulseWidthStream*) pulseWidthStream:(int)inVoice NS_RETURNS_INNER_POINTER;
+- (SidGateStream*) gateStream:(int)inVoice NS_RETURNS_INNER_POINTER;
+- (SidWaveformStream*) waveformStream:(int)inVoice NS_RETURNS_INNER_POINTER;
+- (SidAdsrStream*) adsrStream:(int)inVoice NS_RETURNS_INNER_POINTER;
+@property (NS_NONATOMIC_IOSONLY, readonly) SidFilterSettingsStream *filterSettingsStream;
+@property (NS_NONATOMIC_IOSONLY, readonly) SidFilterResonanceStream *filterResonanceStream;
+@property (NS_NONATOMIC_IOSONLY, readonly) SidFilterCutoffStream *filterCutoffStream;
+@property (NS_NONATOMIC_IOSONLY, readonly) SidVolumeStream *volumeStream;
 
-- (short*) renderBufferSamples;
-- (int) renderBufferSampleCount;
+@property (NS_NONATOMIC_IOSONLY, readonly) short *renderBufferSamples;
+@property (NS_NONATOMIC_IOSONLY, readonly) int renderBufferSampleCount;
 
-- (NSUInteger) effectiveSampleRate;
-- (double) effectiveCpuClockRate;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger effectiveSampleRate;
+@property (NS_NONATOMIC_IOSONLY, readonly) double effectiveCpuClockRate;
 
 
 @end

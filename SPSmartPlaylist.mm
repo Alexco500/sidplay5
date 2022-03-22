@@ -10,7 +10,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -20,7 +20,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 		cachedItems = [NSMutableArray arrayWithCapacity:100];
 		isCachingItems = NO;
 		smartPlaylistQuery = [[NSMetadataQuery alloc] init];
-		[smartPlaylistQuery setDelegate:self];
+		smartPlaylistQuery.delegate = self;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(spotlightResultNotification:) name:nil object:smartPlaylistQuery];
 	}
 	return self;
@@ -28,14 +28,14 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithCoder:(NSCoder*)coder
+- (instancetype) initWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
 	if (self = [self init])
 	{
 		if (self = [super initWithCoder:coder])
 		{
-			if ([coder allowsKeyedCoding])
+			if (coder.allowsKeyedCoding)
 				[self setPredicate:[coder decodeObjectForKey:@"SPKeyPredicate"]];
 			else
 				[self setPredicate:[coder decodeObject]];
@@ -52,7 +52,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 // ----------------------------------------------------------------------------
 {
 	[super encodeWithCoder:coder];
-    if ([coder allowsKeyedCoding])
+    if (coder.allowsKeyedCoding)
         [coder encodeObject:predicate forKey:@"SPKeyPredicate"];
 	else
 		[coder encodeObject:predicate];
@@ -90,7 +90,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 	if (cachedItems == nil)
 		return 0;
 	else
-		return [cachedItems count];
+		return cachedItems.count;
 }
 
 
@@ -101,7 +101,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 	if (cachedItems == nil)
 		return nil;
 	else
-		return [cachedItems objectAtIndex:index];
+		return cachedItems[index];
 }
 
 
@@ -112,32 +112,32 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 	NSPredicate* newPredicate = nil;
 	if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]])
 	{
-		NSArray* subPredicates = [(NSCompoundPredicate*)originalPredicate subpredicates];
-		NSMutableArray* newSubPredicates = [NSMutableArray arrayWithCapacity:[subPredicates count]];
+		NSArray* subPredicates = ((NSCompoundPredicate*)originalPredicate).subpredicates;
+		NSMutableArray* newSubPredicates = [NSMutableArray arrayWithCapacity:subPredicates.count];
 		for (NSPredicate* subPredicate in subPredicates)
 		{
 			if ([subPredicate isKindOfClass:[NSComparisonPredicate class]])
 			{
 				NSComparisonPredicate* comparisonPredicate = (NSComparisonPredicate*) subPredicate;
-				NSExpression* expression = [comparisonPredicate rightExpression];
-				if ([expression expressionType] == NSConstantValueExpressionType)
+				NSExpression* expression = comparisonPredicate.rightExpression;
+				if (expression.expressionType == NSConstantValueExpressionType)
 				{
-					NSString* searchString = [expression constantValue];
-					NSPredicateOperatorType operatorType = [comparisonPredicate predicateOperatorType];
+					NSString* searchString = expression.constantValue;
+					NSPredicateOperatorType operatorType = comparisonPredicate.predicateOperatorType;
 					if (operatorType == NSContainsPredicateOperatorType)
 					{
-						if ([searchString length] < 2)
+						if (searchString.length < 2)
 							return nil;
 							
 						searchString = [NSString stringWithFormat:@"*%@*", searchString];
 						operatorType = NSLikePredicateOperatorType;
 					}
 					NSExpression* newExpression = [NSExpression expressionForConstantValue:searchString];
-					NSPredicate* newSubPredicate = [NSComparisonPredicate predicateWithLeftExpression:[comparisonPredicate leftExpression] 
+					NSPredicate* newSubPredicate = [NSComparisonPredicate predicateWithLeftExpression:comparisonPredicate.leftExpression 
 																				      rightExpression:newExpression
-																			                 modifier:[comparisonPredicate comparisonPredicateModifier]
+																			                 modifier:comparisonPredicate.comparisonPredicateModifier
 																							     type:operatorType
-																							  options:[comparisonPredicate options]];
+																							  options:comparisonPredicate.options];
 					[newSubPredicates addObject:newSubPredicate];
 				}
 			}
@@ -148,7 +148,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 			}
 		}
 
-		NSCompoundPredicateType type = [(NSCompoundPredicate*)originalPredicate compoundPredicateType];
+		NSCompoundPredicateType type = ((NSCompoundPredicate*)originalPredicate).compoundPredicateType;
 		newPredicate = [[NSCompoundPredicate alloc] initWithType:type subpredicates:newSubPredicates];
 	}
 	else
@@ -178,12 +178,12 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 		
 	//NSLog(@"new predicate: %@\n", newPredicate);
 
-	NSString* predicateString = [NSString stringWithFormat:@"(%@) && (kMDItemContentType == 'org.sidmusic.sidtune')", [newPredicate predicateFormat]];
+	NSString* predicateString = [NSString stringWithFormat:@"(%@) && (kMDItemContentType == 'org.sidmusic.sidtune')", newPredicate.predicateFormat];
 	//predicateString = [predicateString stringByReplacingOccurrencesOfString:@"CONTAINS" withString:@"LIKE"];
 	//NSLog(@"final predicate: %@\n", predicateString);
 	NSPredicate* extendedPredicate = [NSPredicate predicateWithFormat:predicateString];
-    [smartPlaylistQuery setPredicate:extendedPredicate];           
-	[smartPlaylistQuery setSearchScopes:[NSArray arrayWithObject:rootPath]];
+    smartPlaylistQuery.predicate = extendedPredicate;           
+	smartPlaylistQuery.searchScopes = @[rootPath];
     [smartPlaylistQuery startQuery];
 	
 	isCachingItems = YES;
@@ -194,19 +194,19 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 - (void) spotlightResultNotification:(NSNotification *)notification
 // ----------------------------------------------------------------------------
 {
-    if ([[notification name] isEqualToString:NSMetadataQueryDidStartGatheringNotification])
+    if ([notification.name isEqualToString:NSMetadataQueryDidStartGatheringNotification])
 	{
 
     }
-	else if ([[notification name] isEqualToString:NSMetadataQueryDidFinishGatheringNotification])
+	else if ([notification.name isEqualToString:NSMetadataQueryDidFinishGatheringNotification])
 	{
 		[NSThread detachNewThreadSelector:@selector(spotlightResultConsumerThread:) toTarget:self withObject:nil];
     }
-	else if ([[notification name] isEqualToString:NSMetadataQueryGatheringProgressNotification])
+	else if ([notification.name isEqualToString:NSMetadataQueryGatheringProgressNotification])
 	{
 
     }
-	else if ([[notification name] isEqualToString:NSMetadataQueryDidUpdateNotification])
+	else if ([notification.name isEqualToString:NSMetadataQueryDidUpdateNotification])
 	{
 		[NSThread detachNewThreadSelector:@selector(spotlightResultConsumerThread:) toTarget:self withObject:nil];
     }
@@ -222,7 +222,7 @@ NSString* SPSmartPlaylistChangedNotification = @"SPSmartPlaylistChangedNotificat
 	
 	[cachedItems removeAllObjects];
 	[smartPlaylistQuery stopQuery];
-	int resultCount = (int)[smartPlaylistQuery resultCount];
+	int resultCount = (int)smartPlaylistQuery.resultCount;
 	for (NSInteger i = 0; i < resultCount; i++)
 	{
 		if (abortCaching)

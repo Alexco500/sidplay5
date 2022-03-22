@@ -13,7 +13,7 @@ static const float desiredContainerWidth = 415.0f;
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -56,7 +56,7 @@ static const float desiredContainerWidth = 415.0f;
 - (void) updateAnimatedViews
 // ----------------------------------------------------------------------------
 {
-	if ([self isHidden] || ![[self window] isVisible] || ![[NSApplication sharedApplication] isActive])
+	if (self.hidden || !self.window.visible || ![NSApplication sharedApplication].active)
 		return;
 		
 	AudioDriver* audioDriver = (AudioDriver*) [ownerWindow audioDriver];
@@ -166,7 +166,7 @@ static const float desiredContainerWidth = 415.0f;
 	float footerHeight = 18.0f;
 	float totalHeight = 0.0f;
 
-	float containerWidth = attachedToMainWindow ? [self frame].size.width : desiredContainerWidth;
+	float containerWidth = attachedToMainWindow ? self.frame.size.width : desiredContainerWidth;
 
 	// Add up heights of all views currently in container, to get the desired height
 	for (int i = 0; i < MAX_CONTAINER_INDEX; i++)
@@ -181,29 +181,29 @@ static const float desiredContainerWidth = 415.0f;
 		if (animate)
 			infoViewTargetFrames[i] = frame;
 		else
-			[infoView setFrame:frame];
+			infoView.frame = frame;
 		
 		totalHeight += viewHeight;
 	}
 
-	NSRect containerFrame = [self frame];
+	NSRect containerFrame = self.frame;
 	containerFrame.origin.y = 0.0f;
-	containerFrame.size.height = attachedToMainWindow ? [[self enclosingScrollView] frame].size.height : totalHeight;
+	containerFrame.size.height = attachedToMainWindow ? self.enclosingScrollView.frame.size.height : totalHeight;
 	containerFrame.size.width = containerWidth;
 	if (animate)
 		containerTargetFrame = containerFrame;
 	else
-		[self setFrame:containerFrame];
+		self.frame = containerFrame;
 
 	[self setNeedsDisplay:YES];
 
-	NSWindow* window = [self window];
+	NSWindow* window = self.window;
 	NSRect desiredWindowFrame;
 	
 	if (!attachedToMainWindow)
 	{
 		float idealWindowHeight = totalHeight + footerHeight;
-		NSRect currentWindowFrame = [window frame];
+		NSRect currentWindowFrame = window.frame;
 		NSRect windowContentFrame = [window contentRectForFrameRect:currentWindowFrame];
 		windowContentFrame.size.height = idealWindowHeight;
 
@@ -213,8 +213,8 @@ static const float desiredContainerWidth = 415.0f;
 		unrestrictedWindowFrame = desiredWindowFrame;
 
 		NSScreen* screen = [NSScreen mainScreen];
-		NSRect screenFrame = [screen frame];
-		NSRect screenVisibleFrame = [screen visibleFrame];
+		NSRect screenFrame = screen.frame;
+		NSRect screenVisibleFrame = screen.visibleFrame;
 		
 		//NSLog(@"screen: %@, visible: %@\n", NSStringFromRect(screenFrame), NSStringFromRect(screenVisibleFrame));
 		
@@ -247,15 +247,15 @@ static const float desiredContainerWidth = 415.0f;
 	if (attachedToMainWindow)
 		return;
 
-	NSSize maxSize = [window maxSize];
+	NSSize maxSize = window.maxSize;
 	maxSize.width = maxWidth;
 	maxSize.height = maxHeight;
 
 	NSSize minSize = maxSize;
 	minSize.height = 128.0f;
 	
-	[window setMaxSize:maxSize];
-	[window setMinSize:minSize];
+	window.maxSize = maxSize;
+	window.minSize = minSize;
 	
 	//NSLog(@"maxWidth/minWidth: %f, maxHeight: %f, minHeight: %f\n", maxSize.width, maxSize.height, minSize.height);
 }
@@ -287,7 +287,7 @@ static const float desiredContainerWidth = 415.0f;
 - (void) startResizeAnimation
 // ----------------------------------------------------------------------------
 {
-	[[self enclosingScrollView] setHasVerticalScroller:NO];
+	[self.enclosingScrollView setHasVerticalScroller:NO];
 	
 	NSMutableArray* animations = [NSMutableArray arrayWithCapacity:MAX_CONTAINER_INDEX + 1];
 	for (int i = 0; i < MAX_CONTAINER_INDEX; i++)
@@ -296,31 +296,31 @@ static const float desiredContainerWidth = 415.0f;
 		if (infoView == nil)
 			continue;
 		
-		NSDictionary* viewResize = [NSDictionary dictionaryWithObjectsAndKeys:infoView, NSViewAnimationTargetKey, 
-																			  [NSValue valueWithRect:infoViewTargetFrames[i]], NSViewAnimationEndFrameKey, nil];
+		NSDictionary* viewResize = @{NSViewAnimationTargetKey: infoView, 
+																			  NSViewAnimationEndFrameKey: [NSValue valueWithRect:infoViewTargetFrames[i]]};
 		[animations addObject:viewResize];
 	}
 
-	NSDictionary* viewResize = [NSDictionary dictionaryWithObjectsAndKeys:self, NSViewAnimationTargetKey, 
-																		  [NSValue valueWithRect:containerTargetFrame], NSViewAnimationEndFrameKey, nil];
+	NSDictionary* viewResize = @{NSViewAnimationTargetKey: self, 
+																		  NSViewAnimationEndFrameKey: [NSValue valueWithRect:containerTargetFrame]};
 	[animations addObject:viewResize];
 
 	if (!attachedToMainWindow)
 	{
-		NSWindow* window = [self window];
-		NSDictionary* windowResize = [NSDictionary dictionaryWithObjectsAndKeys:window, NSViewAnimationTargetKey,
-																				[NSValue valueWithRect:windowTargetFrame], NSViewAnimationEndFrameKey, nil];
+		NSWindow* window = self.window;
+		NSDictionary* windowResize = @{NSViewAnimationTargetKey: window,
+																				NSViewAnimationEndFrameKey: [NSValue valueWithRect:windowTargetFrame]};
 
 		[animations addObject:windowResize];
 	}
 	
     animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
-    [animation setAnimationBlockingMode:NSAnimationNonblocking];
+    animation.animationBlockingMode = NSAnimationNonblocking;
 	
-	BOOL isShiftPressed = [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask ? YES : NO;
+	BOOL isShiftPressed = NSApp.currentEvent.modifierFlags & NSShiftKeyMask ? YES : NO;
 
-    [animation setDuration:isShiftPressed ? 3.0 : 0.2];
-	[animation setDelegate:self];
+    animation.duration = isShiftPressed ? 3.0 : 0.2;
+	animation.delegate = self;
     [animation startAnimation];
 }
 
@@ -329,7 +329,7 @@ static const float desiredContainerWidth = 415.0f;
 - (BOOL) isAnimating
 // ----------------------------------------------------------------------------
 {
-	return (animation != nil && [animation isAnimating]);
+	return (animation != nil && animation.animating);
 }
 
 
@@ -340,7 +340,7 @@ static const float desiredContainerWidth = 415.0f;
 - (void) animationDidEnd:(NSAnimation *)animation
 // ----------------------------------------------------------------------------
 {
-	[[self enclosingScrollView] setHasVerticalScroller:YES];
+	[self.enclosingScrollView setHasVerticalScroller:YES];
 
 	for (int i = 0; i < MAX_CONTAINER_INDEX; i++)
 	{
@@ -353,14 +353,14 @@ static const float desiredContainerWidth = 415.0f;
 
 	if (!attachedToMainWindow)
 	{
-		NSWindow* window = [self window];
-		float currentMaxWidth = [window maxSize].width;
+		NSWindow* window = self.window;
+		float currentMaxWidth = window.maxSize.width;
 		float currentMaxHeight = unrestrictedWindowFrame.size.height;
 		[self adjustConstraintsOfWindow:window withMaxWidth:currentMaxWidth andMaxHeight:currentMaxHeight];
 
 		if (unrestrictedWindowFrame.size.height > windowTargetFrame.size.height)
 		{
-			NSRect frame = [window frame];
+			NSRect frame = window.frame;
 			NSRect origFrame = frame;
 			frame.size.height -= 1.0f;
 			[window setFrame:frame display:YES animate:NO];

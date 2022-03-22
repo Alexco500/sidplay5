@@ -6,7 +6,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -38,15 +38,15 @@
 - (void)drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 
-	float width = [keyboardImage size].width;
-	float height = [keyboardImage size].height;
+	float width = keyboardImage.size.width;
+	float height = keyboardImage.size.height;
 	NSRect imageRect = NSMakeRect(0.0f, 0.0f, width, height);
-	[keyboardImage setFlipped:[self isFlipped]];
+	[keyboardImage setFlipped:self.flipped];
 
 	float textIntensity = 0.0f;
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 	CGContextSelectFont(context, "Lucida Grande", 9.0f, kCGEncodingMacRoman); 
 	CGContextSetRGBStrokeColor(context, textIntensity, textIntensity, textIntensity, 1.0f);
 	CGContextSetRGBFillColor(context, textIntensity, textIntensity, textIntensity, 1.0f);

@@ -71,7 +71,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -94,10 +94,10 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	const float rowCount = 8;
 	const float	columnWidth = 120.0f;
 
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 	NSArray* colors = [[SPColorProvider sharedInstance] alternatingRowBackgroundColors];
-	NSColor* even = [colors objectAtIndex:1];
-	NSColor* odd = [colors objectAtIndex:0];
+	NSColor* even = colors[1];
+	NSColor* odd = colors[0];
 
 	for (int i = 0; i < rowCount; i++)
 	{
@@ -134,7 +134,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 
 	if (player == NULL)
 	{
-		SPInfoContainerView* container = [[self enclosingScrollView] documentView];
+		SPInfoContainerView* container = self.enclosingScrollView.documentView;
 		player = (PlayerLibSidplay*) [[container ownerWindow] player];
 	}
 	

@@ -9,7 +9,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithFrame:(NSRect)frame
+- (instancetype) initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -64,7 +64,7 @@
 - (void)drawContent:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSRect bounds = [self bounds];
+	NSRect bounds = self.bounds;
 	NSBezierPath* path = [NSBezierPath bezierPath];
 	
 	const float rowHeight = 10.0f;

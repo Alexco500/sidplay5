@@ -38,9 +38,9 @@
         [self setWantsLayer:YES];
         CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
         [filter setDefaults];
-        [filter setValue:[NSNumber numberWithFloat:4.0f] forKey:@"inputRadius"];
-        [filter setName:@"bloomFilter"];
-        [self setContentFilters:[NSArray arrayWithObject:filter]];
+        [filter setValue:@4.0f forKey:@"inputRadius"];
+        filter.name = @"bloomFilter";
+        self.contentFilters = @[filter];
     }
 }
 
@@ -75,7 +75,7 @@
 - (void) drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-    NSRect bounds = [self bounds];
+    NSRect bounds = self.bounds;
 
     CGRect contextRect;
 	contextRect.origin.x = rect.origin.x;
@@ -83,9 +83,9 @@
 	contextRect.size.width = rect.size.width;
 	contextRect.size.height = rect.size.height;
 
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 
-	SPInfoContainerView* container = [[self enclosingScrollView] documentView];
+	SPInfoContainerView* container = self.enclosingScrollView.documentView;
 
 	if ([container hasDarkBackground])
 		CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.6f);

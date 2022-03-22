@@ -20,7 +20,7 @@ static NSString* sVisualizerPath = nil;
 		if (err == noErr)
 		{
 			CFURLRef url =  CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
-			sApplicationSupportPath = [(__bridge NSURL*)url path];
+			sApplicationSupportPath = ((__bridge NSURL*)url).path;
 			sApplicationSupportPath = [sApplicationSupportPath stringByAppendingPathComponent:@"SIDPLAY"];
 		   
 			BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:sApplicationSupportPath];

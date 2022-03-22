@@ -45,15 +45,15 @@
 
 	if ([container hasDarkBackground])
 	{
-		[voice1Label setTextColor:[NSColor whiteColor]];
-		[voice2Label setTextColor:[NSColor whiteColor]];
-		[voice3Label setTextColor:[NSColor whiteColor]];
+		voice1Label.textColor = [NSColor whiteColor];
+		voice2Label.textColor = [NSColor whiteColor];
+		voice3Label.textColor = [NSColor whiteColor];
 	}
 	else
 	{
-		[voice1Label setTextColor:[NSColor blackColor]];
-		[voice2Label setTextColor:[NSColor blackColor]];
-		[voice3Label setTextColor:[NSColor blackColor]];
+		voice1Label.textColor = [NSColor blackColor];
+		voice2Label.textColor = [NSColor blackColor];
+		voice3Label.textColor = [NSColor blackColor];
 	}
 }
 
@@ -154,7 +154,7 @@
 		voiceMuted[voice] = false;
 		[self setVoice:voice toVolume:preMuteVolumes[voice]];
 		[voiceSliders[voice] setEnabled:YES];
-		[voiceSliders[voice] setFloatValue:preMuteVolumes[voice]];
+		voiceSliders[voice].floatValue = preMuteVolumes[voice];
 	} 
 	else
 	{
@@ -162,7 +162,7 @@
 		preMuteVolumes[voice] = currentVolumes[voice];
 		[self setVoice:voice toVolume:0.0f];
 		[voiceSliders[voice] setEnabled:NO];
-		[voiceSliders[voice] setFloatValue:0.0f];
+		voiceSliders[voice].floatValue = 0.0f;
 	}
 }
 
@@ -181,12 +181,12 @@
 				if (voiceSoloed[1]) [self toggleSolo:1];
 				if (voiceSoloed[2])	[self toggleSolo:2];
 
-				[voice1Mute setState:NSOffState];
-				[voice2Mute setState:NSOnState];
-				[voice3Mute setState:NSOnState];
-				[voice1Solo setState:NSOnState];
-				[voice2Solo setState:NSOffState];
-				[voice3Solo setState:NSOffState];
+				voice1Mute.state = NSOffState;
+				voice2Mute.state = NSOnState;
+				voice3Mute.state = NSOnState;
+				voice1Solo.state = NSOnState;
+				voice2Solo.state = NSOffState;
+				voice3Solo.state = NSOffState;
 
 				if (voiceMuted[0]) [self toggleMute:0];
 				if (!voiceMuted[1]) [self toggleMute:1];
@@ -194,12 +194,12 @@
 			} 
 			else
 			{
-				[voice1Mute setState:NSOffState];
-				[voice2Mute setState:NSOffState];
-				[voice3Mute setState:NSOffState];
-				[voice1Solo setState:NSOffState];
-				[voice2Solo setState:NSOffState];
-				[voice3Solo setState:NSOffState];
+				voice1Mute.state = NSOffState;
+				voice2Mute.state = NSOffState;
+				voice3Mute.state = NSOffState;
+				voice1Solo.state = NSOffState;
+				voice2Solo.state = NSOffState;
+				voice3Solo.state = NSOffState;
 
 				if (voiceMuted[0]) [self toggleMute:0];
 				if (voiceMuted[1]) [self toggleMute:1];
@@ -213,12 +213,12 @@
 				if (voiceSoloed[0]) [self toggleSolo:0];
 				if (voiceSoloed[2])	[self toggleSolo:2];
 
-				[voice1Mute setState:NSOnState];
-				[voice2Mute setState:NSOffState];
-				[voice3Mute setState:NSOnState];
-				[voice1Solo setState:NSOffState];
-				[voice2Solo setState:NSOnState];
-				[voice3Solo setState:NSOffState];
+				voice1Mute.state = NSOnState;
+				voice2Mute.state = NSOffState;
+				voice3Mute.state = NSOnState;
+				voice1Solo.state = NSOffState;
+				voice2Solo.state = NSOnState;
+				voice3Solo.state = NSOffState;
 
 				if (!voiceMuted[0]) [self toggleMute:0];
 				if (voiceMuted[1]) [self toggleMute:1];
@@ -226,12 +226,12 @@
 			} 
 			else
 			{
-				[voice1Mute setState:NSOffState];
-				[voice2Mute setState:NSOffState];
-				[voice3Mute setState:NSOffState];
-				[voice1Solo setState:NSOffState];
-				[voice2Solo setState:NSOffState];
-				[voice3Solo setState:NSOffState];
+				voice1Mute.state = NSOffState;
+				voice2Mute.state = NSOffState;
+				voice3Mute.state = NSOffState;
+				voice1Solo.state = NSOffState;
+				voice2Solo.state = NSOffState;
+				voice3Solo.state = NSOffState;
 
 				if (voiceMuted[0]) [self toggleMute:0];
 				if (voiceMuted[1]) [self toggleMute:1];
@@ -245,12 +245,12 @@
 				if (voiceSoloed[0]) [self toggleSolo:0];
 				if (voiceSoloed[1])	[self toggleSolo:1];
 
-				[voice1Mute setState:NSOnState];
-				[voice2Mute setState:NSOnState];
-				[voice3Mute setState:NSOffState];
-				[voice1Solo setState:NSOffState];
-				[voice2Solo setState:NSOffState];
-				[voice3Solo setState:NSOnState];
+				voice1Mute.state = NSOnState;
+				voice2Mute.state = NSOnState;
+				voice3Mute.state = NSOffState;
+				voice1Solo.state = NSOffState;
+				voice2Solo.state = NSOffState;
+				voice3Solo.state = NSOnState;
 
 				if (!voiceMuted[0]) [self toggleMute:0];
 				if (!voiceMuted[1]) [self toggleMute:1];
@@ -258,12 +258,12 @@
 			} 
 			else
 			{
-				[voice1Mute setState:NSOffState];
-				[voice2Mute setState:NSOffState];
-				[voice3Mute setState:NSOffState];
-				[voice1Solo setState:NSOffState];
-				[voice2Solo setState:NSOffState];
-				[voice3Solo setState:NSOffState];
+				voice1Mute.state = NSOffState;
+				voice2Mute.state = NSOffState;
+				voice3Mute.state = NSOffState;
+				voice1Solo.state = NSOffState;
+				voice2Solo.state = NSOffState;
+				voice3Solo.state = NSOffState;
 
 				if (voiceMuted[0]) [self toggleMute:0];
 				if (voiceMuted[1]) [self toggleMute:1];

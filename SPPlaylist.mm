@@ -8,7 +8,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -26,12 +26,12 @@
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithCoder:(NSCoder*)coder
+- (instancetype) initWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
 	if (self = [super init])
 	{
-		if ([coder allowsKeyedCoding])
+		if (coder.allowsKeyedCoding)
 		{
 			[self setName:[coder decodeObjectForKey:@"SPKeyName"]];
 			[self setIdentifier:[coder decodeObjectForKey:@"SPKeyIdentifier"]];
@@ -50,7 +50,7 @@
 - (void) encodeWithCoder:(NSCoder*)coder
 // ----------------------------------------------------------------------------
 {
-    if ([coder allowsKeyedCoding])
+    if (coder.allowsKeyedCoding)
 	{
         [coder encodeObject:name forKey:@"SPKeyName"];
         [coder encodeObject:identifier forKey:@"SPKeyIdentifier"];

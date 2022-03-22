@@ -32,7 +32,7 @@ static NSColor* sAnalyzerVoiceColors[3][3] = { { nil, nil, nil }, { nil, nil, ni
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -43,10 +43,10 @@ static NSColor* sAnalyzerVoiceColors[3][3] = { { nil, nil, nil }, { nil, nil, ni
 		sDarkBackgroundColor = [NSColor colorWithCalibratedWhite:0.137f alpha:0.95f];
 		sLightBackgroundColor = [NSColor colorWithCalibratedWhite:0.749f alpha:1.0f];
 
-		sDarkAltColors = [NSArray arrayWithObjects:[NSColor colorWithCalibratedWhite:0.16f alpha:0.92f], 
-												   [NSColor colorWithCalibratedWhite:0.15f alpha:0.88f], nil];
-		sLightAltColors = [NSArray arrayWithObjects:[NSColor colorWithCalibratedWhite:0.891f alpha:1.0f], 
-													[NSColor colorWithCalibratedWhite:0.856f alpha:1.0f], nil];
+		sDarkAltColors = @[[NSColor colorWithCalibratedWhite:0.16f alpha:0.92f], 
+												   [NSColor colorWithCalibratedWhite:0.15f alpha:0.88f]];
+		sLightAltColors = @[[NSColor colorWithCalibratedWhite:0.891f alpha:1.0f], 
+													[NSColor colorWithCalibratedWhite:0.856f alpha:1.0f]];
 
 		sDarkHighlightCellColor = [NSColor colorWithCalibratedWhite:0.5f alpha:0.8f];
 		sLightHighlightCellColor = [NSColor colorWithCalibratedWhite:0.5f alpha:1.0f];

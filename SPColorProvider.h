@@ -8,13 +8,12 @@
 
 + (SPColorProvider*) sharedInstance;
 
-- (BOOL) providesDarkColors;
-- (void) setProvidesDarkColors:(BOOL)darkColors;
+@property (NS_NONATOMIC_IOSONLY) BOOL providesDarkColors;
 
-- (NSColor*) backgroundColor;
-- (NSArray*) alternatingRowBackgroundColors;
-- (NSColor*) highlightColor;
-- (NSColor*) gridColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *backgroundColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *alternatingRowBackgroundColors;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *highlightColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *gridColor;
 
 - (NSColor*) analyzerVoiceColor:(int)inVoice shade:(int)inShade;
 

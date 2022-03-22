@@ -20,7 +20,7 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 
 
 // ----------------------------------------------------------------------------
-- (id) init
+- (instancetype) init
 // ----------------------------------------------------------------------------
 {
 	self = [super init];
@@ -59,11 +59,11 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 	NSArray* pendingRequestsCopy = [pendingRequests copy];
 	for (SPScheduledURLRequest* request in pendingRequestsCopy)
 	{
-		if ([request delegate] == delegate)
+		if (request.delegate == delegate)
 			[pendingRequests removeObject:request];
 	}
 
-    NSURLConnection* connection = [activeConnections objectForKey:[delegate path]];
+    NSURLConnection* connection = activeConnections[[delegate path]];
     [connection cancel];
 	[activeConnections removeObjectForKey:[delegate path]]; 
 	[self serviceNextRequests];
@@ -76,13 +76,13 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 - (void) serviceNextRequests
 // ----------------------------------------------------------------------------
 {
-	while ([activeConnections count] < maxConcurrentConnections && [pendingRequests count] > 0)
+	while (activeConnections.count < maxConcurrentConnections && pendingRequests.count > 0)
 	{
-		SPScheduledURLRequest* scheduledRequest = [pendingRequests objectAtIndex:0];
+		SPScheduledURLRequest* scheduledRequest = pendingRequests[0];
 		[pendingRequests removeObjectAtIndex:0];
 		
-		NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:[scheduledRequest request] delegate:[scheduledRequest delegate]];
-		[activeConnections setObject:connection forKey:[[scheduledRequest delegate] path]];
+		NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:scheduledRequest.request delegate:scheduledRequest.delegate];
+		activeConnections[[scheduledRequest.delegate path]] = connection;
 	}
 }
 
@@ -126,7 +126,7 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 
 
 // ----------------------------------------------------------------------------
-- (id) initWithRequest:(NSURLRequest*)theRequest andDelegate:(id)theDelegate andPriority:(NSInteger)thePriority
+- (instancetype) initWithRequest:(NSURLRequest*)theRequest andDelegate:(id)theDelegate andPriority:(NSInteger)thePriority
 // ----------------------------------------------------------------------------
 {
 	self = [super init];

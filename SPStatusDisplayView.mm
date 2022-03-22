@@ -9,7 +9,7 @@
 @implementation SPQCView
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
 	NSOpenGLPixelFormatAttribute attributes[] =
@@ -25,7 +25,7 @@
     if (self)
 	{
 		GLint zeroOpacity = 0;
-		[[self openGLContext] setValues:&zeroOpacity forParameter:NSOpenGLCPSurfaceOpacity];
+		[self.openGLContext setValues:&zeroOpacity forParameter:NSOpenGLCPSurfaceOpacity];
 		
 		renderer = nil;
 		rendererActive = NO;
@@ -57,12 +57,12 @@
 - (void) loadCompositionFromFile:(NSString*)path
 // ----------------------------------------------------------------------------
 {
-	NSOpenGLContext* context = [self openGLContext];
-    CGLContextObj cgl_ctx = (CGLContextObj) [context CGLContextObj];
+	NSOpenGLContext* context = self.openGLContext;
+    CGLContextObj cgl_ctx = (CGLContextObj) context.CGLContextObj;
     [context update];
     glViewport(0, 0, [self frame].size.width, [self frame].size.height);
 
-    renderer = [[QCRenderer alloc] initWithOpenGLContext:[self openGLContext] pixelFormat:[self pixelFormat] file:path];
+    renderer = [[QCRenderer alloc] initWithOpenGLContext:self.openGLContext pixelFormat:self.pixelFormat file:path];
 }
 
 
@@ -111,8 +111,8 @@
 {
     //NSLog(@"Rendering thread start");
     
-    NSOpenGLContext* context = [self openGLContext];
-    CGLContextObj cgl_ctx = (CGLContextObj) [context CGLContextObj];
+    NSOpenGLContext* context = self.openGLContext;
+    CGLContextObj cgl_ctx = (CGLContextObj) context.CGLContextObj;
     
     NSTimeInterval startTime = 0;
     int skipUpdateCount = 10;
@@ -125,7 +125,9 @@
         {
             if (startTime == 0)
                 startTime = time;
-            
+            // Make sure we draw to the right context
+            [context makeCurrentContext];
+            CGLLockContext(cgl_ctx);
             glClearColor([eraseColor redComponent], [eraseColor greenComponent], [eraseColor blueComponent], [eraseColor alphaComponent]);
             glClear(GL_COLOR_BUFFER_BIT);
             
@@ -133,6 +135,7 @@
                 [renderer renderAtTime:(time - startTime) arguments:nil];
             
             [context flushBuffer];
+            CGLUnlockContext(cgl_ctx);
         }
         else
             skipUpdateCount--;
@@ -154,7 +157,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 // ----------------------------------------------------------------------------
 {
     self = [super initWithFrame:frame];
@@ -241,21 +244,21 @@
 // ----------------------------------------------------------------------------
 {
 	NSColor* color = [NSColor colorWithDeviceRed:0.298f green:0.298f blue:0.298f alpha:1.0f];
-	NSDictionary* boldAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:11.0f], NSFontAttributeName, 
-																		 color, NSForegroundColorAttributeName, nil];
-	NSDictionary* normalAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:10.0f], NSFontAttributeName,
-																		 color, NSForegroundColorAttributeName, nil];
+	NSDictionary* boldAttrs = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:11.0f], 
+																		 NSForegroundColorAttributeName: color};
+	NSDictionary* normalAttrs = @{NSFontAttributeName: [NSFont systemFontOfSize:10.0f],
+																		 NSForegroundColorAttributeName: color};
 	
 	tuneInfo = [[NSMutableAttributedString alloc] initWithString:title attributes:boldAttrs];
 	NSAttributedString* additionalTuneInfo = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@\n%@", author, releaseInfo] attributes:normalAttrs];
 	[tuneInfo appendAttributedString:additionalTuneInfo];
 	
 	NSMutableParagraphStyle* style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-	[style setAlignment:NSRightTextAlignment];
+	style.alignment = NSRightTextAlignment;
 	
-	NSDictionary* subtuneAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:11.0f], NSFontAttributeName, 
-																			style, NSParagraphStyleAttributeName,
-																			color, NSForegroundColorAttributeName, nil];
+	NSDictionary* subtuneAttrs = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:11.0f], 
+																			NSParagraphStyleAttributeName: style,
+																			NSForegroundColorAttributeName: color};
 	subtuneInfo = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Song %02ld of %02ld", (long)subtune, (long)subtuneCount] attributes:subtuneAttrs];
 	currentSubtuneDigits[0] = subtune / 10;
 	currentSubtuneDigits[1] = subtune % 10;
@@ -302,12 +305,12 @@
 	
 	//NSLog(@"%@: loading resources for window: %@\n", self, [self window]);
 	
-	if ([[self window] isKindOfClass:[SPPlayerWindow class]] || [[self window] isKindOfClass:[SPMiniPlayerWindow class]])
+	if ([self.window isKindOfClass:[SPPlayerWindow class]] || [self.window isKindOfClass:[SPMiniPlayerWindow class]])
 	{
-		NSString* logoCompositionPath = [NSString stringWithFormat:@"%@%@",[[NSBundle mainBundle] resourcePath],@"/logo.qtz"];
+		NSString* logoCompositionPath = [NSString stringWithFormat:@"%@%@",[NSBundle mainBundle].resourcePath,@"/logo.qtz"];
 
-		logoView = [[SPQCView alloc] initWithFrame:[self frame]];
-		[logoView setBounds:[self bounds]];
+		logoView = [[SPQCView alloc] initWithFrame:self.frame];
+		logoView.bounds = self.bounds;
 		[logoView setEraseColor:[NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.0f]];
 
         [logoView loadCompositionFromFile:logoCompositionPath];
@@ -399,13 +402,13 @@
 	if (!resourcesLoaded)
 		[self loadResources];
 
-	rect = [self bounds];
+	rect = self.bounds;
 
 	// Draw background
 	NSDrawThreePartImage(rect, leftBackGroundImage, middleBackGroundImage, rightBackGroundImage, NO, NSCompositeSourceOver, 0.8f, NO);
 	
 	if (logoVisible)
-		[logoView setFrame:[self bounds]];
+		logoView.frame = self.bounds;
 
 	if (!displayVisible)
 		return;
@@ -417,32 +420,32 @@
 
 	if (showRemainingTime)
 	{
-		NSRect minusImageFrame = NSMakeRect(xpos - 13.0f, ypos, [minusImage size].width, [minusImage size].height);
-		NSRect minusImageRect = NSMakeRect(0.0f, 0.0f, [minusImage size].width, [minusImage size].height);
-		[minusImage setFlipped:[self isFlipped]];
+		NSRect minusImageFrame = NSMakeRect(xpos - 13.0f, ypos, minusImage.size.width, minusImage.size.height);
+		NSRect minusImageRect = NSMakeRect(0.0f, 0.0f, minusImage.size.width, minusImage.size.height);
+		[minusImage setFlipped:self.flipped];
 		[minusImage drawInRect:minusImageFrame fromRect:minusImageRect operation:NSCompositeSourceOver fraction:1.0f];
 	}
 	
 	for (int i = 0; i < 4; i++)
 	{
 		NSImage* image = largeNumberImages[currentTimeDigits[i]];
-		NSRect imageFrame = NSMakeRect(xpos, ypos, [image size].width, [image size].height);
-		NSRect imageRect = NSMakeRect(0.0f, 0.0f, [image size].width, [image size].height);
+		NSRect imageFrame = NSMakeRect(xpos, ypos, image.size.width, image.size.height);
+		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 			
-		[image setFlipped:[self isFlipped]];
+		[image setFlipped:self.flipped];
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
 		
-		xpos += [image size].width + 3.0f;
+		xpos += image.size.width + 3.0f;
 		
 		if (i == 1)
 		{
-			imageFrame = NSMakeRect(xpos, ypos, [timeDividerImage size].width, [timeDividerImage size].height);
-			imageRect = NSMakeRect(0.0f, 0.0f, [timeDividerImage size].width, [timeDividerImage size].height);
+			imageFrame = NSMakeRect(xpos, ypos, timeDividerImage.size.width, timeDividerImage.size.height);
+			imageRect = NSMakeRect(0.0f, 0.0f, timeDividerImage.size.width, timeDividerImage.size.height);
 				
-			[timeDividerImage setFlipped:[self isFlipped]];
+			[timeDividerImage setFlipped:self.flipped];
 			[timeDividerImage drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
 
-			xpos += [image size].width + 1.0f;
+			xpos += image.size.width + 1.0f;
 		}
 	}
 	
@@ -461,10 +464,10 @@
 	// Draw the subtune information
 	if (subtuneInfo != nil)
 	{
-		float leftWidth = [leftArrowImage size].width;
-		float leftHeight = [leftArrowImage size].height;
-		float rightWidth = [rightArrowImage size].width;
-		float rightHeight = [rightArrowImage size].height;
+		float leftWidth = leftArrowImage.size.width;
+		float leftHeight = leftArrowImage.size.height;
+		float rightWidth = rightArrowImage.size.width;
+		float rightHeight = rightArrowImage.size.height;
 
 		subtuneInfoFrame = NSInsetRect(rect, 8.0f, 3.0f);
 		subtuneInfoFrame.size.width = rightDisplayWidth;
@@ -480,7 +483,7 @@
 		leftArrowFrame = NSMakeRect(xpos, ypos, leftWidth, leftHeight);
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, leftWidth, leftHeight);
 			
-		[leftArrowImage setFlipped:[self isFlipped]];
+		[leftArrowImage setFlipped:self.flipped];
 		[leftArrowImage drawInRect:leftArrowFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:mouseDownInLeftArrow ? 1.0f : 0.64f];
 
 		xpos += leftWidth + 1.0f;
@@ -488,7 +491,7 @@
 		rightArrowFrame = NSMakeRect(xpos, ypos, rightWidth, rightHeight);
 		imageRect = NSMakeRect(0.0f, 0.0f, rightWidth, rightHeight);
 			
-		[rightArrowImage setFlipped:[self isFlipped]];
+		[rightArrowImage setFlipped:self.flipped];
 		[rightArrowImage drawInRect:rightArrowFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:mouseDownInRightArrow ? 1.0f : 0.64f];
 	}
 }
@@ -538,7 +541,7 @@
 - (void) mouseDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 	
 	if (displayVisible && NSPointInRect(mousePositionInView, leftArrowFrame))
@@ -588,20 +591,20 @@
 - (void) mouseUp:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint mousePosition = [event locationInWindow];
+	NSPoint mousePosition = event.locationInWindow;
 	NSPoint mousePositionInView = [self convertPoint:mousePosition fromView:nil];
 	
 	if (displayVisible && NSPointInRect(mousePositionInView, leftArrowFrame) && mouseDownInLeftArrow)
 	{
 		mouseDownInLeftArrow = NO;
 		[self setNeedsDisplay:YES];
-		[(SPPlayerWindow*)[self window] previousSubtune:self];
+		[(SPPlayerWindow*)self.window previousSubtune:self];
 	}
 	else if (displayVisible && NSPointInRect(mousePositionInView, rightArrowFrame) && mouseDownInRightArrow)
 	{
 		mouseDownInRightArrow = NO;
 		[self setNeedsDisplay:YES];
-		[(SPPlayerWindow*)[self window] nextSubtune:self];
+		[(SPPlayerWindow*)self.window nextSubtune:self];
 	}
 	else
 	{

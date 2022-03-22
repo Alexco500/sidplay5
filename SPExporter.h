@@ -84,38 +84,32 @@ struct ExportSettings
 	float exportProgress;
 }
 
-- (id) initWithItem:(SPExportItem*)item withController:(SPExportController*)theController andWindow:(SPPlayerWindow*)window loadNow:(BOOL)loadItem;
+- (instancetype) initWithItem:(SPExportItem*)item withController:(SPExportController*)theController andWindow:(SPPlayerWindow*)window loadNow:(BOOL)loadItem NS_DESIGNATED_INITIALIZER;
 
-- (BOOL) loadExportItem;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL loadExportItem;
 - (void) unloadExportItem;
 
 - (void) determineExportFilePath:(NSString*)directoryPath;
-- (NSString*) suggestedFileExtension;
-- (NSString*) suggestedFilename;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *suggestedFileExtension;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *suggestedFilename;
 
-- (void) setFileName:(NSString*)name;
-- (NSString*) fileName;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *fileName;
 
 - (void) setDestinationPath:(NSString*)path;
 
-- (ExportSettings) exportSettings;
-- (void) setExportSettings:(ExportSettings)theExportSettings;
+@property (NS_NONATOMIC_IOSONLY) ExportSettings exportSettings;
 
-- (NSImage*) fileIcon;
-- (void) setFileIcon:(NSImage*)icon;
+@property (NS_NONATOMIC_IOSONLY, copy) NSImage *fileIcon;
 
-- (PlayerLibSidplay*) player;
+@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplay *player;
 
-- (BOOL) exportInProgress;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL exportInProgress;
 
-- (BOOL) exportProgressIsIndeterminate;
-- (void) setExportProgressIsIndeterminate:(BOOL)indeterminate;
+@property (NS_NONATOMIC_IOSONLY) BOOL exportProgressIsIndeterminate;
 
-- (BOOL) exportStopped;
-- (void) setExportStopped:(BOOL)stopped;
+@property (NS_NONATOMIC_IOSONLY) BOOL exportStopped;
 
-- (float) exportProgress;
-- (void) setExportProgress:(float)progress;
+@property (NS_NONATOMIC_IOSONLY) float exportProgress;
 
 - (void) startExport;
 - (void) stopExport;
@@ -140,24 +134,18 @@ struct ExportSettings
 	SPExporter* exporter;
 }
 
-- (id) initWithPath:(NSString*)filePath andTitle:(NSString*)titleString andAuthor:(NSString*)authorString andSubtune:(int)subtuneIndex andLoopCount:(int)loops;
+- (instancetype) initWithPath:(NSString*)filePath andTitle:(NSString*)titleString andAuthor:(NSString*)authorString andSubtune:(int)subtuneIndex andLoopCount:(int)loops NS_DESIGNATED_INITIALIZER;
 
-- (NSString*) path;
-- (void) setPath:(NSString*)filePath;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *path;
 
-- (NSString*) title;
-- (void) setTitle:(NSString*)titleString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *title;
 
-- (NSString*) author;
-- (void) setAuthor:(NSString*)authorString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *author;
 
-- (int) subtune;
-- (void) setSubtune:(int)subtuneIndex;
+@property (NS_NONATOMIC_IOSONLY) int subtune;
 
-- (int) loopCount;
-- (void) setLoopCount:(int)loops;
+@property (NS_NONATOMIC_IOSONLY) int loopCount;
 
-- (SPExporter*) exporter;
-- (void) setExporter:(SPExporter*)theExporter;
+@property (NS_NONATOMIC_IOSONLY, strong) SPExporter *exporter;
 
 @end

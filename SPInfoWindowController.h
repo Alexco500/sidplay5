@@ -17,7 +17,7 @@
 - (void) togglePane:(id)sender;
 - (void) windowWillClose:(NSNotification *)aNotification;
 
-- (SPInfoContainerView*) containerView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) SPInfoContainerView *containerView;
 
 @end
 

@@ -8,18 +8,15 @@
 	NSInteger loopCount;
 }
 
-- (id) initWithPath:(NSString*)relativePath andSubtuneIndex:(NSInteger)subtuneIndex andLoopCount:(NSInteger)loops;
-- (id) initWithCoder:(NSCoder*)coder;
+- (instancetype) initWithPath:(NSString*)relativePath andSubtuneIndex:(NSInteger)subtuneIndex andLoopCount:(NSInteger)loops NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
 - (void) encodeWithCoder:(NSCoder*)coder;
 
-- (NSString*) path;
-- (void) setPath:(NSString*)pathString;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *path;
 
-- (NSInteger) subtune;
-- (void) setSubtune:(NSInteger)subtuneIndex;
+@property (NS_NONATOMIC_IOSONLY) NSInteger subtune;
 
-- (NSInteger) loopCount;
-- (void) setLoopCount:(NSInteger)loops;
+@property (NS_NONATOMIC_IOSONLY) NSInteger loopCount;
 
 @end
 
