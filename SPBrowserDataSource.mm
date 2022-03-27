@@ -28,7 +28,7 @@ NSDate* fillStart = nil;
 
 
 // ----------------------------------------------------------------------------
-- (instancetype) init
+- (id) init
 // ----------------------------------------------------------------------------
 {
 	if (self = [super init])
@@ -54,7 +54,7 @@ NSDate* fillStart = nil;
 		savedState = nil;
 		
 		searchQuery = [[NSMetadataQuery alloc] init];
-		searchQuery.delegate = self;
+		[searchQuery setDelegate:self];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchQueryNotification:) name:nil object:searchQuery];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(smartPlaylistUpdatedNotification:) name:SPSmartPlaylistChangedNotification object:nil];
 
@@ -74,7 +74,7 @@ NSDate* fillStart = nil;
 {
 	[[SPPreferencesController sharedInstance] load];
 
-	[browserView registerForDraggedTypes:@[NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType]];
+	[browserView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, nil]];
 	[browserView setVerticalMotionCanBeginDrag:YES];
 	
 	[self adjustSearchTypeControlsAndMenu];
@@ -84,10 +84,10 @@ NSDate* fillStart = nil;
 	
 	[self setPlaybackModeControlImages];
 
-	NSArray* columns = browserView.tableColumns;
+	NSArray* columns = [browserView tableColumns];
 	for (NSTableColumn* column in columns)
 	{
-		NSString* identifier = column.identifier;
+		NSString* identifier = [column identifier];
 		if ([identifier isEqualToString:@"title"])
 			tableColumns[COLUMN_TITLE] = column;
 		else if ([identifier isEqualToString:@"time"])
@@ -107,8 +107,8 @@ NSDate* fillStart = nil;
 	}
 
 	// Set the loop icon on the loopcount column
-	NSTableHeaderCell* cell = tableColumns[COLUMN_REPEAT].headerCell;
-	cell.image = [NSImage imageNamed:@"repeat"];
+	NSTableHeaderCell* cell = [tableColumns[COLUMN_REPEAT] headerCell];
+	[cell setImage:[NSImage imageNamed:@"repeat"]];
 	
 	// Initially we start in normal browser mode
 	[self setBrowserMode:BROWSER_MODE_COLLECTION];
@@ -133,9 +133,9 @@ NSDate* fillStart = nil;
 	
 	if (!loopsForever)
 	{
-		SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+		SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 
-		int currentSongLength = (int)[window currentTuneLengthInSeconds];
+		int currentSongLength = [window currentTuneLengthInSeconds];
 		if (currentSongLength == 0)
 			currentSongLength = gPreferences.mDefaultPlayTime;
 		else if (loopCount > 0)
@@ -165,7 +165,7 @@ NSDate* fillStart = nil;
 					SPBrowserItem* parentItem = [currentItem parent];
 					NSMutableArray* itemArray = (parentItem == nil) ? rootItems : [parentItem children];
 
-					if (itemArray != nil && itemArray.count > 0)
+					if (itemArray != nil && [itemArray count] > 0)
 					{
 						NSInteger currentItemIndex = [itemArray indexOfObject:currentItem];
 						
@@ -176,10 +176,10 @@ NSDate* fillStart = nil;
 						
 						while (isFolder && nextItemIndex != firstIndex)
 						{
-							nextItemIndex = (nextItemIndex + 1) % itemArray.count;
+							nextItemIndex = (nextItemIndex + 1) % [itemArray count];
 							if (firstIndex == -1)
 								firstIndex = nextItemIndex;
-							item = itemArray[nextItemIndex];
+							item = [itemArray objectAtIndex:nextItemIndex];
 							if (item != nil)
 								isFolder = [item isFolder];
 						}
@@ -187,7 +187,7 @@ NSDate* fillStart = nil;
 						if (item != nil)
 						{
 							[self playItem:item];
-							int row = (int)[browserView rowForItem:currentItem];
+							int row = [browserView rowForItem:currentItem];
 							[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 							[browserView scrollRowToVisible:row];
 						}
@@ -292,11 +292,11 @@ NSDate* fillStart = nil;
 	[rootItems removeAllObjects];
 	
 	currentSharedCollection = nil;
-	currentSharedCollectionName = service.name;
+	currentSharedCollectionName = [service name];
 	[self setBrowserMode:isSmartPlaylist ? BROWSER_MODE_SHARED_SMART_PLAYLIST : BROWSER_MODE_SHARED_PLAYLIST];
 	
-	NSString* host = service.hostName;
-	NSInteger port = service.port;
+	NSString* host = [service hostName];
+	NSInteger port = [service port];
 	NSString* urlString = nil;
 	if (port != -1)
 		urlString = [NSString stringWithFormat:@"http://%@:%ld", host, (long)port];
@@ -327,7 +327,7 @@ NSDate* fillStart = nil;
 		[tableColumns[COLUMN_SUBTUNE] setHidden:NO];
 		[tableColumns[COLUMN_REPEAT] setHidden:NO];
 
-		browserView.headerView.menu = tableHeaderPlaylistContextMenu;
+		[[browserView headerView] setMenu:tableHeaderPlaylistContextMenu];
 		
 		[saveSearchAsSmartPlaylistButton setEnabled:NO];
 		[searchFullCollectionButton setEnabled:NO];
@@ -336,9 +336,9 @@ NSDate* fillStart = nil;
 		[nextPlaylistItemMenuItem setEnabled:YES];
 		[previousPlaylistItemMenuItem setEnabled:YES];
 
-		previousSortDescriptor = browserView.sortDescriptors[0];
+		previousSortDescriptor = [[browserView sortDescriptors] objectAtIndex:0];
 		NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"playlistIndex" ascending:YES selector:@selector(compare:)];
-		browserView.sortDescriptors = @[sortDescriptor];
+		[browserView setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 	}
 	else
 	{
@@ -346,7 +346,7 @@ NSDate* fillStart = nil;
 		[tableColumns[COLUMN_SUBTUNE] setHidden:YES];
 		[tableColumns[COLUMN_REPEAT] setHidden:YES];
 		
-		browserView.headerView.menu = tableHeaderContextMenu;
+		[[browserView headerView] setMenu:tableHeaderContextMenu];
 
 		[saveSearchAsSmartPlaylistButton setEnabled:YES];
 		[searchFullCollectionButton setEnabled:YES];
@@ -356,30 +356,30 @@ NSDate* fillStart = nil;
 		[previousPlaylistItemMenuItem setEnabled:NO];
 
 		if (previousSortDescriptor != nil)
-			browserView.sortDescriptors = @[previousSortDescriptor];
+			[browserView setSortDescriptors:[NSArray arrayWithObject:previousSortDescriptor]];
 	}
 
 	// Reflect the table column state in the header context menu
-	NSArray* items = tableHeaderContextMenu.itemArray;
+	NSArray* items = [tableHeaderContextMenu itemArray];
 	for (NSMenuItem* item in items)
 	{
-		ColumnType columnType = (ColumnType)item.tag;
+		ColumnType columnType = (ColumnType)[item tag];
 		NSTableColumn* column = tableColumns[columnType];
-		if (column.hidden)
-			item.state = NSOffState;
+		if ([column isHidden])
+			[item setState:NSOffState];
 		else
-			item.state = NSOnState;
+			[item setState:NSOnState];
 	}
 
-	items = tableHeaderPlaylistContextMenu.itemArray;
+	items = [tableHeaderPlaylistContextMenu itemArray];
 	for (NSMenuItem* item in items)
 	{
-		ColumnType columnType = (ColumnType)item.tag;
+		ColumnType columnType = (ColumnType)[item tag];
 		NSTableColumn* column = tableColumns[columnType];
-		if (column.hidden)
-			item.state = NSOffState;
+		if ([column isHidden])
+			[item setState:NSOffState];
 		else
-			item.state = NSOnState;
+			[item setState:NSOnState];
 	}
 
 	[self enableSmartPlaylistEditor:NO];
@@ -393,7 +393,7 @@ NSDate* fillStart = nil;
 	if (enable)
 	{
 		[predicateEditorController setPredicate:[(SPSmartPlaylist*)playlist predicate]];
-		SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+		SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 		[predicateEditorController addPredicateEditorToWindow:window];
 	}
 	else
@@ -407,7 +407,7 @@ NSDate* fillStart = nil;
 {
 	if (enable && !spotlightSearchTypeSubViewVisible)
 	{
-		SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+		SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 		[window addAlternateBoxView:(NSView*)spotlightSearchTypeSubView];
 		spotlightSearchTypeSubViewVisible = true;
 	}
@@ -459,7 +459,7 @@ NSDate* fillStart = nil;
 - (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 // ----------------------------------------------------------------------------
 {
-	indexData.length = 0;
+	[indexData setLength:0];
 }
 
 
@@ -491,23 +491,23 @@ NSDate* fillStart = nil;
     
     [SPHttpBrowserItem fillArray:rootItems withIndexDataItems:indexDataItems fromUrl:currentSharedCollection andParent:nil];
 	
-	[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+	[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 	[browserView reloadData];
 	[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 	[browserView scrollRowToVisible:0];
 	
-	NSString* relativeUrlString = [NSURL URLWithString:currentSharedCollection].relativePath;
+	NSString* relativeUrlString = [[NSURL URLWithString:currentSharedCollection] relativePath];
 	NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/%@", escapedCollectionName, relativeUrlString];
 	//NSLog(@"%@ %@ %@ %@\n", currentSharedCollection, relativeUrlString, escapedCollectionName, pathControlUrlString);
-	pathControl.URL = [NSURL URLWithString:pathControlUrlString];
+	[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
 	
 	NSImage* folderIcon = [[NSWorkspace sharedWorkspace] iconForFile:@"/bin"];
 	NSArray* pathComponentCells = [pathControl pathComponentCells];
-	for (int i = 1; i < pathComponentCells.count; i++)
+	for (int i = 1; i < [pathComponentCells count]; i++)
 	{
-		NSPathComponentCell* componentCell = pathComponentCells[i];
-		componentCell.image = (i > 1) ? folderIcon : [SPSourceListItem sharedCollectionIcon];
+		NSPathComponentCell* componentCell = [pathComponentCells objectAtIndex:i];
+		[componentCell setImage:(i > 1) ? folderIcon : [SPSourceListItem sharedCollectionIcon]];
 	}
 	
 	[self setInProgress:NO];
@@ -521,7 +521,7 @@ NSDate* fillStart = nil;
 - (void) httpBrowserItemInfoDownloaded:(NSNotification *)notification
 // ----------------------------------------------------------------------------
 {
-	SPHttpBrowserItem* item = (SPHttpBrowserItem*) notification.object;
+	SPHttpBrowserItem* item = (SPHttpBrowserItem*) [notification object];
 	[browserView reloadItem:item];
     
     bool allValid = true;
@@ -620,7 +620,7 @@ NSDate* fillStart = nil;
 {
 	NSString* previousPath = (browserMode == BROWSER_MODE_SHARED_COLLECTION) ? currentSharedCollection : currentPath;
 	
-	if (browseHistory.count == 0)
+	if ([browseHistory count] == 0)
 	{
 		[browseHistory addObject:previousPath];
 		[browseHistory addObject:path];
@@ -629,7 +629,7 @@ NSDate* fillStart = nil;
 	else
 	{
 		browseHistoryIndex++;
-		[browseHistory removeObjectsInRange:NSMakeRange(browseHistoryIndex, browseHistory.count - browseHistoryIndex)];
+		[browseHistory removeObjectsInRange:NSMakeRange(browseHistoryIndex, [browseHistory count] - browseHistoryIndex)];
 		[browseHistory insertObject:path atIndex:browseHistoryIndex];
 		[navigationControl setEnabled:NO forSegment:1];
 	}
@@ -662,13 +662,13 @@ NSDate* fillStart = nil;
 	if (!stateRestored)
 	{
 		[SPBrowserItem fillArray:rootItems withDirectoryContentsAtPath:currentPath andParent:nil];
-		[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 		[browserView reloadData];
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
    		[browserView scrollRowToVisible:0];
 	}
 	
-	pathControl.URL = [NSURL fileURLWithPath:currentPath];
+	[pathControl setURL:[NSURL fileURLWithPath:currentPath]];
 
 	[self setInProgress:NO];
 }
@@ -701,9 +701,9 @@ NSDate* fillStart = nil;
 	{
 		browseHistoryIndex--;
 		if (browserMode != BROWSER_MODE_SHARED_COLLECTION)
-			[self switchToPath:browseHistory[browseHistoryIndex]];
+			[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
 		else
-			[self switchToSharedCollectionURL:browseHistory[browseHistoryIndex] withServiceName:nil];
+			[self switchToSharedCollectionURL:[browseHistory objectAtIndex:browseHistoryIndex] withServiceName:nil];
 		
 		if (browseHistoryIndex == 0)
 			[navigationControl setEnabled:NO forSegment:0];
@@ -722,15 +722,15 @@ NSDate* fillStart = nil;
 	if (rootPath == nil)
 		return;
 
-	if (browseHistoryIndex < (browseHistory.count - 1))
+	if (browseHistoryIndex < ([browseHistory count] - 1))
 	{
 		browseHistoryIndex++;
 		if (browserMode != BROWSER_MODE_SHARED_COLLECTION)
-			[self switchToPath:browseHistory[browseHistoryIndex]];
+			[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
 		else
-			[self switchToSharedCollectionURL:browseHistory[browseHistoryIndex] withServiceName:nil];
+			[self switchToSharedCollectionURL:[browseHistory objectAtIndex:browseHistoryIndex] withServiceName:nil];
 		
-		if (browseHistoryIndex == (browseHistory.count - 1))
+		if (browseHistoryIndex == ([browseHistory count] - 1))
 		{
 			[navigationControl setEnabled:NO forSegment:1];
 		}
@@ -764,26 +764,26 @@ NSDate* fillStart = nil;
 	{
 		BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST;
 		NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/PLAYLISTS/%@%%20(%lu%%20songs)", escapedCollectionName, escapedPlaylistName, (unsigned long)rootItems.count];
+		NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/PLAYLISTS/%@%%20(%lu%%20songs)", escapedCollectionName, escapedPlaylistName, (unsigned long)[rootItems count]];
 
-		pathControl.URL = [NSURL URLWithString:pathControlUrlString];
+		[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
 
-		NSPathComponentCell* componentCell = [pathControl pathComponentCells][1];
-		componentCell.image = [SPSourceListItem sharedCollectionIcon];
-		componentCell = [pathControl pathComponentCells][3];
-		componentCell.image = isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon];
+		NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:1];
+		[componentCell setImage:[SPSourceListItem sharedCollectionIcon]];
+		componentCell = [[pathControl pathComponentCells] objectAtIndex:3];
+		[componentCell setImage:isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon]];
 	}
 	else
 	{
 		BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SMART_PLAYLIST;
 
 		if (isCaching)
-			pathControl.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(caching%%2c%%20please%%20wait%%2e%%2e%%2e)", escapedPlaylistName]];
+			[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(caching%%2c%%20please%%20wait%%2e%%2e%%2e)", escapedPlaylistName]]];
 		else
-			pathControl.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(%lu%%20songs)", escapedPlaylistName, (unsigned long)rootItems.count]];
+			[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(%lu%%20songs)", escapedPlaylistName, (unsigned long)[rootItems count]]]];
 
-		NSPathComponentCell* componentCell = [pathControl pathComponentCells][1];
-		componentCell.image = isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon];
+		NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:1];
+		[componentCell setImage:isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon]];
 	}
 }
 
@@ -814,16 +814,16 @@ NSDate* fillStart = nil;
 		return;
 
 	NSPathComponentCell* cell = [sender clickedPathComponentCell];
-	NSString* path = cell.URL.relativePath;
+	NSString* path = [[cell URL] relativePath];
 	
 	if (browserMode == BROWSER_MODE_SHARED_COLLECTION)
 	{
-		NSMutableArray* pathComponents = [path.pathComponents mutableCopy];
+		NSMutableArray* pathComponents = [[path pathComponents] mutableCopy];
 		// strip away any leading http URL stuff
 		[pathComponents removeObjectsInRange:NSMakeRange(0, 3)];
 		NSString* relativePath = [NSString pathWithComponents:pathComponents];
 		NSString* newURLString;
-		if (relativePath.length == 0)
+		if ([relativePath length] == 0)
 			newURLString = currentSharedCollectionRoot;
 		else
 			newURLString = [NSString stringWithFormat:@"%@%@/", currentSharedCollectionRoot, relativePath];
@@ -832,7 +832,7 @@ NSDate* fillStart = nil;
 	}
 	else
 	{
-		if (path.pathComponents.count < rootPath.pathComponents.count)
+		if ([[path pathComponents] count] < [[rootPath pathComponents] count])
 			return;
 		
 		[self browseToPath:path];
@@ -844,7 +844,7 @@ NSDate* fillStart = nil;
 - (void) playItem:(SPBrowserItem*)item
 // ----------------------------------------------------------------------------
 {
-	SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 
 	if ([item class] == [SPHttpBrowserItem class])
 		[window playTuneAtURL:[item path] subtune:[item defaultSubTune]];
@@ -865,11 +865,11 @@ NSDate* fillStart = nil;
 	// Deselect source list item (most likely a playlist) and select the
 	// current collection item
 	SPSourceListView* sourceListView = [sourceListDataSource sourceListView]; 
-	int row = (int)sourceListView.selectedRow;
+	int row = [sourceListView selectedRow];
 	SPSourceListItem* collectionItem = [sourceListDataSource currentCollection];
 	if (collectionItem != nil)
 	{
-		int newRow = (int)[sourceListView rowForItem:collectionItem];
+		int newRow = [sourceListView rowForItem:collectionItem];
 		if (row != newRow)
 		{
 			[sourceListView deselectRow:row];
@@ -877,7 +877,7 @@ NSDate* fillStart = nil;
 		}
 	}
 
-	NSString* directory = path.stringByDeletingLastPathComponent;
+	NSString* directory = [path stringByDeletingLastPathComponent];
 	if (wasInPlaylist)
 		[self switchToPath:directory];
 	else
@@ -928,8 +928,8 @@ NSDate* fillStart = nil;
 	[self findExpandedItems:expandedItems inItems:rootItems];
 
 	NSMutableArray* selectedItems = [[NSMutableArray alloc] init];
-	NSIndexSet* selectedIndices = browserView.selectedRowIndexes;
-	NSUInteger index = selectedIndices.firstIndex;
+	NSIndexSet* selectedIndices = [browserView selectedRowIndexes];
+	NSUInteger index = [selectedIndices firstIndex];
 	while (index != NSNotFound)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
@@ -985,12 +985,12 @@ NSDate* fillStart = nil;
 - (void) searchInPlaylist:(NSString*)searchString
 // ----------------------------------------------------------------------------
 {
-	NSMutableArray* playlistItemsMatchingSearchString = [NSMutableArray arrayWithCapacity:rootItems.count];
+	NSMutableArray* playlistItemsMatchingSearchString = [NSMutableArray arrayWithCapacity:[rootItems count]];
 
 	if (unfilteredPlaylistItems == nil)
 		unfilteredPlaylistItems = [rootItems mutableCopy];
 
-	if (searchString.length == 0)
+	if ([searchString length] == 0)
 	{
 		rootItems = unfilteredPlaylistItems;
 		unfilteredPlaylistItems = nil;
@@ -1071,7 +1071,7 @@ NSDate* fillStart = nil;
 		return;
 	}
 
-	if (searchString.length == 0)
+	if ([searchString length] == 0)
 	{
 		[self switchToPath:currentPath];
 		return;
@@ -1087,7 +1087,7 @@ NSDate* fillStart = nil;
 
 	[searchQuery stopQuery]; 
 	
-	if (searchString.length < 3)
+	if ([searchString length] < 3)
 		return;
 
 	NSString *likeSearchString = [NSString stringWithFormat:@"*%@*", searchString];
@@ -1118,8 +1118,8 @@ NSDate* fillStart = nil;
 			break;
 	}
 	
-    searchQuery.predicate = currentSearchPredicate;
-	searchQuery.searchScopes = @[limitSpotlightScopeToCurrentFolder ? currentPath : rootPath];
+    [searchQuery setPredicate:currentSearchPredicate];
+	[searchQuery setSearchScopes:[NSArray arrayWithObject:limitSpotlightScopeToCurrentFolder ? currentPath : rootPath]];
     [searchQuery startQuery]; 
 	
 	[self setInProgress:YES];
@@ -1151,25 +1151,24 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	// set the search field menu to show the currently selected search type
-	NSArray* menuItems = toolbarSearchFieldMenu.itemArray;
+	NSArray* menuItems = [toolbarSearchFieldMenu itemArray];
 	for (id menuItem in menuItems)
 	{
 		[menuItem setState:NSOffState];
-/*
+
 		if ([menuItem tag] == (NSInteger)gPreferences.mSearchType)
 		{
 			[menuItem setState:NSOnState];
 			if (gPreferences.mSearchType == SEARCH_ALL)
-				toolbarSearchField.cell.placeholderString = @"Search";
+				[[toolbarSearchField cell] setPlaceholderString:@"Search"];
 			else
-				toolbarSearchField.cell.placeholderString = [NSString stringWithFormat:@"%@ Search", [menuItem title]];
+				[[toolbarSearchField cell] setPlaceholderString:[NSString stringWithFormat:@"%@ Search", [menuItem title]]];
 		}
-*/
- }
-    //FIXME: Fixme Badly!
-	// toolbarSearchField.cell.searchMenuTemplate = toolbarSearchFieldMenu;
+	}
 
-	NSArray* searchTypeBoxButtons = spotlightSearchTypeSubView.contentView.subviews;
+	[[toolbarSearchField cell] setSearchMenuTemplate:toolbarSearchFieldMenu];
+
+	NSArray* searchTypeBoxButtons = [[spotlightSearchTypeSubView contentView] subviews];
 	for (id button in searchTypeBoxButtons)
 	{
 		if ([button tag] == (gPreferences.mSearchType + 10))
@@ -1202,7 +1201,7 @@ NSDate* fillStart = nil;
 		inactiveTag = 100;
 	}
 
-	NSArray* searchTypeBoxButtons = spotlightSearchTypeSubView.contentView.subviews;
+	NSArray* searchTypeBoxButtons = [[spotlightSearchTypeSubView contentView] subviews];
 	for (id button in searchTypeBoxButtons)
 	{
 		if ([button tag] == activeTag)
@@ -1220,7 +1219,7 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	[searchQuery stopQuery];
-	toolbarSearchField.stringValue = @"";
+	[toolbarSearchField setStringValue:@""];
 	[self enableSpotlightSearchTypeSubView:NO];
 	unfilteredPlaylistItems = nil;
 	currentSearchPredicate = nil;
@@ -1231,32 +1230,32 @@ NSDate* fillStart = nil;
 - (void) searchQueryNotification:(NSNotification *)notification
 // ----------------------------------------------------------------------------
 {
-    if ([notification.name isEqualToString:NSMetadataQueryDidStartGatheringNotification])
+    if ([[notification name] isEqualToString:NSMetadataQueryDidStartGatheringNotification])
 	{
 
     }
-	else if ([notification.name isEqualToString:NSMetadataQueryDidFinishGatheringNotification])
+	else if ([[notification name] isEqualToString:NSMetadataQueryDidFinishGatheringNotification])
 	{
-		NSArray* results = searchQuery.results;
+		NSArray* results = [searchQuery results];
 		[rootItems removeAllObjects];
 		[SPBrowserItem fillArray:rootItems withMetaDataQueryResults:results];
-		[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 		[browserView reloadData];
 		[self setInProgress:NO];
 
 		[searchQuery enableUpdates];
     }
-	else if ([notification.name isEqualToString:NSMetadataQueryGatheringProgressNotification])
+	else if ([[notification name] isEqualToString:NSMetadataQueryGatheringProgressNotification])
 	{
 
     }
-	else if ([notification.name isEqualToString:NSMetadataQueryDidUpdateNotification])
+	else if ([[notification name] isEqualToString:NSMetadataQueryDidUpdateNotification])
 	{
 		[self setInProgress:YES];
-		NSArray* results = searchQuery.results;
+		NSArray* results = [searchQuery results];
 		[rootItems removeAllObjects];
 		[SPBrowserItem fillArray:rootItems withMetaDataQueryResults:results];
-		[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 		[browserView reloadData];
 		[self setInProgress:NO];
     }
@@ -1271,17 +1270,17 @@ NSDate* fillStart = nil;
     if (browserMode != BROWSER_MODE_SPOTLIGHT_RESULT)
         return;
     
-    int currentItemIndex = (int)[browserView rowForItem:currentItem];
+    int currentItemIndex = [browserView rowForItem:currentItem];
     if (currentItemIndex == -1)
         currentItemIndex = 0;
     else
-        currentItemIndex = (int) random() % rootItems.count;
+        currentItemIndex = random() % [rootItems count];
     
-    SPBrowserItem* item = rootItems[currentItemIndex];
+    SPBrowserItem* item = [rootItems objectAtIndex:currentItemIndex];
     if (item != nil)
     {
         [self playItem:item];
-        int row = (int) [browserView rowForItem:currentItem];
+        int row = [browserView rowForItem:currentItem];
         [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
         [browserView scrollRowToVisible:row];
     }
@@ -1292,14 +1291,14 @@ NSDate* fillStart = nil;
 - (void) smartPlaylistUpdatedNotification:(NSNotification *)notification
 // ----------------------------------------------------------------------------
 {
-	SPSmartPlaylist* smartPlaylist = notification.object;
+	SPSmartPlaylist* smartPlaylist = [notification object];
 	if (smartPlaylist == playlist)
 	{
 		[self setInProgress:YES];
 		[rootItems removeAllObjects];
 		[self stopSearchAndClearSearchString];
 		[SPBrowserItem fillArray:rootItems withPlaylist:playlist];
-		[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 		[browserView reloadData];
 		[self updatePathControlForPlaylistMode:NO];
 		[self setInProgress:NO];
@@ -1322,44 +1321,44 @@ NSDate* fillStart = nil;
 	// Clean the predicate, exchange LIKE for CONTAINS, remove content type clause and trim *s from string
 	if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]])
 	{
-		NSArray* subPredicates = ((NSCompoundPredicate*)originalPredicate).subpredicates;
-		NSMutableArray* newSubPredicates = [NSMutableArray arrayWithCapacity:subPredicates.count];
+		NSArray* subPredicates = [(NSCompoundPredicate*)originalPredicate subpredicates];
+		NSMutableArray* newSubPredicates = [NSMutableArray arrayWithCapacity:[subPredicates count]];
 		for (NSPredicate* subPredicate in subPredicates)
 		{
 			if ([subPredicate isKindOfClass:[NSComparisonPredicate class]])
 			{
 				NSComparisonPredicate* comparisonPredicate = (NSComparisonPredicate*) subPredicate;
-				NSExpression* leftExpression = comparisonPredicate.leftExpression;
-				NSExpression* rightExpression = comparisonPredicate.rightExpression;
+				NSExpression* leftExpression = [comparisonPredicate leftExpression];
+				NSExpression* rightExpression = [comparisonPredicate rightExpression];
 				
-				if (leftExpression.expressionType == NSKeyPathExpressionType)
+				if ([leftExpression expressionType] == NSKeyPathExpressionType)
 				{
-					NSString* keyPath = leftExpression.keyPath;
+					NSString* keyPath = [leftExpression keyPath];
 					if ([keyPath isEqualToString:@"kMDItemContentType"])
 						continue;
 
-					if (rightExpression.expressionType == NSConstantValueExpressionType)
+					if ([rightExpression expressionType] == NSConstantValueExpressionType)
 					{
-						NSString* searchString = rightExpression.constantValue;
+						NSString* searchString = [rightExpression constantValue];
 						searchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"*"]];
 					
-						NSPredicateOperatorType operatorType = comparisonPredicate.predicateOperatorType;
+						NSPredicateOperatorType operatorType = [comparisonPredicate predicateOperatorType];
 						if (operatorType == NSLikePredicateOperatorType)
 							operatorType = NSContainsPredicateOperatorType;
 
 						NSExpression* newRightExpression = [NSExpression expressionForConstantValue:searchString];
 						NSPredicate* newSubPredicate = [NSComparisonPredicate predicateWithLeftExpression:leftExpression
 																						  rightExpression:newRightExpression
-																								 modifier:comparisonPredicate.comparisonPredicateModifier
+																								 modifier:[comparisonPredicate comparisonPredicateModifier]
 																									 type:operatorType
-																								  options:comparisonPredicate.options];
+																								  options:[comparisonPredicate options]];
 						[newSubPredicates addObject:newSubPredicate];
 					}
 				}
 			}
 		}
 
-		NSCompoundPredicateType type = ((NSCompoundPredicate*)originalPredicate).compoundPredicateType;
+		NSCompoundPredicateType type = [(NSCompoundPredicate*)originalPredicate compoundPredicateType];
 		newPredicate = [[NSCompoundPredicate alloc] initWithType:type subpredicates:newSubPredicates];
 	}
 	else
@@ -1367,7 +1366,7 @@ NSDate* fillStart = nil;
 
 	//NSLog(@"cleaned predicate: %@\n", newPredicate);
 
-	NSString* name = toolbarSearchField.stringValue;
+	NSString* name = [toolbarSearchField stringValue];
 
 	SPSmartPlaylist* smartPlaylist = [[SPSmartPlaylist alloc] init];
 	[smartPlaylist setName:name];
@@ -1521,15 +1520,15 @@ NSDate* fillStart = nil;
 		return;
 		
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	NSArray* fileTypes = @[@"sid"];
+	NSArray* fileTypes = [NSArray arrayWithObject:@"sid"];
 	
-	NSString* directory = [missingItem path].stringByDeletingLastPathComponent;
+	NSString* directory = [[missingItem path] stringByDeletingLastPathComponent];
 	BOOL isFolder = NO;
 	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:directory isDirectory:&isFolder];
 	if (!exists || !isFolder)
 		directory = nil;
 		
-	[openPanel beginSheetForDirectory:directory file:nil types:fileTypes modalForWindow:browserView.window modalDelegate:self didEndSelector:@selector(didEndMissingFileSheet:returnCode:contextInfo:) contextInfo:(void*)missingItem];
+	[openPanel beginSheetForDirectory:directory file:nil types:fileTypes modalForWindow:[browserView window] modalDelegate:self didEndSelector:@selector(didEndMissingFileSheet:returnCode:contextInfo:) contextInfo:(void*)missingItem];
 }
 
 
@@ -1540,10 +1539,10 @@ NSDate* fillStart = nil;
 	if (returnCode == NSOKButton)
 	{
         NSArray *filesToOpen = [openPanel filenames];
-        NSString* file = filesToOpen[0];
+        NSString* file = [filesToOpen objectAtIndex:0];
 		
 		SPBrowserItem* missingItem = (__bridge SPBrowserItem*) contextInfo;
-		int playlistIndex = (int)[missingItem playlistIndex];
+		int playlistIndex = [missingItem playlistIndex];
 		if (playlist != nil)
 		{
 			SPPlaylistItem* playlistItem = [playlist itemAtIndex:playlistIndex];
@@ -1566,10 +1565,10 @@ NSDate* fillStart = nil;
 - (BOOL) playSelectedItem
 // ----------------------------------------------------------------------------
 {
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	if (set.count > 0)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	if ([set count] > 0)
 	{
-		SPBrowserItem* item = [browserView itemAtRow:set.firstIndex];
+		SPBrowserItem* item = [browserView itemAtRow:[set firstIndex]];
 		if (item != nil && ![item isFolder])
 		{
 			[browserView activateItem:item];
@@ -1586,9 +1585,9 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
     shuffledPlaylistItems = [rootItems mutableCopy];
-    for (int i = 0; i < shuffledPlaylistItems.count; i++)
+    for (int i = 0; i < [shuffledPlaylistItems count]; i++)
     {
-        int random_index = (arc4random() % (shuffledPlaylistItems.count - i)) + i;
+        int random_index = (arc4random() % ([shuffledPlaylistItems count] - i)) + i;
         [shuffledPlaylistItems exchangeObjectAtIndex:i withObjectAtIndex:random_index];
     }
     currentShuffleIndex = 0;
@@ -1631,10 +1630,10 @@ NSDate* fillStart = nil;
 	if (currentItem == nil)
 		return;
 		
-	if (rootItems.count == 0)
+	if ([rootItems count] == 0)
 		return;
 
-	if (rootItems.count != [playlist count])
+	if ([rootItems count] != [playlist count])
 		return;
 	
 	BOOL playNextItem = YES;
@@ -1642,37 +1641,37 @@ NSDate* fillStart = nil;
     
     if (gPreferences.mShuffleActive)
     {
-        item = shuffledPlaylistItems[currentShuffleIndex];
-        currentShuffleIndex = (currentShuffleIndex + 1) % shuffledPlaylistItems.count;
+        item = [shuffledPlaylistItems objectAtIndex:currentShuffleIndex];
+        currentShuffleIndex = (currentShuffleIndex + 1) % [shuffledPlaylistItems count];
 //        if (currentShuffleIndex == 0)
 //            [self shufflePlaylist];
     }
     else
     {
-        int currentItemIndex = (int)[browserView rowForItem:currentItem];
+        int currentItemIndex = [browserView rowForItem:currentItem];
         if (currentItemIndex == -1)
             currentItemIndex = 0;
         else
         {
-            BOOL isLastItem = currentItemIndex == (rootItems.count - 1);
+            BOOL isLastItem = currentItemIndex == ([rootItems count] - 1);
             
             if (!gPreferences.mRepeatActive && isLastItem)
             {
-                SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+                SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
                 [window clickStopButton:nil];
                 playNextItem = NO;
             }
             else
-                currentItemIndex = (currentItemIndex + 1) % rootItems.count;
+                currentItemIndex = (currentItemIndex + 1) % [rootItems count];
         }
         
-        item = rootItems[currentItemIndex];
+        item = [rootItems objectAtIndex:currentItemIndex];
     }
 
 	if (item != nil && playNextItem)
 	{
 		[self playItem:item];
-		int row = (int) [browserView rowForItem:currentItem];
+		int row = [browserView rowForItem:currentItem];
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 		[browserView scrollRowToVisible:row];
 	}
@@ -1689,7 +1688,7 @@ NSDate* fillStart = nil;
 	if (currentItem == nil)
 		return;
 		
-	if (rootItems.count == 0)
+	if ([rootItems count] == 0)
 		return;
 	
     SPBrowserItem* item = nil;
@@ -1698,29 +1697,29 @@ NSDate* fillStart = nil;
     {
         currentShuffleIndex--;
         if (currentShuffleIndex == -1)
-            currentShuffleIndex = (int)shuffledPlaylistItems.count - 1;
+            currentShuffleIndex = [shuffledPlaylistItems count] - 1;
 
-        item = shuffledPlaylistItems[currentShuffleIndex];
+        item = [shuffledPlaylistItems objectAtIndex:currentShuffleIndex];
     }
     else
     {
-        int currentItemIndex = (int)[browserView rowForItem:currentItem];
+        int currentItemIndex = [browserView rowForItem:currentItem];
         if (currentItemIndex == -1)
             currentItemIndex = 0;
         else
         {
             currentItemIndex--;
             if (currentItemIndex == -1)
-                currentItemIndex = (int)rootItems.count - 1;
+                currentItemIndex = [rootItems count] - 1;
         }
         
-        item = rootItems[currentItemIndex];
+        item = [rootItems objectAtIndex:currentItemIndex];
     }
     
 	if (item != nil)
 	{
 		[self playItem:item];
-		int row = (int)[browserView rowForItem:currentItem];
+		int row = [browserView rowForItem:currentItem];
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 		[browserView scrollRowToVisible:row];
 	}
@@ -1734,7 +1733,7 @@ NSDate* fillStart = nil;
 	if (currentItem == nil)
 		return;
 		
-	int row = (int)[browserView rowForItem:currentItem];
+	int row = [browserView rowForItem:currentItem];
 	if (row != -1)
 	{
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
@@ -1749,10 +1748,10 @@ NSDate* fillStart = nil;
 - (IBAction) revealSelectedItemInBrowser:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	if ([set count] == 1)
 	{
-		SPBrowserItem* item = [browserView itemAtRow:set.firstIndex];
+		SPBrowserItem* item = [browserView itemAtRow:[set firstIndex]];
 		if (item != nil)
 			[self browseToFile:[item path] andSetAsCurrentItem:NO];
 	}
@@ -1763,10 +1762,10 @@ NSDate* fillStart = nil;
 - (IBAction) revealSelectedItemInFinder:(id)sender
 // ----------------------------------------------------------------------------
 {
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	if ([set count] == 1)
 	{
-		SPBrowserItem* item = [browserView itemAtRow:set.firstIndex];
+		SPBrowserItem* item = [browserView itemAtRow:[set firstIndex]];
 		if (item != nil)
 		{
 			NSWorkspace *workSpace = [NSWorkspace sharedWorkspace];
@@ -1781,9 +1780,9 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	NSString* result = @"";
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	NSUInteger index = set.firstIndex;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	NSUInteger index = [set firstIndex];
+	if ([set count] == 1)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
 		if (item != nil)
@@ -1802,7 +1801,7 @@ NSDate* fillStart = nil;
 	}
 
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
-	NSArray* types = @[NSStringPboardType];
+	NSArray* types = [NSArray arrayWithObjects:NSStringPboardType, nil];
 	[pasteboard declareTypes:types owner:self];
 	[pasteboard setString:result forType:NSStringPboardType];
 }
@@ -1813,9 +1812,9 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	NSString* result = @"";
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	NSUInteger index = set.firstIndex;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	NSUInteger index = [set firstIndex];
+	if ([set count] == 1)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
 		if (item != nil)
@@ -1840,7 +1839,7 @@ NSDate* fillStart = nil;
 	}
 
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
-	NSArray* types = @[NSStringPboardType];
+	NSArray* types = [NSArray arrayWithObjects:NSStringPboardType, nil];
 	[pasteboard declareTypes:types owner:self];
 	[pasteboard setString:result forType:NSStringPboardType];
 }
@@ -1854,10 +1853,10 @@ NSDate* fillStart = nil;
 		return;
 		
 	SPSimplePlaylist* simplePlaylist = (SPSimplePlaylist*) playlist;
-	NSIndexSet* selectedRowIndices = browserView.selectedRowIndexes;
+	NSIndexSet* selectedRowIndices = [browserView selectedRowIndexes];
 	NSMutableIndexSet* selectedPlaylistIndices = [[NSMutableIndexSet alloc] init];
 	
-	NSUInteger index = selectedRowIndices.firstIndex;
+	NSUInteger index = [selectedRowIndices firstIndex];
 	while (index != NSNotFound)
 	{
 		[browserView deselectRow:index];
@@ -1874,7 +1873,7 @@ NSDate* fillStart = nil;
 
 	[rootItems removeAllObjects];
 	[SPBrowserItem fillArray:rootItems withPlaylist:playlist];
-	[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+	[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 	[browserView reloadData];
 	[self updatePathControlForPlaylistMode:NO];
 }
@@ -1885,34 +1884,34 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	ExportFileType type = (ExportFileType) [sender tag];
-	SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 	SPExportController* exportController = [window exportController];
 
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	NSUInteger index = set.firstIndex;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	NSUInteger index = [set firstIndex];
+	if ([set count] == 1)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
-		SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:(int)[item loopCount]];
+		SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:[item loopCount]];
 
 		[exportController exportFile:exportItem withType:type];
 	}
-	else if (set.count > 1)
+	else if ([set count] > 1)
 	{
-		NSMutableArray* exportItems = [NSMutableArray arrayWithCapacity:set.count];
+		NSMutableArray* exportItems = [NSMutableArray arrayWithCapacity:[set count]];
 		while (index != NSNotFound)
 		{
 			SPBrowserItem* item = [browserView itemAtRow:index];
 			if (item != nil && ![item isFolder])
 			{
-				SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:(int)[item loopCount]];
+				SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:[item loopCount]];
 				[exportItems addObject:exportItem];
 			}
 
 			index = [set indexGreaterThanIndex:index];
 		}
 
-		if (exportItems.count > 0)
+		if ([exportItems count] > 0)
 			[exportController exportFiles:exportItems withType:type];
 	}
 }
@@ -1922,12 +1921,12 @@ NSDate* fillStart = nil;
 - (IBAction) findRemixesOfSelectedItem:(id)sender
 // ----------------------------------------------------------------------------
 {
-	SPPlayerWindow* window = (SPPlayerWindow*) browserView.window;
+	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 	SPRemixKwedOrgController* remixKwedOrgController = [window remixKwedOrgController];
 
-	NSIndexSet* set = browserView.selectedRowIndexes;
-	NSUInteger index = set.firstIndex;
-	if (set.count == 1)
+	NSIndexSet* set = [browserView selectedRowIndexes];
+	NSUInteger index = [set firstIndex];
+	if ([set count] == 1)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
 		if (item != nil)
@@ -2004,12 +2003,13 @@ static NSImage* SPShuffleButtonImage = nil;
 // ----------------------------------------------------------------------------
 {
     if (item == nil)
-		return (int)rootItems.count;
+		return [rootItems count];
 	else
 	{
 		[self setInProgress:YES];
-		int count = (int) [item children].count;
-		[self setInProgress:NO];
+		int count = [[item children] count];
+        [[(SPBrowserItem*)item children] sortUsingDescriptors:[outlineView sortDescriptors]];
+        [self setInProgress:NO];
 		return count;
 	}
 }
@@ -2028,7 +2028,7 @@ static NSImage* SPShuffleButtonImage = nil;
 // ----------------------------------------------------------------------------
 {
 	if (item == nil)
-		return rootItems[index];
+		return [rootItems objectAtIndex:index];
 	else
 		return [(SPBrowserItem *)item childAtIndex:index];
 }
@@ -2039,9 +2039,9 @@ static NSImage* SPShuffleButtonImage = nil;
 // ----------------------------------------------------------------------------
 {
 	NSMutableArray* selectedItems = [[NSMutableArray alloc] init];
-	NSIndexSet* selectedIndices = browserView.selectedRowIndexes;
-	NSUInteger index = selectedIndices.firstIndex;
-	while (index != NSNotFound)
+	NSIndexSet* selectedIndices = [browserView selectedRowIndexes];
+	NSUInteger index = [selectedIndices firstIndex];
+    while (index != NSNotFound)
 	{
 		[browserView deselectRow:index];
 
@@ -2052,12 +2052,12 @@ static NSImage* SPShuffleButtonImage = nil;
 		index = [selectedIndices indexGreaterThanIndex:index];
 	}
 	
-	[rootItems sortUsingDescriptors:outlineView.sortDescriptors];
+	[rootItems sortUsingDescriptors:[outlineView sortDescriptors]];
 	[outlineView reloadData];
 	
 	for (SPBrowserItem* item in selectedItems)
 	{
-		int row = (int)[browserView rowForItem:item];
+		int row = [browserView rowForItem:item];
 		if (row != -1)
 			[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES];
 	}
@@ -2073,38 +2073,38 @@ static NSImage* SPShuffleButtonImage = nil;
 	if (browserItem == nil)
 		return @"no item";
 		
-	if([tableColumn.identifier isEqual:@"index"])
+	if([[tableColumn identifier] isEqual:@"index"])
     {
 		return [NSString stringWithFormat:@"%ld", ([browserItem playlistIndex] + 1)];
     }
-	else if([tableColumn.identifier isEqual:@"title"])
+	else if([[tableColumn identifier] isEqual:@"title"])
 	{
 		return [browserItem title];
 	}
-	else if([tableColumn.identifier isEqual:@"author"])
+	else if([[tableColumn identifier] isEqual:@"author"])
 	{
 		return [browserItem author];
 	}
-	else if([tableColumn.identifier isEqual:@"released"])
+	else if([[tableColumn identifier] isEqual:@"released"])
 	{
 		return [browserItem releaseInfo];
 	}
-	else if([tableColumn.identifier isEqual:@"path"])
+	else if([[tableColumn identifier] isEqual:@"path"])
 	{
 		return [browserItem path];
 	}
-	else if([tableColumn.identifier isEqual:@"subtune"])
+	else if([[tableColumn identifier] isEqual:@"subtune"])
 	{
 		return [NSString stringWithFormat:@"%d", [browserItem defaultSubTune]];
 	}
-	else if([tableColumn.identifier isEqual:@"time"])
+	else if([[tableColumn identifier] isEqual:@"time"])
 	{
 		if ([browserItem isFolder])
 			return @"";
 		else
 			return [NSString stringWithFormat:@"%d:%02d", [browserItem playTimeMinutes], [browserItem playTimeSeconds]];
 	}
-	else if([tableColumn.identifier isEqual:@"repeat"])
+	else if([[tableColumn identifier] isEqual:@"repeat"])
     {
 		NSInteger loopCount = [browserItem loopCount];
 		if (loopCount == 0)
@@ -2132,13 +2132,13 @@ static NSImage* SPShuffleButtonImage = nil;
 	SPBrowserItem* browserItem = (SPBrowserItem*) item;
 	NSString* string = (NSString*) object;
 	
-	if ([tableColumn.identifier isEqual:@"subtune"])
+	if ([[tableColumn identifier] isEqual:@"subtune"])
 	{
-		NSInteger defaultSubtune = string.integerValue;
+		NSInteger defaultSubtune = [string integerValue];
 		if (defaultSubtune > 0 && defaultSubtune <= [browserItem subTuneCount] && playlist != nil)
 		{
 			[browserItem setDefaultSubTune:defaultSubtune];
-			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthByPath:[browserItem path] andSubtune:(int)defaultSubtune];
+			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthByPath:[browserItem path] andSubtune:defaultSubtune];
 			[browserItem setPlayTimeInSeconds:playtime];
 
 			NSInteger playlistIndex = [browserItem playlistIndex];
@@ -2149,9 +2149,9 @@ static NSImage* SPShuffleButtonImage = nil;
 			[playlist saveToFile];
 		}
 	}
-	else if ([tableColumn.identifier isEqual:@"repeat"])
+	else if ([[tableColumn identifier] isEqual:@"repeat"])
 	{
-		NSInteger loopCount = string.integerValue;
+		NSInteger loopCount = [string integerValue];
 		if (loopCount >= 0)
 		{
 			[browserItem setLoopCount:loopCount];
@@ -2162,7 +2162,7 @@ static NSImage* SPShuffleButtonImage = nil;
 			[playlist saveToFile];
 		}
 	}
-	else if ([tableColumn.identifier isEqual:@"path"])
+	else if ([[tableColumn identifier] isEqual:@"path"])
 	{
 		NSInteger index = [rootItems indexOfObject:browserItem];
 		if (index != -1)
@@ -2171,7 +2171,7 @@ static NSImage* SPShuffleButtonImage = nil;
 			SPBrowserItem* newBrowserItem = [[SPBrowserItem alloc] initWithPath:string isFolder:NO forParent:nil withDefaultSubtune:0];
 			[newBrowserItem setPlaylistIndex:playlistIndex];
 			[newBrowserItem setLoopCount:1];
-			rootItems[index] = newBrowserItem;
+			[rootItems replaceObjectAtIndex:index withObject:newBrowserItem];
 
 			SPPlaylistItem* playlistItem = [playlist itemAtIndex:playlistIndex];
 			NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:string];
@@ -2216,7 +2216,7 @@ static NSImage* SPShuffleButtonImage = nil;
 		if ([item fileDoesNotExist])
 		{
 			NSMutableDictionary* attributes = [[[cell attributedStringValue] attributesAtIndex:0 effectiveRange:NULL] mutableCopy];
-			attributes[NSForegroundColorAttributeName] = [NSColor redColor];
+			[attributes setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
 			NSAttributedString* name = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
 			[cell setAttributedStringValue:name];
 		}
@@ -2238,7 +2238,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (NSString *)outlineView:(NSOutlineView *)outlineView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn item:(id)item 
 // ----------------------------------------------------------------------------
 {
-	NSString* identifier = tableColumn.identifier;
+	NSString* identifier = [tableColumn identifier];
 	if ([identifier isEqualToString:@"title"])
 		return [item title];
 	else
@@ -2250,7 +2250,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard*)pasteboard
 // ----------------------------------------------------------------------------
 {
-	SPBrowserItem* firstItem = items[0];
+	SPBrowserItem* firstItem = [items objectAtIndex:0];
 	if ([firstItem isFolder])
 		return NO;
 
@@ -2260,12 +2260,12 @@ static NSImage* SPShuffleButtonImage = nil;
 	draggedItems = items;
 		
     // Provide data for our custom type, and simple NSStrings.
-    [pasteboard declareTypes:@[SPBrowserItemPBoardType, NSStringPboardType] owner:self];
+    [pasteboard declareTypes:[NSArray arrayWithObjects:SPBrowserItemPBoardType, NSStringPboardType, nil] owner:self];
 
     [pasteboard setData:[NSData data] forType:SPBrowserItemPBoardType];
 
-	if (items.count == 1)
-		[pasteboard setString:[items[0] path] forType:NSStringPboardType];
+	if ([items count] == 1)
+		[pasteboard setString:[[items objectAtIndex:0] path] forType:NSStringPboardType];
 	
     return YES;
 }
@@ -2277,14 +2277,14 @@ static NSImage* SPShuffleButtonImage = nil;
 {
 	//SPBrowserItem* proposedItem = item;
 
-	NSString* type = [info.draggingPasteboard availableTypeFromArray:@[NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType]];
+	NSString* type = [[info draggingPasteboard] availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, nil]];
 	if (type == nil)
 		return NSDragOperationNone;
 	
-	NSSortDescriptor* sortDescriptor = browserView.sortDescriptors[0];
-	BOOL isSortedByPlaylistIndex = sortDescriptor.ascending && [sortDescriptor.key isEqualToString:@"playlistIndex"];
+	NSSortDescriptor* sortDescriptor = [[browserView sortDescriptors] objectAtIndex:0];
+	BOOL isSortedByPlaylistIndex = [sortDescriptor ascending] && [[sortDescriptor key] isEqualToString:@"playlistIndex"];
 	
-	if (info.draggingSource == browserView && playlist != nil && [type isEqualToString:SPBrowserItemPBoardType] && 
+	if ([info draggingSource] == browserView && playlist != nil && [type isEqualToString:SPBrowserItemPBoardType] && 
 		index != NSOutlineViewDropOnItemIndex && isSortedByPlaylistIndex && browserMode != BROWSER_MODE_SMART_PLAYLIST)
 	{
 		// Playlist item reordering
@@ -2295,7 +2295,7 @@ static NSImage* SPShuffleButtonImage = nil;
 		// Files dragged from the Finder
 		if (playlist != nil && browserMode != BROWSER_MODE_SMART_PLAYLIST && isSortedByPlaylistIndex)
 		{
-			NSPasteboard *pasteBoard = info.draggingPasteboard;
+			NSPasteboard *pasteBoard = [info draggingPasteboard];
 			NSArray *files = [pasteBoard propertyListForType:NSFilenamesPboardType];
 		
 			BOOL someFilesUnderCurrentCollectionRoot = YES;
@@ -2335,15 +2335,15 @@ static NSImage* SPShuffleButtonImage = nil;
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 // ----------------------------------------------------------------------------
 {
-	NSPasteboard* pasteboard = info.draggingPasteboard;
-	NSArray* supportedTypes = @[SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, NSFilenamesPboardType];
+	NSPasteboard* pasteboard = [info draggingPasteboard];
+	NSArray* supportedTypes = [NSArray arrayWithObjects:SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, NSFilenamesPboardType, nil];
 	NSString* bestType = [pasteboard availableTypeFromArray:supportedTypes];
 	//SPBrowserItem* targetItem = item;
-	int targetIndex = (int)((index == NSOutlineViewDropOnItemIndex) ? -1 : index);
+	int targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : index;
 	
 	if ([bestType isEqualToString:NSFilenamesPboardType])
 	{
-		NSPasteboard *pasteBoard = info.draggingPasteboard;
+		NSPasteboard *pasteBoard = [info draggingPasteboard];
 		NSArray *paths = [pasteBoard propertyListForType:NSFilenamesPboardType];
 
 		// Files dropped from Finder
@@ -2367,17 +2367,17 @@ static NSImage* SPShuffleButtonImage = nil;
 			// Refresh browser with new playlist contents
 			[rootItems removeAllObjects];
 			[SPBrowserItem fillArray:rootItems withPlaylist:playlist];
-			[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+			[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 			
 			//[sourceListDataSource bumpUpdateRevision];
 		}
 		else if (playlist == nil)
 		{
-			NSString* firstPath = paths[0];
+			NSString* firstPath = [paths objectAtIndex:0];
 			BOOL isFolder = NO;
 			[[NSFileManager defaultManager] fileExistsAtPath:firstPath isDirectory:&isFolder];
 			
-			if (paths.count == 1 && isFolder)
+			if ([paths count] == 1 && isFolder)
 			{
 				[self setInProgress:YES];
 				[self stopSearchAndClearSearchString];
@@ -2389,8 +2389,8 @@ static NSImage* SPShuffleButtonImage = nil;
 				[self saveBrowserState];
 				[rootItems removeAllObjects];
 				[SPBrowserItem fillArray:rootItems withDirectoryContentsAtPath:currentPath andParent:nil];
-				[rootItems sortUsingDescriptors:browserView.sortDescriptors];
-				pathControl.URL = [NSURL fileURLWithPath:currentPath];
+				[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
+				[pathControl setURL:[NSURL fileURLWithPath:currentPath]];
 				[self setInProgress:NO];
 			}
 			else
@@ -2413,9 +2413,9 @@ static NSImage* SPShuffleButtonImage = nil;
 					[rootItems addObject:item];
 				}
 
-				pathControl.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/DRAGGED%%20ITEMS"]];
-				NSPathComponentCell* componentCell = [pathControl pathComponentCells][0];
-				componentCell.image = [NSImage imageNamed:@"psid.icns"];
+				[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/DRAGGED%%20ITEMS"]]];
+				NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:0];
+				[componentCell setImage:[NSImage imageNamed:@"psid.icns"]];
 				currentPath = nil;
 				[self setInProgress:NO];
 			}
@@ -2435,11 +2435,11 @@ static NSImage* SPShuffleButtonImage = nil;
 		// Refresh browser with new playlist contents
 		[rootItems removeAllObjects];
 		[SPBrowserItem fillArray:rootItems withPlaylist:playlist];
-		[rootItems sortUsingDescriptors:browserView.sortDescriptors];
+		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
 
-		for (int i = 0; i < draggedItems.count; i++)
+		for (int i = 0; i < [draggedItems count]; i++)
 		{
-			int row = (int)newBaseIndex + i;
+			int row = newBaseIndex + i;
 			if (i == 0)
 				[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 			else
@@ -2484,7 +2484,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void) awakeFromNib
 // ----------------------------------------------------------------------------
 {
-	self.doubleAction = @selector(doubleClick:);
+	[self setDoubleAction:@selector(doubleClick:)];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(itemDidCollapse:)
@@ -2498,7 +2498,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void) activateItem:(SPBrowserItem*)item
 // ----------------------------------------------------------------------------
 {
-    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)self.dataSource;
+    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
     
 	if ([item isFolder])
 	{
@@ -2529,7 +2529,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend
 // ----------------------------------------------------------------------------
 {
-    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)self.dataSource;
+    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
 
 	[super selectRowIndexes:indexes byExtendingSelection:extend];
 
@@ -2539,9 +2539,9 @@ static NSImage* SPShuffleButtonImage = nil;
 	}
 	else
 	{
-		if (indexes.count == 1)
+		if ([indexes count] == 1)
 		{
-			SPBrowserItem* item = [self itemAtRow:indexes.firstIndex];
+			SPBrowserItem* item = [self itemAtRow:[indexes firstIndex]];
 			if (item != nil)
 			{
 				NSString* absolutePath = [item path];
@@ -2557,7 +2557,7 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void) doubleClick:(id)sender
 // ----------------------------------------------------------------------------
 {	
-	SPBrowserItem* item = [self itemAtRow:self.clickedRow];
+	SPBrowserItem* item = [self itemAtRow:[self clickedRow]];
 	if (item == nil)
 		return;
 
@@ -2569,17 +2569,17 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void) keyDown:(NSEvent*)event
 // ----------------------------------------------------------------------------
 {
-    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)self.dataSource;
+    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
     
-	NSString* characters = event.charactersIgnoringModifiers;
+	NSString* characters = [event charactersIgnoringModifiers];
 	unichar character = [characters characterAtIndex:0];
 	
 	if (character == '\r' || character == 3)
 	{
-		NSIndexSet* set = self.selectedRowIndexes;
-		if (set.count == 1)
+		NSIndexSet* set = [self selectedRowIndexes];
+		if ([set count] == 1)
 		{
-			SPBrowserItem* item = [self itemAtRow:set.firstIndex];
+			SPBrowserItem* item = [self itemAtRow:[set firstIndex]];
 			if (item != nil)
 			{
 				[self activateItem:item];
@@ -2613,14 +2613,14 @@ static NSImage* SPShuffleButtonImage = nil;
 // ----------------------------------------------------------------------------
 {
 	NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
-	NSArray* types = @[NSStringPboardType];
+	NSArray* types = [NSArray arrayWithObjects:NSStringPboardType, nil];
 	NSString* bestType = [pasteboard availableTypeFromArray:types];	
 	if (bestType != nil)
 	{
 		NSString* pasteboardContents = [pasteboard stringForType:bestType];
 		if (pasteboardContents != nil)
 		{
-			NSString* pastedPath = pasteboardContents.stringByStandardizingPath;
+			NSString* pastedPath = [pasteboardContents stringByStandardizingPath];
 			NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:pastedPath];
 			NSString* absolutePath = nil;
 
@@ -2643,7 +2643,7 @@ static NSImage* SPShuffleButtonImage = nil;
 				BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:absolutePath isDirectory:&isFolder];
 				if (exists)
 				{
-					SPBrowserDataSource* dataSource = (SPBrowserDataSource*)self.dataSource;
+					SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
 					if (isFolder)
 					{
 						[dataSource browseToPath:absolutePath];
@@ -2672,11 +2672,11 @@ static NSImage* SPShuffleButtonImage = nil;
 - (NSImage*) dragImageForRowsWithIndexes:(NSIndexSet*)dragRows tableColumns:(NSArray*)tableColumns event:(NSEvent*)dragEvent offset:(NSPointPointer)dragImageOffset
 // ----------------------------------------------------------------------------
 {
-	if (dragRows.count == 1)
+	if ([dragRows count] == 1)
 	{
-		NSArray* columns = self.tableColumns;
+		NSArray* columns = [self tableColumns];
 		NSImage* defaultImage = [super dragImageForRowsWithIndexes:dragRows tableColumns:columns event:dragEvent offset:dragImageOffset];
-		NSSize imageSize = defaultImage.size;
+		NSSize imageSize = [defaultImage size];
 		NSImage* image = [[NSImage alloc] initWithSize:imageSize];
 		[image lockFocus];
 		NSBezierPath* path = [NSBezierPath bezierPathWithRect:NSMakeRect(0.0f, 0.0f, imageSize.width, imageSize.height)];
@@ -2689,19 +2689,19 @@ static NSImage* SPShuffleButtonImage = nil;
 		
 		return image;
 	}
-	else if (dragRows.count < 10)
+	else if ([dragRows count] < 10)
 	{
 		NSImage* iconImage = [NSImage imageNamed:@"psid.icns"];
 		NSImage* badgeImage = [NSImage imageNamed:@"dragBadge"]; 
 
-		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, iconImage.size.width, iconImage.size.height);
+		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, [iconImage size].width, [iconImage size].height);
 		NSImage* image = [[NSImage alloc] initWithSize:NSMakeSize(64.0f, 64.0f)];
 		[image lockFocus];
 		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.5f];
 		[badgeImage compositeToPoint:NSMakePoint(38.0f, 10.0f) operation:NSCompositeSourceOver];
-		NSDictionary* normalAttrs = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:11.0f],
-																		       NSForegroundColorAttributeName: [NSColor whiteColor]};
-		NSMutableAttributedString* numberString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", (unsigned long)dragRows.count] attributes:normalAttrs];
+		NSDictionary* normalAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:11.0f], NSFontAttributeName,
+																		       [NSColor whiteColor], NSForegroundColorAttributeName, nil];
+		NSMutableAttributedString* numberString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", (unsigned long)[dragRows count]] attributes:normalAttrs];
 		[numberString drawAtPoint:NSMakePoint(47.0f, 16.0f)];
 		[image unlockFocus];
 
@@ -2711,7 +2711,7 @@ static NSImage* SPShuffleButtonImage = nil;
 	{
 		NSImage* iconImage = [NSImage imageNamed:@"psid.icns"];
 
-		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, iconImage.size.width, iconImage.size.height);
+		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, [iconImage size].width, [iconImage size].height);
 		NSImage* image = [[NSImage alloc] initWithSize:NSMakeSize(64.0f, 64.0f)];
 		[image lockFocus];
 		[iconImage drawInRect:NSMakeRect(12.0f, 20.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.8f];
@@ -2728,14 +2728,14 @@ static NSImage* SPShuffleButtonImage = nil;
 - (NSMenu*) menuForEvent:(NSEvent *)event
 // ----------------------------------------------------------------------------
 {
-	NSPoint position = [self convertPoint:event.locationInWindow fromView:nil];
+	NSPoint position = [self convertPoint:[event locationInWindow] fromView:nil];
 	NSInteger row = [self rowAtPoint:position];
 
-	NSIndexSet* set = self.selectedRowIndexes;
+	NSIndexSet* set = [self selectedRowIndexes];
 	if (![set containsIndex:row])
 		[self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 
-	SPBrowserDataSource* dataSource = (SPBrowserDataSource*)self.dataSource;
+	SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
 	
 	if ([dataSource playlist] != nil)
 	{
