@@ -4,6 +4,7 @@
 #import "SPPlayerWindow.h"
 
 static NSString* SidplaySongLengthDataBaseRelativePath = @"DOCUMENTS/Songlengths.txt";
+static NSString* SidplaySongLengthDataBaseRelativePathNewMD5 = @"DOCUMENTS/Songlengths.md5";
 
 static SongLengthDatabase* sharedInstance = nil;
 
@@ -24,6 +25,18 @@ static SongLengthDatabase* sharedInstance = nil;
 	sharedInstance = database;
 }
 
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    self = [super init];
+    if (self != nil)
+    {
+        databaseAvailable = NO;
+        newMD5FormatUsed = NO;
+    }
+    return self;
+}
 
 // ----------------------------------------------------------------------------
 - (instancetype) initWithRootPath:(NSString*)rootPath
@@ -40,12 +53,20 @@ static SongLengthDatabase* sharedInstance = nil;
 			
 		databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePath];
 		//NSLog(@"databasePath: %@\n", databasePath);
-
+        newMD5FormatUsed = NO;
 		bool success = SongLength::init([databasePath cStringUsingEncoding:NSUTF8StringEncoding]);
 
 		if (!success)
+        {
+            databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePathNewMD5];
+            //NSLog(@"databasePath: %@\n", databasePath);
+            newMD5db = [[NewMD5SongLengthDatabase alloc] initWithPath:databasePath];
+            success = [newMD5db validDatabase];
+
+        }
+        if (!success)
 			return nil;
-			
+        newMD5FormatUsed = YES;
 		databaseAvailable = YES;
 	}
 	return self;
@@ -105,8 +126,12 @@ static SongLengthDatabase* sharedInstance = nil;
 	
 	bool success = SongLength::init(dataBuffer, size);
 	
-	if (!success)
-		return;
+    if (!success) {
+        newMD5db = [[NewMD5SongLengthDatabase alloc] initWithData:downloadData];
+        if (![newMD5db validDatabase])
+            return;
+        newMD5FormatUsed = YES;
+    }
 	
 	databaseAvailable = YES;
 	
@@ -138,14 +163,16 @@ static SongLengthDatabase* sharedInstance = nil;
 	
 	if (path == nil)
 		return 0;
-	
-	SongLengthDBitem item;
-	bool success = SongLength::getItem([collectionRootPath cStringUsingEncoding:NSUTF8StringEncoding], [path cStringUsingEncoding:NSUTF8StringEncoding], subtune, item);
+    if (!newMD5FormatUsed) {
+        SongLengthDBitem item;
+        bool success = SongLength::getItem([collectionRootPath cStringUsingEncoding:NSUTF8StringEncoding], [path cStringUsingEncoding:NSUTF8StringEncoding], subtune, item);
 
-	if (success)
-		return item.playtime;
-
-	return 0;
+        if (success)
+            return item.playtime;
+    } else {
+        return [newMD5db getSongLengthByPath:path andSubtune:subtune];
+    }
+    return 0;
 }
 
 
@@ -153,9 +180,13 @@ static SongLengthDatabase* sharedInstance = nil;
 - (int) getSongLengthFromBuffer:(void*)buffer withBufferLength:(int)length andSubtune:(int)subtune
 // ----------------------------------------------------------------------------
 {
-	SidTuneWrapper sidtune;
-	sidtune.load(buffer, length);
-	return [self getSongLengthFromSidTune:&sidtune andSubtune:subtune];
+    if (!newMD5FormatUsed) {
+        SidTuneWrapper sidtune;
+        sidtune.load(buffer, length);
+        return [self getSongLengthFromSidTune:&sidtune andSubtune:subtune];
+    } else {
+        return [newMD5db getSongLengthFromBuffer:buffer withBufferLength:length andSubtune:subtune];
+    }
 }
 
 

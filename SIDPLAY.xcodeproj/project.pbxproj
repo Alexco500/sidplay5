@@ -258,6 +258,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
+		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -695,6 +697,10 @@
 		32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDPLAY_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SIDPLAY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIDPLAY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewMD5SongLengthDatabase.m; sourceTree = "<group>"; };
+		DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMD5SongLengthDatabase.h; sourceTree = "<group>"; };
+		DA212D4F27F70C1F00038CDE /* StringAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringAddons.m; sourceTree = "<group>"; };
+		DA212D5027F70C1F00038CDE /* StringAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringAddons.h; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DA9BC68D27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA9BC69427E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Analyzer.xib; sourceTree = "<group>"; };
@@ -1348,8 +1354,12 @@
 		1FCC68600CF07344005AFA9A /* Songlength Support */ = {
 			isa = PBXGroup;
 			children = (
+				DA212D5027F70C1F00038CDE /* StringAddons.h */,
+				DA212D4F27F70C1F00038CDE /* StringAddons.m */,
 				1FCC687C0CF073A7005AFA9A /* SongLengthDatabase.mm */,
 				1FCC687B0CF073A7005AFA9A /* SongLengthDatabase.h */,
+				DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */,
+				DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */,
 				1FCC68610CF07344005AFA9A /* Base.h */,
 				1FCC68620CF07344005AFA9A /* File.cpp */,
 				1FCC68630CF07344005AFA9A /* File.h */,
@@ -1689,6 +1699,7 @@
 				1FEE5AB50CF88604006A04B0 /* SPCollectionUtilities.mm in Sources */,
 				1F5173E80CF9A9F30064AFA2 /* SPInfoWindowController.mm in Sources */,
 				1F5176620CFB72010064AFA2 /* SPInfoContainerView.mm in Sources */,
+				DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */,
 				1F5176630CFB72020064AFA2 /* SPInfoView.mm in Sources */,
 				1F51769B0CFB73260064AFA2 /* SPOscilloscopeView.mm in Sources */,
 				1F25A3E60CFCB7A70063F7E7 /* SPTuneInfoView.mm in Sources */,
@@ -1705,6 +1716,7 @@
 				1F42DB0D0D318C7700C4CA07 /* encoder.c in Sources */,
 				1F42DB0E0D318C7700C4CA07 /* fft.c in Sources */,
 				1F42DB0F0D318C7700C4CA07 /* id3tag.c in Sources */,
+				DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */,
 				1F42DB100D318C7700C4CA07 /* lame.c in Sources */,
 				1F42DB110D318C7700C4CA07 /* mpglib_interface.c in Sources */,
 				1F42DB120D318C7700C4CA07 /* newmdct.c in Sources */,

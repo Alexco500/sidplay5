@@ -1,12 +1,15 @@
 #import <Cocoa/Cocoa.h>
+#import "NewMD5SongLengthDatabase.h"
 
 class SidTuneWrapper;
 
 @interface SongLengthDatabase : NSObject
 {
 	BOOL databaseAvailable;
+    BOOL newMD5FormatUsed;
 	NSString* collectionRootPath;
 	NSString* databasePath;
+    NewMD5SongLengthDatabase* newMD5db;
 	
 	NSMutableData* downloadData;
     NSURLConnection* downloadConnection;
@@ -14,7 +17,7 @@ class SidTuneWrapper;
 
 + (SongLengthDatabase*) sharedInstance;
 + (void) setSharedInstance:(SongLengthDatabase*)database;
-
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithRootPath:(NSString*)rootPath NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithRootUrlString:(NSString*)urlString NS_DESIGNATED_INITIALIZER;
 
