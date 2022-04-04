@@ -153,7 +153,7 @@ bool SongLengthFile::init(const char* fileName)
     }
     myIn.close();
     
-    return init(pDB, fileLen);
+    return init(pDB, (int)fileLen);
 }
 
 
@@ -180,7 +180,7 @@ bool SongLengthFile::init(char* databaseBuffer, int databaseSize)
 		memcpy(pDB, databaseBuffer, databaseSize);
 	}
 
-	mDBFileLen = strlen(pDB);
+	mDBFileLen = (int)strlen(pDB);
 	
     char* pDBentry = pDB;
     while (*pDBentry != 0)  // seek end of file buf
@@ -258,7 +258,7 @@ bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* f
 			
 			if (rootPath) {
 			
-				int len = strlen(rootPath);
+				int len = (int)strlen(rootPath);
 
 				if (strcasecmp(pathNameStart, temp + len) == 0) {
 
@@ -269,7 +269,7 @@ bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* f
 
 					const char* pEntry = pDBentry;
 
-					int leftToParse = strlen(pEntry);
+					int leftToParse = (int)strlen(pEntry);
 					// Skip first spaces between file name and first time stamp.
 					while ( isspace(*pEntry) || *pEntry=='=' )
 					{
@@ -341,12 +341,12 @@ bool SongLengthFile::getSongLength(const char* md5digest, int songNum,
     if ( !status )
         return false;
 
-    int md5digestLen = strlen(md5digest);
+    int md5digestLen = (int)strlen(md5digest);
     int cmpResult = 1;  // for result of strncmp()
     
     // Start searching in the middle of the array.
     int lowerBound = 0;
-    int upperBound = vec.size()-1;
+    int upperBound = (int)(vec.size()-1);
 #ifdef XSID_WB_DEBUG
     cout << "upperBound = " << upperBound << endl;
 #endif
@@ -387,7 +387,7 @@ bool SongLengthFile::getSongLength(const char* md5digest, int songNum,
 #ifdef XSID_WB_DEBUG
     cout << pEntry << endl;
 #endif
-    int leftToParse = strlen(pEntry);
+    int leftToParse = (int)strlen(pEntry);
     // Skip first spaces between file name and first time stamp.
     while ( isspace(*pEntry) || *pEntry=='=' )
     {

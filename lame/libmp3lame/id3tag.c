@@ -287,7 +287,7 @@ id3tag_set_genre(lame_global_flags *gfp, const char *genre)
     lame_internal_flags *gfc = gfp->internal_flags;
     if (genre && *genre) {
         char *str;
-        int num = strtol(genre, &str, 10);
+        int num = (int)strtol(genre, &str, 10);
         /* is the input a string or a valid number? */
         if (*str) {
             int i;
@@ -500,7 +500,7 @@ id3tag_write_v2(lame_global_flags *gfp)
                 add_dummy_byte(gfp, tag[index]);
             }
             free(tag);
-            return tag_size;
+            return (int)tag_size;
         }
     }
     return 0;

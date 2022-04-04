@@ -879,7 +879,7 @@
                         <nil key="toolTip"/>
                         <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" verticalHuggingPriority="750" id="523">
                             <rect key="frame" x="0.0" y="14" width="159" height="22"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" recentsAutosaveName="SidplaySearchField" id="524">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -897,7 +897,7 @@
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" id="664">
                             <rect key="frame" x="0.0" y="14" width="131" height="41"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="38I-Zu-ash">
                                 <rect key="frame" x="0.0" y="0.0" width="131" height="41"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -945,7 +945,7 @@
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="687">
                             <rect key="frame" x="0.0" y="14" width="156" height="39"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="Cj9-K8-7ll">
                                 <rect key="frame" x="0.0" y="0.0" width="156" height="39"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -980,7 +980,7 @@
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="698">
                             <rect key="frame" x="0.0" y="14" width="156" height="39"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="yRq-JK-WOb">
                                 <rect key="frame" x="0.0" y="0.0" width="156" height="39"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1013,7 +1013,7 @@
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="line" borderWidth="0.0" titlePosition="noTitle" id="747" customClass="SPStatusDisplayView">
                             <rect key="frame" x="0.0" y="14" width="401" height="46"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="rSe-qd-gdQ">
                                 <rect key="frame" x="0.0" y="0.0" width="401" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

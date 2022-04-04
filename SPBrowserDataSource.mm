@@ -135,7 +135,7 @@ NSDate* fillStart = nil;
 	{
 		SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 
-		int currentSongLength = [window currentTuneLengthInSeconds];
+		int currentSongLength = (int)[window currentTuneLengthInSeconds];
 		if (currentSongLength == 0)
 			currentSongLength = gPreferences.mDefaultPlayTime;
 		else if (loopCount > 0)
@@ -187,7 +187,7 @@ NSDate* fillStart = nil;
 						if (item != nil)
 						{
 							[self playItem:item];
-							int row = [browserView rowForItem:currentItem];
+							int row = (int)[browserView rowForItem:currentItem];
 							[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 							[browserView scrollRowToVisible:row];
 						}
@@ -865,11 +865,11 @@ NSDate* fillStart = nil;
 	// Deselect source list item (most likely a playlist) and select the
 	// current collection item
 	SPSourceListView* sourceListView = [sourceListDataSource sourceListView]; 
-	int row = [sourceListView selectedRow];
+	int row = (int)[sourceListView selectedRow];
 	SPSourceListItem* collectionItem = [sourceListDataSource currentCollection];
 	if (collectionItem != nil)
 	{
-		int newRow = [sourceListView rowForItem:collectionItem];
+		int newRow = (int)[sourceListView rowForItem:collectionItem];
 		if (row != newRow)
 		{
 			[sourceListView deselectRow:row];
@@ -1270,17 +1270,17 @@ NSDate* fillStart = nil;
     if (browserMode != BROWSER_MODE_SPOTLIGHT_RESULT)
         return;
     
-    int currentItemIndex = [browserView rowForItem:currentItem];
+    int currentItemIndex = (int)[browserView rowForItem:currentItem];
     if (currentItemIndex == -1)
         currentItemIndex = 0;
     else
-        currentItemIndex = random() % [rootItems count];
+        currentItemIndex = (int)(random() % [rootItems count]);
     
     SPBrowserItem* item = [rootItems objectAtIndex:currentItemIndex];
     if (item != nil)
     {
         [self playItem:item];
-        int row = [browserView rowForItem:currentItem];
+        int row = (int)[browserView rowForItem:currentItem];
         [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
         [browserView scrollRowToVisible:row];
     }
@@ -1542,7 +1542,7 @@ NSDate* fillStart = nil;
         NSString* file = [filesToOpen objectAtIndex:0];
 		
 		SPBrowserItem* missingItem = (__bridge SPBrowserItem*) contextInfo;
-		int playlistIndex = [missingItem playlistIndex];
+		int playlistIndex = (int)[missingItem playlistIndex];
 		if (playlist != nil)
 		{
 			SPPlaylistItem* playlistItem = [playlist itemAtIndex:playlistIndex];
@@ -1648,7 +1648,7 @@ NSDate* fillStart = nil;
     }
     else
     {
-        int currentItemIndex = [browserView rowForItem:currentItem];
+        int currentItemIndex = (int) [browserView rowForItem:currentItem];
         if (currentItemIndex == -1)
             currentItemIndex = 0;
         else
@@ -1671,7 +1671,7 @@ NSDate* fillStart = nil;
 	if (item != nil && playNextItem)
 	{
 		[self playItem:item];
-		int row = [browserView rowForItem:currentItem];
+		int row = (int)[browserView rowForItem:currentItem];
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 		[browserView scrollRowToVisible:row];
 	}
@@ -1697,20 +1697,20 @@ NSDate* fillStart = nil;
     {
         currentShuffleIndex--;
         if (currentShuffleIndex == -1)
-            currentShuffleIndex = [shuffledPlaylistItems count] - 1;
+            currentShuffleIndex = (int)[shuffledPlaylistItems count] - 1;
 
         item = [shuffledPlaylistItems objectAtIndex:currentShuffleIndex];
     }
     else
     {
-        int currentItemIndex = [browserView rowForItem:currentItem];
+        int currentItemIndex = (int)[browserView rowForItem:currentItem];
         if (currentItemIndex == -1)
             currentItemIndex = 0;
         else
         {
             currentItemIndex--;
             if (currentItemIndex == -1)
-                currentItemIndex = [rootItems count] - 1;
+                currentItemIndex = (int)[rootItems count] - 1;
         }
         
         item = [rootItems objectAtIndex:currentItemIndex];
@@ -1719,7 +1719,7 @@ NSDate* fillStart = nil;
 	if (item != nil)
 	{
 		[self playItem:item];
-		int row = [browserView rowForItem:currentItem];
+		int row = (int)[browserView rowForItem:currentItem];
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 		[browserView scrollRowToVisible:row];
 	}
@@ -1733,7 +1733,7 @@ NSDate* fillStart = nil;
 	if (currentItem == nil)
 		return;
 		
-	int row = [browserView rowForItem:currentItem];
+	int row = (int)[browserView rowForItem:currentItem];
 	if (row != -1)
 	{
 		[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
@@ -1892,7 +1892,7 @@ NSDate* fillStart = nil;
 	if ([set count] == 1)
 	{
 		SPBrowserItem* item = [browserView itemAtRow:index];
-		SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:[item loopCount]];
+		SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:(int)[item loopCount]];
 
 		[exportController exportFile:exportItem withType:type];
 	}
@@ -1904,7 +1904,7 @@ NSDate* fillStart = nil;
 			SPBrowserItem* item = [browserView itemAtRow:index];
 			if (item != nil && ![item isFolder])
 			{
-				SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:[item loopCount]];
+				SPExportItem* exportItem = [[SPExportItem alloc] initWithPath:[item path] andTitle:[item title] andAuthor:[item author] andSubtune:[item defaultSubTune] andLoopCount:(int)[item loopCount]];
 				[exportItems addObject:exportItem];
 			}
 
@@ -2003,11 +2003,11 @@ static NSImage* SPShuffleButtonImage = nil;
 // ----------------------------------------------------------------------------
 {
     if (item == nil)
-		return [rootItems count];
+		return (int)[rootItems count];
 	else
 	{
 		[self setInProgress:YES];
-		int count = [[item children] count];
+		int count = (int)[[item children] count];
         [[(SPBrowserItem*)item children] sortUsingDescriptors:[outlineView sortDescriptors]];
         [self setInProgress:NO];
 		return count;
@@ -2057,7 +2057,7 @@ static NSImage* SPShuffleButtonImage = nil;
 	
 	for (SPBrowserItem* item in selectedItems)
 	{
-		int row = [browserView rowForItem:item];
+		int row = (int)[browserView rowForItem:item];
 		if (row != -1)
 			[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES];
 	}
@@ -2138,7 +2138,7 @@ static NSImage* SPShuffleButtonImage = nil;
 		if (defaultSubtune > 0 && defaultSubtune <= [browserItem subTuneCount] && playlist != nil)
 		{
 			[browserItem setDefaultSubTune:defaultSubtune];
-			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthByPath:[browserItem path] andSubtune:defaultSubtune];
+			int playtime = [[SongLengthDatabase sharedInstance] getSongLengthByPath:[browserItem path] andSubtune:(int)defaultSubtune];
 			[browserItem setPlayTimeInSeconds:playtime];
 
 			NSInteger playlistIndex = [browserItem playlistIndex];
@@ -2339,7 +2339,7 @@ static NSImage* SPShuffleButtonImage = nil;
 	NSArray* supportedTypes = [NSArray arrayWithObjects:SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType, NSFilenamesPboardType, nil];
 	NSString* bestType = [pasteboard availableTypeFromArray:supportedTypes];
 	//SPBrowserItem* targetItem = item;
-	int targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : index;
+	int targetIndex = (index == NSOutlineViewDropOnItemIndex) ? -1 : (int)index;
 	
 	if ([bestType isEqualToString:NSFilenamesPboardType])
 	{
@@ -2439,7 +2439,7 @@ static NSImage* SPShuffleButtonImage = nil;
 
 		for (int i = 0; i < [draggedItems count]; i++)
 		{
-			int row = newBaseIndex + i;
+			int row = (int)(newBaseIndex + i);
 			if (i == 0)
 				[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 			else

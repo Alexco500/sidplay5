@@ -704,7 +704,7 @@ int PutLameVBR(lame_global_flags *gfp, FILE *fpStream, uint8_t *pbtStreamBuffer,
 	
 	/*get filesize */
 	fseek(fpStream, 0, SEEK_END);
-	nFilesize = ftell(fpStream);
+	nFilesize = (int)ftell(fpStream);
 
 	
 	nMusicLength = nFilesize - id3v2size;		/*omit current frame */
@@ -955,7 +955,7 @@ int PutVbrTag(lame_global_flags *gfp,FILE *fpStream,int nVbrScale)
 		crc = CRC_update_lookup(pbtStreamBuffer[i], crc);
 
 	/*Put LAME VBR info*/
-	nStreamIndex+=PutLameVBR(gfp, fpStream, pbtStreamBuffer + nStreamIndex, id3v2TagSize,crc);
+	nStreamIndex+=PutLameVBR(gfp, fpStream, pbtStreamBuffer + nStreamIndex, (uint32_t)id3v2TagSize,crc);
 
 #ifdef DEBUG_VBRTAG
 	{

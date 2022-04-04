@@ -353,13 +353,13 @@ void Player::psidRelocAddr (SidTuneInfo &tuneInfo, int startp, int endp)
         {
             if (pages[page] == false)
                 continue;
-            relocPages = page - lastPage;
+            relocPages = (int)(page - lastPage);
             if (relocPages > tuneInfo.relocPages)
             {
                 tuneInfo.relocStartPage = lastPage;
                 tuneInfo.relocPages     = relocPages;
             }
-            lastPage = page + 1;
+            lastPage = (int)(page + 1);
         }
     }
 

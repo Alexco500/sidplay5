@@ -106,7 +106,11 @@ sidplay2::sidplay2 ()
 }
 
 sidplay2::~sidplay2 ()
-{   if (&sidplayer) delete &sidplayer; }
+/*
+ {   if (&sidplayer) delete &sidplayer; }
+ Reference cannot be bound to dereferenced null pointer in well-defined C++ code; pointer may be assumed to always convert to true
+*/
+{   delete &sidplayer; }
 
 int sidplay2::config (const sid2_config_t &cfg)
 {   return sidplayer.config (cfg); }

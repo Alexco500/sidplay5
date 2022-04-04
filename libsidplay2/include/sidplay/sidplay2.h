@@ -62,8 +62,14 @@ public:
 	const SIDPLAY2_NAMESPACE::SidRegisterFrame& getCurrentRegisterFrame() const;
 	void setRegisterFrameChangedCallback(void* inInstance, SIDPLAY2_NAMESPACE::SidRegisterFrameChangedCallback inCallback);
 
+    /*
+    * this results in:
+     Reference cannot be bound to dereferenced null pointer in well-defined C++ code; pointer may be assumed to always convert to true
     operator bool()  const { return (&sidplayer ? true: false); }
     bool operator!() const { return (&sidplayer ? false: true); }
+     */
+    operator bool()  const { return true; }
+    bool operator!() const { return false; }
 };
 
 #endif // _sidplay2_h_

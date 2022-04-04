@@ -138,14 +138,14 @@ uint ReSIDBuilder::devices (bool created)
 {
     m_status = true;
     if (created)
-        return sidobjs.size ();
+        return (uint)sidobjs.size ();
     else // Available devices
 		return 0;
 }
 
 void ReSIDBuilder::filter (const sid_filter_t *filter)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
 	m_status = true;
     for (int i = 0; i < size; i++)
 	{
@@ -162,7 +162,7 @@ ReSIDBuilder_sidFilterDef_error:
 
 void ReSIDBuilder::filter (bool enable)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
 	m_status = true;
     for (int i = 0; i < size; i++)
 	{
@@ -174,7 +174,7 @@ void ReSIDBuilder::filter (bool enable)
 // Find a free SID of the required specs
 sidemu *ReSIDBuilder::lock (c64env *env, sid2_model_t model)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
     m_status = true;
 
     for (int i = 0; i < size; i++)
@@ -195,7 +195,7 @@ sidemu *ReSIDBuilder::lock (c64env *env, sid2_model_t model)
 // Allow something to use this SID
 void ReSIDBuilder::unlock (sidemu *device)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
     // Maek sure this is our SID
     for (int i = 0; i < size; i++)
     {
@@ -211,7 +211,7 @@ void ReSIDBuilder::unlock (sidemu *device)
 // Remove all SID emulations.
 void ReSIDBuilder::remove ()
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
     for (int i = 0; i < size; i++)
         delete sidobjs[i];
     sidobjs.clear();
@@ -219,7 +219,7 @@ void ReSIDBuilder::remove ()
 
 void ReSIDBuilder::sampling (uint_least32_t freq)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
 	m_status = true;
     for (int i = 0; i < size; i++)
 	{
@@ -231,7 +231,7 @@ void ReSIDBuilder::sampling (uint_least32_t freq)
 // AV: allow optimisation override while playing
 void ReSIDBuilder::overrideOptimisation(int optimisation)
 {
-    int size = sidobjs.size ();
+    int size = (int)sidobjs.size ();
 	m_status = true;
     for (int i = 0; i < size; i++)
 	{

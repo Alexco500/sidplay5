@@ -579,7 +579,7 @@ SidTune::LoadStatus SidTune::MUS_load (Buffer_sidtt<const uint_least8_t>& musBuf
 {
     uint_least32_t voice3Index;
     SmartPtr_sidtt<const uint8_t> spPet(musBuf.get()+fileOffset,musBuf.len()-fileOffset);
-    if ( !MUS_detect(&spPet[0],spPet.tellLength(),voice3Index) )
+    if ( !MUS_detect(&spPet[0],(uint_least32_t)spPet.tellLength(),voice3Index) )
         return LOAD_NOT_MINE;
 
     if (init)
@@ -660,7 +660,7 @@ SidTune::LoadStatus SidTune::MUS_load (Buffer_sidtt<const uint_least8_t>& musBuf
         if ( spPet.good() )
         {
             uint_least16_t pos = (uint_least16_t) spPet.tellPos();
-            if ( MUS_detect(&spPet[0],spPet.tellLength()-pos,voice3Index) )
+            if ( MUS_detect(&spPet[0],(uint_least32_t)(spPet.tellLength()-pos),voice3Index) )
             {
                 musDataLen = pos;
                 stereo = true;
