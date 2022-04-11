@@ -105,16 +105,17 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 
 
 // ----------------------------------------------------------------------------
-- (void) finalize
+- (void) dealloc
 // ----------------------------------------------------------------------------
 {
+    // changed finalize back to dealloc
 	if (databaseDownloadConnection != nil)
 	{
 		[databaseDownloadConnection cancel];
 		databaseDownloadConnection = nil;
 	}
 	
-	[super finalize];
+	//[super finalize];
 }
 
 

@@ -14,7 +14,7 @@ extern NSString* SPHttpBrowserItemIndexDownloadedNotification;
     NSURLConnection* indexDownloadConnection;
 }
 
-- (instancetype) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem;
 - (void) cancelDownload;
 @property (NS_NONATOMIC_IOSONLY, getter=isValid, readonly) BOOL valid;
 

@@ -3,6 +3,12 @@
 
 @implementation SPPlaylistItem
 
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithPath:nil andSubtuneIndex:nil andLoopCount:nil];
+}
 
 // ----------------------------------------------------------------------------
 - (instancetype) initWithPath:(NSString*)relativePath andSubtuneIndex:(NSInteger)subtuneIndex andLoopCount:(NSInteger)loops

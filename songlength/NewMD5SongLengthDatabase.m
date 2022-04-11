@@ -17,14 +17,14 @@ static NSString* MD5IdentificationString = @"[Database]";
 {
     self = [super init];
     self->validDatabase = NO;
-    self->databasePath = NULL;
+    self->databasePath = nil;
     return self;
 }
 - (instancetype)initWithPath:(NSString*)pathToDB
 {
     self = [self init];
     self->databasePath = pathToDB;
-    NSLog(@"NewMD5SongLengthDatabase: initWithPath: %@\n", pathToDB);
+    // NSLog(@"NewMD5SongLengthDatabase: initWithPath: %@\n", pathToDB);
     NSData *data = [NSData dataWithContentsOfFile:self->databasePath];
     [self createDBfromData:data];
     return self;
@@ -116,7 +116,7 @@ static NSString* MD5IdentificationString = @"[Database]";
     NSMutableArray *timeArray;
     elements = [myString componentsSeparatedByString:@" "];
     if ([elements count] < 1)
-        return NULL;
+        return nil;
     numberFormatter = [[NSNumberFormatter alloc]init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehaviorDefault];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -128,10 +128,10 @@ static NSString* MD5IdentificationString = @"[Database]";
     {
         timeElements = [anString componentsSeparatedByString:@":"];
         if ([timeElements count] < 2)
-            return NULL;
+            return nil;
         NSNumber *min = [numberFormatter numberFromString:[timeElements objectAtIndex:0]];
         NSNumber *sec = [numberFormatter numberFromString:[timeElements objectAtIndex:1]];
-        if (min != NULL && sec != NULL)
+        if (min != nil && sec != nil)
         {
             //calculate a float value "time in secs" from min and secs
             //currenty only integer is used by player, but some songs have their time
@@ -140,8 +140,8 @@ static NSString* MD5IdentificationString = @"[Database]";
             //[timeArray addObject:sec];
         }
    //     NSLog(@"Minutes: %@, Seconds: %@\n",min, sec);
-        min = NULL;
-        sec = NULL;
+        min = nil;
+        sec = nil;
     }
     return timeArray;
 }

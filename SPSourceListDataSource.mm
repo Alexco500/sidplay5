@@ -954,8 +954,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
              {
                  if (result == NSFileHandlingPanelOKButton)
                  {
-                     BOOL exportRelativePaths = (m3uExportRelativePathsButton.state == NSOnState);
-                     NSString* exportPathPrefix = m3uExportPathPrefixTextField.stringValue;
+                     BOOL exportRelativePaths = (self->m3uExportRelativePathsButton.state == NSOnState);
+                     NSString* exportPathPrefix = self->m3uExportPathPrefixTextField.stringValue;
                      
                      [playlist saveToM3U:(savePanel.URL).path withRelativePaths:exportRelativePaths andPathPrefix:exportPathPrefix];
                  }
@@ -1144,7 +1144,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:destinationPath isDirectory:&isFolder];
 	if (!exists)
 	{
-		exists = [[NSFileManager defaultManager] createDirectoryAtPath:destinationPath attributes:nil];
+		exists = [[NSFileManager defaultManager] createDirectoryAtPath:destinationPath withIntermediateDirectories:NO  attributes:nil error:nil];
 		isFolder = YES;
 	}
 
@@ -1237,8 +1237,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		NSMutableArray* lines = [[output componentsSeparatedByString:@"\n"] mutableCopy];
 		
 		// If block of output data doesn't end with a linebreak, we have to take the last line
-		// and consider it with the next block
-		if ([output characterAtIndex:output.length - 1] != '\n');
+		// and consider it with the next block (fix: removed wrong ;)
+		if ([output characterAtIndex:output.length - 1] != '\n')
 		{
 			overflowFromPreviousOutput = lines.lastObject;
 			[lines removeLastObject];

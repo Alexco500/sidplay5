@@ -51,7 +51,7 @@ ReSID::ReSID (sidbuilder *builder)
     p += strlen (p) + 1;
     *p = '\0';
 
-	if (!&m_sid)
+	if (!&(this->m_sid))
 	{
 		m_error  = "RESID ERROR: Unable to create sid object";
 		m_status = false;

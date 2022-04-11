@@ -124,7 +124,12 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 @synthesize delegate;
 @synthesize priority;
 
-
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithRequest:nil andDelegate:nil andPriority:nil];
+}
 // ----------------------------------------------------------------------------
 - (instancetype) initWithRequest:(NSURLRequest*)theRequest andDelegate:(id)theDelegate andPriority:(NSInteger)thePriority
 // ----------------------------------------------------------------------------

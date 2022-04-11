@@ -11,6 +11,12 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 
 @implementation SPHttpBrowserItem
 
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithURLString:nil isFolder:NO forParent:nil];
+}
 
 // ----------------------------------------------------------------------------
 - (instancetype) initWithURLString:(NSString*)urlString isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem
@@ -186,11 +192,12 @@ NSString* SPHttpBrowserItemIndexDownloadedNotification = @"SPHttpBrowserItemInde
 
 
 // ----------------------------------------------------------------------------
-- (void) finalize
+- (void) dealloc
 // ----------------------------------------------------------------------------
 {
+    // changed finalize back to dealloc
     [self cancelDownload];
-	[super finalize];
+	//[super finalize];
 }
 
 

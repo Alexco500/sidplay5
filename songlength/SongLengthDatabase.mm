@@ -141,16 +141,17 @@ static SongLengthDatabase* sharedInstance = nil;
 
 
 // ----------------------------------------------------------------------------
-- (void) finalize
+- (void) dealloc
 // ----------------------------------------------------------------------------
 {
+    // changed finalize back to dealloc
 	if (downloadConnection != nil)
 	{
 		[downloadConnection cancel];
 		downloadConnection = nil;
 	}
 	
-	[super finalize];
+	//[super finalize];
 }
 
 

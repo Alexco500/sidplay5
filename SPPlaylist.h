@@ -10,7 +10,7 @@
 	NSString* path;
 }
 
-- (instancetype) initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithCoder:(NSCoder*)coder;
 - (void) encodeWithCoder:(NSCoder*)coder;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSInteger count;

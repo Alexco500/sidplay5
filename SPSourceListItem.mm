@@ -12,7 +12,12 @@ static NSImage* sharedCollectionIcon = nil;
 static NSImage* sPlaylistIcon = nil;
 static NSImage* sSmartPlaylistIcon = nil;
 
-
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithName:nil forPath:nil withIcon:nil];
+}
 // ----------------------------------------------------------------------------
 - (instancetype) initWithName:(NSAttributedString*)theName forPath:(NSString*)thePath withIcon:(NSImage*)theIcon
 // ----------------------------------------------------------------------------
@@ -65,9 +70,10 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (void) finalize
+- (void) dealloc
 // ----------------------------------------------------------------------------
 {
+    // changed finalize back to dealloc
 	if (playlistIndexDownloadConnection != nil)
 	{
 		[playlistIndexDownloadConnection cancel];
@@ -80,7 +86,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 		playlistDownloadConnection = nil;
 	}
 	
-	[super finalize];
+	//[super finalize];
 }
 
 

@@ -582,8 +582,8 @@
 		mouseDownInRightArrow = NO;
 		return;
 	}
-	
-	[super mouseDown:event];
+	// Code will never be executed
+	//[super mouseDown:event];
 }
 
 

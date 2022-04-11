@@ -182,12 +182,12 @@
     {
         if (result == NSFileHandlingPanelOKButton)
         {
-            [exportTaskWindow orderFront:self];
+            [self->exportTaskWindow orderFront:self];
             
-            SPExporter* exporter = [itemsToExport[0] exporter];
-            [exporter setExportSettings:exportSettings];
+            SPExporter* exporter = [self->itemsToExport[0] exporter];
+            [exporter setExportSettings:self->exportSettings];
             [exporter setDestinationPath:(savePanel.URL).path];
-            [exporterArray addObject:exporter];
+            [self->exporterArray addObject:exporter];
             [self updateExporterState];
         }
     }
@@ -211,28 +211,28 @@
      {
          if (result == NSFileHandlingPanelOKButton)
          {
-             [exportTaskWindow orderFront:self];
+             [self->exportTaskWindow orderFront:self];
              
-             NSMutableArray* exportersToAdd = [NSMutableArray arrayWithCapacity:itemsToExport.count];
+             NSMutableArray* exportersToAdd = [NSMutableArray arrayWithCapacity:self->itemsToExport.count];
              
-             for (SPExportItem* item in itemsToExport)
+             for (SPExportItem* item in self->itemsToExport)
              {
                  //NSLog(@"Adding exporter for %@\n", [item path]);
                  
-                 SPExporter* exporter = [[SPExporter alloc] initWithItem:item withController:self andWindow:ownerWindow loadNow:NO];
+                 SPExporter* exporter = [[SPExporter alloc] initWithItem:item withController:self andWindow:self->ownerWindow loadNow:NO];
                  if (exporter == nil)
                      continue;
                  
                  [item setExporter:exporter];
-                 [exporter setExportSettings:exportSettings];
+                 [exporter setExportSettings:self->exportSettings];
                  
-                 exportDirectoryPath = (openPanel.URL).path;
+                 self->exportDirectoryPath = (openPanel.URL).path;
                  
                  [exporter setFileName:[exporter suggestedFilename]];
                  [exportersToAdd addObject:exporter];
              }
              
-             [exporterArray addObjects:exportersToAdd];
+             [self->exporterArray addObjects:exportersToAdd];
              [self updateExporterState];
          }
      }

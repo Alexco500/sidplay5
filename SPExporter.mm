@@ -31,6 +31,12 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 @implementation SPExporter
 
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithItem:nil withController:nil andWindow:nil loadNow:NO];
+}
 
 // ----------------------------------------------------------------------------
 - (instancetype) initWithItem:(SPExportItem*)item withController:(SPExportController*)theController andWindow:(SPPlayerWindow*)window loadNow:(BOOL)loadItem
@@ -764,6 +770,12 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 @implementation SPExportItem
 
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithPath:nil andTitle:nil andAuthor:nil andSubtune:0 andLoopCount:0];
+}
 // ----------------------------------------------------------------------------
 - (instancetype) initWithPath:(NSString*)filePath andTitle:(NSString*)titleString andAuthor:(NSString*)authorString andSubtune:(int)subtuneIndex andLoopCount:(int)loops
 // ----------------------------------------------------------------------------

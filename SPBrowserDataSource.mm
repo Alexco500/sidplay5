@@ -1061,7 +1061,12 @@ NSDate* fillStart = nil;
 {
 	if (rootPath == nil)
 		return;
-
+    // if window is to small for toolbar we would raise an exception
+    // with [sender stringValue], so we check for NSTextField here
+    // (if hidden, it is a NSMenuitem)
+    if (![sender isKindOfClass:[NSTextField class]])
+        return;
+    
 	NSString* searchString = [sender stringValue];
 
 	if (browserMode == BROWSER_MODE_PLAYLIST || browserMode == BROWSER_MODE_SHARED_PLAYLIST || 
@@ -2199,7 +2204,8 @@ static NSImage* SPShuffleButtonImage = nil;
 		
 		if (tableColumn == tableColumns[COLUMN_SUBTUNE])
 			return ([browserItem subTuneCount] > 1);
-		else if (tableColumn == tableColumns[COLUMN_REPEAT] || tableColumn == tableColumns[COLUMN_PATH]);
+		else if (tableColumn == tableColumns[COLUMN_REPEAT] || tableColumn == tableColumns[COLUMN_PATH])
+            ;
 			return YES;
 	}
 	

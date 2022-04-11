@@ -3,7 +3,12 @@
 
 @implementation SPBrowserState
 
-
+// ----------------------------------------------------------------------------
+- (instancetype) init
+// ----------------------------------------------------------------------------
+{
+    return [self initWithPath:nil andItems:nil andExpandedFolders:nil andSelectedItems:nil];
+}
 // ----------------------------------------------------------------------------
 - (instancetype) initWithPath:(NSString*)path andItems:(NSMutableArray*)items andExpandedFolders:(NSMutableArray*)expandedFolders andSelectedItems:(NSMutableArray*)selected
 // ----------------------------------------------------------------------------
