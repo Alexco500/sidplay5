@@ -229,13 +229,13 @@ static const char* sRowTitles[] =
             snprintf(stringBuffer, 255, "$%04x", player->getCurrentPlayAddress());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, player->getCurrentFormat());
+            snprintf(stringBuffer, 255, "%s", player->getCurrentFormat());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
             snprintf(stringBuffer, 255, "%d bytes", player->getCurrentFileSize());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, player->getCurrentChipModel());
+            snprintf(stringBuffer, 255, "%s", player->getCurrentChipModel());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             //ypos -= rowHeight;
 		}

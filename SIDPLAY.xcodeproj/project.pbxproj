@@ -75,30 +75,10 @@
 		1F3897930CEE400000942B17 /* wave8580_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897830CEE400000942B17 /* wave8580_PST.cc */; };
 		1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3898530CEE4E0900942B17 /* CoreAudio.framework */; };
 		1F40A5F30D3A364200AD3B5D /* psid64 in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; };
-		1F40A8D60D3A9E4F00AD3B5D /* gain_analysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F40A8D40D3A9E4F00AD3B5D /* gain_analysis.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
 		1F40A9570D3AAFC400AD3B5D /* minus.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A9560D3AAFC300AD3B5D /* minus.tiff */; };
 		1F41C53F0D5E11A30070C628 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F41C53D0D5E11A30070C628 /* Credits.rtf */; };
 		1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A48D0CFCC5DB0063F7E7 /* SPSidRegisterView.mm */; };
 		1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */; };
-		1F42DB0B0D318C7700C4CA07 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAC50D318C6D00C4CA07 /* bitstream.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB0D0D318C7700C4CA07 /* encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAC80D318C6D00C4CA07 /* encoder.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB0E0D318C7700C4CA07 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DACA0D318C6D00C4CA07 /* fft.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB0F0D318C7700C4CA07 /* id3tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DACC0D318C6D00C4CA07 /* id3tag.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB100D318C7700C4CA07 /* lame.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAD00D318C6D00C4CA07 /* lame.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB110D318C7700C4CA07 /* mpglib_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAD40D318C6D00C4CA07 /* mpglib_interface.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB120D318C7700C4CA07 /* newmdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAD50D318C6D00C4CA07 /* newmdct.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB140D318C7700C4CA07 /* presets.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAD90D318C6D00C4CA07 /* presets.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB150D318C7700C4CA07 /* psymodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DADA0D318C6D00C4CA07 /* psymodel.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB160D318C7700C4CA07 /* quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DADC0D318C6D00C4CA07 /* quantize.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB170D318C7700C4CA07 /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DADE0D318C6D00C4CA07 /* quantize_pvt.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB180D318C7700C4CA07 /* reservoir.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAE00D318C6D00C4CA07 /* reservoir.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB190D318C7700C4CA07 /* set_get.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAE20D318C6D00C4CA07 /* set_get.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB1A0D318C7700C4CA07 /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAE30D318C6D00C4CA07 /* tables.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB1B0D318C7700C4CA07 /* takehiro.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAE50D318C6D00C4CA07 /* takehiro.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB1D0D318C7700C4CA07 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAE80D318C6D00C4CA07 /* util.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB1E0D318C7700C4CA07 /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAEA0D318C6D00C4CA07 /* vbrquantize.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB1F0D318C7700C4CA07 /* VbrTag.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAEC0D318C6D00C4CA07 /* VbrTag.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
-		1F42DB200D318C7700C4CA07 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F42DAEE0D318C6D00C4CA07 /* version.c */; settings = {COMPILER_FLAGS = "-x c++ -DHAVE_CONFIG_H"; }; };
 		1F4386D10CEF1CE100654EA1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */; };
 		1F46266B0D9AEE5000C12916 /* SPSourceListDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F46266A0D9AEE5000C12916 /* SPSourceListDataSource.mm */; };
 		1F4C4FC70D79EFD900214775 /* PlayerLibSidplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C4FC50D79EFD800214775 /* PlayerLibSidplay.cpp */; };
@@ -260,6 +240,8 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DAACB1D42804C9460029ED3C /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
+		DAACB1D52804C9460029ED3C /* LAME.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,6 +280,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1F2820E30D43FD1F00AAB993 /* Sparkle.framework in Copy Frameworks */,
+				DAACB1D52804C9460029ED3C /* LAME.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,49 +424,7 @@
 		1F3897830CEE400000942B17 /* wave8580_PST.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wave8580_PST.cc; path = resid/wave8580_PST.cc; sourceTree = "<group>"; };
 		1F3898530CEE4E0900942B17 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		1F40A5F20D3A364200AD3B5D /* psid64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = psid64; path = Resources/psid64; sourceTree = "<group>"; };
-		1F40A8D40D3A9E4F00AD3B5D /* gain_analysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gain_analysis.c; sourceTree = "<group>"; };
-		1F40A8D50D3A9E4F00AD3B5D /* gain_analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gain_analysis.h; sourceTree = "<group>"; };
-		1F40A8DE0D3AA0BD00AD3B5D /* set_get.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = set_get.h; sourceTree = "<group>"; };
 		1F40A9560D3AAFC300AD3B5D /* minus.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = minus.tiff; path = Resources/minus.tiff; sourceTree = "<group>"; };
-		1F42DAC50D318C6D00C4CA07 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
-		1F42DAC60D318C6D00C4CA07 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
-		1F42DAC80D318C6D00C4CA07 /* encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encoder.c; sourceTree = "<group>"; };
-		1F42DAC90D318C6D00C4CA07 /* encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoder.h; sourceTree = "<group>"; };
-		1F42DACA0D318C6D00C4CA07 /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
-		1F42DACB0D318C6D00C4CA07 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
-		1F42DACC0D318C6D00C4CA07 /* id3tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = id3tag.c; sourceTree = "<group>"; };
-		1F42DACD0D318C6D00C4CA07 /* id3tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = id3tag.h; sourceTree = "<group>"; };
-		1F42DACE0D318C6D00C4CA07 /* l3side.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l3side.h; sourceTree = "<group>"; };
-		1F42DACF0D318C6D00C4CA07 /* lame-analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "lame-analysis.h"; sourceTree = "<group>"; };
-		1F42DAD00D318C6D00C4CA07 /* lame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lame.c; sourceTree = "<group>"; };
-		1F42DAD10D318C6D00C4CA07 /* lame_global_flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame_global_flags.h; sourceTree = "<group>"; };
-		1F42DAD30D318C6D00C4CA07 /* machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = machine.h; sourceTree = "<group>"; };
-		1F42DAD40D318C6D00C4CA07 /* mpglib_interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mpglib_interface.c; sourceTree = "<group>"; };
-		1F42DAD50D318C6D00C4CA07 /* newmdct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = newmdct.c; sourceTree = "<group>"; };
-		1F42DAD60D318C6D00C4CA07 /* newmdct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newmdct.h; sourceTree = "<group>"; };
-		1F42DAD90D318C6D00C4CA07 /* presets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = presets.c; sourceTree = "<group>"; };
-		1F42DADA0D318C6D00C4CA07 /* psymodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = psymodel.c; sourceTree = "<group>"; };
-		1F42DADB0D318C6D00C4CA07 /* psymodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psymodel.h; sourceTree = "<group>"; };
-		1F42DADC0D318C6D00C4CA07 /* quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize.c; sourceTree = "<group>"; };
-		1F42DADD0D318C6D00C4CA07 /* quantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize.h; sourceTree = "<group>"; };
-		1F42DADE0D318C6D00C4CA07 /* quantize_pvt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize_pvt.c; sourceTree = "<group>"; };
-		1F42DADF0D318C6D00C4CA07 /* quantize_pvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize_pvt.h; sourceTree = "<group>"; };
-		1F42DAE00D318C6D00C4CA07 /* reservoir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reservoir.c; sourceTree = "<group>"; };
-		1F42DAE10D318C6D00C4CA07 /* reservoir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reservoir.h; sourceTree = "<group>"; };
-		1F42DAE20D318C6D00C4CA07 /* set_get.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = set_get.c; sourceTree = "<group>"; };
-		1F42DAE30D318C6D00C4CA07 /* tables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tables.c; sourceTree = "<group>"; };
-		1F42DAE40D318C6D00C4CA07 /* tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tables.h; sourceTree = "<group>"; };
-		1F42DAE50D318C6D00C4CA07 /* takehiro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = takehiro.c; sourceTree = "<group>"; };
-		1F42DAE80D318C6D00C4CA07 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
-		1F42DAE90D318C6D00C4CA07 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
-		1F42DAEA0D318C6D00C4CA07 /* vbrquantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vbrquantize.c; sourceTree = "<group>"; };
-		1F42DAEB0D318C6D00C4CA07 /* vbrquantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vbrquantize.h; sourceTree = "<group>"; };
-		1F42DAEC0D318C6D00C4CA07 /* VbrTag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VbrTag.c; sourceTree = "<group>"; };
-		1F42DAED0D318C6D00C4CA07 /* VbrTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VbrTag.h; sourceTree = "<group>"; };
-		1F42DAEE0D318C6D00C4CA07 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
-		1F42DAEF0D318C6D00C4CA07 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		1F42DAF10D318C6D00C4CA07 /* lameconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lameconfig.h; path = lame/lameconfig.h; sourceTree = "<group>"; };
-		1F42DAF20D318C6D00C4CA07 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lame.h; path = lame/lame.h; sourceTree = "<group>"; };
 		1F4386260CEEFD8E00654EA1 /* AudioCoreDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioCoreDriver.cpp; sourceTree = "<group>"; };
 		1F4386270CEEFD8E00654EA1 /* AudioCoreDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCoreDriver.h; sourceTree = "<group>"; };
 		1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
@@ -708,6 +649,7 @@
 		DA9BC69627E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoWindow.xib; sourceTree = "<group>"; };
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
+		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -722,6 +664,7 @@
 				1F25A5B70CFD57990063F7E7 /* QuartzCore.framework in Frameworks */,
 				1F30A9550D0AF9ED00C162A2 /* WebKit.framework in Frameworks */,
 				1F2820CE0D43FD0C00AAB993 /* Sparkle.framework in Frameworks */,
+				DAACB1D42804C9460029ED3C /* LAME.framework in Frameworks */,
 				1FDD6F4E0D8306C500489870 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,6 +711,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				1F2820CD0D43FD0C00AAB993 /* Sparkle.framework */,
 			);
@@ -829,7 +773,6 @@
 				1FAE8DBB0D32CDEB009D1F9D /* SPExportOptionsPanel.h */,
 				1FAE8CF80D31945B009D1F9D /* SPExporter.mm */,
 				1FAE8CF70D31945B009D1F9D /* SPExporter.h */,
-				1F42DA960D318C5500C4CA07 /* lame */,
 			);
 			name = "Export Support";
 			sourceTree = "<group>";
@@ -1193,64 +1136,6 @@
 			);
 			name = xsid;
 			path = libsidplay2/xsid;
-			sourceTree = "<group>";
-		};
-		1F42DA960D318C5500C4CA07 /* lame */ = {
-			isa = PBXGroup;
-			children = (
-				1F42DAF10D318C6D00C4CA07 /* lameconfig.h */,
-				1F42DAF20D318C6D00C4CA07 /* lame.h */,
-				1F42DAAA0D318C6D00C4CA07 /* libmp3lame */,
-			);
-			name = lame;
-			sourceTree = "<group>";
-		};
-		1F42DAAA0D318C6D00C4CA07 /* libmp3lame */ = {
-			isa = PBXGroup;
-			children = (
-				1F42DAC50D318C6D00C4CA07 /* bitstream.c */,
-				1F42DAC60D318C6D00C4CA07 /* bitstream.h */,
-				1F42DAC80D318C6D00C4CA07 /* encoder.c */,
-				1F42DAC90D318C6D00C4CA07 /* encoder.h */,
-				1F42DACA0D318C6D00C4CA07 /* fft.c */,
-				1F42DACB0D318C6D00C4CA07 /* fft.h */,
-				1F40A8D40D3A9E4F00AD3B5D /* gain_analysis.c */,
-				1F40A8D50D3A9E4F00AD3B5D /* gain_analysis.h */,
-				1F42DACC0D318C6D00C4CA07 /* id3tag.c */,
-				1F42DACD0D318C6D00C4CA07 /* id3tag.h */,
-				1F42DACE0D318C6D00C4CA07 /* l3side.h */,
-				1F42DACF0D318C6D00C4CA07 /* lame-analysis.h */,
-				1F42DAD00D318C6D00C4CA07 /* lame.c */,
-				1F42DAD10D318C6D00C4CA07 /* lame_global_flags.h */,
-				1F42DAD30D318C6D00C4CA07 /* machine.h */,
-				1F42DAD40D318C6D00C4CA07 /* mpglib_interface.c */,
-				1F42DAD50D318C6D00C4CA07 /* newmdct.c */,
-				1F42DAD60D318C6D00C4CA07 /* newmdct.h */,
-				1F42DAD90D318C6D00C4CA07 /* presets.c */,
-				1F42DADA0D318C6D00C4CA07 /* psymodel.c */,
-				1F42DADB0D318C6D00C4CA07 /* psymodel.h */,
-				1F42DADC0D318C6D00C4CA07 /* quantize.c */,
-				1F42DADD0D318C6D00C4CA07 /* quantize.h */,
-				1F42DADE0D318C6D00C4CA07 /* quantize_pvt.c */,
-				1F42DADF0D318C6D00C4CA07 /* quantize_pvt.h */,
-				1F42DAE00D318C6D00C4CA07 /* reservoir.c */,
-				1F42DAE10D318C6D00C4CA07 /* reservoir.h */,
-				1F42DAE20D318C6D00C4CA07 /* set_get.c */,
-				1F40A8DE0D3AA0BD00AD3B5D /* set_get.h */,
-				1F42DAE30D318C6D00C4CA07 /* tables.c */,
-				1F42DAE40D318C6D00C4CA07 /* tables.h */,
-				1F42DAE50D318C6D00C4CA07 /* takehiro.c */,
-				1F42DAE80D318C6D00C4CA07 /* util.c */,
-				1F42DAE90D318C6D00C4CA07 /* util.h */,
-				1F42DAEA0D318C6D00C4CA07 /* vbrquantize.c */,
-				1F42DAEB0D318C6D00C4CA07 /* vbrquantize.h */,
-				1F42DAEC0D318C6D00C4CA07 /* VbrTag.c */,
-				1F42DAED0D318C6D00C4CA07 /* VbrTag.h */,
-				1F42DAEE0D318C6D00C4CA07 /* version.c */,
-				1F42DAEF0D318C6D00C4CA07 /* version.h */,
-			);
-			name = libmp3lame;
-			path = lame/libmp3lame;
 			sourceTree = "<group>";
 		};
 		1F4BC54E0DFEFFB30077CB56 /* ThirdPartySources */ = {
@@ -1712,31 +1597,11 @@
 				1FB8FE040D17107000945D64 /* SPPredicateEditorController.mm in Sources */,
 				1FB8FF550D186F6500945D64 /* SPGradientBox.mm in Sources */,
 				1FB8FF740D1875EA00945D64 /* SPPredicateEditor.mm in Sources */,
-				1F42DB0B0D318C7700C4CA07 /* bitstream.c in Sources */,
-				1F42DB0D0D318C7700C4CA07 /* encoder.c in Sources */,
-				1F42DB0E0D318C7700C4CA07 /* fft.c in Sources */,
-				1F42DB0F0D318C7700C4CA07 /* id3tag.c in Sources */,
 				DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */,
-				1F42DB100D318C7700C4CA07 /* lame.c in Sources */,
-				1F42DB110D318C7700C4CA07 /* mpglib_interface.c in Sources */,
-				1F42DB120D318C7700C4CA07 /* newmdct.c in Sources */,
-				1F42DB140D318C7700C4CA07 /* presets.c in Sources */,
-				1F42DB150D318C7700C4CA07 /* psymodel.c in Sources */,
-				1F42DB160D318C7700C4CA07 /* quantize.c in Sources */,
-				1F42DB170D318C7700C4CA07 /* quantize_pvt.c in Sources */,
-				1F42DB180D318C7700C4CA07 /* reservoir.c in Sources */,
-				1F42DB190D318C7700C4CA07 /* set_get.c in Sources */,
-				1F42DB1A0D318C7700C4CA07 /* tables.c in Sources */,
-				1F42DB1B0D318C7700C4CA07 /* takehiro.c in Sources */,
-				1F42DB1D0D318C7700C4CA07 /* util.c in Sources */,
-				1F42DB1E0D318C7700C4CA07 /* vbrquantize.c in Sources */,
-				1F42DB1F0D318C7700C4CA07 /* VbrTag.c in Sources */,
-				1F42DB200D318C7700C4CA07 /* version.c in Sources */,
 				1FAE8CF90D31945C009D1F9D /* SPExporter.mm in Sources */,
 				1FAE8DBD0D32CDEB009D1F9D /* SPExportOptionsPanel.mm in Sources */,
 				1F2EC4BE0D36020A002DA711 /* SPExportTaskWindow.mm in Sources */,
 				1F543C920D36ADB500637B8A /* SPExportController.mm in Sources */,
-				1F40A8D60D3A9E4F00AD3B5D /* gain_analysis.c in Sources */,
 				1F207ADA0D414B5400BBEF40 /* SPSimplePlaylist.mm in Sources */,
 				1F207ADD0D414B6100BBEF40 /* SPSmartPlaylist.mm in Sources */,
 				1F207F560D43901A00BBEF40 /* AudioCoreDriver.cpp in Sources */,
@@ -1850,11 +1715,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(USER_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1865,13 +1733,14 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
+				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lame/libmp3lame/.libs\"",
+					"@executable_path/../Frameworks",
 				);
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MARKETING_VERSION = 5;
+				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay;
 				PRODUCT_NAME = SIDPLAY;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1888,11 +1757,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(USER_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_ENABLE_SSE41_EXTENSIONS = YES;
 				GCC_ENABLE_SSE42_EXTENSIONS = YES;
@@ -1906,13 +1778,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
+				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/lame/libmp3lame/.libs\"",
+					"@executable_path/../Frameworks",
 				);
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MARKETING_VERSION = 5;
+				MARKETING_VERSION = 5.0;
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-fno-exceptions",
@@ -1970,7 +1843,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/lame",
 					"$(SRCROOT)/libsidplay2/include",
 					"$(SRCROOT)/libsidplay2/include/sidplay",
 					"$(SRCROOT)/libsidplay2/include/sidplay/builders",
@@ -2029,7 +1901,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/lame",
 					"$(SRCROOT)/libsidplay2/include",
 					"$(SRCROOT)/libsidplay2/include/sidplay",
 					"$(SRCROOT)/libsidplay2/include/sidplay/builders",

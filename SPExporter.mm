@@ -7,7 +7,7 @@
 #import "SPPreferencesController.h"
 
 #include "TargetConditionals.h"
-#include "lame.h"
+#include <lame/lame.h>
 
 static NSString* exportFileTypeExtensions[NUM_EXPORT_TYPES] =
 {
