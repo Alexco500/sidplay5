@@ -77,6 +77,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 	lastBufferUnderrunCheckReset = nil;
 	
 	[exportController setOwnerWindow:self];
+    
+    //disable Update item for now
+    [checkForUpdatesMenuItem setEnabled:FALSE];
 	
 	[self populateVisualizerMenu];
 	
@@ -1031,7 +1034,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) openSidplayHomepage:(id)sender
 // ----------------------------------------------------------------------------
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.sidmusic.org/sidplay/mac/"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/Alexco500/sidplay5"]];
 }
 
 

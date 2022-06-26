@@ -2495,7 +2495,8 @@ static NSImage* SPShuffleButtonImage = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(itemDidCollapse:)
 											     name:NSOutlineViewItemDidCollapseNotification object:nil];
-
+    NSSortDescriptor *mySortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    [self setSortDescriptors:[NSArray arrayWithObject:mySortDescriptor]];
 	[self reloadData];
 }
 

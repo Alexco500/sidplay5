@@ -21,7 +21,7 @@
         <menu title="AMainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="SIDPLAY" id="56">
-                    <menu key="submenu" title="SIDPLAY" systemMenu="apple" id="57">
+                    <menu key="submenu" title="SIDPLAY" systemMenu="apple" autoenablesItems="NO" id="57">
                         <items>
                             <menuItem title="About SIDPLAY" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -874,14 +874,13 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="430"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="432"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="433"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="434"/>
                     <toolbarItem implicitItemIdentifier="9F2C79E4-EFCD-4D68-AD2F-7B542B3EC7BA" label="Search" paletteLabel="Search" sizingBehavior="auto" id="525">
                         <nil key="toolTip"/>
-                        <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" verticalHuggingPriority="750" id="523">
-                            <rect key="frame" x="0.0" y="14" width="159" height="22"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" recentsAutosaveName="SidplaySearchField" id="524">
+                        <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="523">
+                            <rect key="frame" x="0.0" y="14" width="175" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" recentsAutosaveName="SidplaySearchField" id="524">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1034,14 +1033,15 @@
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </box>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="433"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="665"/>
                     <toolbarItem reference="697"/>
-                    <toolbarItem reference="433"/>
                     <toolbarItem reference="748"/>
                     <toolbarItem reference="688"/>
                     <toolbarItem reference="525"/>
+                    <toolbarItem reference="433"/>
                 </defaultToolbarItems>
                 <connections>
                     <outlet property="delegate" destination="371" id="2024"/>
@@ -1054,6 +1054,7 @@
                 <outlet property="boxView" destination="519" id="1032"/>
                 <outlet property="browserDataSource" destination="501" id="883"/>
                 <outlet property="browserScrollView" destination="456" id="970"/>
+                <outlet property="checkForUpdatesMenuItem" destination="1882" id="kEb-CQ-oSV"/>
                 <outlet property="delegate" destination="1918" id="1920"/>
                 <outlet property="dockTileMenu" destination="1172" id="1196"/>
                 <outlet property="exportController" destination="1436" id="1440"/>
@@ -2194,7 +2195,7 @@ DQ
                         <rect key="frame" x="114" y="136" width="101" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="1 (default)" bezelStyle="rounded" alignment="left" lineBreakMode="charWrapping" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="2169" id="2161">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" id="2162">
                                 <items>
                                     <menuItem title="1 (default)" state="on" id="2169">
@@ -2328,7 +2329,7 @@ DQ
                         <rect key="frame" x="20" y="110" width="482" height="165"/>
                         <clipView key="contentView" drawsBackground="NO" id="LwW-yl-dEH">
                             <rect key="frame" x="1" y="1" width="480" height="163"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1473">
                                     <rect key="frame" x="0.0" y="-14" width="480" height="163"/>
@@ -2336,7 +2337,7 @@ DQ
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="480" height="163"/>
-                                    <size key="maxSize" width="481" height="10000000"/>
+                                    <size key="maxSize" width="482" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
@@ -3199,7 +3200,7 @@ http://psid64.sourceforge.net/</string>
                         <rect key="frame" x="23" y="149" width="502" height="139"/>
                         <clipView key="contentView" drawsBackground="NO" id="Zw1-pO-vgT">
                             <rect key="frame" x="1" y="1" width="500" height="137"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1818">
                                     <rect key="frame" x="0.0" y="-14" width="500" height="137"/>
@@ -3278,7 +3279,7 @@ http://psid64.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="U2e-Rm-zPx">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <collectionView maxNumberOfColumns="1" id="1375">
                                     <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
@@ -3800,7 +3801,7 @@ Gw
                         <rect key="frame" x="23" y="60" width="567" height="291"/>
                         <clipView key="contentView" id="2bm-2Y-l0Y">
                             <rect key="frame" x="1" y="1" width="565" height="289"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" autosaveName="RemixTableView" headerView="2255" id="2254">
                                     <rect key="frame" x="0.0" y="0.0" width="565" height="266"/>

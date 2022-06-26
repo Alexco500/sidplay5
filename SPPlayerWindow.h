@@ -88,6 +88,8 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSMenu* subtuneSelectionMenu;
 	
 	IBOutlet SPRemixKwedOrgController* remixKwedOrgController;
+    
+    IBOutlet NSMenuItem* checkForUpdatesMenuItem;
 }
 
 - (void) playTuneAtPath:(NSString*)path;
