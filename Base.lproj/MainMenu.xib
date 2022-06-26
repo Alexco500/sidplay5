@@ -879,7 +879,7 @@
                         <nil key="toolTip"/>
                         <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="523">
                             <rect key="frame" x="0.0" y="14" width="175" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" recentsAutosaveName="SidplaySearchField" id="524">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1296,7 +1296,7 @@
                         <rect key="frame" x="20" y="20" width="349" height="156"/>
                         <clipView key="contentView" drawsBackground="NO" id="F3B-Cn-Urn">
                             <rect key="frame" x="1" y="1" width="347" height="154"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesRuler="YES" spellingCorrection="YES" id="861">
                                     <rect key="frame" x="0.0" y="-14" width="347" height="154"/>
@@ -2910,7 +2910,7 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="23" y="208" width="473" height="139"/>
                         <clipView key="contentView" drawsBackground="NO" id="6rL-AI-JWl">
                             <rect key="frame" x="1" y="1" width="471" height="137"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1686">
                                     <rect key="frame" x="0.0" y="-14" width="471" height="137"/>

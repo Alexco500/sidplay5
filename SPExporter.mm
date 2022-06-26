@@ -348,8 +348,11 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 {
 	[self setExportProgressIsIndeterminate:YES];
 	
-	NSString* psid64ExecutablePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"psid64"];
-	NSMutableArray* psid64Arguments = [NSMutableArray arrayWithCapacity:3];
+	//NSString* psid64ExecutablePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"psid64"];
+    //macOS executables should reside in executable folders for signing
+    NSString* psid64ExecutablePath = [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"psid64"];
+
+    NSMutableArray* psid64Arguments = [NSMutableArray arrayWithCapacity:3];
 
 	if (exportSettings.mBlankScreen)
 		[psid64Arguments addObject:@"-b"];

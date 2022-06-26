@@ -53,8 +53,6 @@
 	<string>SIDPLAY</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Version 5.0, Copyright 2022 Alexander Coers</string>
-	<key>CFBundleIconFile</key>
-	<string>sidplay</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

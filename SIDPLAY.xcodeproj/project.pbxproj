@@ -20,8 +20,6 @@
 		1F25A4940CFCC6F30063F7E7 /* SPFilterControlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A4930CFCC6F30063F7E7 /* SPFilterControlView.mm */; };
 		1F25A4970CFCC7680063F7E7 /* SPComposerPhotoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A4960CFCC7680063F7E7 /* SPComposerPhotoView.mm */; };
 		1F25A5B70CFD57990063F7E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F25A5B60CFD57990063F7E7 /* QuartzCore.framework */; };
-		1F2820CE0D43FD0C00AAB993 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2820CD0D43FD0C00AAB993 /* Sparkle.framework */; };
-		1F2820E30D43FD1F00AAB993 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2820CD0D43FD0C00AAB993 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1F2822460D469EA100AAB993 /* SPPlaylistItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F207ADF0D414B6D00BBEF40 /* SPPlaylistItem.mm */; };
 		1F2EC4BE0D36020A002DA711 /* SPExportTaskWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EC4BD0D36020A002DA711 /* SPExportTaskWindow.mm */; };
 		1F30A9550D0AF9ED00C162A2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F30A9540D0AF9ED00C162A2 /* WebKit.framework */; };
@@ -74,7 +72,6 @@
 		1F3897920CEE400000942B17 /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897820CEE400000942B17 /* wave8580_PS_.cc */; };
 		1F3897930CEE400000942B17 /* wave8580_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897830CEE400000942B17 /* wave8580_PST.cc */; };
 		1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3898530CEE4E0900942B17 /* CoreAudio.framework */; };
-		1F40A5F30D3A364200AD3B5D /* psid64 in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; };
 		1F40A9570D3AAFC400AD3B5D /* minus.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A9560D3AAFC300AD3B5D /* minus.tiff */; };
 		1F41C53F0D5E11A30070C628 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F41C53D0D5E11A30070C628 /* Credits.rtf */; };
 		1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A48D0CFCC5DB0063F7E7 /* SPSidRegisterView.mm */; };
@@ -240,8 +237,10 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
-		DAACB1D42804C9460029ED3C /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
-		DAACB1D52804C9460029ED3C /* LAME.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB81A1E28686C670075CB8E /* Images.xcassets */; };
+		DAB81A25286870160075CB8E /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
+		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB81A2928689D100075CB8E /* psid64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,16 +272,25 @@
 			name = "Copy Spotlight Plugin";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1F2820E50D43FD2A00AAB993 /* Copy Frameworks */ = {
+		DAB81A27286870160075CB8E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1F2820E30D43FD1F00AAB993 /* Sparkle.framework in Copy Frameworks */,
-				DAACB1D52804C9460029ED3C /* LAME.framework in Copy Frameworks */,
+				DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */,
 			);
-			name = "Copy Frameworks";
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAB81A2828689CFB0075CB8E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				DAB81A2928689D100075CB8E /* psid64 in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -314,7 +322,6 @@
 		1F25A4950CFCC7680063F7E7 /* SPComposerPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPComposerPhotoView.h; sourceTree = "<group>"; };
 		1F25A4960CFCC7680063F7E7 /* SPComposerPhotoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPComposerPhotoView.mm; sourceTree = "<group>"; };
 		1F25A5B60CFD57990063F7E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		1F2820CD0D43FD0C00AAB993 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		1F2EC4BC0D36020A002DA711 /* SPExportTaskWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPExportTaskWindow.h; sourceTree = "<group>"; };
 		1F2EC4BD0D36020A002DA711 /* SPExportTaskWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPExportTaskWindow.mm; sourceTree = "<group>"; };
 		1F30A9540D0AF9ED00C162A2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
@@ -650,6 +657,7 @@
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
+		DAB81A1E28686C670075CB8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SIDPLAY/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,13 +666,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
 				1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */,
 				1F4386D10CEF1CE100654EA1 /* AudioToolbox.framework in Frameworks */,
 				1F51734D0CF99C460064AFA2 /* Quartz.framework in Frameworks */,
 				1F25A5B70CFD57990063F7E7 /* QuartzCore.framework in Frameworks */,
 				1F30A9550D0AF9ED00C162A2 /* WebKit.framework in Frameworks */,
-				1F2820CE0D43FD0C00AAB993 /* Sparkle.framework in Frameworks */,
-				DAACB1D42804C9460029ED3C /* LAME.framework in Frameworks */,
 				1FDD6F4E0D8306C500489870 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,7 +720,6 @@
 			children = (
 				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				1F2820CD0D43FD0C00AAB993 /* Sparkle.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1305,6 +1311,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DAB81A1E28686C670075CB8E /* Images.xcassets */,
 				1F05AABD0D5121AF004725C5 /* DefaultVisualizer.qtz */,
 				1FE738DC0D03E82100C37ADB /* logo.qtz */,
 				1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */,
@@ -1342,7 +1349,8 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				1F17B2480CEF9BC90000EA52 /* Copy Spotlight Plugin */,
-				1F2820E50D43FD2A00AAB993 /* Copy Frameworks */,
+				DAB81A27286870160075CB8E /* Embed Frameworks */,
+				DAB81A2828689CFB0075CB8E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1449,7 +1457,6 @@
 				1F5D1A530D144FBA00BB2D17 /* notfound.png in Resources */,
 				1FCE7EFF1BEB34D100BA374A /* hud_stop.png in Resources */,
 				1F7384D20D2EDA760035E959 /* repeat.png in Resources */,
-				1F40A5F30D3A364200AD3B5D /* psid64 in Resources */,
 				1FD3B2651BF142AA0051A741 /* shuffle@2x.png in Resources */,
 				1F40A9570D3AAFC400AD3B5D /* minus.tiff in Resources */,
 				1F207D200D428BBC00BBEF40 /* Preferences.xib in Resources */,
@@ -1480,6 +1487,7 @@
 				1FCE7EF71BEB335B00BA374A /* hud_pause.png in Resources */,
 				1F54288B0F96596C00008AA3 /* point2.png in Resources */,
 				1FB7FEE20F9E555700BBA496 /* capture_pressed.png in Resources */,
+				DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */,
 				1FCE7EF81BEB335B00BA374A /* hud_pause@2x.png in Resources */,
 				1FCE7F0C1BEE9D9500BA374A /* volume_right@2x.png in Resources */,
 				1FB7FEE30F9E555700BBA496 /* capture_disabled.png in Resources */,
@@ -1710,6 +1718,8 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1741,6 +1751,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay;
 				PRODUCT_NAME = SIDPLAY;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1753,6 +1764,8 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1765,9 +1778,6 @@
 					"$(USER_LIBRARY_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
 				);
-				GCC_ENABLE_SSE3_EXTENSIONS = YES;
-				GCC_ENABLE_SSE41_EXTENSIONS = YES;
-				GCC_ENABLE_SSE42_EXTENSIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SIDPLAY_Prefix.pch;
@@ -1786,6 +1796,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-fno-exceptions",
