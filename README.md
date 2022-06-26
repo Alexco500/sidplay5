@@ -7,15 +7,6 @@ Since it seems that Sidplay 4.2 (http://www.sidmusic.org/sidplay/mac/) is no lon
 * 64 Bit binary, runs on macOS 10.9 or higher
 * supports Intel and Apple Silicon
 * auto-update feature disabled (for now)
-* code compiles now on latest Xcode# sidplay5
-Sidplay for macOS
-
-Since it seems that Sidplay 4.2 (http://www.sidmusic.org/sidplay/mac/) is no longer developed I decided to update the source and provide binaries for Intel and Apple Silicon.
-
-# implemented changes
-* 64 Bit binary, runs on macOS 10.9 or higher
-* supports Intel and Apple Silicon
-* auto-update feature disabled (for now)
 * code compiles now on latest Xcode
 
 # still need to fix
