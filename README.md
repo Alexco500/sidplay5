@@ -9,7 +9,9 @@ Since it seems that Sidplay 4.2 (http://www.sidmusic.org/sidplay/mac/) is no lon
 * code compiles now on latest Xcode
 * auto-update feature disabled (for now)
 * supports new song length database format
+* expanded toolbar (old Mac OS X look&feel)
 
 # still need to fix
 * Xcode still complains about missing UI constraints and OpenGL
-* starting with macOS 11, the toolbar height is smaller and the track info is cut off, stepping through subtunes is now a little bit tricky
+* ~~starting with macOS 11, the toolbar height is smaller and the track info is cut off, stepping through subtunes is now a little bit tricky~~
+
