@@ -539,7 +539,7 @@
             </items>
             <point key="canvasLocation" x="-161" y="-2078"/>
         </menu>
-        <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
+        <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" toolbarStyle="expanded" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
