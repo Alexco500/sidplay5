@@ -6,8 +6,9 @@ Since it seems that Sidplay 4.2 (http://www.sidmusic.org/sidplay/mac/) is no lon
 # implemented changes
 * 64 Bit binary, runs on macOS 10.9 or higher
 * supports Intel and Apple Silicon
-* auto-update feature disabled (for now)
 * code compiles now on latest Xcode
+* auto-update feature disabled (for now)
+* supports new song length database format
 
 # still need to fix
 * Xcode still complains about missing UI constraints and OpenGL
