@@ -108,6 +108,7 @@ enum BrowserMode
 
 - (void) awakeFromNib;
 - (void) updateCurrentSong:(NSInteger)seconds;
+- (void) addFile:(NSString*)filename;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableArray *rootItems;
 

@@ -984,9 +984,11 @@ NSString* SPUrlRequestUserAgentString = nil;
              NSArray* urlsToOpen = openPanel.URLs;
              NSString* file = [urlsToOpen[0] path];
              
-             NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:file];
-             if (relativePath != nil)
-                 [[SPStilBrowserController sharedInstance] displayEntryForRelativePath:relativePath];
+             //NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:file];
+             //if (relativePath != nil)
+               //  [[SPStilBrowserController sharedInstance] displayEntryForRelativePath:relativePath];
+             [self->browserDataSource addFile:file];
+             
              
              [self playTuneAtPath:file];
          }
@@ -1178,10 +1180,14 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (BOOL) application:(NSApplication*)theApplication openFile:(NSString*)filename
 // ----------------------------------------------------------------------------
 {
-	NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:filename];
+	/*
+    NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:filename];
+    NSLog(@"SIDPlayer -- rel Path: %@", relativePath);
 	if (relativePath != nil)
 		[[SPStilBrowserController sharedInstance] displayEntryForRelativePath:relativePath];
-
+    NSLog(@"SIDPlayer-- name : %@", filename);
+    */
+    [self->browserDataSource addFile:filename];
 	[self playTuneAtPath:filename];
 	return YES;
 }
