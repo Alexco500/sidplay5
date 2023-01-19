@@ -2335,8 +2335,87 @@ static NSImage* SPShuffleButtonImage = nil;
 	
 	return NSDragOperationNone; 
 }
+- (void)addFile:(NSString*)filename
+{
+    NSArray *paths = [[NSArray alloc] initWithObjects:filename, nil];
+    int targetIndex = 0;
 
+    // add files to playlist when double clicked on files in Finder
+    if (playlist != nil && browserMode != BROWSER_MODE_SMART_PLAYLIST)
+    {
+        SPSimplePlaylist* simplePlaylist = (SPSimplePlaylist*) playlist;
+        NSMutableArray* playlistItems = [simplePlaylist items];
+        
+        for (NSString* path in paths)
+        {
+            NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:path];
+            if (relativePath != nil)
+            {
+                SPPlaylistItem* playlistItem = [[SPPlaylistItem alloc] initWithPath:relativePath andSubtuneIndex:0 andLoopCount:1];
+                [playlistItems insertObject:playlistItem atIndex:targetIndex];
+            }
+        }
+        
+        [simplePlaylist saveToFile];
+        
+        // Refresh browser with new playlist contents
+        [rootItems removeAllObjects];
+        [SPBrowserItem fillArray:rootItems withPlaylist:playlist];
+        [rootItems sortUsingDescriptors:[browserView sortDescriptors]];
+        
+        //[sourceListDataSource bumpUpdateRevision];
+    }
+    else if (playlist == nil)
+    {
+        NSString* firstPath = [paths objectAtIndex:0];
+        BOOL isFolder = NO;
+        [[NSFileManager defaultManager] fileExistsAtPath:firstPath isDirectory:&isFolder];
+        
+        if ([paths count] == 1 && isFolder)
+        {
+            [self setInProgress:YES];
+            [self stopSearchAndClearSearchString];
+    
+            currentPath = firstPath;
+            [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+            
+            [browserView scrollRowToVisible:0];
+            [self saveBrowserState];
+            [rootItems removeAllObjects];
+            [SPBrowserItem fillArray:rootItems withDirectoryContentsAtPath:currentPath andParent:nil];
+            [rootItems sortUsingDescriptors:[browserView sortDescriptors]];
+            [pathControl setURL:[NSURL fileURLWithPath:currentPath]];
+            [self setInProgress:NO];
+        }
+        else
+        {
+            [self setInProgress:YES];
+            [self stopSearchAndClearSearchString];
+    
+            [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+            [browserView scrollRowToVisible:0];
+            [self saveBrowserState];
+            [rootItems removeAllObjects];
 
+            // Files dropped onto browser
+            for (NSString* path in paths)
+            {
+                BOOL isFolder = NO;
+                [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isFolder];
+            
+                SPBrowserItem* item = [[SPBrowserItem alloc] initWithPath:path isFolder:isFolder forParent:nil withDefaultSubtune:0];
+                [rootItems addObject:item];
+            }
+
+            [pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/FILES"]]];
+            NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:0];
+            [componentCell setImage:[NSImage imageNamed:@"psid.icns"]];
+            currentPath = nil;
+            [self setInProgress:NO];
+        }
+    }
+    [browserView reloadData];
+}
 // ----------------------------------------------------------------------------
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 // ----------------------------------------------------------------------------

@@ -7,48 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FF02FD47-F313-4F3A-9E06-0FB8C5F27AE6"
-            shouldBeEnabled = "No"
+            uuid = "438FDA2A-F4BE-4195-BC4B-C6A33058052C"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SPInfoView.mm"
+            filePath = "SPPlayerWindow.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-highlight:withFrame:inView:"
+            startingLineNumber = "984"
+            endingLineNumber = "984"
+            landmarkName = "-openFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B75A4E83-C9D7-45FF-89F7-28A724D7B08E"
-            shouldBeEnabled = "No"
+            uuid = "125294E0-F229-43DC-AA56-7762C49F927D"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SPInfoContainerView.mm"
+            filePath = "SPBrowserDataSource.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "-startResizeAnimation"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AD4E4AC1-83DB-450B-B88C-6643C3435A12"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SPExporter.mm"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
-            landmarkName = "-exportUsingPsid64"
+            startingLineNumber = "2340"
+            endingLineNumber = "2340"
+            landmarkName = "-addFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

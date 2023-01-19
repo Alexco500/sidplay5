@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1583,6 +1583,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-676" y="-2021"/>
         </menu>
         <menu title="Playlist Item Context Menu" id="1096">
             <items>
@@ -2092,7 +2093,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1245">
-                        <rect key="frame" x="163" y="167" width="19" height="28"/>
+                        <rect key="frame" x="163" y="166" width="19" height="30"/>
                         <stepperCell key="cell" continuous="YES" alignment="left" maxValue="3960" id="1246"/>
                         <connections>
                             <action selector="clickTimeStepper:" target="1239" id="1343"/>
@@ -2452,7 +2453,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1285">
-                        <rect key="frame" x="139" y="266" width="19" height="26"/>
+                        <rect key="frame" x="139" y="265" width="19" height="28"/>
                         <stepperCell key="cell" continuous="YES" alignment="left" maxValue="3960" id="1288"/>
                         <connections>
                             <action selector="clickTimeStepper:" target="1276" id="1344"/>
@@ -3904,10 +3905,10 @@ Gw
     </objects>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
-        <image name="NSGoLeftTemplate" width="10" height="14"/>
-        <image name="NSGoRightTemplate" width="10" height="14"/>
-        <image name="NSRevealFreestandingTemplate" width="15" height="15"/>
-        <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
+        <image name="NSGoLeftTemplate" width="12" height="17"/>
+        <image name="NSGoRightTemplate" width="12" height="17"/>
+        <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
+        <image name="NSStopProgressFreestandingTemplate" width="20" height="20"/>
         <image name="add" width="32" height="23"/>
         <image name="add_smart" width="32" height="23"/>
         <image name="fade" width="26" height="16"/>
