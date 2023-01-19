@@ -26,3 +26,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# ignore Xcode/macOS stuff
+*.swp
+*~.nib
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+xcuserdata/
