@@ -1299,14 +1299,18 @@ NSDate* fillStart = nil;
 	SPSmartPlaylist* smartPlaylist = [notification object];
 	if (smartPlaylist == playlist)
 	{
-		[self setInProgress:YES];
-		[rootItems removeAllObjects];
-		[self stopSearchAndClearSearchString];
-		[SPBrowserItem fillArray:rootItems withPlaylist:playlist];
-		[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
-		[browserView reloadData];
-		[self updatePathControlForPlaylistMode:NO];
-		[self setInProgress:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self setInProgress:YES];
+            [self->rootItems removeAllObjects];
+            [self stopSearchAndClearSearchString];
+            [SPBrowserItem fillArray:self->rootItems withPlaylist:self->playlist];
+            [self->rootItems sortUsingDescriptors:[self->browserView sortDescriptors]];
+            [self->browserView reloadData];
+            [self updatePathControlForPlaylistMode:NO];
+            [self setInProgress:NO];
+
+        });
 		
 		//[sourceListDataSource bumpUpdateRevision];
 	}
