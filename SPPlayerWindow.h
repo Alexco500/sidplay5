@@ -56,7 +56,8 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSSlider* miniVolumeSlider;
 	IBOutlet SPStatusDisplayView* miniStatusDisplay;
 
-	IBOutlet NSMenuItem* infoWindowMenuItem;
+    IBOutlet NSMenuItem* mainWindowMenuItem;
+    IBOutlet NSMenuItem* infoWindowMenuItem;
 	IBOutlet NSMenuItem* stilBrowserMenuItem;
 	IBOutlet NSMenuItem* analyzerWindowMenuItem;
 	IBOutlet NSMenuItem* exportTaskWindowMenuItem;
@@ -124,6 +125,7 @@ extern NSString* SPUrlRequestUserAgentString;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) SPExportController *exportController;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSInteger currentTuneLengthInSeconds;
 
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *mainWindowMenuItem;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *infoWindowMenuItem;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *stilBrowserMenuItem;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *analyzerWindowMenuItem;
@@ -148,6 +150,7 @@ extern NSString* SPUrlRequestUserAgentString;
 - (IBAction) previousSubtune:(id)sender;
 - (IBAction) selectSubtune:(id)sender;
 
+- (IBAction) showMainWindow:(id)sender;
 - (IBAction) toggleInfoWindow:(id)sender;
 - (IBAction) toggleInfoPane:(id)sender;
 - (IBAction) toggleStilBrowser:(id)sender;

@@ -691,6 +691,13 @@ NSString* SPUrlRequestUserAgentString = nil;
 	return infoWindowMenuItem;
 }
 
+// ----------------------------------------------------------------------------
+- (NSMenuItem*) mainWindowMenuItem
+// ----------------------------------------------------------------------------
+{
+    return mainWindowMenuItem;
+}
+
 
 // ----------------------------------------------------------------------------
 - (NSMenuItem*) stilBrowserMenuItem
@@ -896,7 +903,18 @@ NSString* SPUrlRequestUserAgentString = nil;
 	player->startPrevSubtune();
 	[self updateTuneInfo];
 }
-
+// ----------------------------------------------------------------------------
+- (BOOL)validateMenuItem:(NSMenuItem *)item
+{
+    //check to see if the Main Menu NSMenuItem is
+    //being validcated
+    if([item action] == @selector(showMainWindow:))
+    {
+        return ![self isVisible];
+    }
+    
+    return TRUE;
+}
 
 // ----------------------------------------------------------------------------
 - (IBAction) selectSubtune:(id)sender
@@ -905,6 +923,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[self switchToSubtune:[sender tag]];
 }
 
+// ----------------------------------------------------------------------------
+-(IBAction) showMainWindow:(id)sender
+// ----------------------------------------------------------------------------
+{
+    [self makeKeyAndOrderFront:self];
+}
 
 // ----------------------------------------------------------------------------
 - (IBAction) toggleInfoWindow:(id)sender
@@ -1404,6 +1428,4 @@ NSString* SPUrlRequestUserAgentString = nil;
 	return proposedFrameSize;
 }
 
-
 @end
-

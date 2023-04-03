@@ -289,7 +289,8 @@ static SPStilBrowserController* sharedInstance = nil;
 		}
 	}
 		
-	[textView.textStorage setAttributedString:attributedResult];	
+	[textView.textStorage setAttributedString:attributedResult];
+    lastResult = attributedResult;
 }
 
 
@@ -299,7 +300,8 @@ static SPStilBrowserController* sharedInstance = nil;
 {
 	NSDictionary* defaultAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:9.0f]};
 	NSMutableAttributedString* attributedMessageString = [[NSMutableAttributedString alloc] initWithString:@"No STIL information for shared collection files" attributes:defaultAttributes];
-	[textView.textStorage setAttributedString:attributedMessageString];	
+	[textView.textStorage setAttributedString:attributedMessageString];
+    lastResult = attributedMessageString;
 }
 
 
@@ -478,6 +480,7 @@ static SPStilBrowserController* sharedInstance = nil;
 	NSDictionary* windowFade = animations[0];
 	if (windowFade[NSViewAnimationEffectKey] == NSViewAnimationFadeOutEffect)
 		[self.window orderOut:self];
+    else [textView.textStorage setAttributedString:lastResult];
 }
 
 
@@ -529,10 +532,8 @@ static SPStilBrowserController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
     static NSCursor	*fingerCursor = nil;
-/*
     if (fingerCursor == nil)
         fingerCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"fingerCursor"] hotSpot:NSMakePoint(0, 0)];
-*/
     return fingerCursor;
 }
 

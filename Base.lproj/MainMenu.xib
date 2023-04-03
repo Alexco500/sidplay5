@@ -492,6 +492,12 @@
                             <menuItem isSeparatorItem="YES" id="425">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
+                            <menuItem title="Show Main Window" keyEquivalent="0" id="jDB-wq-mLT">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="showMainWindow:" target="371" id="k48-d1-L1u"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Show Info Window" keyEquivalent="i" id="426">
                                 <attributedString key="attributedTitle"/>
                                 <connections>
@@ -537,10 +543,10 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-161" y="-2078"/>
+            <point key="canvasLocation" x="-166" y="-2933"/>
         </menu>
         <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" toolbarStyle="expanded" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
-            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
@@ -1036,6 +1042,7 @@
                 <outlet property="exportTaskWindowMenuItem" destination="1421" id="1934"/>
                 <outlet property="infoWindowMenuItem" destination="426" id="1932"/>
                 <outlet property="leftView" destination="454" id="491"/>
+                <outlet property="mainWindowMenuItem" destination="jDB-wq-mLT" id="O0f-gO-0Jd"/>
                 <outlet property="miniPlayPauseButton" destination="1896" id="1912"/>
                 <outlet property="miniStatusDisplay" destination="1892" id="1913"/>
                 <outlet property="miniVolumeSlider" destination="1901" id="1914"/>
@@ -1073,8 +1080,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="360" height="46"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Stop playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
                         <rect key="frame" x="8" y="33" width="25" height="25"/>
@@ -1232,6 +1237,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-497" y="655"/>
         </menu>
         <window title="Sync Progress" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="846">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
@@ -1251,8 +1257,8 @@
                         <rect key="frame" x="17" y="263" width="137" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Syncing collection..." id="850">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="851">
@@ -1271,7 +1277,7 @@
                         <rect key="frame" x="20" y="20" width="349" height="156"/>
                         <clipView key="contentView" drawsBackground="NO" id="F3B-Cn-Urn">
                             <rect key="frame" x="1" y="1" width="347" height="154"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesRuler="YES" spellingCorrection="YES" id="861">
                                     <rect key="frame" x="0.0" y="-14" width="347" height="154"/>
@@ -1280,7 +1286,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="347" height="154"/>
                                     <size key="maxSize" width="577" height="10000000"/>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
                         </clipView>
@@ -1307,8 +1313,8 @@
                         <rect key="frame" x="29" y="180" width="72" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Show Details" id="1959">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -1384,8 +1390,8 @@ DQ
                         <rect key="frame" x="17" y="90" width="220" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Enter URL of SID music file to open:" id="877">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -1799,6 +1805,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-246" y="-1922"/>
         </menu>
         <menu title="Spotlight Result Context Menu" id="2026">
             <items>
@@ -1907,6 +1914,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-234" y="-3027"/>
         </menu>
         <menu title="Dock Tile Context Menu" id="1172">
             <items>
@@ -2026,8 +2034,8 @@ DQ
                         <rect key="frame" x="36" y="62" width="74" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path prefix:" id="1221">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -2063,8 +2071,8 @@ DQ
                         <rect key="frame" x="32" y="173" width="44" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export" id="1242">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1245">
@@ -2078,16 +2086,16 @@ DQ
                         <rect key="frame" x="185" y="173" width="108" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="minutes of music" id="1252">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1253">
                         <rect key="frame" x="234" y="51" width="136" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(resulting file size: 1.0 M)" id="1254">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1255">
@@ -2147,24 +2155,24 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1" id="2084">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2085">
                         <rect key="frame" x="435" y="84" width="16" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="12" id="2086">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2087">
                         <rect key="frame" x="317" y="83" width="49" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="seconds" id="2088">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2158">
@@ -2188,8 +2196,8 @@ DQ
                         <rect key="frame" x="32" y="142" width="84" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="using song:" id="2160">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1247">
@@ -2305,7 +2313,7 @@ DQ
                         <rect key="frame" x="20" y="110" width="482" height="165"/>
                         <clipView key="contentView" drawsBackground="NO" id="LwW-yl-dEH">
                             <rect key="frame" x="1" y="1" width="480" height="163"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1473">
                                     <rect key="frame" x="0.0" y="-14" width="480" height="163"/>
@@ -2331,16 +2339,16 @@ DQ
                         <rect key="frame" x="18" y="280" width="95" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export Songs:" id="1545">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2089">
                         <rect key="frame" x="451" y="65" width="16" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="12" id="2096">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2090">
@@ -2350,8 +2358,8 @@ DQ
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1" id="2095">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2091">
@@ -2370,8 +2378,8 @@ DQ
                         <rect key="frame" x="336" y="65" width="49" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="seconds" id="2093">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -2389,7 +2397,7 @@ DQ
                     <constraint firstItem="2091" firstAttribute="leading" secondItem="1449" secondAttribute="trailing" constant="6" id="S9l-4Z-ulB"/>
                     <constraint firstAttribute="trailing" secondItem="1448" secondAttribute="trailing" constant="21" id="THS-tS-k8M"/>
                     <constraint firstItem="1544" firstAttribute="leading" secondItem="1446" secondAttribute="leading" constant="20" symbolic="YES" id="Ucb-tZ-E5e"/>
-                    <constraint firstItem="2092" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2090" secondAttribute="trailing" symbolic="YES" id="VdL-Jx-vhl"/>
+                    <constraint firstItem="2092" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2090" secondAttribute="trailing" constant="8" symbolic="YES" id="VdL-Jx-vhl"/>
                     <constraint firstItem="2091" firstAttribute="trailing" secondItem="2089" secondAttribute="trailing" id="Y8o-Um-cE6"/>
                     <constraint firstItem="2091" firstAttribute="baseline" secondItem="1449" secondAttribute="baseline" id="boA-jz-z57"/>
                     <constraint firstItem="2091" firstAttribute="top" secondItem="1470" secondAttribute="bottom" constant="6" id="dly-l1-VPa"/>
@@ -2423,8 +2431,8 @@ DQ
                         <rect key="frame" x="17" y="271" width="44" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export" id="1287">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1285">
@@ -2449,16 +2457,16 @@ DQ
                         <rect key="frame" x="169" y="271" width="108" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="minutes of music" id="1290">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1282">
                         <rect key="frame" x="293" y="271" width="136" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(resulting file size: 1.0 M)" id="1291">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1281">
@@ -2524,8 +2532,8 @@ DQ
                         <rect key="frame" x="51" y="151" width="48" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bitrate:" id="1303">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1308">
@@ -2551,32 +2559,32 @@ DQ
                         <rect key="frame" x="47" y="116" width="51" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Quality:" id="1313">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                         <rect key="frame" x="109" y="87" width="22" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="low" id="1315">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1316">
                         <rect key="frame" x="218" y="87" width="46" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="medium" id="1317">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1318">
                         <rect key="frame" x="364" y="87" width="27" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="high" id="1319">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1320">
@@ -2585,16 +2593,16 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">MP3 export is powered by the LAME project
 http://lame.sourceforge.net/</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2104">
                         <rect key="frame" x="238" y="178" width="10" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1" id="2109">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2105">
@@ -2610,8 +2618,8 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="320" y="178" width="49" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="seconds" id="2107">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2170">
@@ -2635,16 +2643,16 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="29" y="240" width="74" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="using song:" id="2172">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2103">
                         <rect key="frame" x="434" y="178" width="16" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="12" id="2110">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -2652,7 +2660,7 @@ http://lame.sourceforge.net/</string>
                     <constraint firstItem="1284" firstAttribute="leading" secondItem="1286" secondAttribute="trailing" constant="18" id="0Ph-of-wOM"/>
                     <constraint firstItem="1320" firstAttribute="top" secondItem="1314" secondAttribute="bottom" constant="39" id="1bo-Dp-BNh"/>
                     <constraint firstItem="2170" firstAttribute="top" secondItem="1283" secondAttribute="bottom" constant="13" id="1l7-Ou-QTM"/>
-                    <constraint firstItem="1318" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1316" secondAttribute="trailing" symbolic="YES" id="23x-Td-Opn"/>
+                    <constraint firstItem="1318" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1316" secondAttribute="trailing" constant="8" symbolic="YES" id="23x-Td-Opn"/>
                     <constraint firstItem="1320" firstAttribute="top" secondItem="1312" secondAttribute="bottom" constant="68" id="29m-zA-K1V"/>
                     <constraint firstItem="1281" firstAttribute="baseline" secondItem="2105" secondAttribute="baseline" id="2c4-s4-MyP"/>
                     <constraint firstItem="2103" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2106" secondAttribute="trailing" constant="8" symbolic="YES" id="3kV-Yg-Zq3"/>
@@ -2664,7 +2672,7 @@ http://lame.sourceforge.net/</string>
                     <constraint firstAttribute="bottom" secondItem="1278" secondAttribute="bottom" constant="26" id="C0o-Pu-rQ1"/>
                     <constraint firstItem="1302" firstAttribute="top" secondItem="1277" secondAttribute="top" constant="139" id="Cs6-CW-Fhs"/>
                     <constraint firstItem="1278" firstAttribute="baseline" secondItem="1279" secondAttribute="baseline" id="DtF-CV-1qq"/>
-                    <constraint firstItem="1282" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1283" secondAttribute="trailing" symbolic="YES" id="Dup-hW-ZQJ"/>
+                    <constraint firstItem="1282" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1283" secondAttribute="trailing" constant="8" symbolic="YES" id="Dup-hW-ZQJ"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2170" secondAttribute="trailing" constant="20" symbolic="YES" id="ExO-fg-XYe"/>
                     <constraint firstItem="1285" firstAttribute="top" secondItem="1277" secondAttribute="top" constant="17" id="Fc4-In-UUi"/>
                     <constraint firstItem="2105" firstAttribute="leading" secondItem="1281" secondAttribute="trailing" constant="8" symbolic="YES" id="Il8-Dx-Wyf"/>
@@ -2697,8 +2705,8 @@ http://lame.sourceforge.net/</string>
                     <constraint firstItem="2105" firstAttribute="centerX" secondItem="2106" secondAttribute="centerX" id="gl0-oI-v4k"/>
                     <constraint firstItem="2106" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2104" secondAttribute="trailing" constant="8" symbolic="YES" id="h2T-Fp-T18"/>
                     <constraint firstAttribute="trailing" secondItem="1282" secondAttribute="trailing" constant="65" id="ifO-33-IIb"/>
-                    <constraint firstItem="1279" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1278" secondAttribute="trailing" symbolic="YES" id="jqf-gy-tc9"/>
-                    <constraint firstItem="2170" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2171" secondAttribute="trailing" symbolic="YES" id="kBF-Qn-yeo"/>
+                    <constraint firstItem="1279" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1278" secondAttribute="trailing" constant="12" symbolic="YES" id="jqf-gy-tc9"/>
+                    <constraint firstItem="2170" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2171" secondAttribute="trailing" constant="8" symbolic="YES" id="kBF-Qn-yeo"/>
                     <constraint firstItem="1302" firstAttribute="top" secondItem="1281" secondAttribute="bottom" constant="37" id="lU6-bu-0hL"/>
                     <constraint firstAttribute="trailing" secondItem="1279" secondAttribute="trailing" constant="84" id="mbS-4r-shp"/>
                     <constraint firstItem="1320" firstAttribute="leading" secondItem="1277" secondAttribute="leading" constant="23" id="ooh-Vx-Tbt"/>
@@ -2803,8 +2811,8 @@ DQ
                         <rect key="frame" x="70" y="132" width="48" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bitrate:" id="1661">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1634">
@@ -2833,32 +2841,32 @@ DQ
                         <rect key="frame" x="66" y="97" width="51" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Quality:" id="1664">
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1631">
                         <rect key="frame" x="128" y="68" width="22" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="low" id="1665">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1630">
                         <rect key="frame" x="237" y="68" width="46" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="medium" id="1666">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1629">
                         <rect key="frame" x="383" y="68" width="27" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="high" id="1667">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1628">
@@ -2870,23 +2878,23 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">MP3 export is powered by the LAME project
 http://lame.sourceforge.net/</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1684">
                         <rect key="frame" x="20" y="352" width="95" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export Songs:" id="1689">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1685">
                         <rect key="frame" x="23" y="208" width="473" height="139"/>
                         <clipView key="contentView" drawsBackground="NO" id="6rL-AI-JWl">
                             <rect key="frame" x="1" y="1" width="471" height="137"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1686">
                                     <rect key="frame" x="0.0" y="-14" width="471" height="137"/>
@@ -2912,16 +2920,16 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="238" y="158" width="10" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1" id="2118">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2112">
                         <rect key="frame" x="321" y="158" width="49" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="seconds" id="2117">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2113">
@@ -2937,8 +2945,8 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="436" y="158" width="16" height="14"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="12" id="2115">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -2946,12 +2954,12 @@ http://lame.sourceforge.net/</string>
                     <constraint firstItem="2112" firstAttribute="centerX" secondItem="2113" secondAttribute="centerX" id="1eE-vX-4yd"/>
                     <constraint firstAttribute="trailing" secondItem="1629" secondAttribute="trailing" constant="108" id="1p2-7M-Phv"/>
                     <constraint firstItem="1685" firstAttribute="top" secondItem="1684" secondAttribute="bottom" constant="5" id="26C-L1-aY6"/>
-                    <constraint firstItem="1643" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1644" secondAttribute="trailing" symbolic="YES" id="5XY-au-X7V"/>
-                    <constraint firstItem="1633" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1632" secondAttribute="trailing" symbolic="YES" id="5e5-uI-LtR"/>
+                    <constraint firstItem="1643" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1644" secondAttribute="trailing" constant="12" symbolic="YES" id="5XY-au-X7V"/>
+                    <constraint firstItem="1633" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1632" secondAttribute="trailing" constant="8" symbolic="YES" id="5e5-uI-LtR"/>
                     <constraint firstAttribute="bottom" secondItem="1643" secondAttribute="bottom" constant="19" id="60i-MX-uNv"/>
                     <constraint firstItem="1631" firstAttribute="top" secondItem="1633" secondAttribute="bottom" constant="12" id="9c3-2W-TN4"/>
                     <constraint firstItem="2112" firstAttribute="baseline" secondItem="2111" secondAttribute="baseline" id="ACH-H8-C5w"/>
-                    <constraint firstItem="2112" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2111" secondAttribute="trailing" symbolic="YES" id="AqQ-YA-wub"/>
+                    <constraint firstItem="2112" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2111" secondAttribute="trailing" constant="8" symbolic="YES" id="AqQ-YA-wub"/>
                     <constraint firstItem="1634" firstAttribute="baseline" secondItem="1635" secondAttribute="baseline" id="BBb-d4-4mq"/>
                     <constraint firstItem="2112" firstAttribute="baseline" secondItem="2114" secondAttribute="baseline" id="EJ1-pF-kwB"/>
                     <constraint firstItem="1634" firstAttribute="centerY" secondItem="1636" secondAttribute="centerY" id="FMC-jO-HSt"/>
@@ -2966,14 +2974,14 @@ http://lame.sourceforge.net/</string>
                     <constraint firstItem="1634" firstAttribute="leading" secondItem="1636" secondAttribute="trailing" constant="25" id="XqY-km-3QM"/>
                     <constraint firstAttribute="trailing" secondItem="1685" secondAttribute="trailing" constant="20" symbolic="YES" id="Ygo-97-pTR"/>
                     <constraint firstItem="1636" firstAttribute="top" secondItem="1642" secondAttribute="bottom" constant="34" id="Yj1-tc-7t7"/>
-                    <constraint firstItem="1629" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1630" secondAttribute="trailing" symbolic="YES" id="ZBg-GT-bgd"/>
+                    <constraint firstItem="1629" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1630" secondAttribute="trailing" constant="8" symbolic="YES" id="ZBg-GT-bgd"/>
                     <constraint firstItem="1628" firstAttribute="top" secondItem="1631" secondAttribute="bottom" constant="20" id="bdf-0f-K2i"/>
                     <constraint firstItem="1642" firstAttribute="leading" secondItem="1685" secondAttribute="leading" id="c8O-eo-Mnk"/>
                     <constraint firstAttribute="trailing" secondItem="1643" secondAttribute="trailing" constant="21" id="cN4-8L-5MA"/>
                     <constraint firstAttribute="trailing" secondItem="2114" secondAttribute="trailing" constant="66" id="cW2-Ko-KZd"/>
                     <constraint firstItem="1636" firstAttribute="leading" secondItem="1635" secondAttribute="trailing" constant="11" id="ejj-q9-pec"/>
                     <constraint firstItem="1644" firstAttribute="leading" secondItem="1628" secondAttribute="trailing" constant="53" id="ffY-pj-fsT"/>
-                    <constraint firstItem="2114" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2112" secondAttribute="trailing" symbolic="YES" id="ftL-Il-GvU"/>
+                    <constraint firstItem="2114" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2112" secondAttribute="trailing" constant="8" symbolic="YES" id="ftL-Il-GvU"/>
                     <constraint firstAttribute="trailing" secondItem="1634" secondAttribute="trailing" constant="54" id="gAi-An-MfL"/>
                     <constraint firstItem="2112" firstAttribute="top" secondItem="2113" secondAttribute="bottom" constant="10" id="h7K-pj-YlD"/>
                     <constraint firstItem="1642" firstAttribute="baseline" secondItem="2113" secondAttribute="baseline" id="hDG-Em-NQS"/>
@@ -3052,8 +3060,8 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">PRG export is powered by PSID64 by Roland Hermans
 http://psid64.sourceforge.net/</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1790">
@@ -3067,8 +3075,8 @@ http://psid64.sourceforge.net/</string>
                         <rect key="frame" x="20" y="148" width="230" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Create Commodore 64 executable:" id="1793">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1794">
@@ -3083,7 +3091,7 @@ http://psid64.sourceforge.net/</string>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1792" secondAttribute="trailing" constant="20" symbolic="YES" id="0hd-gT-b1Z"/>
                     <constraint firstAttribute="bottom" secondItem="1761" secondAttribute="bottom" constant="19" id="1S4-ME-aVC"/>
                     <constraint firstItem="1786" firstAttribute="leading" secondItem="1760" secondAttribute="leading" constant="22" id="4Nn-4I-Qr2"/>
-                    <constraint firstItem="1762" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1761" secondAttribute="trailing" symbolic="YES" id="5or-Y4-XnN"/>
+                    <constraint firstItem="1762" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1761" secondAttribute="trailing" constant="12" symbolic="YES" id="5or-Y4-XnN"/>
                     <constraint firstItem="1792" firstAttribute="top" secondItem="1760" secondAttribute="top" constant="21" id="7yn-Sn-2fV"/>
                     <constraint firstItem="1784" firstAttribute="leading" secondItem="1790" secondAttribute="leading" id="D74-53-mMh"/>
                     <constraint firstItem="1761" firstAttribute="baseline" secondItem="1762" secondAttribute="baseline" id="IO9-YO-Cfm"/>
@@ -3154,8 +3162,8 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                             <string key="title">PRG export is powered by PSID64 by Roland Hermans
 http://psid64.sourceforge.net/</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="1801">
@@ -3176,7 +3184,7 @@ http://psid64.sourceforge.net/</string>
                         <rect key="frame" x="23" y="149" width="502" height="139"/>
                         <clipView key="contentView" drawsBackground="NO" id="Zw1-pO-vgT">
                             <rect key="frame" x="1" y="1" width="500" height="137"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1818">
                                     <rect key="frame" x="0.0" y="-14" width="500" height="137"/>
@@ -3202,8 +3210,8 @@ http://psid64.sourceforge.net/</string>
                         <rect key="frame" x="20" y="293" width="313" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Create Commodore 64 executables from songs:" id="1815">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
@@ -3255,7 +3263,7 @@ http://psid64.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="U2e-Rm-zPx">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <collectionView maxNumberOfColumns="1" id="1375">
                                     <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
@@ -3299,8 +3307,8 @@ http://psid64.sourceforge.net/</string>
                                     <rect key="frame" x="141" y="9" width="44" height="14"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tasks:" id="1700">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1701">
@@ -3319,8 +3327,8 @@ http://psid64.sourceforge.net/</string>
                                     <rect key="frame" x="185" y="9" width="11" height="14"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2" id="1716">
                                         <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                             </subviews>
@@ -3333,13 +3341,11 @@ http://psid64.sourceforge.net/</string>
                                 <constraint firstItem="1699" firstAttribute="baseline" secondItem="1715" secondAttribute="baseline" id="PYp-n4-zvO"/>
                                 <constraint firstItem="1701" firstAttribute="leading" secondItem="1715" secondAttribute="trailing" constant="6" id="T3d-Tb-6gP"/>
                                 <constraint firstItem="1699" firstAttribute="leading" secondItem="wBx-pR-DcJ" secondAttribute="leading" constant="143" id="aXf-yO-UUN"/>
-                                <constraint firstItem="1699" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1697" secondAttribute="trailing" symbolic="YES" id="apf-bw-bz4"/>
+                                <constraint firstItem="1699" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1697" secondAttribute="trailing" constant="8" symbolic="YES" id="apf-bw-bz4"/>
                                 <constraint firstItem="1701" firstAttribute="centerY" secondItem="wBx-pR-DcJ" secondAttribute="centerY" id="mxy-yZ-Q69"/>
                                 <constraint firstItem="1697" firstAttribute="leading" secondItem="wBx-pR-DcJ" secondAttribute="leading" constant="9" id="qBS-21-lcA"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" red="0.22826087" green="0.22826087" blue="0.22826087" alpha="0.75" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.72282612000000002" green="0.72282612000000002" blue="0.72282612000000002" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                 </subviews>
             </view>
@@ -3392,8 +3398,8 @@ http://psid64.sourceforge.net/</string>
                     <rect key="frame" x="56" y="32" width="51" height="14"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Filename" id="1386">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
                         <binding destination="1376" name="value" keyPath="representedObject.fileName" id="1409">
@@ -3590,7 +3596,7 @@ http://psid64.sourceforge.net/</string>
                     <constraint firstItem="1842" firstAttribute="baseline" secondItem="1858" secondAttribute="baseline" id="YgI-k6-XUi"/>
                     <constraint firstItem="1842" firstAttribute="centerY" secondItem="3KP-Zz-qmp" secondAttribute="centerY" id="ZSt-ma-JnI"/>
                     <constraint firstItem="1842" firstAttribute="top" secondItem="1844" secondAttribute="top" id="ZUF-k9-nzV"/>
-                    <constraint firstItem="1851" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1849" secondAttribute="trailing" symbolic="YES" id="eyO-fs-UjT"/>
+                    <constraint firstItem="1851" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1849" secondAttribute="trailing" constant="8" symbolic="YES" id="eyO-fs-UjT"/>
                     <constraint firstItem="1842" firstAttribute="baseline" secondItem="1851" secondAttribute="baseline" id="gTU-n8-brr"/>
                     <constraint firstItem="1842" firstAttribute="baseline" secondItem="1847" secondAttribute="baseline" id="hX4-i5-brO"/>
                     <constraint firstItem="1855" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1865" secondAttribute="trailing" constant="8" symbolic="YES" id="jbZ-lg-zX7"/>
@@ -3640,8 +3646,8 @@ DQ
                         <rect key="frame" x="156" y="312" width="135" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to SIDPLAY!" id="1967">
                             <font key="font" metaFont="systemBold" size="12"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1968">
@@ -3656,8 +3662,8 @@ DQ
 SIDPLAY was designed to work best with the High Voltage SID Collection (more commonly known as HVSC). If you've already downloaded the HVSC collection, just click "Use existing collection" to specify the location of your HVSC folder (usually called C64music). Or choose any other collection or a folder containing .sid files if you prefer.
 
 If you're new to Commodore 64 music, SIDPLAY can download the HVSC automatically for you. Just click on "Download HVSC" to get the latest version of the HVSC collection.</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="1970">
@@ -3769,15 +3775,15 @@ Gw
                         <rect key="frame" x="20" y="360" width="268" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Remixes available from Remix.Kwed.Org:" id="2230">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <scrollView focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2251">
                         <rect key="frame" x="23" y="60" width="567" height="291"/>
                         <clipView key="contentView" id="2bm-2Y-l0Y">
                             <rect key="frame" x="1" y="1" width="565" height="289"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" autosaveName="RemixTableView" headerView="2255" id="2254">
                                     <rect key="frame" x="0.0" y="0.0" width="565" height="266"/>
@@ -3866,7 +3872,7 @@ Gw
                     <constraint firstItem="2251" firstAttribute="leading" secondItem="2192" secondAttribute="leading" constant="23" id="UB5-Dp-Wfa"/>
                     <constraint firstItem="2282" firstAttribute="baseline" secondItem="2200" secondAttribute="baseline" id="Zmg-5R-Au5"/>
                     <constraint firstAttribute="trailing" secondItem="2251" secondAttribute="trailing" constant="20" symbolic="YES" id="ab1-O8-P9q"/>
-                    <constraint firstItem="2200" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2199" secondAttribute="trailing" symbolic="YES" id="anY-Fm-Nao"/>
+                    <constraint firstItem="2200" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2199" secondAttribute="trailing" constant="12" symbolic="YES" id="anY-Fm-Nao"/>
                     <constraint firstAttribute="trailing" secondItem="2199" secondAttribute="trailing" constant="126" id="feC-uD-lUM"/>
                     <constraint firstItem="2198" firstAttribute="leading" secondItem="2192" secondAttribute="leading" constant="22" id="hDR-94-p2I"/>
                     <constraint firstItem="2282" firstAttribute="baseline" secondItem="2199" secondAttribute="baseline" id="niG-4G-baM"/>

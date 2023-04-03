@@ -14,8 +14,8 @@
             filePath = "SPPlayerWindow.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "984"
-            endingLineNumber = "984"
+            startingLineNumber = "1008"
+            endingLineNumber = "1008"
             landmarkName = "-openFile:"
             landmarkType = "7">
          </BreakpointContent>

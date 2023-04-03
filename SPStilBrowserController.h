@@ -15,7 +15,8 @@
 	BOOL cancelSearch;
 	BOOL searchInProgress;
 	NSString* currentSearchString;
-
+    NSAttributedString* lastResult;
+    
 	IBOutlet NSTextView* textView;
 	IBOutlet NSSearchField* searchField;
 	IBOutlet NSTextField* databasePathTextField;
