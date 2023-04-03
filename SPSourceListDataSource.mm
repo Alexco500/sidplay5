@@ -1467,12 +1467,15 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		{
 			SPSourceListView* view = (SPSourceListView*) outlineView;
 			if ([view isActive])
-				[cell setTextColor:[NSColor colorWithDeviceRed:0.376f green:0.431f blue:0.502f alpha:1.0f]];	
+				[cell setTextColor:[NSColor labelColor]];
+            //                 [cell setTextColor:[NSColor colorWithDeviceRed:0.376f green:0.431f blue:0.502f alpha:1.0f]];
 			else
-				[cell setTextColor:[NSColor colorWithDeviceRed:0.376f green:0.376f blue:0.376f alpha:1.0f]];			
+				[cell setTextColor:[NSColor secondaryLabelColor]];
+            //                [cell setTextColor:[NSColor colorWithDeviceRed:0.376f green:0.376f blue:0.376f alpha:1.0f]];
 		}
 		else
-			[cell setTextColor:[NSColor blackColor]];
+			[cell setTextColor:[NSColor textColor]];
+            //        [cell setTextColor:[NSColor blackColor]];
 
 	}
 }

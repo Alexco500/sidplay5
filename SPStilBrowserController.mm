@@ -529,10 +529,10 @@ static SPStilBrowserController* sharedInstance = nil;
 // ----------------------------------------------------------------------------
 {
     static NSCursor	*fingerCursor = nil;
-
+/*
     if (fingerCursor == nil)
         fingerCursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"fingerCursor"] hotSpot:NSMakePoint(0, 0)];
-
+*/
     return fingerCursor;
 }
 
