@@ -231,9 +231,9 @@ static NSImage* SPHudDisclosureTransient = nil;
 {
 	if (SPHudDisclosureCollapsed == nil)
 	{
-		SPHudDisclosureCollapsed = [NSImage imageNamed:@"disclosure_collapsed"];
-		SPHudDisclosureExpanded = [NSImage imageNamed:@"disclosure_expanded"];
-		SPHudDisclosureTransient = [NSImage imageNamed:@"disclosure_transient"];
+		SPHudDisclosureCollapsed = [NSImage imageNamed:@"SIDdisclosure_collapsed"];
+		SPHudDisclosureExpanded = [NSImage imageNamed:@"SIDdisclosure_expanded"];
+		SPHudDisclosureTransient = [NSImage imageNamed:@"SIDdisclosure_transient"];
 	}
 }
 

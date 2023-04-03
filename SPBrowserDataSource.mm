@@ -1989,12 +1989,12 @@ static NSImage* SPShuffleButtonImage = nil;
 {
 	if (SPFadeButtonPressedImage == nil)
 	{
-		SPFadeButtonPressedImage = [NSImage imageNamed:@"fade_pressed"];
-		SPFadeButtonImage = [NSImage imageNamed:@"fade"];
-		SPRepeatButtonPressedImage = [NSImage imageNamed:@"repeat_button_pressed"];
-		SPRepeatButtonImage = [NSImage imageNamed:@"repeat_button"];
-		SPShuffleButtonPressedImage = [NSImage imageNamed:@"shuffle_pressed"];
-		SPShuffleButtonImage = [NSImage imageNamed:@"shuffle"];
+		SPFadeButtonPressedImage = [NSImage imageNamed:@"SIDfade_pressed.cellularbars.flip"];
+		SPFadeButtonImage = [NSImage imageNamed:@"SIDfade.cellularbars.flip"];
+		SPRepeatButtonPressedImage = [NSImage imageNamed:@"SIDrepeat_button_pressed.repeat"];
+		SPRepeatButtonImage = [NSImage imageNamed:@"SIDrepeat_button.repeat"];
+		SPShuffleButtonPressedImage = [NSImage imageNamed:@"SIDshuffle_pressed.shuffle"];
+		SPShuffleButtonImage = [NSImage imageNamed:@"SIDshuffle.shuffle"];
 	}
 
 	[browserPlaybackModeControl setImage:(gPreferences.mFadeActive ? SPFadeButtonPressedImage : SPFadeButtonImage) forSegment:0];

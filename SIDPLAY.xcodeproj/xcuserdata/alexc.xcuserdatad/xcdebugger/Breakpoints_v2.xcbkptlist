@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2340"
             endingLineNumber = "2340"
-            landmarkName = "-addFile:"
+            landmarkName = "-outlineView:validateDrop:proposedItem:proposedChildIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

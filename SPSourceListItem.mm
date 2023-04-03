@@ -511,7 +511,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 // ----------------------------------------------------------------------------
 {
 	if (sharedCollectionIcon == nil)
-		sharedCollectionIcon = [NSImage imageNamed:@"shared_collection"];
+		sharedCollectionIcon = [NSImage imageNamed:@"SIDshared_collection.rectangle.stack.badge.person.crop"];
 	
 	return sharedCollectionIcon;
 }
@@ -521,9 +521,9 @@ static NSImage* sSmartPlaylistIcon = nil;
 + (NSImage*) playlistIcon
 // ----------------------------------------------------------------------------
 {
-	if (sPlaylistIcon == nil)
-		sPlaylistIcon = [NSImage imageNamed:@"playlist"];
-
+    if (sPlaylistIcon == nil) {
+        sPlaylistIcon = [NSImage imageNamed:@"SIDplaylist.music.note.list"];
+    }
 	return sPlaylistIcon;
 }
 
@@ -533,7 +533,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 // ----------------------------------------------------------------------------
 {
 	if (sSmartPlaylistIcon == nil)
-		sSmartPlaylistIcon = [NSImage imageNamed:@"smart_playlist"];
+		sSmartPlaylistIcon = [NSImage imageNamed:@"SIDsmart_playlist.gearshape"];
 
 	return sSmartPlaylistIcon;
 }
