@@ -2490,7 +2490,10 @@ static NSImage* SPShuffleButtonImage = nil;
 				[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
                 [browserView scrollRowToVisible:0];
 				[self saveBrowserState];
-				[rootItems removeAllObjects];
+                //delete all items, if a playlist or collection is
+                //activley shown in browser
+                if (currentPath != nil)
+				  [rootItems removeAllObjects];
 
 				// Files dropped onto browser
 				for (NSString* path in paths)
