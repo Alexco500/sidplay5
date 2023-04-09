@@ -18,6 +18,7 @@
 
 //#import "AudioQueueDriver.h"
 #import "AudioCoreDriver.h"
+#import "AudioCoreDriverNew.h"
 //#import "AudioSoundManager.h"
 
 
@@ -49,7 +50,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	analyzerWindowController = nil;
 	
 	player = new PlayerLibSidplay;
-	audioDriver = new AudioCoreDriver;
+	audioDriver = new AudioCoreDriverNew;
 	player->setAudioDriver(audioDriver);
 	
 	audioDriver->initialize(player);
