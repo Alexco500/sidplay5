@@ -190,6 +190,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DAA731A629E2C7C000B274D5 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A529E2C7C000B274D5 /* AudioUnit.framework */; };
 		DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB81A1E28686C670075CB8E /* Images.xcassets */; };
 		DAB81A25286870160075CB8E /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
 		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -562,6 +563,7 @@
 		DA9BC69627E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoWindow.xib; sourceTree = "<group>"; };
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
+		DAA731A529E2C7C000B274D5 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
 		DAB81A1E28686C670075CB8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SIDPLAY/Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -571,6 +573,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA731A629E2C7C000B274D5 /* AudioUnit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
 				1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */,
@@ -1191,6 +1194,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAA731A529E2C7C000B274D5 /* AudioUnit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
