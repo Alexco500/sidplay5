@@ -54,7 +54,6 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
 	mPlayer = player;
 	mSampleRate = 44100; //sampleRate
     pointerInPacket = 0;
-    bufferInUse = 0;
     mNumSamplesInBuffer = 512;
     mIsPlaying = false;
     mIsPlayingPreRenderedBuffer = false;
@@ -131,7 +130,7 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
 
         mSampleBuffer = new short[mNumSamplesInBuffer];
         memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
-        int bufferByteSize = mNumSamplesInBuffer * mStreamFormat.mChannelsPerFrame * sizeof(float);
+
 	}
 
 	//printf("init: OK\n");		
@@ -167,8 +166,6 @@ OSStatus    AudioCoreDriverNew::MyRenderer(void                 *inRefCon,
     AudioCoreDriverNew* driverInstance = reinterpret_cast<AudioCoreDriverNew*>(inRefCon);
     short* outBuffer    = (short*) ioData->mBuffers[0].mData;
     short* audioBuffer = (short*) driverInstance->getSampleBuffer();
-    short* bufferEnd    = audioBuffer + driverInstance->getNumSamplesInBuffer();
-    float scaleFactor  = driverInstance->getScaleFactor();
     int bytesInCoreAudioBuffer = ioData->mBuffers[0].mDataByteSize;
     UInt32 remainingBuffer;
     float sample = 0.0f;
@@ -229,37 +226,6 @@ OSStatus    AudioCoreDriverNew::MyRenderer(void                 *inRefCon,
         driverInstance->pointerInPacket = 0;
         return noErr;
     }
-    
-/*
-    if (driverInstance->mStreamFormat.mChannelsPerFrame == 1)
-    {
-        while (audioBuffer < bufferEnd)
-            *outBuffer++ = (*audioBuffer++) * scaleFactor;
-    }
-    else if (driverInstance->mStreamFormat.mChannelsPerFrame == 2)
-    {
-        register float sample =0;
-        
-        while (audioBuffer < bufferEnd)
-        {
-            sample = (*audioBuffer++) * driverInstance->mVolume;
-            *outBuffer++ = (short)sample;
-            *outBuffer++ = (short)sample;
-            printf("tada: %f\n", sample);
-        }
-    }
-    else
-    {
-        register float sample = 0.0f;
-        
-        while (audioBuffer < bufferEnd)
-        {
-            sample = (*audioBuffer++) * scaleFactor;
-            for (int i = 0; i < driverInstance->mStreamFormat.mChannelsPerFrame; i++)
-                *outBuffer++ = sample;
-        }
-    }
- */
     return noErr;
 }
 

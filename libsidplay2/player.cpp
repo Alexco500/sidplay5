@@ -1014,7 +1014,7 @@ void Player::reset (void)
         break;
     case sid2_envR:
     {   // Initialize RAM with powerup pattern
-        for (int i=0x07c0; i<0x10000; i+=128)
+        for ( i=0x07c0; i<0x10000; i+=128)
             memset (m_ram+i, 0xff, 64);
         memset (m_rom, 0, 0x10000);
         break;

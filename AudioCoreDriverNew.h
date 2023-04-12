@@ -44,12 +44,7 @@
 
 class PlayerLibSidplay;
 
-enum
-{
-	BUFFER_COUNT = 3
-};
 
-#define AUDIO_BUFFER_LENGTH ((44100*2*2)/50)
 
 class AudioCoreDriverNew : public AudioDriver
 {
@@ -107,7 +102,6 @@ private:
     AudioUnit                       gOutputUnit;
     AudioDeviceID                   gOutputDevice;
     UInt32                          pointerInPacket;
-    UInt32                          bufferInUse;
     int                             numberOfChannelsPerFrame;
     
     
