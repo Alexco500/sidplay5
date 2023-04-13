@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2005, Andreas Varga <sid@galway.c64.org>
+ * Copyright (c) 2023 Alexander Coers
  * All rights reserved.
  *
  *  This program is free software; you can redistribute it and/or modify

@@ -1048,7 +1048,7 @@ void Player::reset (void)
         //if (m_tuneInfo.compatibility >= SIDTUNE_COMPATIBILITY_R64)
         {
             uint_least16_t addr = 0;
-            for (int i = 0; i < sizeof (poweron);)
+            for (i = 0; i < sizeof (poweron);)
             {
                 uint8_t off   = poweron[i++];
                 uint8_t count = 0;

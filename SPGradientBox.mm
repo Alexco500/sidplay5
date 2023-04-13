@@ -7,8 +7,17 @@
 - (void) drawRect:(NSRect)rect
 // ----------------------------------------------------------------------------
 {
-	NSGradient* gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96f alpha:1.0f] endingColor:[NSColor colorWithCalibratedWhite:0.89f alpha:1.0f]];
+
+    NSColor* startColor = [NSColor textBackgroundColor];
+    NSColor* endColor = [NSColor colorWithCalibratedRed:
+                         0.8f*[[startColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] redComponent]
+                        green:0.8f*[[startColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] greenComponent]
+                        blue:0.8f*[[startColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] blueComponent]
+                        alpha:[[startColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] alphaComponent]];
+
+    NSGradient* gradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
     [gradient drawInRect:self.bounds angle:-90];
+ 
 }
 
 @end

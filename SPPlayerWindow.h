@@ -16,7 +16,6 @@ class AudioDriver;
 @class SPGradientBox;
 @class SPMiniPlayerWindow;
 @class SPVisualizerView;
-@class SPAnalyzerWindowController;
 @class SPRemixKwedOrgController;
 
 
@@ -80,7 +79,6 @@ extern NSString* SPUrlRequestUserAgentString;
 	SPInfoWindowController* infoWindowController;
 	SPStilBrowserController* stilBrowserController;
 	SPPreferencesWindowController* prefsWindowController;
-	SPAnalyzerWindowController* analyzerWindowController;
 	
 	SPVisualizerView* visualizerView;
 	NSMutableArray* visualizerCompositionPaths;
@@ -180,5 +178,4 @@ extern NSString* SPUrlRequestUserAgentString;
 }
 
 - (BOOL) windowShouldZoom:(NSWindow *)window toFrame:(NSRect)proposedFrame;
-
 @end

@@ -11,15 +11,11 @@
 #import "SPVisualizerView.h"
 #import "SPApplicationStorageController.h"
 #import "SPSourceListDataSource.h"
-#import "SPAnalyzerWindowController.h"
 #import "SPRemixKwedOrgController.h"
 #import "SPGradientBox.h"
 #import "SPMiniPlayerWindow.h"
 
-//#import "AudioQueueDriver.h"
-#import "AudioCoreDriver.h"
 #import "AudioCoreDriverNew.h"
-//#import "AudioSoundManager.h"
 
 
 NSString* SPTuneChangedNotification = @"SPTuneChangedNotification";
@@ -47,7 +43,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 
 	stilBrowserController = nil;
 	prefsWindowController = nil;
-	analyzerWindowController = nil;
+	//analyzerWindowController = nil;
 	
 	player = new PlayerLibSidplay;
 	audioDriver = new AudioCoreDriverNew;
@@ -981,13 +977,15 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) toggleAnalyzer:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (analyzerWindowController == nil)
+	/* SP Analyszer deactivated for v5.1.0
+    if (analyzerWindowController == nil)
 	{
 		analyzerWindowController = [SPAnalyzerWindowController sharedInstance];
 		[analyzerWindowController setOwnerWindow:self];
 	}
 	
 	[analyzerWindowController toggleWindow:sender];
+*/
 }
 
 
@@ -1293,7 +1291,19 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
 	return dockTileMenu;
 }
-
+// ----------------------------------------------------------------------------
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+// ----------------------------------------------------------------------------
+{
+    if (flag) {
+        return NO;
+    }
+    else
+    {
+       [self makeKeyAndOrderFront:self];// Window that you want open while click on dock app icon
+        return YES;
+    }
+}
 
 #pragma mark -
 #pragma mark split view delegate methods

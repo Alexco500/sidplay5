@@ -343,8 +343,12 @@ NSDate* fillStart = nil;
 	else
 	{
 		[tableColumns[COLUMN_INDEX] setHidden:YES];
-		[tableColumns[COLUMN_SUBTUNE] setHidden:YES];
-		[tableColumns[COLUMN_REPEAT] setHidden:YES];
+        if ([self browserMode] == BROWSER_MODE_DRAGGED_FILELIST)
+            [tableColumns[COLUMN_SUBTUNE] setHidden:NO];
+        else
+            [tableColumns[COLUMN_SUBTUNE] setHidden:YES];
+        
+        [tableColumns[COLUMN_REPEAT] setHidden:YES];
 		
 		[[browserView headerView] setMenu:tableHeaderContextMenu];
 
@@ -1491,7 +1495,8 @@ NSDate* fillStart = nil;
 	
 	switch (browserMode)
 	{
-		case BROWSER_MODE_COLLECTION:
+        case BROWSER_MODE_DRAGGED_FILELIST:
+        case BROWSER_MODE_COLLECTION:
 			[self setPlaylistModeBrowserColumns:NO];
 			[toolbarSearchField setEnabled:YES];
 			[tableColumns[COLUMN_TIME] setHidden:NO];
@@ -2404,7 +2409,7 @@ static NSImage* SPShuffleButtonImage = nil;
             // Files dropped onto browser
             for (NSString* path in paths)
             {
-                BOOL isFolder = NO;
+                isFolder = NO;
                 [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isFolder];
             
                 SPBrowserItem* item = [[SPBrowserItem alloc] initWithPath:path isFolder:isFolder forParent:nil withDefaultSubtune:0];
@@ -2498,12 +2503,14 @@ static NSImage* SPShuffleButtonImage = nil;
 				// Files dropped onto browser
 				for (NSString* path in paths)
 				{
-					BOOL isFolder = NO;
+                    isFolder = NO;
 					[[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isFolder];
 				
 					SPBrowserItem* item = [[SPBrowserItem alloc] initWithPath:path isFolder:isFolder forParent:nil withDefaultSubtune:0];
 					[rootItems addObject:item];
 				}
+                [self setBrowserMode:BROWSER_MODE_DRAGGED_FILELIST];
+                [self setPlaylistModeBrowserColumns: false];
 
 				[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/DRAGGED%%20ITEMS"]]];
 				NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:0];
