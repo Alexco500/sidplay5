@@ -13,6 +13,367 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUB-X9-kKg" userLabel="Popover View">
+            <rect key="frame" x="0.0" y="0.0" width="210" height="237"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="USH-zu-tlP" userLabel="SID Emulation">
+                    <rect key="frame" x="3" y="216" width="204" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="SID Emulation" usesSingleLineMode="YES" id="YJ9-la-7Sj" userLabel="Label">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Kg4-iw-hnn">
+                    <rect key="frame" x="57" y="213" width="96" height="5"/>
+                </box>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAW-Jx-WRm">
+                    <rect key="frame" x="5" y="183" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KF6-LP-OMC" userLabel="MOS6581">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="BPC-5h-QzA"/>
+                                <constraint firstAttribute="width" constant="32" id="cRH-mU-fdw"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="yBc-Gy-uxP"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dPQ-Q9-5gQ" userLabel="MOS 6518">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="3yK-nU-KlP"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="FWt-qV-Ho9"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="MOS 6" allowsEditingTextAttributes="YES" id="bge-Ax-6ZI">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wa6-OR-hu8" userLabel="Enable 6">
+                            <rect key="frame" x="184" y="7" width="18" height="18"/>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="QLj-pM-NUW">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="checkEnable6:" target="371" id="jF9-GB-ySL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="6yH-mn-jIa"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PEx-gi-gb5">
+                    <rect key="frame" x="5" y="151" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Vj-sP-wmN" userLabel="MOS8">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="Kbp-FT-Per"/>
+                                <constraint firstAttribute="width" constant="32" id="vcB-nq-Vgv"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="agK-ay-qlb"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4hi-pM-8sQ" userLabel="MOS 8580">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="7rZ-IM-mor"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="xeh-Ca-bVx"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="MOS 8" allowsEditingTextAttributes="YES" id="8IJ-Ci-bmp">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IKb-UT-QDW" userLabel="Enable 8">
+                            <rect key="frame" x="184" y="7" width="18" height="18"/>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="90l-Fb-o9D">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="checkEnable8:" target="371" id="M8m-nf-ufw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="J7H-9z-VZz"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="VU4-QG-Dno">
+                    <rect key="frame" x="57" y="148" width="96" height="5"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQM-nW-dSn" userLabel="External SID devices">
+                    <rect key="frame" x="3" y="134" width="204" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="External SID devices" usesSingleLineMode="YES" id="3e2-9f-A2o" userLabel="Label">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="pfR-3L-Dud">
+                    <rect key="frame" x="57" y="131" width="96" height="5"/>
+                </box>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bX-rb-6ny" userLabel="Stack View E1">
+                    <rect key="frame" x="5" y="101" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eSI-0u-Nmg" userLabel="Ext1">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="dNC-RX-JVG"/>
+                                <constraint firstAttribute="width" constant="32" id="oP3-dP-CZB"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="mW5-ez-lQI"/>
+                        </imageView>
+                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="77Y-lg-gEd" userLabel="Ext1">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="503-Hb-FMo"/>
+                                <constraint firstAttribute="height" constant="32" id="vx1-p4-lQh"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="Ext 1" allowsEditingTextAttributes="YES" id="Ezf-sl-xRl">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5qH-He-bBh" userLabel="Ext1">
+                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="14" id="1Yn-bX-aqc"/>
+                            </constraints>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="o0r-PY-rmp">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="6ZC-Vd-PEm"/>
+                        <constraint firstItem="5qH-He-bBh" firstAttribute="top" secondItem="2bX-rb-6ny" secondAttribute="top" constant="1" id="DR9-7q-tGJ"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8xl-2C-i7L" userLabel="Stack View E2">
+                    <rect key="frame" x="5" y="69" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lB5-Ni-F9s" userLabel="Ext2">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="kBS-CS-z5S"/>
+                                <constraint firstAttribute="width" constant="32" id="o8p-hx-NxT"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="Rif-nQ-J4W"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aeh-5D-B6m" userLabel="Ext2">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="dcB-Nm-uUb"/>
+                                <constraint firstAttribute="height" constant="32" id="qE4-Rb-iHO"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="Ext 2" allowsEditingTextAttributes="YES" id="jiA-Ky-kmL">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qmu-Vl-O89" userLabel="Ext2">
+                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="RsS-QH-eJb">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="KwK-sx-hC5"/>
+                        <constraint firstItem="Qmu-Vl-O89" firstAttribute="top" secondItem="8xl-2C-i7L" secondAttribute="top" constant="1" id="tc2-Yi-hZx"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LV5-Cb-k4h" userLabel="Stack View E3">
+                    <rect key="frame" x="5" y="37" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZG-Cy-qa0" userLabel="Ext3">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="2UZ-TX-hgY"/>
+                                <constraint firstAttribute="width" constant="32" id="vXy-wW-wGh"/>
+                                <constraint firstAttribute="height" constant="32" id="xtP-Y4-5gj"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="rj9-zv-7a0"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rDH-DW-Ma7" userLabel="Ext3">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="WOE-3t-5yB"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="Ext 3" allowsEditingTextAttributes="YES" id="SZQ-xh-X0u">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QxF-cC-7uf" userLabel="Ext3">
+                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="6bG-DK-HVZ">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="rL6-4H-8Za"/>
+                        <constraint firstItem="QxF-cC-7uf" firstAttribute="top" secondItem="LV5-Cb-k4h" secondAttribute="top" constant="1" id="uWD-gC-mpA"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VLj-F8-by6" userLabel="Stack View E4">
+                    <rect key="frame" x="5" y="5" width="200" height="32"/>
+                    <subviews>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrW-ly-z7o" userLabel="Ext4">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="xGg-wq-6qF"/>
+                                <constraint firstAttribute="width" constant="32" id="yzK-nB-EkF"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="SIDchip.memorchip" id="f1Y-uN-3qU"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="906-Fc-r8i" userLabel="Ext4">
+                            <rect key="frame" x="42" y="0.0" width="134" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="4Jn-Db-edF"/>
+                                <constraint firstAttribute="height" constant="32" id="Jp0-YI-vVr"/>
+                            </constraints>
+                            <textFieldCell key="cell" allowsUndo="NO" alignment="left" title="Ext 4" allowsEditingTextAttributes="YES" id="JK8-xr-yOV">
+                                <font key="font" usesAppearanceFont="YES"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="llx-Zi-CYz" userLabel="Ext4">
+                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                            <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="APX-sX-hUe">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="llx-Zi-CYz" firstAttribute="top" secondItem="VLj-F8-by6" secondAttribute="top" constant="1" id="Bht-W3-s4G"/>
+                        <constraint firstAttribute="height" constant="32" id="g6b-Du-Jzf"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <edgeInsets key="edgeInsets" left="0.0" right="0.0" top="5" bottom="5"/>
+            <constraints>
+                <constraint firstItem="906-Fc-r8i" firstAttribute="height" secondItem="dPQ-Q9-5gQ" secondAttribute="height" id="1AO-4c-0vC"/>
+                <constraint firstItem="LV5-Cb-k4h" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="1oM-r7-KS8"/>
+                <constraint firstItem="hQM-nW-dSn" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="2s2-5v-RAw"/>
+                <constraint firstItem="8xl-2C-i7L" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="73f-bu-3Fo"/>
+                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="210" id="B7Q-ba-ilk"/>
+                <constraint firstItem="4hi-pM-8sQ" firstAttribute="width" secondItem="dPQ-Q9-5gQ" secondAttribute="width" id="G9H-Bf-mws"/>
+                <constraint firstItem="USH-zu-tlP" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="HTg-1T-9wP"/>
+                <constraint firstItem="rDH-DW-Ma7" firstAttribute="width" secondItem="dPQ-Q9-5gQ" secondAttribute="width" id="M44-wU-Nhx"/>
+                <constraint firstItem="PEx-gi-gb5" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="PhL-XI-fvI"/>
+                <constraint firstItem="rDH-DW-Ma7" firstAttribute="height" secondItem="dPQ-Q9-5gQ" secondAttribute="height" id="QuI-kt-fG7"/>
+                <constraint firstItem="77Y-lg-gEd" firstAttribute="height" secondItem="dPQ-Q9-5gQ" secondAttribute="height" id="Vs2-9Q-XNI"/>
+                <constraint firstItem="77Y-lg-gEd" firstAttribute="width" secondItem="dPQ-Q9-5gQ" secondAttribute="width" id="YNf-qd-Lbu"/>
+                <constraint firstItem="aeh-5D-B6m" firstAttribute="width" secondItem="dPQ-Q9-5gQ" secondAttribute="width" id="aOM-fX-VV3"/>
+                <constraint firstItem="VLj-F8-by6" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="aYj-8G-7YW"/>
+                <constraint firstItem="aeh-5D-B6m" firstAttribute="height" secondItem="dPQ-Q9-5gQ" secondAttribute="height" id="cl9-0Z-45w"/>
+                <constraint firstItem="906-Fc-r8i" firstAttribute="width" secondItem="dPQ-Q9-5gQ" secondAttribute="width" id="n1m-3i-8Yq"/>
+                <constraint firstItem="4hi-pM-8sQ" firstAttribute="height" secondItem="dPQ-Q9-5gQ" secondAttribute="height" id="uvB-MP-zaV"/>
+                <constraint firstItem="2bX-rb-6ny" firstAttribute="leading" secondItem="RAW-Jx-WRm" secondAttribute="leading" id="z0u-AS-L7s"/>
+            </constraints>
+            <visibilityPriorities>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+            </visibilityPriorities>
+            <customSpacing>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+            </customSpacing>
+            <point key="canvasLocation" x="-444" y="231"/>
+        </stackView>
         <customObject id="-3" userLabel="Application" customClass="NSObject">
             <connections>
                 <outlet property="delegate" destination="371" id="489"/>
@@ -386,6 +747,12 @@
                                     <action selector="playPreviousPlaylistItem:" target="501" id="825"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Add Current Song" enabled="NO" keyEquivalent="+" id="skQ-0A-Qv1">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="addCurrentSongToPlaylist:" target="371" id="ggo-z5-auC"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="413">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -403,6 +770,14 @@
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="muteVolume:" target="371" id="765"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="LvP-xn-t7V">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Reset SID settings" keyEquivalent="R" id="LJJ-eU-EJR">
+                                <connections>
+                                    <action selector="resetSIDSelector:" target="371" id="tzW-qX-Cll"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -601,6 +976,17 @@
                                                     </buttonCell>
                                                     <connections>
                                                         <action selector="syncCurrentCollection:" target="493" id="843"/>
+                                                    </connections>
+                                                </button>
+                                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-xi-M8X">
+                                                    <rect key="frame" x="208" y="4" width="32" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SIDchip.memorchip" imagePosition="only" alignment="center" focusRingType="none" inset="2" id="9E8-YB-hr6">
+                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="SIDSelectorButtonPressed:" target="371" id="4Kk-WF-yZe"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1030,11 +1416,22 @@
                 </connections>
             </toolbar>
             <connections>
+                <outlet property="ExtLine1" destination="VU4-QG-Dno" id="LoG-6s-0xM"/>
+                <outlet property="ExtLine2" destination="pfR-3L-Dud" id="tUf-RE-nlr"/>
+                <outlet property="ExtText" destination="hQM-nW-dSn" id="EL4-va-8Kb"/>
+                <outlet property="SIDselectorPopUpButton" destination="Sbp-xi-M8X" id="Lac-8x-q8h"/>
+                <outlet property="addCurrentSongToPlaylistMenuItem" destination="skQ-0A-Qv1" id="vyT-tB-7dQ"/>
                 <outlet property="addPlaylistButton" destination="557" id="1064"/>
                 <outlet property="analyzerWindowMenuItem" destination="2180" id="2182"/>
                 <outlet property="boxView" destination="519" id="1032"/>
                 <outlet property="browserDataSource" destination="501" id="883"/>
                 <outlet property="browserScrollView" destination="456" id="970"/>
+                <outlet property="check6" destination="wa6-OR-hu8" id="hpk-ev-0wo"/>
+                <outlet property="check8" destination="IKb-UT-QDW" id="pvR-fz-hAD"/>
+                <outlet property="checkE1" destination="5qH-He-bBh" id="1NG-JX-R0k"/>
+                <outlet property="checkE2" destination="Qmu-Vl-O89" id="vxU-85-tUh"/>
+                <outlet property="checkE3" destination="QxF-cC-7uf" id="Io2-G9-doT"/>
+                <outlet property="checkE4" destination="llx-Zi-CYz" id="9P5-kX-tLp"/>
                 <outlet property="checkForUpdatesMenuItem" destination="1882" id="kEb-CQ-oSV"/>
                 <outlet property="delegate" destination="1918" id="1920"/>
                 <outlet property="dockTileMenu" destination="1172" id="1196"/>
@@ -1049,14 +1446,25 @@
                 <outlet property="openUrlSheetPanel" destination="868" id="878"/>
                 <outlet property="openUrlTextField" destination="870" id="881"/>
                 <outlet property="playPauseButton" destination="679" id="684"/>
+                <outlet property="popoverSIDSelector" destination="dhN-4R-peC" id="Yob-iC-gJn"/>
                 <outlet property="remixKwedOrgController" destination="2262" id="2266"/>
                 <outlet property="rightView" destination="504" id="969"/>
                 <outlet property="sourceListDataSource" destination="493" id="2023"/>
                 <outlet property="splitView" destination="505" id="805"/>
+                <outlet property="stackViewExternal1" destination="2bX-rb-6ny" id="1bx-b0-TNa"/>
+                <outlet property="stackViewExternal2" destination="8xl-2C-i7L" id="aPP-KA-WxW"/>
+                <outlet property="stackViewExternal3" destination="LV5-Cb-k4h" id="jqR-bt-6SG"/>
+                <outlet property="stackViewExternal4" destination="VLj-F8-by6" id="IT3-gt-Gde"/>
                 <outlet property="statusDisplay" destination="747" id="749"/>
                 <outlet property="stilBrowserMenuItem" destination="806" id="1933"/>
                 <outlet property="subtuneSelectionMenu" destination="1936" id="1957"/>
                 <outlet property="tempoSlider" destination="691" id="1136"/>
+                <outlet property="text6" destination="dPQ-Q9-5gQ" id="NFa-52-dek"/>
+                <outlet property="text8" destination="4hi-pM-8sQ" id="Rrc-o2-BmD"/>
+                <outlet property="textE1" destination="77Y-lg-gEd" id="QsR-eu-hFr"/>
+                <outlet property="textE2" destination="aeh-5D-B6m" id="ukc-ud-yaO"/>
+                <outlet property="textE3" destination="rDH-DW-Ma7" id="Usi-HO-NuM"/>
+                <outlet property="textE4" destination="906-Fc-r8i" id="0Op-w0-hPn"/>
                 <outlet property="visualizerMenu" destination="1927" id="1930"/>
                 <outlet property="volumeSlider" destination="702" id="766"/>
             </connections>
@@ -1277,7 +1685,7 @@
                         <rect key="frame" x="20" y="20" width="349" height="156"/>
                         <clipView key="contentView" drawsBackground="NO" id="F3B-Cn-Urn">
                             <rect key="frame" x="1" y="1" width="347" height="154"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" usesRuler="YES" spellingCorrection="YES" id="861">
                                     <rect key="frame" x="0.0" y="-14" width="347" height="154"/>
@@ -2313,7 +2721,7 @@ DQ
                         <rect key="frame" x="20" y="110" width="482" height="165"/>
                         <clipView key="contentView" drawsBackground="NO" id="LwW-yl-dEH">
                             <rect key="frame" x="1" y="1" width="480" height="163"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1473">
                                     <rect key="frame" x="0.0" y="-14" width="480" height="163"/>
@@ -3184,7 +3592,7 @@ http://psid64.sourceforge.net/</string>
                         <rect key="frame" x="23" y="149" width="502" height="139"/>
                         <clipView key="contentView" drawsBackground="NO" id="Zw1-pO-vgT">
                             <rect key="frame" x="1" y="1" width="500" height="137"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1818">
                                     <rect key="frame" x="0.0" y="-14" width="500" height="137"/>
@@ -3263,7 +3671,7 @@ http://psid64.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="U2e-Rm-zPx">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <collectionView maxNumberOfColumns="1" id="1375">
                                     <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
@@ -3352,7 +3760,7 @@ http://psid64.sourceforge.net/</string>
             <connections>
                 <outlet property="collectionView" destination="1375" id="1420"/>
             </connections>
-            <point key="canvasLocation" x="-46" y="-2174"/>
+            <point key="canvasLocation" x="-2045" y="-2528"/>
         </window>
         <collectionViewItem id="1376">
             <connections>
@@ -3781,7 +4189,7 @@ Gw
                         <rect key="frame" x="23" y="60" width="567" height="291"/>
                         <clipView key="contentView" id="2bm-2Y-l0Y">
                             <rect key="frame" x="1" y="1" width="565" height="289"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" autosaveName="RemixTableView" headerView="2255" id="2254">
                                     <rect key="frame" x="0.0" y="0.0" width="565" height="266"/>
@@ -3881,6 +4289,16 @@ Gw
             </view>
             <point key="canvasLocation" x="639" y="-1466"/>
         </window>
+        <viewController id="X2R-Wx-HaO" userLabel="PopoverSIDSelector View Controller">
+            <connections>
+                <outlet property="view" destination="yUB-X9-kKg" id="lZI-1l-eYM"/>
+            </connections>
+        </viewController>
+        <popover behavior="t" id="dhN-4R-peC" userLabel="PopoverSIDSelector">
+            <connections>
+                <outlet property="contentViewController" destination="X2R-Wx-HaO" id="NFi-8x-5go"/>
+            </connections>
+        </popover>
     </objects>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
@@ -3889,6 +4307,7 @@ Gw
         <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
         <image name="NSStopProgressFreestandingTemplate" width="20" height="20"/>
         <image name="SIDadd.plus" width="17" height="17"/>
+        <image name="SIDchip.memorchip" width="17" height="17"/>
         <image name="SIDfade.cellularbars.flip" width="17" height="17"/>
         <image name="SIDhud_play.play" width="17" height="17"/>
         <image name="SIDhud_stop.stop" width="17" height="17"/>

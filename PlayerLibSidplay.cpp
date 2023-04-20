@@ -212,15 +212,23 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 		cfg.optimisation  = SID2_MAX_OPTIMISATION;
 
 	//printf("optimization: %d\n", cfg.optimisation);
-
-	if (mPlaybackSettings.mSidModel == 0)
-		cfg.sidDefault	  = SID2_MOS6581;
-	else
-		cfg.sidDefault	  = SID2_MOS8580;
-
-	if (mPlaybackSettings.mForceSidModel)
-		cfg.sidModel = cfg.sidDefault;
-
+    if (!mPlaybackSettings.SIDselectorOverrideActive) {
+        if (mPlaybackSettings.mSidModel == 0)
+            cfg.sidDefault	  = SID2_MOS6581;
+        else
+            cfg.sidDefault	  = SID2_MOS8580;
+        
+        if (mPlaybackSettings.mForceSidModel)
+            cfg.sidModel = cfg.sidDefault;
+    } else {
+        // manual ovveride of settings
+        if (mPlaybackSettings.SIDselectorOverrideModel == 0)
+            cfg.sidDefault      = SID2_MOS6581;
+        else
+            cfg.sidDefault      = SID2_MOS8580;
+            cfg.sidModel = cfg.sidDefault;
+    }
+    
 	cfg.sidEmulation  = mBuilder;
 	cfg.sidSamples	  = true;
 //	cfg.sampleFormat  = SID2_BIG_UNSIGNED;

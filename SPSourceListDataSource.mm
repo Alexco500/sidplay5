@@ -162,9 +162,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			openPanel.title = @"Select HVSC collection folder (usually called C64Music) or other folder containing .sid music files";
 			openPanel.prompt = @"Choose";
 			
-			long result = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
+			long result2 = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
 			
-			if (result == NSOKButton)
+			if (result2 == NSOKButton)
 			{
 				NSArray* filesToOpen = [openPanel filenames];
 				NSString* path = filesToOpen[0];
@@ -657,7 +657,20 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		}
 	}
 }
-
+// ----------------------------------------------------------------------------
+- (void) addSongToPlaylist:(NSString *)song withSubtune:(int) subtune
+// ----------------------------------------------------------------------------
+{
+    SPSimplePlaylist *currentPlaylist = (SPSimplePlaylist*) [browserDataSource playlist];
+    NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:song];
+    SPPlaylistItem* playlistItem = [[SPPlaylistItem alloc] initWithPath:relativePath andSubtuneIndex:0 andLoopCount:1];
+    [playlistItem setSubtune:subtune];
+    [currentPlaylist addItem:playlistItem];
+    [currentPlaylist saveToFile];
+    [self bumpUpdateRevision];
+    [sourceListView reloadData];
+    [browserDataSource switchToPlaylist:currentPlaylist];
+}
 
 #pragma mark -
 #pragma mark collection sharing methods
@@ -1021,8 +1034,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		NSInteger row = sourceListView.selectedRow;
 		if (row != -1)
 		{
-			SPSourceListItem* item = [sourceListView itemAtRow:row];
-			if ([item isSmartPlaylistItem])
+			SPSourceListItem* itemA = [sourceListView itemAtRow:row];
+			if ([itemA isSmartPlaylistItem])
 				return YES;
 		}
 
@@ -1181,8 +1194,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		[alert runModal];
 		
-		SPPlayerWindow* window = (SPPlayerWindow*) sourceListView.window;
-		[window makeKeyAndOrderFront:self];
+		SPPlayerWindow* window2 = (SPPlayerWindow*) sourceListView.window;
+		[window2 makeKeyAndOrderFront:self];
 	}
 }
 

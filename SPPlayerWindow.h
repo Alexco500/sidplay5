@@ -75,8 +75,30 @@ extern NSString* SPUrlRequestUserAgentString;
 	NSMutableData* urlDownloadData;
 	NSURLConnection* urlDownloadConnection;
 	NSInteger urlDownloadSubtuneIndex;
-	
-	SPInfoWindowController* infoWindowController;
+	// SID selector popover outlets
+    __weak IBOutlet NSPopover *popoverSIDSelector;
+    __weak IBOutlet NSStackView *stackViewExternal1;
+    __weak IBOutlet NSStackView *stackViewExternal2;
+    __weak IBOutlet NSStackView *stackViewExternal3;
+    __weak IBOutlet NSStackView *stackViewExternal4;
+    __weak IBOutlet NSButton *check6;
+    __weak IBOutlet NSButton *check8;
+    __weak IBOutlet NSButton *checkE1;
+    __weak IBOutlet NSButton *checkE2;
+    __weak IBOutlet NSButton *checkE3;
+    __weak IBOutlet NSButton *checkE4;
+    __weak IBOutlet NSTextField *text6;
+    __weak IBOutlet NSTextField *text8;
+    __weak IBOutlet NSTextField *textE1;
+    __weak IBOutlet NSTextField *textE2;
+    __weak IBOutlet NSTextField *textE3;
+    __weak IBOutlet NSTextField *textE4;
+    
+    __weak IBOutlet NSBox *ExtLine1;
+    __weak IBOutlet NSTextField *ExtText;
+    __weak IBOutlet NSBox *ExtLine2;
+        
+    SPInfoWindowController* infoWindowController;
 	SPStilBrowserController* stilBrowserController;
 	SPPreferencesWindowController* prefsWindowController;
 	
@@ -88,7 +110,9 @@ extern NSString* SPUrlRequestUserAgentString;
 	
 	IBOutlet SPRemixKwedOrgController* remixKwedOrgController;
     
-    IBOutlet NSMenuItem* checkForUpdatesMenuItem;
+    IBOutlet NSMenuItem *checkForUpdatesMenuItem;
+
+    __weak IBOutlet NSMenuItem *addCurrentSongToPlaylistMenuItem;
 }
 
 - (void) playTuneAtPath:(NSString*)path;
@@ -129,12 +153,15 @@ extern NSString* SPUrlRequestUserAgentString;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *analyzerWindowMenuItem;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *exportTaskWindowMenuItem;
 
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenuItem *addCurrentSongToPlaylistMenuItem;
+
 @property (NS_NONATOMIC_IOSONLY, strong) SPStatusDisplayView *statusDisplay;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) SPStatusDisplayView *miniStatusDisplay;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) SPRemixKwedOrgController *remixKwedOrgController;
 
 - (void) populateVisualizerMenu;
+- (BOOL) isTuneLoaded;
 
 - (IBAction) clickPlayPauseButton:(id)sender;
 - (IBAction) clickStopButton:(id)sender;
@@ -168,6 +195,13 @@ extern NSString* SPUrlRequestUserAgentString;
 - (IBAction) toggleVisualizerView:(id)sender;
 - (IBAction) selectVisualizer:(id)sender;
 
+// SID selector popover actions
+- (IBAction) SIDSelectorButtonPressed:(id)sender;
+
+- (IBAction) checkEnable6:(id)sender;
+- (IBAction) checkEnable8:(id)sender;
+- (IBAction) resetSIDSelector:(id)sender;
+- (IBAction) addCurrentSongToPlaylist:(id)sender;
 @end
 
 

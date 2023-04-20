@@ -719,6 +719,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 	return exportTaskWindowMenuItem;
 }
 
+// ----------------------------------------------------------------------------
+- (NSMenuItem*) addCurrentSongToPlaylistMenuItem;
+// ----------------------------------------------------------------------------
+{
+    return addCurrentSongToPlaylistMenuItem;
+}
 
 // ----------------------------------------------------------------------------
 - (SPStatusDisplayView*) statusDisplay
@@ -750,6 +756,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 // ----------------------------------------------------------------------------
 {
 	return remixKwedOrgController;
+}
+// ----------------------------------------------------------------------------
+- (BOOL) isTuneLoaded
+// ----------------------------------------------------------------------------
+{
+    return player->isTuneLoaded();
 }
 
 
@@ -1193,6 +1205,169 @@ NSString* SPUrlRequestUserAgentString = nil;
 		
 		index++;
 	}
+}
+// ----------------------------------------------------------------------------
+- (void) populateSIDselector
+// ----------------------------------------------------------------------------
+{
+    // query current SID settings and set UI accordingly
+    NSMutableAttributedString *sidModel6 = [[NSMutableAttributedString alloc] initWithString:@"MOS 6581\n"];
+    NSMutableAttributedString *sidModel8 = [[NSMutableAttributedString alloc] initWithString:@"MOS 8580\n"];
+    NSMutableAttributedString *userDefault = [[NSMutableAttributedString alloc] initWithString:@"USER DEFAULT"];
+    NSMutableAttributedString *tuneDefault = [[NSMutableAttributedString alloc] initWithString:@"TUNE DEFAULT"];
+    NSMutableAttributedString *concatString = [[NSMutableAttributedString alloc] initWithString:@", "];
+    [concatString addAttribute:NSFontAttributeName value:[NSFont userFontOfSize:8] range:NSMakeRange(0, 2)];
+    [userDefault addAttribute:NSFontAttributeName value:[NSFont userFontOfSize:8] range:NSMakeRange(0, 12)];
+    [tuneDefault addAttribute:NSFontAttributeName value:[NSFont userFontOfSize:8] range:NSMakeRange(0, 12)];
+    //new text for the text fields
+    NSMutableAttributedString *newText6;
+    NSMutableAttributedString *newText8;
+    bool addedText6 = NO;
+    bool addedText8 = NO;
+
+    newText6 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel6];
+    newText8 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel8];
+    // check which device is set in prefs
+    if (gPreferences.mPlaybackSettings.mSidModel == 0)
+    {
+        [newText6 appendAttributedString:userDefault];
+        addedText6 = YES;
+        // set check boxes to config defaults, will be
+        // overwritten down below, if tune settings are different
+        [check6 setState:NSOnState];
+        [check8 setState:NSOffState];
+    } else if (gPreferences.mPlaybackSettings.mSidModel == 1)
+    {
+        [newText8 appendAttributedString:userDefault];
+        addedText8 = YES;
+        // set check boxes to config defaults, will be
+        // overwritten down below, if tune settings are different
+        [check6 setState:NSOffState];
+        [check8 setState:NSOnState];
+    }
+    // check which device is used in tune
+    if (player->getSIDModelFromTune() == M_6581) {
+        if (addedText6) {
+            [newText6 appendAttributedString:concatString];
+        }
+        [newText6 appendAttributedString:tuneDefault];
+        } else if (player->getSIDModelFromTune() == M_8580) {
+        if (addedText8) {
+            [newText8 appendAttributedString:concatString];
+        }
+            [newText8 appendAttributedString:tuneDefault];
+    }
+    [text6 setAttributedStringValue:newText6];
+    [text8 setAttributedStringValue:newText8];
+
+    // check which device is used currently
+    // set NSAttributedString accordingly
+    [check6 setEnabled:YES];
+    [check8 setEnabled:YES];
+    if (!gPreferences.mPlaybackSettings.SIDselectorOverrideActive) {
+        if (strcmp(player->getCurrentChipModel(),"MOS 6581") == 0)
+        {
+            [check6 setState:NSOnState];
+            [check8 setState:NSOffState];
+        } else if (strcmp(player->getCurrentChipModel(),"MOS 8580") == 0)
+        {
+            [check6 setState:NSOffState];
+            [check8 setState:NSOnState];
+        }
+    } else {
+        if (gPreferences.mPlaybackSettings.SIDselectorOverrideModel == 0) {
+            [check6 setState:NSOnState];
+            [check8 setState:NSOffState];
+        } else {
+            [check6 setState:NSOffState];
+            [check8 setState:NSOnState];
+        }
+    }
+    // check for EXT SID devices
+    // and hide stack views accordingly
+    [ExtLine1 setHidden:YES];
+    [ExtLine2 setHidden:YES];
+    [ExtText setHidden:YES];
+    bool enable_ext1, enable_ext2, enable_ext3, enable_ext4;
+    // set all off
+    enable_ext1 = false;
+    enable_ext2 = false;
+    enable_ext3 = false;
+    enable_ext4 = false;
+    [stackViewExternal1 setHidden:!enable_ext1];
+    [stackViewExternal2 setHidden:!enable_ext2];
+    [stackViewExternal3 setHidden:!enable_ext3];
+    [stackViewExternal4 setHidden:!enable_ext4];
+
+}
+- (IBAction) SIDSelectorButtonPressed:(id)sender
+{
+
+    NSButton *button = (NSButton *)sender;
+    // Convert point to main window coordinates
+    NSRect entryRect = [sender convertRect:button.bounds
+                                  toView:[[NSApp mainWindow] contentView]];
+    // Show popover
+    [popoverSIDSelector showRelativeToRect:entryRect
+                              ofView:[[NSApp mainWindow] contentView]
+                     preferredEdge:NSMinYEdge];
+    [self populateSIDselector];
+}
+- (IBAction) checkEnable6:(id)sender
+{
+    NSButton *button = sender;
+    if ([button state] == NSOnState) {
+        // User wants to use MOS 6
+        // deactivate all other check marks
+        [check8 setState:NSOffState];
+        [checkE1 setState:NSOffState];
+        [checkE2 setState:NSOffState];
+        [checkE3 setState:NSOffState];
+        [checkE4 setState:NSOffState];
+        // reconfigure replayer
+        gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
+        gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
+        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
+    }
+}
+- (IBAction) checkEnable8:(id)sender
+{
+    NSButton *button = sender;
+    if ([button state] == NSOnState) {
+        // User wants to use MOS 8
+        // deactivate all other check marks
+        [check6 setState:NSOffState];
+        [checkE1 setState:NSOffState];
+        [checkE2 setState:NSOffState];
+        [checkE3 setState:NSOffState];
+        [checkE4 setState:NSOffState];
+        // reconfigure replayer
+        gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
+        gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 1;
+        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
+    }
+
+}
+- (IBAction) resetSIDSelector:(id)sender
+{
+    gPreferences.mPlaybackSettings.SIDselectorOverrideActive = NO;
+    gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
+    // reconfigure replayer
+    player->initEmuEngine(&gPreferences.mPlaybackSettings);
+    [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
+}
+- (IBAction) addCurrentSongToPlaylist:(id)sender
+{
+    int subSong = 0;
+    if (player->isTuneLoaded()) {
+        subSong = player->getCurrentSubtune();
+        [sourceListDataSource addSongToPlaylist:currentTunePath withSubtune: subSong];
+    }
 }
 
 #pragma mark -

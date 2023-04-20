@@ -85,6 +85,7 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (void) rsyncTaskFinished:(NSNotification*)aNotification;
 
 - (void) addSavedSearchSmartPlaylist:(SPSmartPlaylist*)smartPlaylist;
+- (void) addSongToPlaylist:(NSString *)song withSubtune:(int) subtune;
 
 //- (NSNetService*) currentSharedCollectionService;
 //- (void) setCurrentSharedCollectionService:(NSNetService*)service;

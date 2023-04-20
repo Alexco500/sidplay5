@@ -184,9 +184,9 @@
         {
             [self->exportTaskWindow orderFront:self];
             
-            SPExporter* exporter = [self->itemsToExport[0] exporter];
-            [exporter setExportSettings:self->exportSettings];
-            [exporter setDestinationPath:(savePanel.URL).path];
+            SPExporter* exporterA = [self->itemsToExport[0] exporter];
+            [exporterA setExportSettings:self->exportSettings];
+            [exporterA setDestinationPath:(savePanel.URL).path];
             [self->exporterArray addObject:exporter];
             [self updateExporterState];
         }

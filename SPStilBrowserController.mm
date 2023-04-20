@@ -192,12 +192,12 @@ static SPStilBrowserController* sharedInstance = nil;
 			if (currentFile != nil && currentEntry != nil)
 				indexedStilDatabase[currentFile] = currentEntry;
 
-			long length = strlen(lineBuffer);
-			if (lineBuffer[length - 1] == '\n')
-				lineBuffer[length - 1] = 0;
+			long length2 = strlen(lineBuffer);
+			if (lineBuffer[length2 - 1] == '\n')
+				lineBuffer[length2 - 1] = 0;
 
-			if (lineBuffer[length - 2] == '/')
-				lineBuffer[length - 2] = 0;
+			if (lineBuffer[length2 - 2] == '/')
+				lineBuffer[length2 - 2] = 0;
 				
 			currentFile = [NSString stringWithCString:lineBuffer encoding:NSISOLatin1StringEncoding];
 			currentEntry = @"";
@@ -276,8 +276,9 @@ static SPStilBrowserController* sharedInstance = nil;
 				itemRange.length = endRange.location + 4 - itemRange.location;
 				NSString* foundFile = [result substringWithRange:itemRange];
 				NSDictionary* linkAttributes = @{NSLinkAttributeName: foundFile,
-																						  NSForegroundColorAttributeName: [NSColor blueColor],
-																						  NSUnderlineStyleAttributeName: @YES};
+                                                NSForegroundColorAttributeName:
+                                                     [NSColor blueColor],
+                                            NSUnderlineStyleAttributeName: @YES};
 
 				[attributedResult addAttributes:linkAttributes range:itemRange];
 				

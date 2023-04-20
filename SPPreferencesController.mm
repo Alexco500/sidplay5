@@ -90,7 +90,7 @@ void Preferences::initializeDefaults()
 	// These three are not modifiable
 	mPlaybackSettings.mFrequency = 44100;
 	mPlaybackSettings.mBits = 16;
-	mPlaybackSettings.mStereo = false; 
+	mPlaybackSettings.mStereo = false;
 
 	mPlaybackSettings.mOversampling = 1;
 	mPlaybackSettings.mSidModel = 0;
@@ -102,6 +102,11 @@ void Preferences::initializeDefaults()
 	mPlaybackSettings.mOptimization = 0; 
 #endif
 	
+    // manual override of SID model, not saved/loaded
+    mPlaybackSettings.SIDselectorOverrideActive = NO;
+    mPlaybackSettings.SIDselectorOverrideModel = 0;
+    
+    
 	resetFilterDefaults();
 }
 
@@ -404,6 +409,15 @@ static SPPreferencesController* sharedInstance = nil;
 		else 
 			use8580 = false;
 	}
+    // manual override
+    if (gPreferences.mPlaybackSettings.SIDselectorOverrideActive) {
+        if (gPreferences.mPlaybackSettings.SIDselectorOverrideModel == 1) {
+            use8580 = true;
+        }
+        else {
+            use8580 = false;
+        }
+    }
 	
 	SPFilterType currentFilterType = gPreferences.mPlaybackSettings.mFilterType;
 	

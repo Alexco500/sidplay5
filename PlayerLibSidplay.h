@@ -18,6 +18,13 @@ enum SPFilterType
 	SID_FILTER_CUSTOM
 };
 
+// for PopupSIDSelector
+enum SIDmodelsGUI
+{
+    M_UNKNOWN = 0,
+    M_6581,
+    M_8580
+};
 
 struct PlaybackSettings
 {
@@ -40,7 +47,10 @@ struct PlaybackSettings
 	
 	int				mEnableFilterDistortion;
 	int				mDistortionRate;
-	int				mDistortionHeadroom;	
+	int				mDistortionHeadroom;
+    // manual override
+    bool            SIDselectorOverrideActive;
+    int             SIDselectorOverrideModel;
 	
 };
 
@@ -98,6 +108,16 @@ public:
 	inline int				getCurrentFileSize()								{ return mTuneInfo.dataFileLen; }
 	inline char*			getTuneBuffer(int& outTuneLength)					{ outTuneLength = mTuneLength; return mTuneBuffer; }
 
+    // for popoverSIDSelector
+    int getSIDModelFromTune()
+    {
+        if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_6581)
+            return M_6581;
+        if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_8580)
+            return M_8580;
+        return M_UNKNOWN;
+    }
+    
 	inline const char* getCurrentChipModel()				
 	{
 		if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_6581)
@@ -122,6 +142,10 @@ public:
 		
 		return 985248.4;
 	}
+    PlaybackSettings* getCurrentPlaybackSettings()
+    {
+        return &mPlaybackSettings;
+    }
 	
 	inline SIDPLAY2_NAMESPACE::SidRegisterFrame getCurrentSidRegisters() const 
 	{ 

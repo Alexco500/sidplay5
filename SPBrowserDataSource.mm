@@ -246,7 +246,12 @@ NSDate* fillStart = nil;
 
 	currentSharedCollection = nil;
 	[self setBrowserMode:isSmartPlaylist ? BROWSER_MODE_SMART_PLAYLIST : BROWSER_MODE_PLAYLIST];
-
+    // disable or enable AddSongMenu item
+    if ([self browserMode] == BROWSER_MODE_PLAYLIST)
+    {
+        SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
+        [[window addCurrentSongToPlaylistMenuItem] setEnabled:YES];
+    }
 	BOOL isCaching = isSmartPlaylist && [(SPSmartPlaylist*)playlist isCachingItems];
 
 	if (!isCaching)
@@ -892,9 +897,9 @@ NSDate* fillStart = nil;
 	{
 		if ([[browserItem path] caseInsensitiveCompare:path] == NSOrderedSame)
 		{
-			NSInteger row = [browserView rowForItem:browserItem];
-			[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-			[browserView scrollRowToVisible:row];
+			NSInteger rowA = [browserView rowForItem:browserItem];
+			[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:rowA] byExtendingSelection:NO];
+			[browserView scrollRowToVisible:rowA];
 			if (setAsCurrentItem)
 				currentItem = browserItem;
 			break;
@@ -2506,8 +2511,8 @@ static NSImage* SPShuffleButtonImage = nil;
                     isFolder = NO;
 					[[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isFolder];
 				
-					SPBrowserItem* item = [[SPBrowserItem alloc] initWithPath:path isFolder:isFolder forParent:nil withDefaultSubtune:0];
-					[rootItems addObject:item];
+					SPBrowserItem* itemA = [[SPBrowserItem alloc] initWithPath:path isFolder:isFolder forParent:nil withDefaultSubtune:0];
+					[rootItems addObject:itemA];
 				}
                 [self setBrowserMode:BROWSER_MODE_DRAGGED_FILELIST];
                 [self setPlaylistModeBrowserColumns: false];
