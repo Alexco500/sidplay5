@@ -148,6 +148,7 @@ enum BrowserMode
 - (void) adjustSearchTypeControlsAndMenu;
 
 - (void) setPlaybackModeControlImages;
+- (void) activateLastPlayedItem;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *draggedItems;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *toolbarSearchField;

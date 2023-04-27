@@ -14,8 +14,8 @@
             filePath = "SPBrowserDataSource.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2300"
-            endingLineNumber = "2300"
+            startingLineNumber = "2304"
+            endingLineNumber = "2304"
             landmarkName = "-outlineView:validateDrop:proposedItem:proposedChildIndex:"
             landmarkType = "7">
          </BreakpointContent>
@@ -24,47 +24,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "425DD025-FA15-4D7A-B0BE-09EA76D417AD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SPBrowserDataSource.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2437"
-            endingLineNumber = "2437"
+            startingLineNumber = "2441"
+            endingLineNumber = "2441"
             landmarkName = "-outlineView:acceptDrop:item:childIndex:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "906A44B5-C0AF-45E0-90D6-2FF087A28463"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SPSourceListDataSource.mm"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1574"
-            endingLineNumber = "1574"
-            landmarkName = "-outlineView:acceptDrop:item:childIndex:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7002F241-2E0A-4454-8D10-B59C0D63A976"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SPSourceListDataSource.mm"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1529"
-            endingLineNumber = "1529"
-            landmarkName = "-outlineView:validateDrop:proposedItem:proposedChildIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -135,16 +103,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "52DDAB90-F51A-45F9-A29E-8AEC2192C540"
+            uuid = "BF58E81A-6BE9-4C92-A265-B5E7ED5C21A9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SPSourceListDataSource.mm"
+            filePath = "SPBrowserDataSource.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "671"
-            endingLineNumber = "671"
-            landmarkName = "-addSongToPlaylist:withSubtune:"
+            startingLineNumber = "2610"
+            endingLineNumber = "2610"
+            landmarkName = "-activateItem:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04F06403-D1FE-4B5D-B305-10E6F2A01014"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SPBrowserDataSource.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2672"
+            endingLineNumber = "2672"
+            landmarkName = "-doubleClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

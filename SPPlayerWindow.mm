@@ -1330,7 +1330,10 @@ NSString* SPUrlRequestUserAgentString = nil;
         player->initEmuEngine(&gPreferences.mPlaybackSettings);
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
-    }
+    } else
+        // you can't deselct, you can only switch with other checkboxes
+        button.state = NSOnState;
+    
 }
 - (IBAction) checkEnable8:(id)sender
 {
@@ -1349,7 +1352,10 @@ NSString* SPUrlRequestUserAgentString = nil;
         player->initEmuEngine(&gPreferences.mPlaybackSettings);
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
-    }
+    } else
+        // you can't deselct, you can only switch with other checkboxes
+        button.state = NSOnState;
+    
 
 }
 - (IBAction) resetSIDSelector:(id)sender
@@ -1359,6 +1365,7 @@ NSString* SPUrlRequestUserAgentString = nil;
     // reconfigure replayer
     player->initEmuEngine(&gPreferences.mPlaybackSettings);
     [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
+    [self populateSIDselector];
     [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
 }
 - (IBAction) addCurrentSongToPlaylist:(id)sender

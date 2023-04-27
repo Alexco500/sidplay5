@@ -1918,6 +1918,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			{
 				[dataSource setCurrentSharedCollectionService:nil];
 				[browserDataSource switchToPlaylist:[selectedItem playlist]];
+                [browserDataSource activateLastPlayedItem];
 			}
 		break;
 			

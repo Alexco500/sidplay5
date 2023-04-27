@@ -1611,8 +1611,12 @@ NSDate* fillStart = nil;
     }
     currentShuffleIndex = 0;
 }
-
-
+// ----------------------------------------------------------------------------
+- (void) activateLastPlayedItem
+// ----------------------------------------------------------------------------
+{
+    [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:[playlist lastPlayedItemIndex]] byExtendingSelection:NO];
+}
 #pragma mark -
 #pragma mark UI actions
 
@@ -2662,11 +2666,14 @@ static NSImage* SPShuffleButtonImage = nil;
 - (void) doubleClick:(id)sender
 // ----------------------------------------------------------------------------
 {	
-	SPBrowserItem* item = [self itemAtRow:[self clickedRow]];
+    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
+    
+    SPBrowserItem* item = [self itemAtRow:[self clickedRow]];
 	if (item == nil)
 		return;
 
 	[self activateItem:item];
+    [[dataSource playlist] setLastPlayedItemIndex:(unsigned int)[self clickedRow]];
 }
 
 

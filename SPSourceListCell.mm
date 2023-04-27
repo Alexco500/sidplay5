@@ -22,6 +22,7 @@ static const int sIconHeight = 16.0f;
 	{
 		image = nil;
 		progressIndicator = nil;
+        self.focusRingType = NSFocusRingTypeNone;
 	}
 	return self;
 }
@@ -33,6 +34,7 @@ static const int sIconHeight = 16.0f;
 {
     SPSourceListCell *cell = (SPSourceListCell *)[super copyWithZone:zone];
     cell->image = image;
+    self.focusRingType = NSFocusRingTypeNone;
     return cell;
 }
 

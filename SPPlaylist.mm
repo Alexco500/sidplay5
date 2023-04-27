@@ -6,6 +6,7 @@
 
 @implementation SPPlaylist
 
+@synthesize  lastPlayedItemIndex;
 
 // ----------------------------------------------------------------------------
 - (instancetype) init

@@ -59,6 +59,9 @@
 // ----------------------------------------------------------------------------
 {
 	[items removeObjectsAtIndexes:indices];
+    // reset last played item
+    if ([indices containsIndex:lastPlayedItemIndex])
+        lastPlayedItemIndex = 0;
 }
 
 
@@ -67,7 +70,9 @@
 // ----------------------------------------------------------------------------
 {
 	NSInteger newBaseIndex = index;
-	
+    // reset last played item
+    if ([indices containsIndex:lastPlayedItemIndex])
+        lastPlayedItemIndex = 0;
 	if (index < items.count)
 	{
 		SPPlaylistItem* itemAtIndex = items[index];

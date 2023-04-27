@@ -8,10 +8,13 @@
 	NSString* name;
 	NSString* identifier;
 	NSString* path;
+    unsigned int lastPlayedItemIndex;
 }
 
 - (instancetype) initWithCoder:(NSCoder*)coder;
 - (void) encodeWithCoder:(NSCoder*)coder;
+
+@property (NS_NONATOMIC_IOSONLY) unsigned int lastPlayedItemIndex;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSInteger count;
 - (SPPlaylistItem*) itemAtIndex:(NSInteger)index;
