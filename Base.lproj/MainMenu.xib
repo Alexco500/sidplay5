@@ -372,7 +372,7 @@
                 <real value="3.4028234663852886e+38"/>
                 <real value="3.4028234663852886e+38"/>
             </customSpacing>
-            <point key="canvasLocation" x="-444" y="231"/>
+            <point key="canvasLocation" x="-499" y="-2353"/>
         </stackView>
         <customObject id="-3" userLabel="Application" customClass="NSObject">
             <connections>
@@ -979,7 +979,7 @@
                                                     </connections>
                                                 </button>
                                                 <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-xi-M8X">
-                                                    <rect key="frame" x="208" y="4" width="32" height="23"/>
+                                                    <rect key="frame" x="103" y="4" width="32" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SIDchip.memorchip" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="9E8-YB-hr6">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

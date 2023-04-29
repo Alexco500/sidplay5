@@ -213,7 +213,7 @@ OSStatus    AudioCoreDriverNew::MyRenderer(void                 *inRefCon,
         return noErr;
     }
 
-    if ( (remainingBuffer = bytesInCoreAudioBuffer))
+    if ( remainingBuffer == bytesInCoreAudioBuffer)
     {
         // copy shorts into buffer inteleaved, libsid gives us a
         // mono sound buffer

@@ -1327,7 +1327,14 @@ NSString* SPUrlRequestUserAgentString = nil;
         // reconfigure replayer
         gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
         gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
-        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        if (audioDriver->getIsPlaying())
+        {
+            audioDriver->stopPlayback();
+            player->initEmuEngine(&gPreferences.mPlaybackSettings);
+            audioDriver->startPlayback();
+        } else {
+            player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        }
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
     } else
@@ -1349,7 +1356,14 @@ NSString* SPUrlRequestUserAgentString = nil;
         // reconfigure replayer
         gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
         gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 1;
-        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        if (audioDriver->getIsPlaying())
+        {
+            audioDriver->stopPlayback();
+            player->initEmuEngine(&gPreferences.mPlaybackSettings);
+            audioDriver->startPlayback();
+        } else {
+            player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        }
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
     } else
@@ -1363,7 +1377,14 @@ NSString* SPUrlRequestUserAgentString = nil;
     gPreferences.mPlaybackSettings.SIDselectorOverrideActive = NO;
     gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
     // reconfigure replayer
-    player->initEmuEngine(&gPreferences.mPlaybackSettings);
+    if (audioDriver->getIsPlaying())
+    {
+        audioDriver->stopPlayback();
+        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        audioDriver->startPlayback();
+    } else {
+        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+    }
     [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
     [self populateSIDselector];
     [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
