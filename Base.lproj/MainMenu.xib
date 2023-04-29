@@ -1292,7 +1292,7 @@
                                     <button autoresizesSubviews="NO" toolTip="Enable fast forwarding of playback" horizontalHuggingPriority="249" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="668">
                                         <rect key="frame" x="89" y="10" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SIDhud_warp.forward" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" id="669">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SIDhud_warp.forward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" id="669">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>

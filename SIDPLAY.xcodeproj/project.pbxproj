@@ -170,7 +170,7 @@
 		DAEB11E729FBD9BF0079EF17 /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897710CEE400000942B17 /* pot.cc */; };
 		DAEB11E829FBD9BF0079EF17 /* wave8580__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897800CEE400000942B17 /* wave8580__ST.cc */; };
 		DAEB11E929FBD9BF0079EF17 /* extfilt.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F38976E0CEE400000942B17 /* extfilt.h */; };
-		DAEB11EA29FBD9BF0079EF17 /* sid.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897740CEE400000942B17 /* sid.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAEB11EA29FBD9BF0079EF17 /* sid.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897740CEE400000942B17 /* sid.h */; };
 		DAEB11EB29FBD9BF0079EF17 /* siddefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897750CEE400000942B17 /* siddefs.h */; };
 		DAEB11EC29FBD9BF0079EF17 /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38977A0CEE400000942B17 /* wave.cc */; };
 /* End PBXBuildFile section */
@@ -1181,8 +1181,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				DAEB11CE29FBD9030079EF17 /* resid */,
 				8D1107260486CEB800E47090 /* SIDPLAY */,
+				DAEB11CE29FBD9030079EF17 /* resid */,
 			);
 		};
 /* End PBXProject section */
@@ -1707,6 +1707,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1738,9 +1739,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
