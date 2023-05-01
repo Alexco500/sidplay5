@@ -33,7 +33,7 @@
 #ifdef RESID_NAMESPACE
 #   define RESID ::RESID_NAMESPACE
 #else
-#   define RESID
+#   define RESID reSID
 #endif
 
 

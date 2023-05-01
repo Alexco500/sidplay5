@@ -79,6 +79,8 @@ NSString* SPUrlRequestUserAgentString = nil;
     [checkForUpdatesMenuItem setEnabled:FALSE];
 	
 	[self populateVisualizerMenu];
+    //FIXME: Beta designation!
+    [self setTitle:@"SIDPLAY 5.1 BETA (reSID)"];
 	
 	visualizerView = nil;
     /*

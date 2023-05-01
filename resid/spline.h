@@ -1,6 +1,6 @@
 //  ---------------------------------------------------------------------------
 //  This file is part of reSID, a MOS6581 SID emulator engine.
-//  Copyright (C) 2004  Dag Lem <resid@nimrod.no>
+//  Copyright (C) 2010  Dag Lem <resid@nimrod.no>
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -17,8 +17,11 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
 
-#ifndef __SPLINE_H__
-#define __SPLINE_H__
+#ifndef RESID_SPLINE_H
+#define RESID_SPLINE_H
+
+namespace reSID
+{
 
 // Our objective is to construct a smooth interpolating single-valued function
 // y = f(x).
@@ -264,9 +267,10 @@ class PointPlotter
       y = 0;
     }
 
-    f[F(x)] = F(y);
+    f[int(x)] = F(y + 0.5);
   }
 };
 
+} // namespace reSID
 
-#endif // not __SPLINE_H__
+#endif // not RESID_SPLINE_H

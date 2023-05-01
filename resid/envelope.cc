@@ -1,6 +1,6 @@
 //  ---------------------------------------------------------------------------
 //  This file is part of reSID, a MOS6581 SID emulator engine.
-//  Copyright (C) 2004  Dag Lem <resid@nimrod.no>
+//  Copyright (C) 1998 - 2022  Dag Lem <resid@nimrod.no>
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -17,45 +17,17 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  ---------------------------------------------------------------------------
 
-#define __ENVELOPE_CC__
+#define RESID_ENVELOPE_CC
+
 #include "envelope.h"
 
-// ----------------------------------------------------------------------------
-// Constructor.
-// ----------------------------------------------------------------------------
-EnvelopeGenerator::EnvelopeGenerator()
+namespace reSID
 {
-  reset();
-}
-
-// ----------------------------------------------------------------------------
-// SID reset.
-// ----------------------------------------------------------------------------
-void EnvelopeGenerator::reset()
-{
-  envelope_counter = 0;
-
-  attack = 0;
-  decay = 0;
-  sustain = 0;
-  release = 0;
-
-  gate = 0;
-
-  rate_counter = 0;
-  exponential_counter = 0;
-  exponential_counter_period = 1;
-
-  state = RELEASE;
-  rate_period = rate_counter_period[release];
-  hold_zero = true;
-}
-
 
 // Rate counter periods are calculated from the Envelope Rates table in
 // the Programmer's Reference Guide. The rate counter period is the number of
 // cycles between each increment of the envelope counter.
-// The rates have been verified by sampling ENV3. 
+// The rates have been verified by sampling ENV3.
 //
 // The rate counter is a 16 bit register which is incremented each cycle.
 // When the counter reaches a specific comparison value, the envelope counter
@@ -146,7 +118,7 @@ reg16 EnvelopeGenerator::rate_counter_period[] = {
 // (255 + 162*1 + 39*2 + 28*4 + 12*8 + 8*16 + 6*30)*32 = 756*32 = 32352
 // which corresponds exactly to the timed value divided by the number of
 // complete envelopes.
-// NB! This one cycle delay is not modeled.
+// NB! This one cycle delay is only modeled for single cycle clocking.
 
 
 // From the sustain levels it follows that both the low and high 4 bits of the
@@ -173,6 +145,59 @@ reg8 EnvelopeGenerator::sustain_level[] = {
 };
 
 
+// DAC lookup tables for 8-bit DACs.
+// MOS 6581: 2R/R ~ 2.20, missing termination resistor.
+// MOS 8580: 2R/R ~ 2.00, correct termination.
+RESID_CONSTINIT const DAC<8> EnvelopeGenerator::model_dac[2] = {
+  DAC<8>(2.20, false),
+  DAC<8>(2.00, true)
+};
+
+
+// ----------------------------------------------------------------------------
+// Constructor.
+// ----------------------------------------------------------------------------
+EnvelopeGenerator::EnvelopeGenerator()
+{
+  set_chip_model(MOS6581);
+
+  reset();
+}
+
+// ----------------------------------------------------------------------------
+// SID reset.
+// ----------------------------------------------------------------------------
+void EnvelopeGenerator::reset()
+{
+  envelope_counter = 0;
+  envelope_pipeline = 0;
+
+  attack = 0;
+  decay = 0;
+  sustain = 0;
+  release = 0;
+
+  gate = 0;
+
+  rate_counter = 0;
+  exponential_counter = 0;
+  exponential_counter_period = 1;
+
+  state = RELEASE;
+  rate_period = rate_counter_period[release];
+  hold_zero = true;
+}
+
+
+// ----------------------------------------------------------------------------
+// Set chip model.
+// ----------------------------------------------------------------------------
+void EnvelopeGenerator::set_chip_model(chip_model model)
+{
+  sid_model = model;
+}
+
+
 // ----------------------------------------------------------------------------
 // Register functions.
 // ----------------------------------------------------------------------------
@@ -186,15 +211,19 @@ void EnvelopeGenerator::writeCONTROL_REG(reg8 control)
   // Gate bit on: Start attack, decay, sustain.
   if (!gate && gate_next) {
     state = ATTACK;
-    update_rate_period(rate_counter_period[attack]);
+    rate_period = rate_counter_period[attack];
 
-    // Switching to attack state unlocks the zero freeze.
+    // Switching to attack state unlocks the zero freeze and aborts any
+    // pipelined envelope decrement.
     hold_zero = false;
+    // FIXME: This is an assumption which should be checked using cycle exact
+    // envelope sampling.
+    envelope_pipeline = 0;
   }
   // Gate bit off: Start release.
   else if (gate && !gate_next) {
     state = RELEASE;
-    update_rate_period(rate_counter_period[release]);
+    rate_period = rate_counter_period[release];
   }
 
   gate = gate_next;
@@ -205,10 +234,10 @@ void EnvelopeGenerator::writeATTACK_DECAY(reg8 attack_decay)
   attack = (attack_decay >> 4) & 0x0f;
   decay = attack_decay & 0x0f;
   if (state == ATTACK) {
-    update_rate_period(rate_counter_period[attack]);
+    rate_period = rate_counter_period[attack];
   }
   else if (state == DECAY_SUSTAIN) {
-    update_rate_period(rate_counter_period[decay]);
+    rate_period = rate_counter_period[decay];
   }
 }
 
@@ -217,38 +246,13 @@ void EnvelopeGenerator::writeSUSTAIN_RELEASE(reg8 sustain_release)
   sustain = (sustain_release >> 4) & 0x0f;
   release = sustain_release & 0x0f;
   if (state == RELEASE) {
-    update_rate_period(rate_counter_period[release]);
+    rate_period = rate_counter_period[release];
   }
-}
-
-void EnvelopeGenerator::update_rate_period(reg16 newperiod)
-{
-    rate_period = newperiod;
-
-   /* The ADSR counter is XOR shift register with 0x7fff unique values.
-    * If the rate_period is adjusted to a value already seen in this cycle,
-    * the register will wrap around. This is known as the ADSR delay bug.
-    *
-    * To simplify the hot path calculation, we simulate this through observing
-    * that we add the 0x7fff cycle delay by changing the rate_counter variable
-    * directly. This takes care of the 99 % common case. However, playroutine
-    * could make multiple consequtive rate_period adjustments, in which case we
-    * need to cancel the previous adjustment. */
-
-    /* if the new period exeecds 0x7fff, we need to wrap */
-    if (rate_period - rate_counter > 0x7fff)
-	rate_counter += 0x7fff;
-
-    /* simulate 0x7fff wraparound, if the period-to-be-written
-     * is less than the current value. */
-    if (rate_period <= rate_counter)
-	rate_counter -= 0x7fff;
-
-    /* at this point it should be impossible for
-     * rate_counter >= rate_period. If it is, there is a bug... */
 }
 
 reg8 EnvelopeGenerator::readENV()
 {
-  return output();
+  return envelope_counter;
 }
+
+} // namespace reSID

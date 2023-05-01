@@ -38,8 +38,6 @@
 		1F38974B0CEE3F8400942B17 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897060CEE3F8300942B17 /* player.cpp */; };
 		1F38974F0CEE3F8400942B17 /* psiddrv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F38970B0CEE3F8300942B17 /* psiddrv.cpp */; };
 		1F3897510CEE3F8400942B17 /* reloc65.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F38970D0CEE3F8300942B17 /* reloc65.cpp */; };
-		1F3897540CEE3F8400942B17 /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897110CEE3F8300942B17 /* resid-builder.cpp */; };
-		1F3897550CEE3F8400942B17 /* resid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897130CEE3F8300942B17 /* resid.cpp */; };
 		1F3897590CEE3F8400942B17 /* sid6526.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897180CEE3F8400942B17 /* sid6526.cpp */; };
 		1F38975A0CEE3F8400942B17 /* sidplay2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F38971A0CEE3F8400942B17 /* sidplay2.cpp */; };
 		1F38975B0CEE3F8400942B17 /* IconInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F38971C0CEE3F8400942B17 /* IconInfo.cpp */; };
@@ -59,7 +57,6 @@
 		1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */; };
 		1F4386D10CEF1CE100654EA1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */; };
 		1F46266B0D9AEE5000C12916 /* SPSourceListDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F46266A0D9AEE5000C12916 /* SPSourceListDataSource.mm */; };
-		1F4C4FC70D79EFD900214775 /* PlayerLibSidplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C4FC50D79EFD800214775 /* PlayerLibSidplay.cpp */; };
 		1F4CA9680FA342A800B56AB6 /* SPCachedView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F4CA9670FA342A800B56AB6 /* SPCachedView.mm */; };
 		1F51734D0CF99C460064AFA2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F51734C0CF99C460064AFA2 /* Quartz.framework */; };
 		1F5173E20CF9A9BD0064AFA2 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F5173E00CF9A9BD0064AFA2 /* InfoWindow.xib */; };
@@ -139,6 +136,9 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DA2AB81629FE560900523A82 /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897110CEE3F8300942B17 /* resid-builder.cpp */; };
+		DA2AB81729FE560D00523A82 /* resid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897130CEE3F8300942B17 /* resid.cpp */; };
+		DA2AB81A29FEE6B100523A82 /* PlayerLibSidplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C4FC50D79EFD800214775 /* PlayerLibSidplay.cpp */; };
 		DAA731A629E2C7C000B274D5 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A529E2C7C000B274D5 /* AudioUnit.framework */; };
 		DAA731AA29E4AEBA00B274D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
@@ -148,27 +148,19 @@
 		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB81A2928689D100075CB8E /* psid64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DAEB11D329FBD9520079EF17 /* libresid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEB11CF29FBD9030079EF17 /* libresid.a */; };
-		DAEB11D429FBD9BF0079EF17 /* wave6581__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38977C0CEE400000942B17 /* wave6581__ST.cc */; };
 		DAEB11D529FBD9BF0079EF17 /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897780CEE400000942B17 /* voice.cc */; };
 		DAEB11D629FBD9BF0079EF17 /* pot.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897720CEE400000942B17 /* pot.h */; };
-		DAEB11D729FBD9BF0079EF17 /* wave8580_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897830CEE400000942B17 /* wave8580_PST.cc */; };
-		DAEB11D829FBD9BF0079EF17 /* wave6581_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38977D0CEE400000942B17 /* wave6581_P_T.cc */; };
 		DAEB11D929FBD9BF0079EF17 /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38976B0CEE400000942B17 /* envelope.cc */; };
-		DAEB11DA29FBD9BF0079EF17 /* wave6581_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38977E0CEE400000942B17 /* wave6581_PS_.cc */; };
 		DAEB11DB29FBD9BF0079EF17 /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38976F0CEE400000942B17 /* filter.cc */; };
 		DAEB11DC29FBD9BF0079EF17 /* sid.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897730CEE400000942B17 /* sid.cc */; };
 		DAEB11DD29FBD9BF0079EF17 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897770CEE400000942B17 /* version.cc */; };
 		DAEB11DE29FBD9BF0079EF17 /* filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897700CEE400000942B17 /* filter.h */; };
 		DAEB11DF29FBD9BF0079EF17 /* wave.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F38977B0CEE400000942B17 /* wave.h */; };
 		DAEB11E029FBD9BF0079EF17 /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38976D0CEE400000942B17 /* extfilt.cc */; };
-		DAEB11E129FBD9BF0079EF17 /* wave6581_PST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F38977F0CEE400000942B17 /* wave6581_PST.cc */; };
 		DAEB11E229FBD9BF0079EF17 /* spline.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897760CEE400000942B17 /* spline.h */; };
 		DAEB11E329FBD9BF0079EF17 /* voice.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897790CEE400000942B17 /* voice.h */; };
-		DAEB11E429FBD9BF0079EF17 /* wave8580_P_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897810CEE400000942B17 /* wave8580_P_T.cc */; };
 		DAEB11E529FBD9BF0079EF17 /* envelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F38976C0CEE400000942B17 /* envelope.h */; };
-		DAEB11E629FBD9BF0079EF17 /* wave8580_PS_.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897820CEE400000942B17 /* wave8580_PS_.cc */; };
 		DAEB11E729FBD9BF0079EF17 /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897710CEE400000942B17 /* pot.cc */; };
-		DAEB11E829FBD9BF0079EF17 /* wave8580__ST.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1F3897800CEE400000942B17 /* wave8580__ST.cc */; };
 		DAEB11E929FBD9BF0079EF17 /* extfilt.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F38976E0CEE400000942B17 /* extfilt.h */; };
 		DAEB11EA29FBD9BF0079EF17 /* sid.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897740CEE400000942B17 /* sid.h */; };
 		DAEB11EB29FBD9BF0079EF17 /* siddefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F3897750CEE400000942B17 /* siddefs.h */; };
@@ -1300,8 +1292,6 @@
 				1F38974B0CEE3F8400942B17 /* player.cpp in Sources */,
 				1F38974F0CEE3F8400942B17 /* psiddrv.cpp in Sources */,
 				1F3897510CEE3F8400942B17 /* reloc65.cpp in Sources */,
-				1F3897540CEE3F8400942B17 /* resid-builder.cpp in Sources */,
-				1F3897550CEE3F8400942B17 /* resid.cpp in Sources */,
 				1F3897590CEE3F8400942B17 /* sid6526.cpp in Sources */,
 				1F38975A0CEE3F8400942B17 /* sidplay2.cpp in Sources */,
 				1F38975B0CEE3F8400942B17 /* IconInfo.cpp in Sources */,
@@ -1350,7 +1340,6 @@
 				1F05AA7D0D511BEF004725C5 /* SPVisualizerView.mm in Sources */,
 				1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */,
 				1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */,
-				1F4C4FC70D79EFD900214775 /* PlayerLibSidplay.cpp in Sources */,
 				1FDD6E7A0D82E40E00489870 /* SPMiniPlayerWindow.mm in Sources */,
 				1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */,
 				1F14E3F40D83F3F9001BAB20 /* SPBrowserState.mm in Sources */,
@@ -1367,20 +1356,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAEB11D829FBD9BF0079EF17 /* wave6581_P_T.cc in Sources */,
-				DAEB11E429FBD9BF0079EF17 /* wave8580_P_T.cc in Sources */,
-				DAEB11DA29FBD9BF0079EF17 /* wave6581_PS_.cc in Sources */,
 				DAEB11DC29FBD9BF0079EF17 /* sid.cc in Sources */,
-				DAEB11E829FBD9BF0079EF17 /* wave8580__ST.cc in Sources */,
+				DA2AB81729FE560D00523A82 /* resid.cpp in Sources */,
+				DA2AB81A29FEE6B100523A82 /* PlayerLibSidplay.cpp in Sources */,
 				DAEB11D529FBD9BF0079EF17 /* voice.cc in Sources */,
 				DAEB11DD29FBD9BF0079EF17 /* version.cc in Sources */,
-				DAEB11D729FBD9BF0079EF17 /* wave8580_PST.cc in Sources */,
+				DA2AB81629FE560900523A82 /* resid-builder.cpp in Sources */,
 				DAEB11E029FBD9BF0079EF17 /* extfilt.cc in Sources */,
-				DAEB11D429FBD9BF0079EF17 /* wave6581__ST.cc in Sources */,
 				DAEB11D929FBD9BF0079EF17 /* envelope.cc in Sources */,
-				DAEB11E129FBD9BF0079EF17 /* wave6581_PST.cc in Sources */,
 				DAEB11DB29FBD9BF0079EF17 /* filter.cc in Sources */,
-				DAEB11E629FBD9BF0079EF17 /* wave8580_PS_.cc in Sources */,
 				DAEB11EC29FBD9BF0079EF17 /* wave.cc in Sources */,
 				DAEB11E729FBD9BF0079EF17 /* pot.cc in Sources */,
 			);
@@ -1458,6 +1442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1507,6 +1492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1591,7 +1577,7 @@
 					"\"$(SRCROOT)/..\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = RESID_DISTORTION_PATCH;
+				GCC_PREPROCESSOR_DEFINITIONS = "RESID_DISTORTION_PATCH___NO";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1652,7 +1638,7 @@
 					"\"$(SRCROOT)/..\"",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = RESID_DISTORTION_PATCH;
+				GCC_PREPROCESSOR_DEFINITIONS = "RESID_DISTORTION_PATCH___NO";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

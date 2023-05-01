@@ -34,7 +34,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		currentCollection = nil;
 		draggedItems = nil;
 		rsyncTask = nil;
-		rsyncMirrorsListDownloaded = nil;
+		rsyncMirrorsListDownloaded = NO;
 		
 		httpServer = nil;
 		serviceBrowser = [[NSNetServiceBrowser alloc] init];

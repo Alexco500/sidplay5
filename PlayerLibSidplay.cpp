@@ -148,7 +148,7 @@ void PlayerLibSidplay::setupSIDInfo()
 	}
 	else
 	{
-		mFilterSettings.distortion_enable = true;
+		//mFilterSettings.distortion_enable = true;
 		mBuilder->filter(&mFilterSettings);
 	}
 }
@@ -566,7 +566,7 @@ void PlayerLibSidplay::fillBuffer(void* buffer, int len)
 
 		short *oversampleBuffer = (short*) mOversamplingBuffer;
 		short *outputBuffer = (short*) buffer;
-		register long sample = 0;
+        long sample = 0;
 		
 		// downsample n:1 where n = oversampling factor
 		for (int sampleCount = len / sizeof(short); sampleCount > 0; sampleCount--)
@@ -602,7 +602,7 @@ static inline float approximate_dac(int x, float kinkiness)
 // ----------------------------------------------------------------------------
 void PlayerLibSidplay::setFilterSettingsFromPlaybackSettings(sid_filter_t& filterSettings, PlaybackSettings* settings)
 // ----------------------------------------------------------------------------
-{
+{ /*
 	filterSettings.distortion_enable = settings->mEnableFilterDistortion;
 	filterSettings.rate = settings->mDistortionRate;
 	filterSettings.headroom = settings->mDistortionHeadroom;
@@ -642,6 +642,7 @@ void PlayerLibSidplay::setFilterSettingsFromPlaybackSettings(sid_filter_t& filte
 			filterSettings.cutoff[i][1] = freq;
 		}
 	}
+   */
 }
 
 

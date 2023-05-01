@@ -45,7 +45,7 @@ ReSID::ReSID (sidbuilder *builder)
     p += strlen (p) + 1;
     strcpy  (p, "\t(C) 1999-2002 Simon White <sidplay2@yahoo.com>");
     p += strlen (p) + 1;
-    sprintf (p, "MOS6581 (SID) Emulation (ReSID V%s):", RESID::resid_version_string);
+    sprintf (p, "MOS6581 (SID) Emulation (ReSID V%s):", resid_version_string);
     p += strlen (p) + 1;
     sprintf (p, "\t(C) 1999-2002 Dag Lem <resid@nimrod.no>");
     p += strlen (p) + 1;
@@ -69,6 +69,7 @@ ReSID::~ReSID ()
 
 bool ReSID::filter (const sid_filter_t *filter)
 {
+    /*
     RESID::fc_point fc[0x802];
     const RESID::fc_point *f0 = fc;
     int   points = 0;
@@ -128,7 +129,7 @@ bool ReSID::filter (const sid_filter_t *filter)
 		);
 	}
 #endif
-
+*/
     return true;
 }
 
@@ -191,7 +192,7 @@ int_least32_t ReSID::output (uint_least8_t bits)
             m_sid.clock ();
          
     }
-    return m_sid.output (bits) * m_gain / 100;
+    return m_sid.output(); // (bits) * m_gain / 100;
 }
 
 void ReSID::filter (bool enable)
@@ -220,7 +221,7 @@ void ReSID::gain (int_least8_t percent)
 
 void ReSID::sampling (uint_least32_t freq)
 {
-    m_sid.set_sampling_parameters (1000000, RESID::SAMPLE_RESAMPLE_INTERPOLATE, freq);
+    m_sid.set_sampling_parameters (1000000, RESID::SAMPLE_INTERPOLATE, freq);
 }
 
 // Set execution environment and lock sid to it
