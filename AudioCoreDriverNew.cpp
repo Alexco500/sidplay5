@@ -52,9 +52,9 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
 	//printf("init core audio\n");
 
 	mPlayer = player;
-	mSampleRate = 44100; //sampleRate
+	mSampleRate = DEFAULT_SAMPLERATE; //sampleRate
     pointerInPacket = 0;
-    mNumSamplesInBuffer = 512;
+    mNumSamplesInBuffer = 768;
     mIsPlaying = false;
     mIsPlayingPreRenderedBuffer = false;
     mBufferUnderrunDetected = false;
@@ -106,7 +106,7 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
                                    &streamDescSize);
         if (err) { printf ("AudioUnitGetProperty-CB=%ld\n", (long int)err); return; }
 
-        mStreamFormat.mSampleRate = 44100;
+        mStreamFormat.mSampleRate = DEFAULT_SAMPLERATE;
         mStreamFormat.mFormatID = kAudioFormatLinearPCM;
         mStreamFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger |          kAudioFormatFlagIsPacked | kAudioFormatFlagsNativeEndian;
         mStreamFormat.mBytesPerPacket = 4; //2 * sizeof(short);
@@ -128,8 +128,9 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
         err = AudioUnitInitialize(gOutputUnit);
         if (err) { printf ("AudioUnitInitialize=%ld\n", (long int)err); return; }
 
+        // alloc sample buffer
         mSampleBuffer = new short[mNumSamplesInBuffer];
-        memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
+        memset(mSampleBuffer, 0, mSizeOfAudioBuffer);
 
 	}
 
@@ -148,18 +149,19 @@ void AudioCoreDriverNew::fillBuffer()
 	{
 		return;
 	}
-    mPlayer->fillBuffer(mSampleBuffer, mSizeOfAudioBuffer);}
+    mPlayer->fillBuffer(mSampleBuffer, mSizeOfAudioBuffer);
+}
 
 // ________________________________________________________________________________
 //
 // Audio Unit Renderer!!!
 //
-OSStatus    AudioCoreDriverNew::MyRenderer(void                 *inRefCon,
-                       AudioUnitRenderActionFlags     *ioActionFlags,
+OSStatus    AudioCoreDriverNew::MyRenderer(void     *inRefCon,
+                       AudioUnitRenderActionFlags   *ioActionFlags,
                        const AudioTimeStamp         *inTimeStamp,
-                       UInt32                         inBusNumber,
-                       UInt32                         inNumberFrames,
-                       AudioBufferList             *ioData)
+                       UInt32                        inBusNumber,
+                       UInt32                        inNumberFrames,
+                       AudioBufferList              *ioData)
 
 {
     // Get the info struct and a pointer to our output data

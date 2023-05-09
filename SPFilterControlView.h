@@ -6,7 +6,9 @@
 
 @interface SPFilterControlView : SPInfoView
 {
-	sid_filter_t filterSettings;
+	/* FIXME: filter settings
+    sid_filter_t filterSettings;
+     */
 	PlayerLibSidplay* player;
 
 	IBOutlet NSTextField* distortionLabel;

@@ -53,10 +53,11 @@ NSString* SPUrlRequestUserAgentString = nil;
 	audioDriver->setVolume(gPreferences.mPlaybackVolume);
 	gPreferences.mPlaybackSettings.mFrequency = audioDriver->getSampleRate();
 	
+    /* FIXME: Filter settings (again)
 	sid_filter_t filterSettings;
 	PlayerLibSidplay::setFilterSettingsFromPlaybackSettings(filterSettings, &gPreferences.mPlaybackSettings);
 	player->setFilterSettings(&filterSettings);
-	
+	*/
 	[[NSNotificationCenter defaultCenter] postNotificationName:SPPlayerInitializedNotification object:self];
 	
 	volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
@@ -80,7 +81,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	
 	[self populateVisualizerMenu];
     //FIXME: Beta designation!
-    [self setTitle:@"SIDPLAY 5.1 BETA (reSID)"];
+    [self setTitle:@"SIDPLAY 5.1 BETA 3 (libsidpf/reSIDfp/SIDBlaster USB)"];
 	
 	visualizerView = nil;
     /*
@@ -387,33 +388,31 @@ NSString* SPUrlRequestUserAgentString = nil;
 
 	if (player != NULL)
 	{
-		SIDPLAY2_NAMESPACE::SidRegisterFrame registerFrame = player->getCurrentSidRegisters();
+        SidRegisterFrame registerFrame = player->getCurrentSidRegisters();
 		unsigned char* registers = registerFrame.mRegisters;
-		
-		/*
 		 
 		 if (audioDriver->getIsPlaying())
-		 {
-		 float levelVoice1 = (registers[0x04] & 0x01) ? float(registers[0x06] >> 4) / 15.0f : 0.0f;
-		 float levelVoice2 = (registers[0x0b] & 0x01) ? float(registers[0x0d] >> 4) / 15.0f : 0.0f;
-		 float levelVoice3 = (registers[0x12] & 0x01) ? float(registers[0x14] >> 4) / 15.0f : 0.0f;
-		 
-		 if ([statusDisplay logoVisible])
-		 [statusDisplay updateUvMetersWithVoice1:levelVoice1 andVoice2:levelVoice2 andVoice3:levelVoice3];
-		 
-		 if ([miniStatusDisplay logoVisible])
-		 [miniStatusDisplay updateUvMetersWithVoice1:levelVoice1 andVoice2:levelVoice2 andVoice3:levelVoice3];
-		 }
-		 else
-		 {
-		 if ([statusDisplay logoVisible])
-		 [statusDisplay updateUvMetersWithVoice1:0.0f andVoice2:0.0f andVoice3:0.0f];
-		 
-		 if ([miniStatusDisplay logoVisible])
-		 [miniStatusDisplay updateUvMetersWithVoice1:0.0f andVoice2:0.0f andVoice3:0.0f];
-		 }
-		 */
-		
+         {
+             float levelVoice1 = (registers[0x04] & 0x01) ? float(registers[0x06] >> 4) / 15.0f : 0.0f;
+             float levelVoice2 = (registers[0x0b] & 0x01) ? float(registers[0x0d] >> 4) / 15.0f : 0.0f;
+             float levelVoice3 = (registers[0x12] & 0x01) ? float(registers[0x14] >> 4) / 15.0f : 0.0f;
+             /*
+              if ([statusDisplay logoVisible])
+              [statusDisplay updateUvMetersWithVoice1:levelVoice1 andVoice2:levelVoice2 andVoice3:levelVoice3];
+              
+              if ([miniStatusDisplay logoVisible])
+              [miniStatusDisplay updateUvMetersWithVoice1:levelVoice1 andVoice2:levelVoice2 andVoice3:levelVoice3];
+              }
+              else
+              {
+              if ([statusDisplay logoVisible])
+              [statusDisplay updateUvMetersWithVoice1:0.0f andVoice2:0.0f andVoice3:0.0f];
+              
+              if ([miniStatusDisplay logoVisible])
+              [miniStatusDisplay updateUvMetersWithVoice1:0.0f andVoice2:0.0f andVoice3:0.0f];
+              }
+              */
+         }
 		if (visualizerView != nil && visualizerView.superview != nil)
 		{
 			VisualizerState state;
@@ -476,7 +475,9 @@ NSString* SPUrlRequestUserAgentString = nil;
 	int subtuneCount = player->getSubtuneCount();
 
 	int tuneLength = 0;
-	char* tuneBuffer = player->getTuneBuffer(tuneLength);
+    char* tuneBuffer = player->getTuneBuffer(tuneLength);
+   
+    //char* tuneBuffer = NULL;
 	currentTuneLengthInSeconds = tuneBuffer == NULL ? 0 : [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:tuneBuffer withBufferLength:tuneLength andSubtune:currentSubtune];
 
 	[statusDisplay setTitle:title andAuthor:author andReleaseInfo:releaseInfo andSubtune:currentSubtune ofSubtunes:subtuneCount withSonglength:(int)currentTuneLengthInSeconds];
