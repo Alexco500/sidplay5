@@ -28,15 +28,16 @@
 
 #include <sidplayfp.h>
 #include <residfp.h>
-//#include <residfp-emu.h>
+#include <resid.h>
+
 #include "SidTuneInfo.h"
-//#include "SidTuneInfoImpl.h"
+
 #include "SidInfo.h"
 #include "SidConfig.h"
 // local module header
 #include "PlayerLibSidplay.h"
 
-// sidblaster USB support
+// SIDBlaster USB support
 #include "hardsidsb.h"
 
 // bins
@@ -111,6 +112,7 @@ PlayerLibSidplay::PlayerLibSidplay() :
 	mPreviousOversamplingFactor(0),
 	mOversamplingBuffer(NULL),
     mSIDBlasterUSBbuilder(NULL),
+    mBuilder_reSID(NULL),
     mExtUSBDeviceActive(false)
 {
 
@@ -194,9 +196,12 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 	if (mBuilder == NULL)
         mBuilder = new ReSIDfpBuilder("reSIDfp");
     
+    if (mBuilder_reSID == NULL)
+        mBuilder_reSID = new ReSIDBuilder("reSID");
+
     // Set up a SIDblasterUSB builder
     if (mSIDBlasterUSBbuilder == NULL) {
-        mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDblaster");
+        mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
     }
 
 
@@ -268,11 +273,13 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
         cfg.forceSidModel = true;
     }
     
-	cfg.sidEmulation  = mBuilder;
+//	cfg.sidEmulation  = mBuilder;
+    cfg.sidEmulation  = mBuilder_reSID;
+        
 //	cfg.sidSamples	  = true;
 //	cfg.sampleFormat  = SID2_BIG_UNSIGNED;
-    //cfg.frequency = 48000;
-    cfg.samplingMethod = SidConfig::INTERPOLATE;
+    cfg.frequency = 48000;
+    cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
     cfg.fastSampling = false;
     cfg.playback = SidConfig::MONO;
 //	setFilterSettingsFromPlaybackSettings(mFilterSettings, settings);
@@ -283,7 +290,9 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 
     // Create SID emulators
     mBuilder->create(maxsids);
+    mBuilder_reSID->create(maxsids);
     mSIDBlasterUSBbuilder->create(maxsids);
+    
     int count  = mSIDBlasterUSBbuilder->availDevices();
     // Check if builder is ok
     if (!mSIDBlasterUSBbuilder->getStatus())
@@ -300,6 +309,13 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
        printf("configure error: %s\n", mBuilder->error());
        return;
    }
+    // Check if builder is ok
+    if (!mBuilder_reSID->getStatus())
+    {
+        printf("configure error: %s\n", mBuilder_reSID->error());
+        return;
+    }
+    
     // set bins
     mSidEmuEngine->setRoms(kernalr, basicr, charr);
 		

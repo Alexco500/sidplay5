@@ -8,6 +8,7 @@
 
 class sidplayfp;
 class ReSIDfpBuilder;
+class ReSIDBuilder;
 class SidTune;
 class SidTuneInfo;
 class HardSIDSBBuilder;
@@ -157,6 +158,7 @@ private:
 	sidplayfp*			mSidEmuEngine;
     SidTune*			mSidTune;
     ReSIDfpBuilder*		mBuilder;
+    ReSIDBuilder*       mBuilder_reSID;
     // SIDblaster USB
     HardSIDSBBuilder*   mSIDBlasterUSBbuilder;
     bool                mExtUSBDeviceActive;

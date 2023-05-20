@@ -18,10 +18,8 @@
 		1F25A4910CFCC6510063F7E7 /* SPMixerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A4900CFCC6510063F7E7 /* SPMixerView.mm */; };
 		1F25A4940CFCC6F30063F7E7 /* SPFilterControlView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A4930CFCC6F30063F7E7 /* SPFilterControlView.mm */; };
 		1F25A4970CFCC7680063F7E7 /* SPComposerPhotoView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A4960CFCC7680063F7E7 /* SPComposerPhotoView.mm */; };
-		1F25A5B70CFD57990063F7E7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F25A5B60CFD57990063F7E7 /* QuartzCore.framework */; };
 		1F2822460D469EA100AAB993 /* SPPlaylistItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F207ADF0D414B6D00BBEF40 /* SPPlaylistItem.mm */; };
 		1F2EC4BE0D36020A002DA711 /* SPExportTaskWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EC4BD0D36020A002DA711 /* SPExportTaskWindow.mm */; };
-		1F30A9550D0AF9ED00C162A2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F30A9540D0AF9ED00C162A2 /* WebKit.framework */; };
 		1F30AB7B0D0AFC3800C162A2 /* unknown_composer.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F30AB7A0D0AFC3800C162A2 /* unknown_composer.png */; };
 		1F30ABFB0D0B3E6100C162A2 /* SPPlaylist.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F30ABFA0D0B3E6100C162A2 /* SPPlaylist.mm */; };
 		1F30AF6E0D0C6E7200C162A2 /* dragBadge.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1F30AF6D0D0C6E7200C162A2 /* dragBadge.tiff */; };
@@ -29,15 +27,12 @@
 		1F3895C50CED826800942B17 /* SPSourceListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F3895C10CED826800942B17 /* SPSourceListCell.mm */; };
 		1F38966C0CEE37DF00942B17 /* SPBrowserDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F38966B0CEE37DF00942B17 /* SPBrowserDataSource.mm */; };
 		1F38966F0CEE383900942B17 /* SPBrowserItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F38966E0CEE383900942B17 /* SPBrowserItem.mm */; };
-		1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3898530CEE4E0900942B17 /* CoreAudio.framework */; };
 		1F40A9570D3AAFC400AD3B5D /* minus.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A9560D3AAFC300AD3B5D /* minus.tiff */; };
 		1F41C53F0D5E11A30070C628 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F41C53D0D5E11A30070C628 /* Credits.rtf */; };
 		1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A48D0CFCC5DB0063F7E7 /* SPSidRegisterView.mm */; };
 		1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */; };
-		1F4386D10CEF1CE100654EA1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */; };
 		1F46266B0D9AEE5000C12916 /* SPSourceListDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F46266A0D9AEE5000C12916 /* SPSourceListDataSource.mm */; };
 		1F4CA9680FA342A800B56AB6 /* SPCachedView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F4CA9670FA342A800B56AB6 /* SPCachedView.mm */; };
-		1F51734D0CF99C460064AFA2 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F51734C0CF99C460064AFA2 /* Quartz.framework */; };
 		1F5173E20CF9A9BD0064AFA2 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F5173E00CF9A9BD0064AFA2 /* InfoWindow.xib */; };
 		1F5173E80CF9A9F30064AFA2 /* SPInfoWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F5173E70CF9A9F30064AFA2 /* SPInfoWindowController.mm */; };
 		1F5176620CFB72010064AFA2 /* SPInfoContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F5174280CF9BA810064AFA2 /* SPInfoContainerView.mm */; };
@@ -79,7 +74,6 @@
 		1FD866B80D0AE44600CFC1FD /* SPApplicationStorageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FD866B70D0AE44600CFC1FD /* SPApplicationStorageController.mm */; };
 		1FDD6E7A0D82E40E00489870 /* SPMiniPlayerWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD6E770D82E40E00489870 /* SPMiniPlayerWindow.mm */; };
 		1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD6E790D82E40E00489870 /* SPPlayerWindow.mm */; };
-		1FDD6F4E0D8306C500489870 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FDD6F4D0D8306C500489870 /* OpenGL.framework */; };
 		1FE738F10D03E82100C37ADB /* timedivider.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738C20D03E82100C37ADB /* timedivider.tiff */; };
 		1FE738FA0D03E82100C37ADB /* sidplay_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738CB0D03E82100C37ADB /* sidplay_logo.png */; };
 		1FE738FB0D03E82100C37ADB /* sidplay.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738CC0D03E82100C37ADB /* sidplay.icns */; };
@@ -110,7 +104,28 @@
 		1FFB9B8F1D2312DB00D47739 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		DA056ED62A177EDC0096847B /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39E2A04F36000419CB8 /* resid-builder.cpp */; };
+		DA056ED72A177EDF0096847B /* resid-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A02A04F36000419CB8 /* resid-emu.cpp */; };
+		DA056ED82A177EF60096847B /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3642A04F36000419CB8 /* envelope.cc */; };
+		DA056ED92A177EF90096847B /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3652A04F36000419CB8 /* pot.cc */; };
+		DA056EDA2A177F0A0096847B /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E36E2A04F36000419CB8 /* voice.cc */; };
+		DA056EDB2A177F0D0096847B /* sid.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3712A04F36000419CB8 /* sid.cc */; };
+		DA056EDC2A177F0F0096847B /* filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3722A04F36000419CB8 /* filter.cc */; };
+		DA056EDD2A177F140096847B /* dac.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3792A04F36000419CB8 /* dac.cc */; };
+		DA056EDE2A177F1D0096847B /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3972A04F36000419CB8 /* extfilt.cc */; };
+		DA056EDF2A177F1F0096847B /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3992A04F36000419CB8 /* wave.cc */; };
+		DA056EE02A177F250096847B /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39D2A04F36000419CB8 /* version.cc */; };
+		DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; };
+		DA056EE22A178D280096847B /* libhardsid.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0FD2A0A58F400233549 /* libhardsid.dylib */; };
+		DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEC2A178FCA0096847B /* Cocoa.framework */; };
+		DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEE2A178FD60096847B /* AppKit.framework */; };
+		DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF02A178FE00096847B /* CoreAudio.framework */; };
+		DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF22A178FE80096847B /* OpenGL.framework */; };
+		DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF42A178FF10096847B /* Foundation.framework */; };
+		DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */; };
+		DA056EF82A1790310096847B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
+		DA056EF92A17907A0096847B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0DD2A07D74100233549 /* IOKit.framework */; };
+		DA056EFA2A1793A00096847B /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
 		DA17E52A2A04F6C800419CB8 /* residfp-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A82A04F36000419CB8 /* residfp-builder.cpp */; };
 		DA17E52B2A04F6C800419CB8 /* residfp-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A72A04F36000419CB8 /* residfp-emu.cpp */; };
 		DA17E52C2A04F6D500419CB8 /* OpAmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3AB2A04F36000419CB8 /* OpAmp.cpp */; };
@@ -181,13 +196,8 @@
 		DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC68680CF07344005AFA9A /* SidTuneMod.cpp */; };
 		DA59B0D72A07B84700233549 /* hardsidsb-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA59B0CC2A07B59700233549 /* hardsidsb-emu.cpp */; };
 		DA59B0D82A07B93600233549 /* hardsidsb-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */; };
-		DA59B0DE2A07D74100233549 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0DD2A07D74100233549 /* IOKit.framework */; };
-		DA59B0FF2A0A58F400233549 /* libhardsid.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0FD2A0A58F400233549 /* libhardsid.dylib */; };
 		DA59B1012A0A594500233549 /* libhardsid.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0FD2A0A58F400233549 /* libhardsid.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		DA59B1032A0A763C00233549 /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; };
 		DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		DAA731A629E2C7C000B274D5 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A529E2C7C000B274D5 /* AudioUnit.framework */; };
-		DAA731AA29E4AEBA00B274D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
 		DAA731B029E763A300B274D5 /* SPGradientBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AF29E763A300B274D5 /* SPGradientBox.mm */; };
 		DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB81A1E28686C670075CB8E /* Images.xcassets */; };
@@ -258,7 +268,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		1F00F6230D053D8000E91BB9 /* SPStilBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStilBrowserController.h; sourceTree = "<group>"; };
 		1F00F6240D053D8000E91BB9 /* SPStilBrowserController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPStilBrowserController.mm; sourceTree = "<group>"; };
 		1F05AA7B0D511BEE004725C5 /* SPVisualizerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPVisualizerView.mm; sourceTree = "<group>"; };
@@ -283,10 +292,8 @@
 		1F25A4930CFCC6F30063F7E7 /* SPFilterControlView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPFilterControlView.mm; sourceTree = "<group>"; };
 		1F25A4950CFCC7680063F7E7 /* SPComposerPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPComposerPhotoView.h; sourceTree = "<group>"; };
 		1F25A4960CFCC7680063F7E7 /* SPComposerPhotoView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPComposerPhotoView.mm; sourceTree = "<group>"; };
-		1F25A5B60CFD57990063F7E7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		1F2EC4BC0D36020A002DA711 /* SPExportTaskWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPExportTaskWindow.h; sourceTree = "<group>"; };
 		1F2EC4BD0D36020A002DA711 /* SPExportTaskWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPExportTaskWindow.mm; sourceTree = "<group>"; };
-		1F30A9540D0AF9ED00C162A2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		1F30AB7A0D0AFC3800C162A2 /* unknown_composer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unknown_composer.png; path = Resources/unknown_composer.png; sourceTree = "<group>"; };
 		1F30ABF90D0B3E6100C162A2 /* SPPlaylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPlaylist.h; sourceTree = "<group>"; };
 		1F30ABFA0D0B3E6100C162A2 /* SPPlaylist.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPPlaylist.mm; sourceTree = "<group>"; };
@@ -300,16 +307,13 @@
 		1F38966B0CEE37DF00942B17 /* SPBrowserDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPBrowserDataSource.mm; sourceTree = "<group>"; };
 		1F38966D0CEE383900942B17 /* SPBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBrowserItem.h; sourceTree = "<group>"; };
 		1F38966E0CEE383900942B17 /* SPBrowserItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPBrowserItem.mm; sourceTree = "<group>"; };
-		1F3898530CEE4E0900942B17 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		1F40A5F20D3A364200AD3B5D /* psid64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = psid64; path = Resources/psid64; sourceTree = "<group>"; };
 		1F40A9560D3AAFC300AD3B5D /* minus.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = minus.tiff; path = Resources/minus.tiff; sourceTree = "<group>"; };
-		1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		1F46266A0D9AEE5000C12916 /* SPSourceListDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPSourceListDataSource.mm; sourceTree = "<group>"; };
 		1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLibSidplay.h; sourceTree = "<group>"; };
 		1F4CA9660FA342A800B56AB6 /* SPCachedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCachedView.h; sourceTree = "<group>"; };
 		1F4CA9670FA342A800B56AB6 /* SPCachedView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPCachedView.mm; sourceTree = "<group>"; };
 		1F4E759E0CEF9DAC00A5A695 /* sidmdplugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sidmdplugin.xcodeproj; path = sidmdplugin/sidmdplugin.xcodeproj; sourceTree = "<group>"; };
-		1F51734C0CF99C460064AFA2 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		1F5173E60CF9A9F30064AFA2 /* SPInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPInfoWindowController.h; sourceTree = "<group>"; };
 		1F5173E70CF9A9F30064AFA2 /* SPInfoWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPInfoWindowController.mm; sourceTree = "<group>"; };
 		1F51741B0CF9AD6A0064AFA2 /* SPOscilloscopeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPOscilloscopeView.h; sourceTree = "<group>"; };
@@ -378,7 +382,6 @@
 		1FDD6E770D82E40E00489870 /* SPMiniPlayerWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPMiniPlayerWindow.mm; sourceTree = "<group>"; };
 		1FDD6E780D82E40E00489870 /* SPPlayerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPlayerWindow.h; sourceTree = "<group>"; };
 		1FDD6E790D82E40E00489870 /* SPPlayerWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPPlayerWindow.mm; sourceTree = "<group>"; };
-		1FDD6F4D0D8306C500489870 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		1FE738C20D03E82100C37ADB /* timedivider.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = timedivider.tiff; path = Resources/timedivider.tiff; sourceTree = "<group>"; };
 		1FE738CB0D03E82100C37ADB /* sidplay_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sidplay_logo.png; path = Resources/sidplay_logo.png; sourceTree = "<group>"; };
 		1FE738CC0D03E82100C37ADB /* sidplay.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = sidplay.icns; path = Resources/sidplay.icns; sourceTree = "<group>"; };
@@ -412,11 +415,15 @@
 		1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPColorProvider.mm; sourceTree = "<group>"; };
 		1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDPLAY_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SIDPLAY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIDPLAY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA056EEC2A178FCA0096847B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		DA056EEE2A178FD60096847B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		DA056EF02A178FE00096847B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		DA056EF22A178FE80096847B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		DA056EF42A178FF10096847B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DA056EF72A1790310096847B /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		DA17E2EB2A04F36000419CB8 /* lightpen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightpen.h; sourceTree = "<group>"; };
 		DA17E2EC2A04F36000419CB8 /* mos656x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mos656x.h; sourceTree = "<group>"; };
 		DA17E2ED2A04F36000419CB8 /* mos656x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mos656x.cpp; sourceTree = "<group>"; };
@@ -643,15 +650,14 @@
 		DA59B0D02A07B59700233549 /* hardsid_sb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hardsid_sb.hpp; sourceTree = "<group>"; };
 		DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "hardsidsb-builder.cpp"; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		DA59B0FD2A0A58F400233549 /* libhardsid.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhardsid.dylib; path = sidblasterUSB/libhardsid.dylib; sourceTree = "<group>"; };
-		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = sidblasterUSB/libftd2xx.dylib; sourceTree = "<group>"; };
+		DA59B0FD2A0A58F400233549 /* libhardsid.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhardsid.dylib; path = SIDBlaster/libhardsid.dylib; sourceTree = "<group>"; };
+		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = SIDBlaster/libftd2xx.dylib; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DA9BC68D27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA9BC69527E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		DA9BC69627E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/InfoWindow.xib; sourceTree = "<group>"; };
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
-		DAA731A529E2C7C000B274D5 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AudioCoreDriverNew.cpp; sourceTree = "<group>"; };
 		DAA731AC29E4AF4A00B274D5 /* AudioCoreDriverNew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioCoreDriverNew.h; sourceTree = "<group>"; };
@@ -666,20 +672,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA59B1032A0A763C00233549 /* libftd2xx.dylib in Frameworks */,
-				DA59B0FF2A0A58F400233549 /* libhardsid.dylib in Frameworks */,
-				DA59B0DE2A07D74100233549 /* IOKit.framework in Frameworks */,
+				DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */,
+				DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */,
+				DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */,
+				DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */,
+				DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */,
+				DA056EF92A17907A0096847B /* IOKit.framework in Frameworks */,
+				DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */,
+				DA056EF82A1790310096847B /* Quartz.framework in Frameworks */,
 				DA17E5532A04FF7400419CB8 /* libsidplayfp.a in Frameworks */,
-				DAA731AA29E4AEBA00B274D5 /* AudioToolbox.framework in Frameworks */,
-				DAA731A629E2C7C000B274D5 /* AudioUnit.framework in Frameworks */,
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */,
+				DA056EE22A178D280096847B /* libhardsid.dylib in Frameworks */,
 				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
-				1F3898540CEE4E0900942B17 /* CoreAudio.framework in Frameworks */,
-				1F4386D10CEF1CE100654EA1 /* AudioToolbox.framework in Frameworks */,
-				1F51734D0CF99C460064AFA2 /* Quartz.framework in Frameworks */,
-				1F25A5B70CFD57990063F7E7 /* QuartzCore.framework in Frameworks */,
-				1F30A9550D0AF9ED00C162A2 /* WebKit.framework in Frameworks */,
-				1FDD6F4E0D8306C500489870 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,30 +729,6 @@
 				1FCC68600CF07344005AFA9A /* Songlength Support */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DAACB1D22804C92F0029ED3C /* LAME.framework */,
-				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1FDD6F4D0D8306C500489870 /* OpenGL.framework */,
-				1F30A9540D0AF9ED00C162A2 /* WebKit.framework */,
-				1F25A5B60CFD57990063F7E7 /* QuartzCore.framework */,
-				1F51734C0CF99C460064AFA2 /* Quartz.framework */,
-				1F4386D00CEF1CE100654EA1 /* AudioToolbox.framework */,
-				1F3898530CEE4E0900942B17 /* CoreAudio.framework */,
-				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -877,7 +857,7 @@
 		1F38967C0CEE3C6500942B17 /* Playback Engine */ = {
 			isa = PBXGroup;
 			children = (
-				DA59B0C92A07B59700233549 /* sidblasterUSB */,
+				DA59B0C92A07B59700233549 /* SIDBlaster */,
 				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */,
 				1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */,
@@ -1034,13 +1014,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA056EEE2A178FD60096847B /* AppKit.framework */,
+				DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */,
+				DA056EEC2A178FCA0096847B /* Cocoa.framework */,
+				DA056EF02A178FE00096847B /* CoreAudio.framework */,
+				DA056EF42A178FF10096847B /* Foundation.framework */,
+				DA59B0DD2A07D74100233549 /* IOKit.framework */,
+				DA056EF22A178FE80096847B /* OpenGL.framework */,
+				DA056EF72A1790310096847B /* Quartz.framework */,
 				DA59B1022A0A763C00233549 /* libftd2xx.dylib */,
 				DA59B0FD2A0A58F400233549 /* libhardsid.dylib */,
-				DA59B0DD2A07D74100233549 /* IOKit.framework */,
-				DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */,
-				DAA731A529E2C7C000B274D5 /* AudioUnit.framework */,
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1415,7 +1399,7 @@
 			path = libsidplayfp/sidplayfp;
 			sourceTree = "<group>";
 		};
-		DA59B0C92A07B59700233549 /* sidblasterUSB */ = {
+		DA59B0C92A07B59700233549 /* SIDBlaster */ = {
 			isa = PBXGroup;
 			children = (
 				DA59B0D02A07B59700233549 /* hardsid_sb.hpp */,
@@ -1424,7 +1408,7 @@
 				DA59B0CF2A07B59700233549 /* hardsidsb.h */,
 				DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */,
 			);
-			path = sidblasterUSB;
+			path = SIDBlaster;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1682,15 +1666,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA056EDD2A177F140096847B /* dac.cc in Sources */,
 				DA17E54F2A04F7B900419CB8 /* MD5.cpp in Sources */,
 				DA17E54D2A04F79E00419CB8 /* p00.cpp in Sources */,
 				DA17E53C2A04F71500419CB8 /* Filter8580.cpp in Sources */,
+				DA056EDE2A177F1D0096847B /* extfilt.cc in Sources */,
+				DA056EDC2A177F0F0096847B /* filter.cc in Sources */,
 				DA59B0BE2A05223D00233549 /* c64.cpp in Sources */,
+				DA056EDA2A177F0A0096847B /* voice.cc in Sources */,
 				DA17E54B2A04F79E00419CB8 /* PSID.cpp in Sources */,
 				DA59B0C02A05224900233549 /* SerialPort.cpp in Sources */,
 				DA17E52F2A04F6F100419CB8 /* Dac.cpp in Sources */,
 				DA17E5352A04F70E00419CB8 /* Filter6581.cpp in Sources */,
 				DA17E52A2A04F6C800419CB8 /* residfp-builder.cpp in Sources */,
+				DA056ED82A177EF60096847B /* envelope.cc in Sources */,
 				DA17E5582A05068F00419CB8 /* PlayerLibSidplayfp.cpp in Sources */,
 				DA17E53A2A04F70E00419CB8 /* Filter.cpp in Sources */,
 				DA59B0C12A05224900233549 /* tod.cpp in Sources */,
@@ -1705,8 +1694,11 @@
 				DA17E52D2A04F6DD00419CB8 /* SincResampler.cpp in Sources */,
 				DA17E5732A050B7700419CB8 /* SidConfig.cpp in Sources */,
 				DA59B0C32A05224900233549 /* mos652x.cpp in Sources */,
+				DA056EDB2A177F0D0096847B /* sid.cc in Sources */,
 				DA17E5412A04F76700419CB8 /* mos6510debug.cpp in Sources */,
 				DA17E5342A04F70E00419CB8 /* SID.cpp in Sources */,
+				DA056ED92A177EF90096847B /* pot.cc in Sources */,
+				DA056EE02A177F250096847B /* version.cc in Sources */,
 				DA17E5432A04F77A00419CB8 /* mixer.cpp in Sources */,
 				DA17E5492A04F79E00419CB8 /* SidTuneTools.cpp in Sources */,
 				DA17E5762A050B7700419CB8 /* sidplayfp.cpp in Sources */,
@@ -1717,9 +1709,11 @@
 				DA59B0BF2A05224100233549 /* mmu.cpp in Sources */,
 				DA17E5522A04F7D600419CB8 /* SidDatabase.cpp in Sources */,
 				DA17E52E2A04F6DD00419CB8 /* test.cpp in Sources */,
+				DA056EFA2A1793A00096847B /* filter8580new.cc in Sources */,
 				DA17E5302A04F6F100419CB8 /* EnvelopeGenerator.cpp in Sources */,
 				DA59B0C42A05224900233549 /* timer.cpp in Sources */,
 				DA17E5472A04F78C00419CB8 /* reloc65.cpp in Sources */,
+				DA056EDF2A177F1F0096847B /* wave.cc in Sources */,
 				DA59B0D82A07B93600233549 /* hardsidsb-builder.cpp in Sources */,
 				DA17E5792A050B7700419CB8 /* sidbuilder.cpp in Sources */,
 				DA17E5462A04F78C00419CB8 /* psiddrv.cpp in Sources */,
@@ -1735,10 +1729,12 @@
 				DA17E5442A04F77A00419CB8 /* EventScheduler.cpp in Sources */,
 				DA59B0D72A07B84700233549 /* hardsidsb-emu.cpp in Sources */,
 				DA17E5502A04F7C000419CB8 /* iniParser.cpp in Sources */,
+				DA056ED72A177EDF0096847B /* resid-emu.cpp in Sources */,
 				DA17E5362A04F70E00419CB8 /* FilterModelConfig6581.cpp in Sources */,
 				DA17E5372A04F70E00419CB8 /* FilterModelConfig.cpp in Sources */,
 				DA17E5452A04F78C00419CB8 /* sidemu.cpp in Sources */,
 				DA17E53E2A04F73600419CB8 /* Spline.cpp in Sources */,
+				DA056ED62A177EDC0096847B /* resid-builder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1861,7 +1857,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/sidblasterUSB",
+					"$(PROJECT_DIR)/SIDBlaster",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 5.0.1;
@@ -1926,7 +1922,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/sidblasterUSB",
+					"$(PROJECT_DIR)/SIDBlaster",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 5.0.1;
@@ -1998,11 +1994,11 @@
 					"$(SRCROOT)/libsidplay2/xsid",
 					"$(SRCROOT)/libsidplay2/resid",
 					"$(SRCROOT)/libsidplay2",
-					"$(SRCROOT)/sidblasterUSB",
+					"$(SRCROOT)/SIDBlaster",
 					"$(SRCROOT)/songlength",
 					"$(SRCROOT)/",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/sidblasterUSB";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/SIDBlaster";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2061,11 +2057,11 @@
 					"$(SRCROOT)/libsidplay2/xsid",
 					"$(SRCROOT)/libsidplay2/resid",
 					"$(SRCROOT)/libsidplay2",
-					"$(SRCROOT)/sidblasterUSB",
+					"$(SRCROOT)/SIDBlaster",
 					"$(SRCROOT)/songlength",
 					"$(SRCROOT)/",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/sidblasterUSB";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/SIDBlaster";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2106,12 +2102,14 @@
 					"$(SRCROOT)/libsidplayfp",
 					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
 					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder/resid",
 					"$(SRCROOT)/libsidplayfp/sidplayfp",
 					"$(SRCROOT)/libsidplayfp/sidtune",
 					"$(SRCROOT)/libsidplayfp/utils",
 					"$(SRCROOT)/libsidplayfp/utils/MD5",
 					"$(SRCROOT)/libsidplayfp/utils/STILview",
-					"$(SRCROOT)/sidblasterUSB",
+					"$(SRCROOT)/SIDBlaster",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2156,12 +2154,14 @@
 					"$(SRCROOT)/libsidplayfp",
 					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
 					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder/resid",
 					"$(SRCROOT)/libsidplayfp/sidplayfp",
 					"$(SRCROOT)/libsidplayfp/sidtune",
 					"$(SRCROOT)/libsidplayfp/utils",
 					"$(SRCROOT)/libsidplayfp/utils/MD5",
 					"$(SRCROOT)/libsidplayfp/utils/STILview",
-					"$(SRCROOT)/sidblasterUSB",
+					"$(SRCROOT)/SIDBlaster",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

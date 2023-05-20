@@ -20,6 +20,8 @@
 #ifndef RESID_SIDDEFS_H
 #define RESID_SIDDEFS_H
 
+#define VERSION "1.0.0-VICE"
+
 // Compilation configuration.
 #define RESID_INLINING 1
 #define RESID_INLINE inline
