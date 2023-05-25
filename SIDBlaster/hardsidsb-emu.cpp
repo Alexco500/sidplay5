@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <cstdio>
+#include <cmath>
 #include <sstream>
 #include <string>
 
@@ -65,9 +66,13 @@ const char* HardSIDSB::getCredits()
 
 HardSIDSB::HardSIDSB (sidbuilder *builder) :
     sidemu(builder),
-    Event("HardSID Delay"),
     m_handle(0),
-    m_instance(sid++)
+    m_instance(sid++),
+    // adjust cycles code
+    total_cycles_to_stretch(0),
+    cycles(0),
+    setClockToPAL(true)
+
 {
     unsigned int num = 16;
     // init library component
@@ -93,9 +98,13 @@ HardSIDSB::HardSIDSB (sidbuilder *builder) :
         return;
 
     m_instance = num;
-
+    // clear all sid writes
+    for (int i=0; i<32; i++) {
+        sidRegs[i]=0;
+    }
     m_status = true;
     sidemu::reset();
+    HardSID_SetWriteBufferSize(8);
 }
 
 HardSIDSB::~HardSIDSB()
@@ -108,51 +117,83 @@ void HardSIDSB::reset(uint8_t volume)
 {
     for (unsigned int i= 0; i < voices; i++)
         muted[i] = false;
-    //FIXME: we only handle old reset w/o volume
-    //FIXME: we only support 1 USB device
     HardSID_Reset(m_instance);
+    HardSID_Write(m_instance, 0, 0x18, 0x0f); // set max volume
     m_accessClk = 0;
-    if (eventScheduler != nullptr)
-        eventScheduler->schedule(*this, HARDSID_DELAY_CYCLES, EVENT_CLOCK_PHI1);
+    cycles = 0;
 }
 
-event_clock_t HardSIDSB::delay()
-{
-    event_clock_t cycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
-    m_accessClk += cycles;
-
-    while (cycles > 0xffff)
-    {
-        //FIXME: we only support 1 USB device
-        HardSID_Delay(m_instance, 0xffff);
-        cycles -= 0xffff;
-    }
-
-    return cycles;
-}
 
 void HardSIDSB::clock()
 {
-    const event_clock_t cycles = delay();
+    cycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
+    cycles = adjustTiming(cycles);
+    m_accessClk += (cycles);
 
-    if (cycles)
-        //FIXME: we only support 1 USB device
-        HardSID_Delay(m_instance, cycles);
+    //printf("HardSIDSB::clock(): cycles %d  => accessClk %lld\n", cycles, m_accessClk);
+
+    if (cycles-MIN_CYCLE_SID_WRITE >= 0)
+        HardSID_Delay(m_instance, cycles-MIN_CYCLE_SID_WRITE);
 }
 
 uint8_t HardSIDSB::read(uint_least8_t addr)
 {
-    const event_clock_t cycles = delay();
+    clock();
+    // catch illegal reads
+    if (addr > 0x1c)
+        return 0;
+    // catch read registers and do a SID read
+    if (addr >= 0x19)
+        return HardSID_Read(m_instance, cycles, addr);
+    // else simply return stored value from memory
+    return sidRegs[addr];
 
-    //FIXME: we only support 1 USB device
-    return 0; //HardSID_Read(m_instance, (int)cycles, addr);
 }
 
 void HardSIDSB::write(uint_least8_t addr, uint8_t data)
 {
-    const event_clock_t cycles = delay();
-    //FIXME: we only support 1 USB device
+    uint8_t low, high, oldHigh;
+    clock();
+    sidRegs[addr] = data;
+    if (addr == 0x04 || addr == 0x0b || addr == 0x12) {
+        // check if gate is set
+        if (data & (1 << 0)) {
+            switch (addr) {
+                    //do frequency adaption, since SIDBlaster runs @1MHz
+                case 0x04:
+                    high = sidRegs[0x01];
+                    low  = sidRegs[0x00];
+                    oldHigh = high;
+                    adjustFrequency(&high, &low);
+                    if (oldHigh != high)
+                        HardSID_Write(m_instance, (int) 0, 0x01, high);
+                    HardSID_Write(m_instance, (int) cycles, 0x00, low);
+                    break;
+                case 0x0b:
+                    high = sidRegs[0x08];
+                    low  = sidRegs[0x07];
+                    oldHigh = high;
+                    adjustFrequency(&high, &low);
+                    if (oldHigh != high)
+                        HardSID_Write(m_instance, (int) 0, 0x08, high);
+                    HardSID_Write(m_instance, (int) cycles, 0x07, low);
+                    break;
+                case 0x12:
+                    high = sidRegs[0x0f];
+                    low  = sidRegs[0x0e];
+                    oldHigh = high;
+                    adjustFrequency(&high, &low);
+                    if (oldHigh != high)
+                        HardSID_Write(m_instance, (int) 0, 0x0f, high);
+                    HardSID_Write(m_instance, (int) cycles, 0x0e, low);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     HardSID_Write(m_instance, (int) cycles, addr, data);
+    //printf("HardSIDSB::write(): address %d, value %d  => accessClk %lld\n", addr, data, m_accessClk);
 }
 
 void HardSIDSB::voice(unsigned int num, bool mute)
@@ -160,56 +201,31 @@ void HardSIDSB::voice(unsigned int num, bool mute)
     // Only have 3 voices!
     if (num >= voices)
         return;
-    //FIXME: we only support 1 USB device
     HardSID_Mute(m_instance, num, mute);
-}
-
-void HardSIDSB::event()
-{
-    event_clock_t cycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
-    if (cycles < HARDSID_DELAY_CYCLES)
-    {
-        eventScheduler->schedule(*this, (unsigned int)(HARDSID_DELAY_CYCLES - cycles),
-                  EVENT_CLOCK_PHI1);
-    }
-    else
-    {
-        m_accessClk += cycles;
-        //FIXME: we only support 1 USB device
-        HardSID_Delay(m_instance, cycles);
-        eventScheduler->schedule(*this, HARDSID_DELAY_CYCLES, EVENT_CLOCK_PHI1);
-    }
 }
 
 void HardSIDSB::filter(bool enable)
 {
-    //FIXME: we only support 1 USB device
     HardSID_Filter(m_instance, enable);
 }
 
 void HardSIDSB::flush()
 {
-    //FIXME: we only support 1 USB device
     HardSID_Flush(m_instance);
 }
 
 bool HardSIDSB::lock(EventScheduler* env)
 {
-    //FIXME: we only support 1 USB device
     if (HardSID_Lock(m_instance) == false)
         return false;
     
     sidemu::lock(env);
-    eventScheduler->schedule(*this, HARDSID_DELAY_CYCLES, EVENT_CLOCK_PHI1);
-
     return true;
 }
 
 void HardSIDSB::unlock()
 {
-    //FIXME: we only support 1 USB device
     HardSID_Unlock(m_instance);
-    eventScheduler->cancel(*this);
     sidemu::unlock();
 }
 const bool HardSIDSB::isLoaded()
@@ -222,5 +238,67 @@ const unsigned int HardSIDSB::numberOfDevices()
     // how many USB devices are available?
     
     return (const unsigned int)GetHardSIDCount();
+}
+void HardSIDSB::setToPAL(bool value)
+{
+    setClockToPAL = value;
+}
+void HardSIDSB::adjustFrequency(uint8_t *high, uint8_t *low)
+{
+    /* this frequency adjustment is needed since the SIDBlaster works
+     * at 1MHz, so it is either too fast (PAL) or too slow (NTSC)
+     * taken from ACID64 code by Winfred Bos
+     */
+    float freq = (*high<<8) + *low;
+    if (setClockToPAL) {
+        freq = freq * PAL_FREQ_SCALE;
+    } else {
+        freq = freq * NTSC_FREQ_SCALE;
+    }
+    *high = (uint8_t)((int)freq>>8);
+    *low  = (uint8_t)((int)freq & 0x0ff);
+}
+
+event_clock_t HardSIDSB::adjustTiming(event_clock_t oldCycles)
+{
+    /* this timing adjustment is needed since the SIDBlaster works
+     * at 1MHz, so it is either too fast (PAL) or too slow (NTSC)
+     * taken from ACID64 code by Winfred Bos
+     */
+    float calcCycles = (float)oldCycles;
+    
+    if (setClockToPAL) {
+          total_cycles_to_stretch += calcCycles * PAL_CLOCK_SCALE;
+
+          if (total_cycles_to_stretch >= 1.0) {
+              float stretch_rounded = std::trunc(total_cycles_to_stretch);
+              total_cycles_to_stretch -= stretch_rounded;
+              calcCycles += stretch_rounded;
+          }
+      } else {
+          total_cycles_to_stretch += calcCycles * NTSC_CLOCK_SCALE;
+
+          if (total_cycles_to_stretch >= 1.0) {
+              if (calcCycles > total_cycles_to_stretch) {
+                  float stretch_rounded = std::trunc(total_cycles_to_stretch);
+                  total_cycles_to_stretch -= stretch_rounded;
+                  calcCycles -= stretch_rounded;
+              } else {
+                  total_cycles_to_stretch -= calcCycles;
+                  calcCycles = 0.0;
+              }
+          }
+      }
+    
+    if (calcCycles < MIN_CYCLE_SID_WRITE) {
+        if (setClockToPAL) {
+            total_cycles_to_stretch -= MIN_CYCLE_SID_WRITE - calcCycles;
+        } else {
+            total_cycles_to_stretch += MIN_CYCLE_SID_WRITE - calcCycles;
+        }
+        return MIN_CYCLE_SID_WRITE;
+    }
+    
+    return (event_clock_t)calcCycles;
 }
 }

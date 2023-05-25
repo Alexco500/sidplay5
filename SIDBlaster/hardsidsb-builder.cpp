@@ -37,6 +37,7 @@
 
 bool HardSIDSBBuilder::m_initialised = false;
 unsigned int HardSIDSBBuilder::m_count = 0;
+bool HardSIDSBBuilder::clockIsPAL = true;
 
 HardSIDSBBuilder::HardSIDSBBuilder(const char * const name) :
     sidbuilder (name)
@@ -63,7 +64,7 @@ unsigned int HardSIDSBBuilder::create(unsigned int sids)
     unsigned int count = availDevices();
     if (count == 0)
     {
-        m_errorBuffer = "HARDSID ERROR: No SIDBlaster USB device found.";
+        m_errorBuffer = "No SIDBlaster USB device found.";
         goto HardSIDSBBuilder_create_error;
     }
 
@@ -119,13 +120,15 @@ void HardSIDSBBuilder::flush()
         static_cast<libsidplayfp::HardSIDSB*>(*it)->flush();
 }
 
+
+
 void HardSIDSBBuilder::filter(bool enable)
 {
     std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::HardSIDSB, bool>(&libsidplayfp::HardSIDSB::filter, enable));
 }
 
-#include <ctype.h>
-#include <dirent.h>
+//#include <ctype.h>
+//#include <dirent.h>
 
 // Find the number of sid devices.  We do not care about
 // stuppid device numbering or drivers not loaded for the
@@ -142,3 +145,17 @@ int HardSIDSBBuilder::init()
     // nothing found
     return -1;
 }
+#pragma mark AddOns SIDPlayer5
+
+void HardSIDSBBuilder::reset(int volume)
+{
+    for (emuset_t::iterator it=sidobjs.begin(); it != sidobjs.end(); ++it)
+        static_cast<libsidplayfp::HardSIDSB*>(*it)->reset(volume);
+}
+void HardSIDSBBuilder::setClockToPAL(bool isPAL)
+{
+    clockIsPAL = isPAL;
+    for (emuset_t::iterator it=sidobjs.begin(); it != sidobjs.end(); ++it)
+        static_cast<libsidplayfp::HardSIDSB*>(*it)->setToPAL(isPAL);
+}
+

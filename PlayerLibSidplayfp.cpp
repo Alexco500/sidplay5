@@ -31,6 +31,9 @@
 #include <resid.h>
 
 #include "SidTuneInfo.h"
+#include "SidTuneInfoImpl.h"
+
+
 
 #include "SidInfo.h"
 #include "SidConfig.h"
@@ -189,7 +192,10 @@ void PlayerLibSidplay::setupSIDInfo()
 void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 // ----------------------------------------------------------------------------
 {
-	if (mSidEmuEngine == NULL )
+	//reSID VICE params
+    int bias = 0;
+    
+    if (mSidEmuEngine == NULL )
 		mSidEmuEngine = new sidplayfp;
 
     // Set up a SID builder
@@ -211,19 +217,16 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 	mPlaybackSettings = *settings;
 
     SidConfig cfg = mSidEmuEngine->config();
-
-    //FIXME: check if this is really needed, default settings are always sane
-    /*
 	if (mPlaybackSettings.mClockSpeed == 0)
 	{
-		cfg.clockSpeed    = SID2_CLOCK_PAL;
-		cfg.clockDefault  = SID2_CLOCK_PAL;
+		cfg.defaultC64Model    = SidConfig::c64_model_t::PAL;
 	}
 	else
 	{
-		cfg.clockSpeed    = SID2_CLOCK_NTSC;
-		cfg.clockDefault  = SID2_CLOCK_NTSC;
+        cfg.defaultC64Model    = SidConfig::c64_model_t::NTSC;
 	}
+    //FIXME: check if this is really needed, default settings are always sane
+    /*
 
 	cfg.clockForced   = true;
 	
@@ -253,7 +256,8 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 	if (mCurrentTempo > 70)
 		cfg.optimisation  = SID2_MAX_OPTIMISATION;
      */
-    cfg.frequency      = mPlaybackSettings.mFrequency * mPlaybackSettings.mOversampling;
+    cfg.frequency      = mPlaybackSettings.mFrequency;
+    // * mPlaybackSettings.mOversampling;
 	//printf("optimization: %d\n", cfg.optimisation);
 
     if (!mPlaybackSettings.SIDselectorOverrideActive) {
@@ -272,7 +276,16 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
             cfg.defaultSidModel      = SidConfig::MOS8580;
         cfg.forceSidModel = true;
     }
-    
+    // set reSID VICE specific config values
+    if (cfg.forceSidModel)
+    {
+        if (cfg.defaultSidModel == SidConfig::MOS6581) {
+            bias = 500/1000;
+        } else {
+            bias = 0;
+        }
+            
+    }
 //	cfg.sidEmulation  = mBuilder;
     cfg.sidEmulation  = mBuilder_reSID;
         
@@ -284,6 +297,8 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     cfg.playback = SidConfig::MONO;
 //	setFilterSettingsFromPlaybackSettings(mFilterSettings, settings);
 	
+    mBuilder_reSID->filter(true);
+    mBuilder_reSID->bias(bias);
 	// setup resid
     // Get the number of SIDs supported by the engine
     unsigned int maxsids = (mSidEmuEngine->info()) .maxsids();
@@ -387,7 +402,20 @@ bool PlayerLibSidplay::initSIDTune(PlaybackSettings* settings)
 	}
 
 	//printf("setting sid tune info\n");
-
+    if (mSIDBlasterUSBbuilder) {
+        libsidplayfp::SidTuneInfoImpl *mSidInfo = (libsidplayfp::SidTuneInfoImpl *)mSidTune->getInfo();
+        switch (mSidInfo->getClockSpeed())
+        {
+            case SidTuneInfo::CLOCK_NTSC:
+                mSIDBlasterUSBbuilder->setClockToPAL(false);
+                break;
+            case SidTuneInfo::CLOCK_UNKNOWN:
+            case SidTuneInfo::CLOCK_ANY:
+            case SidTuneInfo::CLOCK_PAL:
+                mSIDBlasterUSBbuilder->setClockToPAL(true);
+                break;
+        }
+    }
 	setupSIDInfo();
 
 	return true;
@@ -405,9 +433,12 @@ bool PlayerLibSidplay::playTuneByPath(const char* filename, int subtune, Playbac
 
 	//printf("load returned: %d\n", success);
 	
-	if (success)
-            mAudioDriver->startPlayback();
-
+    if (success) {
+        if (mSIDBlasterUSBbuilder) {
+            mSIDBlasterUSBbuilder->reset(0x0f);
+        }
+        mAudioDriver->startPlayback();
+    }
 	return success;
 }
 
@@ -422,9 +453,12 @@ bool PlayerLibSidplay::playTuneFromBuffer(char* buffer, int length, int subtune,
 
 	bool success = loadTuneFromBuffer(buffer, length, subtune, settings);
 
-	if (success)
-            mAudioDriver->startPlayback();
-
+    if (success) {
+        if (mSIDBlasterUSBbuilder) {
+            mSIDBlasterUSBbuilder->reset(0x0f);
+        }
+        mAudioDriver->startPlayback();
+    }
 	return success;
 }
 

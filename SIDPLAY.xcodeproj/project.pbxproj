@@ -857,10 +857,10 @@
 		1F38967C0CEE3C6500942B17 /* Playback Engine */ = {
 			isa = PBXGroup;
 			children = (
-				DA59B0C92A07B59700233549 /* SIDBlaster */,
-				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */,
 				1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */,
+				DA59B0C92A07B59700233549 /* SIDBlaster */,
+				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				1FD084D40CEF2B8B0075D3A1 /* Audio Drivers */,
 			);
 			name = "Playback Engine";
@@ -1169,8 +1169,8 @@
 		DA17E35D2A04F36000419CB8 /* resid-builder */ = {
 			isa = PBXGroup;
 			children = (
-				DA17E35E2A04F36000419CB8 /* resid-emu.h */,
 				DA17E35F2A04F36000419CB8 /* resid */,
+				DA17E35E2A04F36000419CB8 /* resid-emu.h */,
 				DA17E39E2A04F36000419CB8 /* resid-builder.cpp */,
 				DA17E39F2A04F36000419CB8 /* resid.h */,
 				DA17E3A02A04F36000419CB8 /* resid-emu.cpp */,

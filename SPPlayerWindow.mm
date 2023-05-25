@@ -81,7 +81,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	
 	[self populateVisualizerMenu];
     //FIXME: Beta designation!
-    [self setTitle:@"SIDPLAY 5.1 BETA 3 (libsidpf/reSIDfp/SIDBlaster USB)"];
+    [self setTitle:@"SIDPLAY 5.1 BETA 4 (libsidfp/reSID/SIDBlaster USB)"];
 	
 	visualizerView = nil;
     /*

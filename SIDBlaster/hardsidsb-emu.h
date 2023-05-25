@@ -44,10 +44,23 @@ namespace libsidplayfp
 // Approx 60ms
 #define HARDSID_DELAY_CYCLES 60000
 
+const float ONE_MH_CLOCK = 1000000.0;
+const float PAL_CLOCK = 17734475.0 / 18.0;
+const float NTSC_CLOCK = 14318180.0 / 14.0;
+
+const float PAL_CLOCK_SCALE = (ONE_MH_CLOCK - PAL_CLOCK) / ONE_MH_CLOCK;
+const float NTSC_CLOCK_SCALE = (NTSC_CLOCK - ONE_MH_CLOCK) / ONE_MH_CLOCK;
+
+const float MIN_CYCLE_SID_WRITE = 8;
+const float MIN_CYCLE_SID_WRITE_FAST_FORWARD = 8;
+
+const float PAL_FREQ_SCALE  = PAL_CLOCK / ONE_MH_CLOCK;
+const float NTSC_FREQ_SCALE = NTSC_CLOCK / ONE_MH_CLOCK;
+
 /***************************************************************************
  * HardSID SID Specialisation
  ***************************************************************************/
-class HardSIDSB final : public sidemu, private Event
+class HardSIDSB final : public sidemu
 {
 private:
     friend class HardSIDSBBuilder;
@@ -66,8 +79,6 @@ private:
     bool           muted[HARDSID_VOICES];
     unsigned int   m_instance;
 
-private:
-    event_clock_t delay();
 
 public:
     static const char* getCredits();
@@ -78,7 +89,7 @@ public:
     ~HardSIDSB();
 
     bool getStatus() const { return m_status; }
-
+    void setToPAL(bool value);
 
     uint8_t read(uint_least8_t addr) override;
     void write(uint_least8_t addr, uint8_t data) override;
@@ -105,7 +116,14 @@ private:
     // Fixed interval timer delay to prevent sidplay2
     // shoot to 100% CPU usage when song no longer
     // writes to SID.
-    void event() override;
+    //void event() override;
+    // everything taken from ACID64 adjust cycles/frequency code
+    event_clock_t adjustTiming(event_clock_t cycles);
+    void adjustFrequency(uint8_t *high, uint8_t *low);
+    float total_cycles_to_stretch;
+    bool setClockToPAL;
+    int cycles;
+    uint8_t sidRegs[32];
 };
 
 }

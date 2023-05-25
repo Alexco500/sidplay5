@@ -38,6 +38,7 @@ private:
 
 
     int init();
+    static bool clockIsPAL;
 
 public:
     HardSIDSBBuilder(const char * const name);
@@ -65,6 +66,10 @@ public:
      * @param sids the number of required sid emu
      */
     unsigned int create(unsigned int sids);
+    
+    //AddOns for SIDPlayer5
+    void setClockToPAL(bool isPAL);
+    void reset(int vol);
 };
 
 #endif // HARDSIDSB_H
