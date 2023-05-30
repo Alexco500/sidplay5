@@ -171,5 +171,10 @@ void ReSID::model(SidConfig::sid_model_t model, bool digiboost)
     m_sid.input(sample);
     m_status = true;
 }
+#pragma mark additions for VICE settings
+void ReSID::external_filter(bool enable)
+{
+    m_sid.enable_external_filter(enable);
+}
 
 }

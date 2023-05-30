@@ -193,7 +193,7 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 // ----------------------------------------------------------------------------
 {
 	//reSID VICE params
-    int bias = 0;
+    double bias = 0;
     
     if (mSidEmuEngine == NULL )
 		mSidEmuEngine = new sidplayfp;

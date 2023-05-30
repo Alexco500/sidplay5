@@ -74,6 +74,8 @@ public:
     // Specific to resid
     void bias(double dac_bias);
     void filter(bool enable);
+#pragma mark additions for VICE settings
+    void external_filter(bool enable);
 };
 
 }
