@@ -1230,7 +1230,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 
     newText6 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel6];
     newText8 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel8];
-    // check which device is set in prefs
+    // check which SID device is set in prefs
     if (gPreferences.mPlaybackSettings.mSidModel == 0)
     {
         [newText6 appendAttributedString:userDefault];
@@ -1248,7 +1248,7 @@ NSString* SPUrlRequestUserAgentString = nil;
         [check6 setState:NSOffState];
         [check8 setState:NSOnState];
     }
-    // check which device is used in tune
+    // check which SID device is used in tune
     if (player->getSIDModelFromTune() == M_6581) {
         if (addedText6) {
             [newText6 appendAttributedString:concatString];
@@ -1260,22 +1260,27 @@ NSString* SPUrlRequestUserAgentString = nil;
         }
             [newText8 appendAttributedString:tuneDefault];
     }
+    // set NSAttributedString accordingly
     [text6 setAttributedStringValue:newText6];
     [text8 setAttributedStringValue:newText8];
 
     // check which device is used currently
-    // set NSAttributedString accordingly
+
     [check6 setEnabled:YES];
     [check8 setEnabled:YES];
     if (!gPreferences.mPlaybackSettings.SIDselectorOverrideActive) {
-        if (strcmp(player->getCurrentChipModel(),"MOS 6581") == 0)
-        {
-            [check6 setState:NSOnState];
-            [check8 setState:NSOffState];
-        } else if (strcmp(player->getCurrentChipModel(),"MOS 8580") == 0)
-        {
-            [check6 setState:NSOffState];
-            [check8 setState:NSOnState];
+        // SIDselector override is not active, check if we force SID in prefs
+        if (!gPreferences.mPlaybackSettings.mForceSidModel) {
+            // get default SID from tune
+            if (strcmp(player->getCurrentChipModel(),"MOS 6581") == 0)
+            {
+                [check6 setState:NSOnState];
+                [check8 setState:NSOffState];
+            } else if (strcmp(player->getCurrentChipModel(),"MOS 8580") == 0)
+            {
+                [check6 setState:NSOffState];
+                [check8 setState:NSOnState];
+            }
         }
     } else {
         if (gPreferences.mPlaybackSettings.SIDselectorOverrideModel == 0) {

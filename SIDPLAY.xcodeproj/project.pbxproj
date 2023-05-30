@@ -1170,9 +1170,9 @@
 			isa = PBXGroup;
 			children = (
 				DA17E35F2A04F36000419CB8 /* resid */,
+				DA17E39F2A04F36000419CB8 /* resid.h */,
 				DA17E35E2A04F36000419CB8 /* resid-emu.h */,
 				DA17E39E2A04F36000419CB8 /* resid-builder.cpp */,
-				DA17E39F2A04F36000419CB8 /* resid.h */,
 				DA17E3A02A04F36000419CB8 /* resid-emu.cpp */,
 			);
 			path = "resid-builder";

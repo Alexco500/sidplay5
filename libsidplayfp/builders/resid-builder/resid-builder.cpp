@@ -74,3 +74,9 @@ void ReSIDBuilder::bias(double dac_bias)
 {
     std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::ReSID, double>(&libsidplayfp::ReSID::bias, dac_bias));
 }
+
+#pragma mark additions for VICE settings
+void ReSIDBuilder::external_filter(bool enable)
+{
+    std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::ReSID, bool>(&libsidplayfp::ReSID::external_filter, enable));
+}
