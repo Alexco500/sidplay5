@@ -7,7 +7,7 @@
 - (instancetype) init
 // ----------------------------------------------------------------------------
 {
-    return [self initWithPath:nil andSubtuneIndex:nil andLoopCount:nil];
+    return [self initWithPath:nil andSubtuneIndex:NULL andLoopCount:NULL];
 }
 
 // ----------------------------------------------------------------------------

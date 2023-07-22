@@ -26,6 +26,7 @@ inline void writeLEword(unsigned char ptr[2], int someWord)
 
 void SidTuneMod::createMD5(MD5& myMD5)
 {
+    /*
     if (status)
     {
         // Include C64 data.
@@ -62,4 +63,5 @@ void SidTuneMod::createMD5(MD5& myMD5)
         // the clock speed chosen by the player, or there could be
         // two different values stored in the database/cache.
     }
+    */
 }

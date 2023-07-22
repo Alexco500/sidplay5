@@ -436,11 +436,12 @@ static SPPreferencesController* sharedInstance = nil;
 	
 	if (gPreferences.mPlaybackSettings.mFilterType != currentFilterType)
 		gPreferences.setDistortionParametersBasedOnFilterType();
-	
+	/* FIXME: filter settings
 	sid_filter_t filterSettings;
 	PlayerLibSidplay::setFilterSettingsFromPlaybackSettings(filterSettings, &gPreferences.mPlaybackSettings);
     if (player != NULL)
         player->setFilterSettings(&filterSettings);
+     */
 }
 
 

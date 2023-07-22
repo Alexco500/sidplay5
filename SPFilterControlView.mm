@@ -120,12 +120,13 @@
 	rateSlider.enabled = enableDistortionSliders;
 	headroomSlider.enabled = enableDistortionSliders;
 
-	if (player != NULL)
+	/* FIXME: filter settings
+    if (player != NULL)
 	{
 		PlayerLibSidplay::setFilterSettingsFromPlaybackSettings(filterSettings, &gPreferences.mPlaybackSettings);
 		player->setFilterSettings(&filterSettings);
 	}
-		
+	*/
 	[filterCurveView setNeedsDisplay:YES];
 }
 
@@ -238,6 +239,7 @@
 	float width = bounds.size.width - 1.0f;
 	float height = bounds.size.height - 1.0f;
 	
+    /* FIXME: filter settings
 	sid_filter_t* filterSettings = NULL;
 	
 	if (player)
@@ -288,7 +290,7 @@
 		
 		[path stroke];
 	}
-	
+	*/
 	[super drawRect:rect];
 }
 @end

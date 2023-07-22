@@ -19,10 +19,12 @@
 
 //#include <qthread.h>
 
+#include "SidTuneInfo.h"
+
 class emuEngine;
 struct emuConfig;
-class SidTuneMod;
-struct SidTuneInfo;
+class SidTune;
+
 
 class SidTuneWrapper
 {
@@ -57,13 +59,13 @@ class SidTuneWrapper
     
     bool savePSID(const char *, bool overWrite);
 
-    SidTuneMod* getSidTune() const;
+    SidTune* getSidTune() const;
 
     static int getMaxSongs();
     static unsigned long int getMaxSidFileLen();
     
  protected:
-    SidTuneMod* pSid;
+    SidTune* pSid;
     SidTuneInfo* pSidInfo;
     char* pDigest;
     

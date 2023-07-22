@@ -126,7 +126,7 @@
 		for (int i = 0; i < width; i++)
 		{
 			linePoints[i].x = i + 0.5f;
-			linePoints[i].y = zeroLineHeight + fadeVolume * (sampleBuffer[i] * height / 65536.0f);
+			linePoints[i].y = zeroLineHeight + fadeVolume * (sampleBuffer[i] * height * 1.8f / 65536.0f);
 		}
 
 		CGContextAddLines(context, linePoints, width);

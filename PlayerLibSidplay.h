@@ -2,11 +2,18 @@
 #ifndef _PlayerLibSidplay_H
 #define _PlayerLibSidplay_H
 
-#include <sidplay2.h>
-#include <resid.h>
-#include <resid-emu.h>
 
+#include <vector>
 #include "AudioDriver.h"
+
+class sidplayfp;
+class ReSIDfpBuilder;
+class ReSIDBuilder;
+class SidTune;
+class SidTuneInfo;
+class HardSIDSBBuilder;
+
+typedef int_fast64_t event_clock_t;
 
 enum SPFilterType
 {
@@ -54,8 +61,22 @@ struct PlaybackSettings
 	
 };
 
+struct SidRegisterFrame
+{
+    enum
+    {
+        SID_REGISTER_COUNT = 0x19
+    };
+    
+    SidRegisterFrame() : mTimeStamp(0) { for (int i = 0; i < SID_REGISTER_COUNT; i++) mRegisters[i] = 0; }
+    
+    uint8_t mRegisters[32];  //sidplayfp uses 32, not 25
+    event_clock_t mTimeStamp;
+};
 
-typedef std::vector<SIDPLAY2_NAMESPACE::SidRegisterFrame> SidRegisterLog;
+//typedef void (*SidRegisterFrameChangedCallback) (void* inInstance, SidRegisterFrame& inRegisterFrame);
+
+typedef std::vector<SidRegisterFrame> SidRegisterLog;
 
 const int TUNE_BUFFER_SIZE = 65536 + 2 + 0x7c;
 
@@ -66,7 +87,7 @@ public:
 	virtual					~PlayerLibSidplay();
 
 	void					setAudioDriver(AudioDriver* audioDriver);
-
+    void                    stopEmuEngine();
 	void					initEmuEngine(PlaybackSettings *settings);
 	void					updateSampleRate(int newSampleRate);
 	
@@ -88,8 +109,8 @@ public:
 
 	void					setVoiceVolume(int voice, float volume);
 	
-	sid_filter_t*			getFilterSettings()									{ return &mFilterSettings; }
-	void					setFilterSettings(sid_filter_t* filterSettings);
+//	sid_filter_t*			getFilterSettings()									{ return &mFilterSettings; }
+//	void					setFilterSettings(sid_filter_t* filterSettings);
 	
 	inline bool				isTuneLoaded()										{ return mSidTune != NULL; }
 	
@@ -97,77 +118,32 @@ public:
 	inline int				getCurrentSubtune()									{ return mCurrentSubtune; }
 	inline int				getSubtuneCount()									{ return mSubtuneCount; }
 	inline int				getDefaultSubtune()									{ return mDefaultSubtune; }
-	inline int				hasTuneInformationStrings()							{ return mTuneInfo.numberOfInfoStrings >= 3; }
-	inline const char*		getCurrentTitle()									{ return mTuneInfo.infoString[0]; }
-	inline const char*		getCurrentAuthor()									{ return mTuneInfo.infoString[1]; }
-	inline const char*		getCurrentReleaseInfo()								{ return mTuneInfo.infoString[2]; }
-	inline unsigned short	getCurrentLoadAddress()								{ return mTuneInfo.loadAddr; }
-	inline unsigned short	getCurrentInitAddress()								{ return mTuneInfo.initAddr; }
-	inline unsigned short	getCurrentPlayAddress()								{ return mTuneInfo.playAddr; }
-	inline const char*		getCurrentFormat()									{ return mTuneInfo.formatString; }
-	inline int				getCurrentFileSize()								{ return mTuneInfo.dataFileLen; }
-	inline char*			getTuneBuffer(int& outTuneLength)					{ outTuneLength = mTuneLength; return mTuneBuffer; }
-
+	
+     int				hasTuneInformationStrings();
+	
+     const char*		getCurrentTitle();
+	
+     const char*		getCurrentAuthor();
+     const char*		getCurrentReleaseInfo();
+     unsigned short	getCurrentLoadAddress();
+     unsigned short	getCurrentInitAddress();
+     unsigned short	getCurrentPlayAddress();
+	
+     const char*		getCurrentFormat();
+     int				getCurrentFileSize();
+     char*			getTuneBuffer(int& outTuneLength);
+     const char* getCurrentChipModel();
     // for popoverSIDSelector
-    int getSIDModelFromTune()
-    {
-        if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_6581)
-            return M_6581;
-        if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_8580)
-            return M_8580;
-        return M_UNKNOWN;
-    }
+    int getSIDModelFromTune();
     
-	inline const char* getCurrentChipModel()				
-	{
-		if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_6581)
-			return sChipModel6581;
-		
-		if (mTuneInfo.sidModel == SIDTUNE_SIDMODEL_8580)
-			return sChipModel8580;
-		
-		return sChipModelUnspecified;
-	}
+    SidRegisterFrame getCurrentSidRegisters();
 
-	inline double getCurrentCpuClockRate()
-	{
-		if (mSidEmuEngine != NULL)
-		{
-			const sid2_config_t& cfg = mSidEmuEngine->config();
-			if (cfg.clockSpeed == SID2_CLOCK_PAL)
-				return 985248.4;
-			else if (cfg.clockSpeed == SID2_CLOCK_NTSC)
-				return 1022727.14;
-		}
-		
-		return 985248.4;
-	}
     PlaybackSettings* getCurrentPlaybackSettings()
     {
         return &mPlaybackSettings;
     }
 	
-	inline SIDPLAY2_NAMESPACE::SidRegisterFrame getCurrentSidRegisters() const 
-	{ 
-		if (mSidEmuEngine != NULL) 
-			return mSidEmuEngine->getCurrentRegisterFrame();
-		else
-			return SIDPLAY2_NAMESPACE::SidRegisterFrame();
-	}
-
-	inline void enableRegisterLogging(bool inEnable)
-	{
-		if (mSidEmuEngine != NULL)
-			mSidEmuEngine->setRegisterFrameChangedCallback((void*) this, inEnable ? sidRegisterFrameHasChanged : NULL);
-		
-		if (inEnable)
-			mRegisterLog.clear();
-	}
-	
-	inline const SidRegisterLog& getRegisterLog() const		{ return mRegisterLog; }
-	
-	static void	setFilterSettingsFromPlaybackSettings(sid_filter_t& filterSettings, PlaybackSettings* settings);
-	static void sidRegisterFrameHasChanged(void* inInstance, SIDPLAY2_NAMESPACE::SidRegisterFrame& inRegisterFrame);
+	static void sidRegisterFrameHasChanged(void* inInstance, SidRegisterFrame& inRegisterFrame);
 	
 	static const char*	sChipModel6581;
 	static const char*	sChipModel8580;
@@ -179,10 +155,15 @@ private:
 	bool initSIDTune(PlaybackSettings *settings);
 	void setupSIDInfo();
 
-	sidplay2*			mSidEmuEngine;
-	SidTune*			mSidTune;
-	ReSIDBuilder*		mBuilder;
-	SidTuneInfo			mTuneInfo;
+	sidplayfp*			mSidEmuEngine;
+    SidTune*			mSidTune;
+    ReSIDfpBuilder*		mBuilder;
+    ReSIDBuilder*       mBuilder_reSID;
+    // SIDblaster USB
+    HardSIDSBBuilder*   mSIDBlasterUSBbuilder;
+    bool                mExtUSBDeviceActive;
+    
+    SidTuneInfo*		mTuneInfo;
 	PlaybackSettings	mPlaybackSettings;
 	
 	AudioDriver*		mAudioDriver;
@@ -198,9 +179,12 @@ private:
 	int					mPreviousOversamplingFactor;
 	char*				mOversamplingBuffer;
 	
-	sid_filter_t		mFilterSettings;
+	//sid_filter_t		mFilterSettings;
 	
 	SidRegisterLog		mRegisterLog;
+    
+    struct SidRegisterFrame currentRegisterFrame;
+    
 };
 
 #endif

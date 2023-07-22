@@ -137,11 +137,10 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 		SPInfoContainerView* container = self.enclosingScrollView.documentView;
 		player = (PlayerLibSidplay*) [[container ownerWindow] player];
 	}
-	
-	SIDPLAY2_NAMESPACE::SidRegisterFrame registerFrame;
+	SidRegisterFrame registerFrame;
 	if (player != NULL)
 		registerFrame = player->getCurrentSidRegisters();
-	
+
 	registers = registerFrame.mRegisters;
 	
 	for (int i = 0; i < 3; i++)
