@@ -9,6 +9,7 @@
 #define SIDBlaster_h
 
 #include <mach/mach_time.h>  //for high resolution time
+#import <Foundation/Foundation.h>
 #include "ftd2xx.h"
 
 enum SID_TYPE {

@@ -13,7 +13,7 @@ typedef unsigned short            WCHAR;
 typedef unsigned char            BYTE;
 typedef BYTE                    *LPBYTE;
 //typedef unsigned int            BOOL;
-typedef bool            BOOL;
+//typedef bool            BOOL;
 typedef unsigned char            BOOLEAN;
 typedef unsigned char            CHAR;
 typedef BOOL                    *LPBOOL;

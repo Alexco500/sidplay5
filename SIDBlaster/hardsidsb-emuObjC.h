@@ -35,9 +35,10 @@
 #  include "config.h"
 #endif
 
-#include "ftd2xx.h"
 #import <Foundation/Foundation.h>
 #import "SIDBlaster.h"
+#include "ftd2xx.h"
+
 class sidbuilder;
 
 namespace libsidplayfp
