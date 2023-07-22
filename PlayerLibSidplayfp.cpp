@@ -106,6 +106,7 @@ PlayerLibSidplay::PlayerLibSidplay() :
 	mSidEmuEngine(NULL),
 	mSidTune(NULL),
 	mBuilder(NULL),
+    mTuneInfo(NULL),
 	mAudioDriver(NULL),
 	mTuneLength(0),
 	mCurrentSubtune(0),
@@ -776,21 +777,24 @@ int PlayerLibSidplay::getCurrentFileSize(void)
 
 const char* PlayerLibSidplay::getCurrentChipModel()
 {
-    if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_6581)
-        return sChipModel6581;
-    
-    if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_8580)
-        return sChipModel8580;
-    
+    if (mTuneInfo != NULL) {
+        if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_6581)
+            return sChipModel6581;
+        
+        if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_8580)
+            return sChipModel8580;
+    }
     return sChipModelUnspecified;
 }
 // for popoverSIDSelector
 int PlayerLibSidplay::getSIDModelFromTune(void)
 {
-    if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_6581)
-        return M_6581;
-    if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_8580)
-        return M_8580;
+    if (mTuneInfo != NULL) {
+        if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_6581)
+            return M_6581;
+        if (mTuneInfo->sidModel(0) == SidTuneInfo::SIDMODEL_8580)
+            return M_8580;
+    }
     return M_UNKNOWN;
 }
 char* PlayerLibSidplay::getTuneBuffer(int& outTuneLength)
