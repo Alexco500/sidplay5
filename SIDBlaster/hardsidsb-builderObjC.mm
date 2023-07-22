@@ -30,9 +30,9 @@
 #include <sstream>
 #include <algorithm>
 #include <new>
+#import <Foundation/Foundation.h>
 
-
-#include "hardsidsb-emu.h"
+#include "hardsidsb-emuObjC.h"
 
 
 bool HardSIDSBBuilder::m_initialised = false;
@@ -104,7 +104,6 @@ HardSIDSBBuilder_create_error:
 unsigned int HardSIDSBBuilder::availDevices() const
 {
     // Available devices
-    // @FIXME@ not yet supported on Linux
     m_count = libsidplayfp::HardSIDSB::numberOfDevices();
     return m_count;
 }
@@ -120,19 +119,11 @@ void HardSIDSBBuilder::flush()
         static_cast<libsidplayfp::HardSIDSB*>(*it)->flush();
 }
 
-
-
 void HardSIDSBBuilder::filter(bool enable)
 {
     std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::HardSIDSB, bool>(&libsidplayfp::HardSIDSB::filter, enable));
 }
 
-//#include <ctype.h>
-//#include <dirent.h>
-
-// Find the number of sid devices.  We do not care about
-// stuppid device numbering or drivers not loaded for the
-// available nodes.
 int HardSIDSBBuilder::init()
 {
     m_count = 0;
@@ -158,4 +149,3 @@ void HardSIDSBBuilder::setClockToPAL(bool isPAL)
     for (emuset_t::iterator it=sidobjs.begin(); it != sidobjs.end(); ++it)
         static_cast<libsidplayfp::HardSIDSB*>(*it)->setToPAL(isPAL);
 }
-

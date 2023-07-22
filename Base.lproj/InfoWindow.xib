@@ -35,7 +35,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="415" height="1279"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                                     <subviews>
-                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387" customClass="SPFilterControlView">
+                                        <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="387" customClass="SPFilterControlView">
                                             <rect key="frame" x="0.0" y="263" width="415" height="181"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                                             <subviews>
@@ -221,7 +221,7 @@
                                                 <outlet property="typePopUpButton" destination="823" id="840"/>
                                             </connections>
                                         </customView>
-                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="386" customClass="SPMixerView">
+                                        <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="386" customClass="SPMixerView">
                                             <rect key="frame" x="0.0" y="443" width="415" height="138"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                                             <subviews>
