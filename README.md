@@ -10,6 +10,8 @@ Since it seems that Sidplay 4.2 (http://www.sidmusic.org/sidplay/mac/) is no lon
 * auto-update feature disabled (for now)
 * supports new song length database format
 * expanded toolbar (old Mac OS X look&feel)
+* SIDBlaster USB support (still not complete, digi songs will have issues)
+* uses now libsidplayerfp
 
 # still need to fix
 * Xcode still complains about missing UI constraints and OpenGL
