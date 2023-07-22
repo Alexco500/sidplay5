@@ -206,6 +206,10 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
         mBuilder_reSID = new ReSIDBuilder("reSID");
 
     // Set up a SIDblasterUSB builder
+    if (mSIDBlasterUSBbuilder != NULL) {
+        delete mSIDBlasterUSBbuilder;
+        mSIDBlasterUSBbuilder = NULL;
+    }
     if (mSIDBlasterUSBbuilder == NULL) {
         mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
     }
@@ -675,7 +679,9 @@ void PlayerLibSidplay::fillBuffer(void* buffer, int len)
     //libsidplayfp uses number of 16-Bit samples (short), not bytes for buffer count
     int count16 = len/2;
     if (mExtUSBDeviceActive) {
-        mSidEmuEngine->play((short *)buffer, 0);
+        for (int i = 0;i<50;i++)
+            mSidEmuEngine->play((short *)buffer, 0);
+
         return;
     }
     

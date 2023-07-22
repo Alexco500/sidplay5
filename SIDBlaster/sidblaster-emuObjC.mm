@@ -20,10 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "hardsidsb-emu.h"
-
-//hardsid emulation for sidblasterUSB
-#include "hardsid_sb.hpp"
+#include "hardsidsb-emuObjc.h"
 
 #include <stdint.h>
 #include <fcntl.h>
@@ -33,6 +30,8 @@
 #include <cmath>
 #include <sstream>
 #include <string>
+
+#import <Foundation/Foundation.h>
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -45,6 +44,7 @@ bool HardSIDSB::m_sidFree[16] = {0};
 const unsigned int HardSIDSB::voices = HARDSID_VOICES;
 unsigned int HardSIDSB::sid = 0;
 bool HardSIDSB::m_HardSIDEmuInitialized = false;
+NSMutableArray *HardSIDSB::mySIDDevices = nil;
 
 const char* HardSIDSB::getCredits()
 {
@@ -57,7 +57,7 @@ const char* HardSIDSB::getCredits()
         ss << "SIDBlaster USB Emu for sidplayerfp " << VERSION << " Engine:\n";
         ss << "\t(C) 2023 Alexander Coers\n";
         ss << "\tbased on HardSID builder by\n";
-        ss << "\t(C) 2001-2002 Jarno Paanenen\n";
+        ss << "\t(C) 2001-2002 Jarno Paanenen\n\and indispensable help of Winfred Bos\n";
         credits = ss.str();
     }
 
@@ -66,11 +66,9 @@ const char* HardSIDSB::getCredits()
 
 HardSIDSB::HardSIDSB (sidbuilder *builder) :
     sidemu(builder),
-    m_handle(0),
     m_instance(sid++),
     // adjust cycles code
     total_cycles_to_stretch(0),
-    cycles(0),
     setClockToPAL(true)
 
 {
@@ -93,7 +91,7 @@ HardSIDSB::HardSIDSB (sidbuilder *builder) :
     }
 
     // All sids in use?!?
-    // FIXME: we only support one device
+    // FIXME: we only support 1 devices
     if (num == 1)
         return;
 
@@ -104,57 +102,68 @@ HardSIDSB::HardSIDSB (sidbuilder *builder) :
     }
     m_status = true;
     sidemu::reset();
-    HardSID_SetWriteBufferSize(8);
+    mySIDBlaster = [mySIDDevices objectAtIndex:m_instance];
+    reset(0x0f);
+    m_accessClk_old = 0;
 }
 
 HardSIDSB::~HardSIDSB()
 {
     sid--;
     m_sidFree[m_instance] = false;
+    mySIDBlaster = nil;
 }
 
 void HardSIDSB::reset(uint8_t volume)
 {
     for (unsigned int i= 0; i < voices; i++)
         muted[i] = false;
-    HardSID_Reset(m_instance);
-    HardSID_Write(m_instance, 0, 0x18, 0x0f); // set max volume
+    //HardSID_Reset(m_instance);
+    //HardSID_Write(m_instance, 0, 0x18, 0x0f); // set max volume
+    [mySIDBlaster resetWithVolume:volume];
     m_accessClk = 0;
-    cycles = 0;
 }
 
-
+event_clock_t HardSIDSB::delay()
+{
+    event_clock_t sidCycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
+    sidCycles = adjustTiming(sidCycles);
+    m_accessClk += sidCycles;
+   // NSLog(@"::delay() cycles %lld, accessClk %llu", sidCycles, m_accessClk);
+    return sidCycles;
+}
 void HardSIDSB::clock()
 {
-    cycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
-    cycles = adjustTiming(cycles);
-    m_accessClk += (cycles);
+    /* const event_clock_t cycles = delay();
 
-    //printf("HardSIDSB::clock(): cycles %d  => accessClk %lld\n", cycles, m_accessClk);
-
-    if (cycles-MIN_CYCLE_SID_WRITE >= 0)
-        HardSID_Delay(m_instance, cycles-MIN_CYCLE_SID_WRITE);
+    if (cycles)
+        [mySIDBlaster addSIDCommandToQueue:SID_DELAY delay:cycles SIDRegister:0 value:0];
+     */
 }
 
 uint8_t HardSIDSB::read(uint_least8_t addr)
 {
-    clock();
+    uint8_t data = 0;
     // catch illegal reads
     if (addr > 0x1c)
-        return 0;
-    // catch read registers and do a SID read
-    if (addr >= 0x19)
-        return HardSID_Read(m_instance, cycles, addr);
-    // else simply return stored value from memory
-    return sidRegs[addr];
+        return data;
+    const event_clock_t cycles = delay();
 
+    // ask hardware for value
+    [mySIDBlaster addSIDCommandToQueue:SID_READ delay:cycles SIDRegister:addr value:0];
+    data =  [mySIDBlaster lastRcvedByte];
+    m_accessClk_old = m_accessClk;
+    //NSLog(@"::read(): address %d, value %d  => delay %lld, accessClk %lld", addr, data, cycles, m_accessClk);
+    return data;
 }
 
 void HardSIDSB::write(uint_least8_t addr, uint8_t data)
 {
     uint8_t low, high, oldHigh;
-    clock();
+
+    const event_clock_t cycles = delay();
     sidRegs[addr] = data;
+    
     if (addr == 0x04 || addr == 0x0b || addr == 0x12) {
         // check if gate is set
         if (data & (1 << 0)) {
@@ -166,8 +175,8 @@ void HardSIDSB::write(uint_least8_t addr, uint8_t data)
                     oldHigh = high;
                     adjustFrequency(&high, &low);
                     if (oldHigh != high)
-                        HardSID_Write(m_instance, (int) 0, 0x01, high);
-                    HardSID_Write(m_instance, (int) cycles, 0x00, low);
+                        [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:0 SIDRegister:0x01 value:high];
+                    [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:cycles SIDRegister:0x00 value:low];
                     break;
                 case 0x0b:
                     high = sidRegs[0x08];
@@ -175,8 +184,8 @@ void HardSIDSB::write(uint_least8_t addr, uint8_t data)
                     oldHigh = high;
                     adjustFrequency(&high, &low);
                     if (oldHigh != high)
-                        HardSID_Write(m_instance, (int) 0, 0x08, high);
-                    HardSID_Write(m_instance, (int) cycles, 0x07, low);
+                        [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:0 SIDRegister:0x08 value:high];
+                    [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:cycles SIDRegister:0x07 value:low];
                     break;
                 case 0x12:
                     high = sidRegs[0x0f];
@@ -184,16 +193,17 @@ void HardSIDSB::write(uint_least8_t addr, uint8_t data)
                     oldHigh = high;
                     adjustFrequency(&high, &low);
                     if (oldHigh != high)
-                        HardSID_Write(m_instance, (int) 0, 0x0f, high);
-                    HardSID_Write(m_instance, (int) cycles, 0x0e, low);
+                        [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:0 SIDRegister:0x0f value:high];
+                    [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:cycles SIDRegister:0x0e value:low];
                     break;
                 default:
                     break;
             }
         }
     }
-    HardSID_Write(m_instance, (int) cycles, addr, data);
-    //printf("HardSIDSB::write(): address %d, value %d  => accessClk %lld\n", addr, data, m_accessClk);
+     [mySIDBlaster addSIDCommandToQueue:SID_WRITE delay:cycles SIDRegister:addr value:data];
+
+    //NSLog(@"::write(): address %d, value %d  => delay %lld, accessClk %lld", addr, data, cycles, m_accessClk);
 }
 
 void HardSIDSB::voice(unsigned int num, bool mute)
@@ -201,31 +211,35 @@ void HardSIDSB::voice(unsigned int num, bool mute)
     // Only have 3 voices!
     if (num >= voices)
         return;
-    HardSID_Mute(m_instance, num, mute);
+    //FIXME: Mute is missing
+    //HardSID_Mute(m_instance, num, mute);
 }
 
 void HardSIDSB::filter(bool enable)
 {
-    HardSID_Filter(m_instance, enable);
+    //FIXME: Filter is missing
+    //HardSID_Filter(m_instance, enable);
 }
 
 void HardSIDSB::flush()
 {
-    HardSID_Flush(m_instance);
+    [mySIDBlaster flush];
+    //HardSID_Flush(m_instance);
 }
 
 bool HardSIDSB::lock(EventScheduler* env)
 {
-    if (HardSID_Lock(m_instance) == false)
-        return false;
-    
+    //if (HardSID_Lock(m_instance) == false)
+      //  return false;
+    //FIXME: Lock is missing
     sidemu::lock(env);
     return true;
 }
 
 void HardSIDSB::unlock()
 {
-    HardSID_Unlock(m_instance);
+    //HardSID_Unlock(m_instance);
+    //FIXME: Unlock is missing
     sidemu::unlock();
 }
 const bool HardSIDSB::isLoaded()
@@ -236,8 +250,49 @@ const bool HardSIDSB::isLoaded()
 const unsigned int HardSIDSB::numberOfDevices()
 {
     // how many USB devices are available?
+    FT_STATUS ftStatus;
+    FT_DEVICE_LIST_INFO_NODE *devInfo;
+    DWORD numDevs;
+    unsigned int numberOfSB = 0;
     
-    return (const unsigned int)GetHardSIDCount();
+    if (mySIDDevices == nil)
+        mySIDDevices = [[NSMutableArray alloc] init];
+    
+    // create the device information list
+    ftStatus = FT_CreateDeviceInfoList(&numDevs);
+    if (numDevs > 0) {
+        // allocate storage for list based on numDevs
+        devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE)*numDevs);
+        // get the device information list
+        ftStatus = FT_GetDeviceInfoList(devInfo,&numDevs);
+        if (ftStatus == FT_OK) {
+            
+            for (int i = 0; i < numDevs; i++, devInfo++) {
+                //Check if the FTDI is a real Sidblaster
+                if (strncmp(devInfo->Description, "SIDBlaster/USB", 14) == 0) {
+                    numberOfSB++;
+                    NSEnumerator *enumerator = [mySIDDevices objectEnumerator];
+                    SIDBlaster *anObject;
+                    BOOL newSIDBlaster = NO;
+                    while (anObject = [enumerator nextObject]) {
+                        // no duplicates, please...
+                        newSIDBlaster = [anObject sameAsDeviceWithSerial:devInfo->SerialNumber];
+                    }
+                    if (!newSIDBlaster) {
+                        SIDBlaster *newDevice = [[SIDBlaster alloc] init];
+                        [newDevice setDeviceInfo:devInfo];
+                        if ([newDevice initUSBSettingsForDevice]) {
+                            [mySIDDevices addObject:newDevice];
+                            // start thread loop
+                            [NSThread detachNewThreadSelector:@selector(commandQueueRunner:) toTarget:newDevice withObject:nil];
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return numberOfSB;
 }
 void HardSIDSB::setToPAL(bool value)
 {
@@ -249,6 +304,7 @@ void HardSIDSB::adjustFrequency(uint8_t *high, uint8_t *low)
      * at 1MHz, so it is either too fast (PAL) or too slow (NTSC)
      * taken from ACID64 code by Winfred Bos
      */
+    
     float freq = (*high<<8) + *low;
     if (setClockToPAL) {
         freq = freq * PAL_FREQ_SCALE;
@@ -257,6 +313,7 @@ void HardSIDSB::adjustFrequency(uint8_t *high, uint8_t *low)
     }
     *high = (uint8_t)((int)freq>>8);
     *low  = (uint8_t)((int)freq & 0x0ff);
+    
 }
 
 event_clock_t HardSIDSB::adjustTiming(event_clock_t oldCycles)

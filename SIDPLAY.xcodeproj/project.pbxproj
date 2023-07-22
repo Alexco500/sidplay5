@@ -116,7 +116,6 @@
 		DA056EDF2A177F1F0096847B /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3992A04F36000419CB8 /* wave.cc */; };
 		DA056EE02A177F250096847B /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39D2A04F36000419CB8 /* version.cc */; };
 		DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; };
-		DA056EE22A178D280096847B /* libhardsid.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0FD2A0A58F400233549 /* libhardsid.dylib */; };
 		DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEC2A178FCA0096847B /* Cocoa.framework */; };
 		DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEE2A178FD60096847B /* AppKit.framework */; };
 		DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF02A178FE00096847B /* CoreAudio.framework */; };
@@ -195,9 +194,6 @@
 		DA59B0C42A05224900233549 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3122A04F36000419CB8 /* timer.cpp */; };
 		DA59B0C52A053D1B00233549 /* SidTuneWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC686A0CF07344005AFA9A /* SidTuneWrapper.cpp */; };
 		DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC68680CF07344005AFA9A /* SidTuneMod.cpp */; };
-		DA59B0D72A07B84700233549 /* hardsidsb-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA59B0CC2A07B59700233549 /* hardsidsb-emu.cpp */; };
-		DA59B0D82A07B93600233549 /* hardsidsb-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */; };
-		DA59B1012A0A594500233549 /* libhardsid.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0FD2A0A58F400233549 /* libhardsid.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
 		DAA731B029E763A300B274D5 /* SPGradientBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AF29E763A300B274D5 /* SPGradientBox.mm */; };
@@ -205,6 +201,9 @@
 		DAB81A25286870160075CB8E /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
 		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB81A2928689D100075CB8E /* psid64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DAEE5F622A5829F400F912CE /* sidblaster-emuObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */; };
+		DAEE5F632A582A0300F912CE /* hardsidsb-builderObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */; };
+		DAEE5F642A5835CA00F912CE /* SIDBlaster.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,7 +249,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */,
-				DA59B1012A0A594500233549 /* libhardsid.dylib in Embed Frameworks */,
 				DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -646,13 +644,7 @@
 		DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMD5SongLengthDatabase.h; sourceTree = "<group>"; };
 		DA212D4F27F70C1F00038CDE /* StringAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringAddons.m; sourceTree = "<group>"; };
 		DA212D5027F70C1F00038CDE /* StringAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringAddons.h; sourceTree = "<group>"; };
-		DA59B0CB2A07B59700233549 /* hardsidsb-emu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hardsidsb-emu.h"; sourceTree = "<group>"; };
-		DA59B0CC2A07B59700233549 /* hardsidsb-emu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "hardsidsb-emu.cpp"; sourceTree = "<group>"; };
-		DA59B0CF2A07B59700233549 /* hardsidsb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hardsidsb.h; sourceTree = "<group>"; };
-		DA59B0D02A07B59700233549 /* hardsid_sb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hardsid_sb.hpp; sourceTree = "<group>"; };
-		DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "hardsidsb-builder.cpp"; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		DA59B0FD2A0A58F400233549 /* libhardsid.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhardsid.dylib; path = SIDBlaster/libhardsid.dylib; sourceTree = "<group>"; };
 		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = SIDBlaster/libftd2xx.dylib; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DA9BC68D27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -667,6 +659,15 @@
 		DAA731AF29E763A300B274D5 /* SPGradientBox.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPGradientBox.mm; sourceTree = "<group>"; };
 		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
 		DAB81A1E28686C670075CB8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SIDPLAY/Images.xcassets; sourceTree = "<group>"; };
+		DAEE5F4E2A56DB6A00F912CE /* SIDBlaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIDBlaster.h; path = SIDBlaster/SIDBlaster.h; sourceTree = "<group>"; };
+		DAEE5F4F2A56DB6A00F912CE /* ftd2xx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ftd2xx.h; path = SIDBlaster/ftd2xx.h; sourceTree = "<group>"; };
+		DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIDBlaster.m; path = SIDBlaster/SIDBlaster.m; sourceTree = "<group>"; };
+		DAEE5F512A56DB6A00F912CE /* SIDBlasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SIDBlasterController.m; path = SIDBlaster/SIDBlasterController.m; sourceTree = "<group>"; };
+		DAEE5F522A56DB6A00F912CE /* hardsidsb-emuObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "hardsidsb-emuObjC.h"; path = "SIDBlaster/hardsidsb-emuObjC.h"; sourceTree = "<group>"; };
+		DAEE5F532A56DB6A00F912CE /* WinTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinTypes.h; path = SIDBlaster/WinTypes.h; sourceTree = "<group>"; };
+		DAEE5F542A56DB6A00F912CE /* SIDBlasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIDBlasterController.h; path = SIDBlaster/SIDBlasterController.h; sourceTree = "<group>"; };
+		DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "hardsidsb-builderObjC.mm"; path = "SIDBlaster/hardsidsb-builderObjC.mm"; sourceTree = "<group>"; };
+		DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "sidblaster-emuObjC.mm"; path = "SIDBlaster/sidblaster-emuObjC.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -685,7 +686,6 @@
 				DA056EF82A1790310096847B /* Quartz.framework in Frameworks */,
 				DA17E5532A04FF7400419CB8 /* libsidplayfp.a in Frameworks */,
 				DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */,
-				DA056EE22A178D280096847B /* libhardsid.dylib in Frameworks */,
 				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -860,9 +860,9 @@
 		1F38967C0CEE3C6500942B17 /* Playback Engine */ = {
 			isa = PBXGroup;
 			children = (
+				DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */,
 				DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */,
 				1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */,
-				DA59B0C92A07B59700233549 /* SIDBlaster */,
 				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				1FD084D40CEF2B8B0075D3A1 /* Audio Drivers */,
 			);
@@ -1027,7 +1027,6 @@
 				DA056EF22A178FE80096847B /* OpenGL.framework */,
 				DA056EF72A1790310096847B /* Quartz.framework */,
 				DA59B1022A0A763C00233549 /* libftd2xx.dylib */,
-				DA59B0FD2A0A58F400233549 /* libhardsid.dylib */,
 				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 			);
 			name = Frameworks;
@@ -1403,16 +1402,20 @@
 			path = libsidplayfp/sidplayfp;
 			sourceTree = "<group>";
 		};
-		DA59B0C92A07B59700233549 /* SIDBlaster */ = {
+		DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */ = {
 			isa = PBXGroup;
 			children = (
-				DA59B0D02A07B59700233549 /* hardsid_sb.hpp */,
-				DA59B0CB2A07B59700233549 /* hardsidsb-emu.h */,
-				DA59B0CC2A07B59700233549 /* hardsidsb-emu.cpp */,
-				DA59B0CF2A07B59700233549 /* hardsidsb.h */,
-				DA59B0D12A07B59700233549 /* hardsidsb-builder.cpp */,
+				DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */,
+				DAEE5F522A56DB6A00F912CE /* hardsidsb-emuObjC.h */,
+				DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */,
+				DAEE5F4F2A56DB6A00F912CE /* ftd2xx.h */,
+				DAEE5F4E2A56DB6A00F912CE /* SIDBlaster.h */,
+				DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */,
+				DAEE5F542A56DB6A00F912CE /* SIDBlasterController.h */,
+				DAEE5F512A56DB6A00F912CE /* SIDBlasterController.m */,
+				DAEE5F532A56DB6A00F912CE /* WinTypes.h */,
 			);
-			path = SIDBlaster;
+			name = SIDBlasterObjC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1680,6 +1683,7 @@
 				DA056EDA2A177F0A0096847B /* voice.cc in Sources */,
 				DA17E54B2A04F79E00419CB8 /* PSID.cpp in Sources */,
 				DA59B0C02A05224900233549 /* SerialPort.cpp in Sources */,
+				DAEE5F622A5829F400F912CE /* sidblaster-emuObjC.mm in Sources */,
 				DA17E52F2A04F6F100419CB8 /* Dac.cpp in Sources */,
 				DA17E5352A04F70E00419CB8 /* Filter6581.cpp in Sources */,
 				DA17E52A2A04F6C800419CB8 /* residfp-builder.cpp in Sources */,
@@ -1718,20 +1722,20 @@
 				DA59B0C42A05224900233549 /* timer.cpp in Sources */,
 				DA17E5472A04F78C00419CB8 /* reloc65.cpp in Sources */,
 				DA056EDF2A177F1F0096847B /* wave.cc in Sources */,
-				DA59B0D82A07B93600233549 /* hardsidsb-builder.cpp in Sources */,
 				DA17E5792A050B7700419CB8 /* sidbuilder.cpp in Sources */,
 				DA17E5462A04F78C00419CB8 /* psiddrv.cpp in Sources */,
 				DA59B0C22A05224900233549 /* interrupt.cpp in Sources */,
+				DAEE5F632A582A0300F912CE /* hardsidsb-builderObjC.mm in Sources */,
 				DA17E5482A04F79E00419CB8 /* SidTuneBase.cpp in Sources */,
 				DA17E5332A04F70E00419CB8 /* FilterModelConfig8580.cpp in Sources */,
 				DA17E5772A050B7700419CB8 /* SidInfo.cpp in Sources */,
 				DA17E53F2A04F75700419CB8 /* mos656x.cpp in Sources */,
 				DA17E5392A04F70E00419CB8 /* ExternalFilter.cpp in Sources */,
+				DAEE5F642A5835CA00F912CE /* SIDBlaster.m in Sources */,
 				DA17E52C2A04F6D500419CB8 /* OpAmp.cpp in Sources */,
 				DA17E5422A04F77A00419CB8 /* player.cpp in Sources */,
 				DA17E54A2A04F79E00419CB8 /* MUS.cpp in Sources */,
 				DA17E5442A04F77A00419CB8 /* EventScheduler.cpp in Sources */,
-				DA59B0D72A07B84700233549 /* hardsidsb-emu.cpp in Sources */,
 				DA17E5502A04F7C000419CB8 /* iniParser.cpp in Sources */,
 				DA056ED72A177EDF0096847B /* resid-emu.cpp in Sources */,
 				DA17E5362A04F70E00419CB8 /* FilterModelConfig6581.cpp in Sources */,

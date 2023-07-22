@@ -1095,8 +1095,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 
 	[self performSyncOperationAutomatically:NO showWarningDialog:YES];
 }
-
-
+#pragma mark -
+#pragma mark RSYNC operations
 // ----------------------------------------------------------------------------
 - (void) performSyncOperationAutomatically:(BOOL)triggeredByAutoInterval showWarningDialog:(BOOL)showDialog
 // ----------------------------------------------------------------------------

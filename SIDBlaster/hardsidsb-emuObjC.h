@@ -35,6 +35,9 @@
 #  include "config.h"
 #endif
 
+#include "ftd2xx.h"
+#import <Foundation/Foundation.h>
+#import "SIDBlaster.h"
 class sidbuilder;
 
 namespace libsidplayfp
@@ -70,7 +73,6 @@ private:
     
     // HardSID specific data
     static         bool m_sidFree[16];
-    int            m_handle;
 
     static const unsigned int voices;
     static       unsigned int sid;
@@ -78,12 +80,17 @@ private:
     // Must stay in this order
     bool           muted[HARDSID_VOICES];
     unsigned int   m_instance;
-
+    
+    //Obj Objects
+    SIDBlaster *mySIDBlaster;
 
 public:
     static const char* getCredits();
     static const bool isLoaded();
     static const unsigned int numberOfDevices();
+    // ObjC Objects
+    static NSMutableArray *mySIDDevices;
+
 public:
     HardSIDSB(sidbuilder *builder);
     ~HardSIDSB();
@@ -119,10 +126,11 @@ private:
     //void event() override;
     // everything taken from ACID64 adjust cycles/frequency code
     event_clock_t adjustTiming(event_clock_t cycles);
+    event_clock_t delay();
     void adjustFrequency(uint8_t *high, uint8_t *low);
     float total_cycles_to_stretch;
+    event_clock_t m_accessClk_old;
     bool setClockToPAL;
-    int cycles;
     uint8_t sidRegs[32];
 };
 

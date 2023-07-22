@@ -245,12 +245,12 @@ bool AudioCoreDriverNew::startPlayback()
 		stopPlayback();
 		
 	mIsPlaying = true;
-
+    memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
+    
     // Start the rendering
     // The DefaultOutputUnit will do any format conversions to the format of the default device
     OSStatus err = AudioOutputUnitStart (gOutputUnit);
     if (err) { printf ("AudioOutputUnitStart=%ld\n", (long int)err); return false; }
-    memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
 
 	return true;
 }
@@ -270,7 +270,6 @@ void AudioCoreDriverNew::stopPlayback()
     // but we never get here because we're running until the process is nuked...
     OSStatus err = AudioOutputUnitStop (gOutputUnit);
     if (err) { printf ("AudioOutputUnitStop=%ld\n", (long int)err); return; }
-    
     
     mIsPlaying = false;
     
