@@ -299,7 +299,8 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
 
 		[rsyncMirrorList addObject:rsyncMirror];
 	}
-	
+    // add a fixd mirror
+    [rsyncMirrorList addObject:@"rsync://mos6581.de/mirror/hvsc"];
 	ryncMirrorListData = nil;
 	rsyncMirrorListUrlConnection = nil;
 	

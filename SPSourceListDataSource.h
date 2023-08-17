@@ -106,7 +106,8 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (IBAction) cancelM3UExportOptions:(id)sender;
 - (IBAction) confirmM3UExportOptions:(id)sender;
 - (IBAction) clickExportRelativePaths:(id)sender;
-
+- (IBAction) shufflePlaylist:(id)sender;
+- (IBAction) shuffleSmartPlaylist:(id)sender;
 - (IBAction) switchToFavoritesPlaylist:(id)sender;
 
 @end

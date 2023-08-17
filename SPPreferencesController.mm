@@ -21,6 +21,7 @@ static NSString* SPDefaultKeyLegacyPlaylistsMigrated		= @"LegacyPlaylistsMigrate
 static NSString* SPDefaultKeyShuffleActive					= @"ShuffleActive";
 static NSString* SPDefaultKeyFadeActive						= @"FadeActive";
 static NSString* SPDefaultKeyRepeatActive					= @"RepeatActive";
+static NSString* SPDefaultKeyAllSubSongsActive              = @"AllSubSongsActive";
 static NSString* SPDefaultKeyPlayTime						= @"DefaultPlayTime";
 static NSString* SPDefaultKeyHideStilBrowserAutomatically	= @"HideStilBrowserAutomatically";
 static NSString* SPDefaultKeySyncUrl						= @"SyncUrl";
@@ -72,6 +73,7 @@ void Preferences::initializeDefaults()
 	mShuffleActive = NO;
 	mFadeActive = NO;
 	mRepeatActive = NO;
+    mAllSubSongsActive = NO;
 	mDefaultPlayTime = 3 * 60;
 	mHideStilBrowserOnLinkClicked = NO;
 
@@ -219,7 +221,8 @@ static SPPreferencesController* sharedInstance = nil;
     appDefaults[SPDefaultKeyLegacyPlaylistsMigrated] = @(gPreferences.mLegacyPlaylistsMigrated);	
     appDefaults[SPDefaultKeyShuffleActive] = @(gPreferences.mShuffleActive);	
     appDefaults[SPDefaultKeyFadeActive] = @(gPreferences.mFadeActive);	
-    appDefaults[SPDefaultKeyRepeatActive] = @(gPreferences.mRepeatActive);	
+    appDefaults[SPDefaultKeyRepeatActive] = @(gPreferences.mRepeatActive);
+    appDefaults[SPDefaultKeyAllSubSongsActive] =@(gPreferences.mAllSubSongsActive);
     appDefaults[SPDefaultKeyPlayTime] = @(gPreferences.mDefaultPlayTime);	
     appDefaults[SPDefaultKeyHideStilBrowserAutomatically] = @(gPreferences.mHideStilBrowserOnLinkClicked);
 
@@ -301,6 +304,7 @@ static SPPreferencesController* sharedInstance = nil;
 	gPreferences.mShuffleActive = [defaults boolForKey:SPDefaultKeyShuffleActive];
 	gPreferences.mFadeActive = [defaults boolForKey:SPDefaultKeyFadeActive];
 	gPreferences.mRepeatActive = [defaults boolForKey:SPDefaultKeyRepeatActive];
+    gPreferences.mAllSubSongsActive = [defaults boolForKey:SPDefaultKeyAllSubSongsActive];
 	gPreferences.mDefaultPlayTime = (int)[defaults integerForKey:SPDefaultKeyPlayTime];
 	gPreferences.mHideStilBrowserOnLinkClicked = [defaults boolForKey:SPDefaultKeyHideStilBrowserAutomatically];
 
@@ -354,6 +358,7 @@ static SPPreferencesController* sharedInstance = nil;
 	[defaults setBool:gPreferences.mLegacyPlaylistsMigrated forKey:SPDefaultKeyLegacyPlaylistsMigrated];
 	[defaults setBool:gPreferences.mShuffleActive forKey:SPDefaultKeyShuffleActive];
 	[defaults setBool:gPreferences.mFadeActive forKey:SPDefaultKeyFadeActive];
+    [defaults setBool:gPreferences.mAllSubSongsActive forKey:SPDefaultKeyAllSubSongsActive];
 	[defaults setBool:gPreferences.mRepeatActive forKey:SPDefaultKeyRepeatActive];
 	[defaults setInteger:gPreferences.mDefaultPlayTime forKey:SPDefaultKeyPlayTime];
 	[defaults setBool:gPreferences.mHideStilBrowserOnLinkClicked forKey:SPDefaultKeyHideStilBrowserAutomatically];

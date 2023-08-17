@@ -767,6 +767,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
     return player->isTuneLoaded();
 }
+// ----------------------------------------------------------------------------
+- (int) currentSubtune
+// ----------------------------------------------------------------------------
+{
+    return player->getCurrentSubtune();
+}
 
 
 #pragma mark -

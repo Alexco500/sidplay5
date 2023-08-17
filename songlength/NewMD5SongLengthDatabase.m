@@ -136,7 +136,14 @@ static NSString* MD5IdentificationString = @"[Database]";
             //calculate a float value "time in secs" from min and secs
             //currenty only integer is used by player, but some songs have their time
             //also in millisecs, so you may never know...
-            [timeArray addObject:[NSNumber numberWithFloat:[min intValue]*60 + [sec floatValue]]];
+            float number = [min intValue]*60 + round([sec floatValue]);
+            // if rounding down results in 0s, use 1s instead
+            if (number == 0) {
+                //NSLog(@" Bloerp!");
+                //NSLog(@"Minutes: %@, Seconds: %@, rounded to %f\n",min, sec, number);
+                number = 1;
+            }
+            [timeArray addObject:[NSNumber numberWithFloat:number]];
             //[timeArray addObject:sec];
         }
    //     NSLog(@"Minutes: %@, Seconds: %@\n",min, sec);

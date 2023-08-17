@@ -920,7 +920,7 @@
             </items>
             <point key="canvasLocation" x="-166" y="-2933"/>
         </menu>
-        <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" toolbarStyle="expanded" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
+        <window title="SIDPLAY" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="SidplayWindow" animationBehavior="default" tabbingMode="disallowed" toolbarStyle="expanded" id="371" userLabel="Main Window" customClass="SPPlayerWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
@@ -997,7 +997,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="uZp-yr-OUR">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" indentationPerLevel="14" outlineTableColumn="475" id="473" customClass="SPSourceListView">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
@@ -1051,7 +1051,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Lau-qN-6GF">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="SidPlayBrowser" rowHeight="15" headerView="460" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="461" id="459" customClass="SPBrowserView">
                                                     <rect key="frame" x="0.0" y="0.0" width="832" height="582"/>
@@ -1209,11 +1209,11 @@
                                                     </pathCell>
                                                 </pathControl>
                                                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" minValue="16" maxValue="100" doubleValue="16" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="800">
-                                                    <rect key="frame" x="633" y="5" width="16" height="16"/>
+                                                    <rect key="frame" x="588" y="5" width="16" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                 </progressIndicator>
                                                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1980">
-                                                    <rect key="frame" x="656" y="1" width="112" height="23"/>
+                                                    <rect key="frame" x="612" y="1" width="149" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <segmentedCell key="cell" state="on" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="1981">
                                                         <font key="font" metaFont="system"/>
@@ -1221,6 +1221,9 @@
                                                             <segment toolTip="Turn fade-out on or off" image="SIDfade.cellularbars.flip" imageScaling="none" width="32"/>
                                                             <segment toolTip="Turn repeat on or off" image="SIDrepeat_button.repeat" imageScaling="none" width="32" tag="1"/>
                                                             <segment toolTip="Turn shuffle on or off" image="SIDshuffle.shuffle" imageScaling="none" width="32" tag="2"/>
+                                                            <segment toolTip="Play all sub-songs" image="SIDallSubSongs" width="32" tag="3">
+                                                                <nil key="label"/>
+                                                            </segment>
                                                         </segments>
                                                     </segmentedCell>
                                                     <connections>
@@ -1980,6 +1983,11 @@ DQ
                         <action selector="savePlaylistToM3U:" target="493" id="1162"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Shuffle" id="dpM-pk-6zg">
+                    <connections>
+                        <action selector="shufflePlaylist:" target="493" id="nyy-U2-YzZ"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="1161">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
@@ -1989,6 +1997,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-891" y="-2041"/>
         </menu>
         <menu title="Smart Playlist Item Context Menu" id="1100">
             <items>
@@ -2002,6 +2011,11 @@ DQ
                         <action selector="savePlaylistToM3U:" target="493" id="1164"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Shuffle" id="Vam-Om-ESC">
+                    <connections>
+                        <action selector="shuffleSmartPlaylist:" target="493" id="Qb7-pz-BJC"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="1101">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
@@ -2011,6 +2025,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-1106" y="-2061.5"/>
         </menu>
         <menu title="Browser Context Menu" id="1119">
             <items>
@@ -4306,6 +4321,7 @@ Gw
         <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
         <image name="NSStopProgressFreestandingTemplate" width="20" height="20"/>
         <image name="SIDadd.plus" width="17" height="17"/>
+        <image name="SIDallSubSongs" width="17" height="17"/>
         <image name="SIDchip.memorchip" width="128" height="128"/>
         <image name="SIDfade.cellularbars.flip" width="17" height="17"/>
         <image name="SIDhud_play.play" width="17" height="17"/>

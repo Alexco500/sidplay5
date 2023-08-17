@@ -162,6 +162,7 @@ extern NSString* SPUrlRequestUserAgentString;
 
 - (void) populateVisualizerMenu;
 - (BOOL) isTuneLoaded;
+- (int) currentSubtune;
 
 - (IBAction) clickPlayPauseButton:(id)sender;
 - (IBAction) clickStopButton:(id)sender;

@@ -14,6 +14,7 @@
 - (void) addItem:(SPPlaylistItem*)newItem;
 - (void) removeItemsAtIndices:(NSIndexSet*)indices;
 - (NSInteger) moveItemsAtIndices:(NSIndexSet*)indices toIndex:(NSInteger)index;
+- (void) shuffleMe;
 
 @property (NS_NONATOMIC_IOSONLY, copy) NSMutableArray *items;
 

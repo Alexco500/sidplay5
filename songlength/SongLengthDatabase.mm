@@ -47,29 +47,32 @@ static SongLengthDatabase* sharedInstance = nil;
 	{
 		databaseAvailable = NO;
 		collectionRootPath = rootPath;	
-		
+        bool success;
 		if (rootPath == nil)
 			return nil;
-			
-		databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePath];
-		//NSLog(@"databasePath: %@\n", databasePath);
         newMD5FormatUsed = NO;
-		bool success = SongLength::init([databasePath cStringUsingEncoding:NSUTF8StringEncoding]);
-
-		if (!success)
-        {
-            databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePathNewMD5];
+        // check for new MD5 DB
+        databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePathNewMD5];
+        //NSLog(@"databasePath: %@\n", databasePath);
+        newMD5db = [[NewMD5SongLengthDatabase alloc] initWithPath:databasePath];
+        success = [newMD5db validDatabase];
+        if (success) {
+            newMD5FormatUsed = YES;
+            databaseAvailable = YES;
+            return self;
+        } else {
+            // failed, check for old DB
+            databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePath];
             //NSLog(@"databasePath: %@\n", databasePath);
-            newMD5db = [[NewMD5SongLengthDatabase alloc] initWithPath:databasePath];
-            success = [newMD5db validDatabase];
-
+            
+            success = SongLength::init([databasePath cStringUsingEncoding:NSUTF8StringEncoding]);
+            if (success) {
+                databaseAvailable = YES;
+                return self;
+            }
         }
-        if (!success)
-			return nil;
-        newMD5FormatUsed = YES;
-		databaseAvailable = YES;
 	}
-	return self;
+    return nil;
 }
 
 

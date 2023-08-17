@@ -17,6 +17,7 @@ extern NSString* SPSmartPlaylistChangedNotification;
 - (instancetype) init;
 - (instancetype) initWithCoder:(NSCoder*)coder;
 - (void) encodeWithCoder:(NSCoder*)coder;
+- (void)shuffleMe;
 
 @property (NS_NONATOMIC_IOSONLY, copy) NSPredicate *predicate;
 

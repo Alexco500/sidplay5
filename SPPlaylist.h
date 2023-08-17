@@ -28,5 +28,5 @@
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData *dataRepresentation;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL saveToFile;
 - (BOOL) saveToM3U:(NSString*)filename withRelativePaths:(BOOL)exportRelativePaths andPathPrefix:(NSString*)pathPrefix;
-
+- (void) shuffleMe;
 @end

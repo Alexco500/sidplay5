@@ -1021,7 +1021,38 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		}
 	}
 }
-
+// ----------------------------------------------------------------------------
+- (IBAction) shufflePlaylist:(id)sender
+// ----------------------------------------------------------------------------
+{
+    NSInteger row = sourceListView.selectedRow;
+    if (row != -1)
+    {
+        SPSourceListItem* item = [sourceListView itemAtRow:row];
+        if (![item isPlaylistItem])
+            return;
+        
+        SPPlaylist* playlist = [item playlist];
+        [playlist shuffleMe];
+        [browserDataSource switchToPlaylist:playlist];
+    }
+}
+// ----------------------------------------------------------------------------
+- (IBAction) shuffleSmartPlaylist:(id)sender
+// ----------------------------------------------------------------------------
+{
+    NSInteger row = sourceListView.selectedRow;
+    if (row != -1)
+    {
+        SPSourceListItem* item = [sourceListView itemAtRow:row];
+        if (![item isSmartPlaylistItem])
+            return;
+        
+        SPPlaylist* playlist = [item playlist];
+        [playlist shuffleMe];
+        [browserDataSource switchToPlaylist:playlist];
+    }
+}
 
 // ----------------------------------------------------------------------------
 - (BOOL) validateMenuItem:(NSMenuItem*)item

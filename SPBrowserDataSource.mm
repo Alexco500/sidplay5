@@ -146,7 +146,12 @@ NSDate* fillStart = nil;
 		if (seconds > currentSongLength)
 		{
 			[window stopFadeOut];
-			
+            if (gPreferences.mAllSubSongsActive) {
+                if ([window currentSubtune] < [currentItem subTuneCount]) {
+                    [window nextSubtune:self];
+                    return;
+                }
+            }
 			if (playlist != nil)
 				[self playNextPlaylistItem:self];
 			else
@@ -854,11 +859,13 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
-
+    int subtune = 1;
 	if ([item class] == [SPHttpBrowserItem class])
 		[window playTuneAtURL:[item path] subtune:[item defaultSubTune]];
 	else
-		[window playTuneAtPath:[item path] subtune:[item defaultSubTune]];
+        if (!gPreferences.mAllSubSongsActive)
+            subtune = [item defaultSubTune];
+		[window playTuneAtPath:[item path] subtune:subtune];
 
 	currentItem = item;
 }
@@ -1983,6 +1990,9 @@ NSDate* fillStart = nil;
             if (gPreferences.mShuffleActive && playlist != nil)
                 [self shufflePlaylist];
 			break;
+        case 3:
+            gPreferences.mAllSubSongsActive = !gPreferences.mAllSubSongsActive;
+            break;
 	}
 
 	[self setPlaybackModeControlImages];
@@ -1995,7 +2005,8 @@ static NSImage* SPRepeatButtonPressedImage = nil;
 static NSImage* SPRepeatButtonImage = nil;
 static NSImage* SPShuffleButtonPressedImage = nil;
 static NSImage* SPShuffleButtonImage = nil;
-
+static NSImage* SPAllSubSongsButtonPressedImage = nil;
+static NSImage* SPAllSubSongsButtonImage = nil;
 
 // ----------------------------------------------------------------------------
 - (void) setPlaybackModeControlImages
@@ -2009,11 +2020,16 @@ static NSImage* SPShuffleButtonImage = nil;
 		SPRepeatButtonImage = [NSImage imageNamed:@"SIDrepeat_button.repeat"];
 		SPShuffleButtonPressedImage = [NSImage imageNamed:@"SIDshuffle_pressed.shuffle"];
 		SPShuffleButtonImage = [NSImage imageNamed:@"SIDshuffle.shuffle"];
+        SPAllSubSongsButtonPressedImage = [NSImage imageNamed:@"SIDallSubSongs_pressed"];
+        SPAllSubSongsButtonImage = [NSImage imageNamed:@"SIDallSubSongs"];
+
 	}
 
 	[browserPlaybackModeControl setImage:(gPreferences.mFadeActive ? SPFadeButtonPressedImage : SPFadeButtonImage) forSegment:0];
 	[browserPlaybackModeControl setImage:(gPreferences.mRepeatActive ? SPRepeatButtonPressedImage : SPRepeatButtonImage) forSegment:1];
 	[browserPlaybackModeControl setImage:(gPreferences.mShuffleActive ? SPShuffleButtonPressedImage : SPShuffleButtonImage) forSegment:2];
+    [browserPlaybackModeControl setImage:(gPreferences.mAllSubSongsActive ? SPAllSubSongsButtonPressedImage : SPAllSubSongsButtonImage) forSegment:3];
+
 }
 
 
