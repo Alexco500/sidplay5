@@ -153,7 +153,8 @@
 	{
 		voiceMuted[voice] = false;
 		[self setVoice:voice toVolume:preMuteVolumes[voice]];
-		[voiceSliders[voice] setEnabled:YES];
+		//removed, volume per voice is not supported
+        //[voiceSliders[voice] setEnabled:YES];
 		voiceSliders[voice].floatValue = preMuteVolumes[voice];
 	} 
 	else

@@ -16,7 +16,8 @@
 
 	index = FILTER_CONTAINER_INDEX;
 	height = 185.0f;
-	[self setCollapsed:gPreferences.mFilterControlCollapsed];
+	//[self setCollapsed:gPreferences.mFilterControlCollapsed];
+    [self setCollapsed:YES];
 
 	[self containerBackgroundChanged:nil];
 	

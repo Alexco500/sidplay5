@@ -631,11 +631,17 @@ void PlayerLibSidplay::setTempo(int tempo)
 void PlayerLibSidplay::setVoiceVolume(int voice, float volume)
 // ----------------------------------------------------------------------------
 {
+    if (mSidEmuEngine == NULL)
+        return;
+    if (mBuilder_reSID == NULL)
+        return;
+    int numberSids = mBuilder_reSID->usedDevices();
+    
 	switch (voice)
 	{
 		case 0:
 			mixer_value1 = volume;
-			break;
+ 			break;
 		case 1:
 			mixer_value2 = volume;
 			break;
@@ -643,6 +649,12 @@ void PlayerLibSidplay::setVoiceVolume(int voice, float volume)
 			mixer_value3 = volume;
 			break;
 	}
+    if (volume == 0)
+        for (int i=0;i<numberSids;i++)
+            mSidEmuEngine->mute(i, voice, true);
+    else
+        for (int i=0;i<numberSids;i++)
+            mSidEmuEngine->mute(i, voice, false);
 }
 
 /* FIXME: FILTER SETTINGS?!
