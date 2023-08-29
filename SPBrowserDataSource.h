@@ -149,6 +149,8 @@ enum BrowserMode
 
 - (void) setPlaybackModeControlImages;
 - (void) activateLastPlayedItem;
+- (void) shufflePlaylist;
+- (void) startShufflePlay;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *draggedItems;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *toolbarSearchField;

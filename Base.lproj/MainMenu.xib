@@ -1260,7 +1260,7 @@
                     </splitView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="4160A338-4B68-4901-85A1-A6940E89E30B" centeredItem="697" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="427">
+            <toolbar key="toolbar" implicitIdentifier="4160A338-4B68-4901-85A1-A6940E89E30B" centeredItem="697" displayMode="iconOnly" sizeMode="regular" id="427">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="430"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="432"/>
@@ -1324,6 +1324,30 @@
                                         <connections>
                                             <action selector="clickPlayPauseButton:" target="371" id="681"/>
                                         </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                        </box>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="72C5334C-E597-4DEC-A288-BB132D3CCCA4" label="Shuffle Play" paletteLabel="Shuffle Play" tag="-1" sizingBehavior="auto" id="EdM-CA-UNY" userLabel="Shuffle Play">
+                        <nil key="toolTip"/>
+                        <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" id="eXZ-Q9-Q49">
+                            <rect key="frame" x="16" y="14" width="38" height="41"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <view key="contentView" id="TQm-YW-OCY">
+                                <rect key="frame" x="0.0" y="0.0" width="38" height="41"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button toolTip="Start/pause shuffle playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YpA-WW-IXT">
+                                        <rect key="frame" x="3" y="10" width="31" height="31"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SIDhud_shufflePlay" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" id="qZK-d6-8gP">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="clickShufflePlayButton:" target="371" id="JYN-X1-xtd"/>
+                                            </connections>
+                                        </buttonCell>
                                     </button>
                                 </subviews>
                             </view>
@@ -1451,6 +1475,7 @@
                 <outlet property="popoverSIDSelector" destination="dhN-4R-peC" id="Yob-iC-gJn"/>
                 <outlet property="remixKwedOrgController" destination="2262" id="2266"/>
                 <outlet property="rightView" destination="504" id="969"/>
+                <outlet property="shufflePlayButton" destination="YpA-WW-IXT" id="f4f-3i-8KI"/>
                 <outlet property="sourceListDataSource" destination="493" id="2023"/>
                 <outlet property="splitView" destination="505" id="805"/>
                 <outlet property="stackViewExternal1" destination="2bX-rb-6ny" id="1bx-b0-TNa"/>
@@ -4325,6 +4350,7 @@ Gw
         <image name="SIDchip.memorchip" width="128" height="128"/>
         <image name="SIDfade.cellularbars.flip" width="17" height="17"/>
         <image name="SIDhud_play.play" width="17" height="17"/>
+        <image name="SIDhud_shufflePlay" width="17" height="17"/>
         <image name="SIDhud_stop.stop" width="17" height="17"/>
         <image name="SIDhud_warp.forward" width="17" height="17"/>
         <image name="SIDrepeat_button.repeat" width="17" height="17"/>

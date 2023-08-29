@@ -152,6 +152,11 @@ NSDate* fillStart = nil;
                     return;
                 }
             }
+            if (gPreferences.mRepeatSingleActive) {
+                //FIXME: does not work
+                [self playItem:currentItem];
+                return;
+            }
 			if (playlist != nil)
 				[self playNextPlaylistItem:self];
 			else
@@ -1624,6 +1629,35 @@ NSDate* fillStart = nil;
 {
     [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:[playlist lastPlayedItemIndex]] byExtendingSelection:NO];
 }
+- (void)startShufflePlay
+// ----------------------------------------------------------------------------
+{
+    if (playlist == nil)
+        return;
+        
+    if ([rootItems count] == 0)
+        return;
+
+    if ([rootItems count] != [playlist count])
+        return;
+    
+    if (!gPreferences.mShuffleActive)
+        return;
+    SPBrowserItem* item = nil;
+    
+    item = [shuffledPlaylistItems objectAtIndex:currentShuffleIndex];
+    currentShuffleIndex = (currentShuffleIndex + 1) % [shuffledPlaylistItems count];
+//        if (currentShuffleIndex == 0)
+//            [self shufflePlaylist];
+
+    if (item != nil)
+    {
+        [self playItem:item];
+        int row = (int)[browserView rowForItem:currentItem];
+        [browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+        [browserView scrollRowToVisible:row];
+    }
+}
 #pragma mark -
 #pragma mark UI actions
 
@@ -1982,7 +2016,18 @@ NSDate* fillStart = nil;
 			break;
 
 		case 1:
-			gPreferences.mRepeatActive = !gPreferences.mRepeatActive;
+            // click path for double used repeat button
+            // all inactive => RepeatActive => RepeatSingleActive => all inactive
+            if (gPreferences.mRepeatActive) {
+                gPreferences.mRepeatActive = NO;
+                gPreferences.mRepeatSingleActive = YES;
+            }
+            else {
+                if (gPreferences.mRepeatSingleActive)
+                    gPreferences.mRepeatSingleActive = NO;
+                else
+                    gPreferences.mRepeatActive = YES;
+            }
 			break;
 
 		case 2:
@@ -2007,7 +2052,8 @@ static NSImage* SPShuffleButtonPressedImage = nil;
 static NSImage* SPShuffleButtonImage = nil;
 static NSImage* SPAllSubSongsButtonPressedImage = nil;
 static NSImage* SPAllSubSongsButtonImage = nil;
-
+static NSImage* SPRepeatSingleButtonPressedImage = nil;
+static NSImage* SPRepeatSingleButtonImage = nil;
 // ----------------------------------------------------------------------------
 - (void) setPlaybackModeControlImages
 // ----------------------------------------------------------------------------
@@ -2022,6 +2068,9 @@ static NSImage* SPAllSubSongsButtonImage = nil;
 		SPShuffleButtonImage = [NSImage imageNamed:@"SIDshuffle.shuffle"];
         SPAllSubSongsButtonPressedImage = [NSImage imageNamed:@"SIDallSubSongs_pressed"];
         SPAllSubSongsButtonImage = [NSImage imageNamed:@"SIDallSubSongs"];
+        
+        SPRepeatSingleButtonPressedImage = [NSImage imageNamed:@"SIDrepeat1_button_pressed.repeat.1"];
+        SPRepeatSingleButtonImage = [NSImage imageNamed:@"SIDrepeat1_button.repeat.1"];
 
 	}
 
@@ -2029,7 +2078,8 @@ static NSImage* SPAllSubSongsButtonImage = nil;
 	[browserPlaybackModeControl setImage:(gPreferences.mRepeatActive ? SPRepeatButtonPressedImage : SPRepeatButtonImage) forSegment:1];
 	[browserPlaybackModeControl setImage:(gPreferences.mShuffleActive ? SPShuffleButtonPressedImage : SPShuffleButtonImage) forSegment:2];
     [browserPlaybackModeControl setImage:(gPreferences.mAllSubSongsActive ? SPAllSubSongsButtonPressedImage : SPAllSubSongsButtonImage) forSegment:3];
-
+    if (!gPreferences.mRepeatActive)
+        [browserPlaybackModeControl setImage:(gPreferences.mRepeatSingleActive ? SPRepeatSingleButtonPressedImage : SPRepeatButtonImage) forSegment:1];
 }
 
 

@@ -37,6 +37,7 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet SPGradientBox* boxView;
 	
 	IBOutlet NSButton* playPauseButton;
+    IBOutlet NSButton* shufflePlayButton;
 	IBOutlet NSSlider* volumeSlider;
 	IBOutlet NSSlider* tempoSlider;
 	IBOutlet SPStatusDisplayView* statusDisplay;
@@ -165,6 +166,7 @@ extern NSString* SPUrlRequestUserAgentString;
 - (int) currentSubtune;
 
 - (IBAction) clickPlayPauseButton:(id)sender;
+- (IBAction) clickShufflePlayButton:(id)sender;
 - (IBAction) clickStopButton:(id)sender;
 - (IBAction) clickFastForwardButton:(id)sender;
 - (IBAction) moveTempoSlider:(id)sender;

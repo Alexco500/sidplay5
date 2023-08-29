@@ -805,7 +805,17 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[[SPPreferencesController sharedInstance] save];
 }
 
-
+// ----------------------------------------------------------------------------
+- (IBAction) clickShufflePlayButton:(id)sender
+// ----------------------------------------------------------------------------
+{
+    gPreferences.mShuffleActive = true;
+    if (gPreferences.mShuffleActive && [browserDataSource playlist] != nil) {
+        [browserDataSource shufflePlaylist];
+        [browserDataSource startShufflePlay];
+    }
+    [browserDataSource setPlaybackModeControlImages];
+}
 // ----------------------------------------------------------------------------
 - (IBAction) clickStopButton:(id)sender
 // ----------------------------------------------------------------------------

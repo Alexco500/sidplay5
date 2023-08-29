@@ -45,6 +45,7 @@ struct Preferences
 	BOOL				mShuffleActive;
 	BOOL				mFadeActive;
 	BOOL				mRepeatActive;
+    BOOL                mRepeatSingleActive;
     BOOL                mAllSubSongsActive;
 	int					mDefaultPlayTime;
 	BOOL				mHideStilBrowserOnLinkClicked;
