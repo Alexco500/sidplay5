@@ -128,6 +128,7 @@ public:
      unsigned short	getCurrentLoadAddress();
      unsigned short	getCurrentInitAddress();
      unsigned short	getCurrentPlayAddress();
+    unsigned short getSidChips();
 	
      const char*		getCurrentFormat();
      int				getCurrentFileSize();

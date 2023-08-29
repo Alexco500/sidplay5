@@ -213,7 +213,7 @@ static const float desiredContainerWidth = 415.0f;
 		unrestrictedWindowFrame = desiredWindowFrame;
 
 		NSScreen* screen = [NSScreen mainScreen];
-		NSRect screenFrame = screen.frame;
+		//NSRect screenFrame = screen.frame;
 		NSRect screenVisibleFrame = screen.visibleFrame;
 		
 		//NSLog(@"screen: %@, visible: %@\n", NSStringFromRect(screenFrame), NSStringFromRect(screenVisibleFrame));

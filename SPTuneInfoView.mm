@@ -122,6 +122,7 @@ static const char* sRowTitles[] =
     "Author",
     "Released",
     "Songs",
+    "Used SIDs",
     "Load Address",
     "Init Address",
     "Play Address",
@@ -220,7 +221,9 @@ static const char* sRowTitles[] =
             snprintf(stringBuffer, 255, "%d (default: %d)", player->getSubtuneCount(), player->getDefaultSubtune());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "$%04x", player->getCurrentLoadAddress());
+            snprintf(stringBuffer, 255, "%d", player->getSidChips());
+            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            ypos -= rowHeight;            snprintf(stringBuffer, 255, "$%04x", player->getCurrentLoadAddress());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
             snprintf(stringBuffer, 255, "$%04x", player->getCurrentInitAddress());

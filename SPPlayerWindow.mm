@@ -394,6 +394,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 		 
 		 if (audioDriver->getIsPlaying())
          {
+             //TODO: where is that used?
              float levelVoice1 = (registers[0x04] & 0x01) ? float(registers[0x06] >> 4) / 15.0f : 0.0f;
              float levelVoice2 = (registers[0x0b] & 0x01) ? float(registers[0x0d] >> 4) / 15.0f : 0.0f;
              float levelVoice3 = (registers[0x12] & 0x01) ? float(registers[0x14] >> 4) / 15.0f : 0.0f;

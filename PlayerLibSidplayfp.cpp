@@ -768,7 +768,12 @@ const char*  PlayerLibSidplay::getCurrentReleaseInfo(void)
 unsigned short PlayerLibSidplay::getCurrentLoadAddress(void)
 {
      return mTuneInfo->loadAddr();
- }
+}
+unsigned short PlayerLibSidplay::getSidChips(void)
+{
+     return mTuneInfo->sidChips();
+}
+
 unsigned short PlayerLibSidplay::getCurrentInitAddress(void)
 {
     return mTuneInfo->initAddr();

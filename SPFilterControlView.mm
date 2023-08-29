@@ -237,8 +237,8 @@
 	NSColor* drawColor = [NSColor colorWithCalibratedWhite:0.8f	alpha:0.9f];
 	[drawColor set];
 
-	float width = bounds.size.width - 1.0f;
-	float height = bounds.size.height - 1.0f;
+	//float width = bounds.size.width - 1.0f;
+	//float height = bounds.size.height - 1.0f;
 	
     /* FIXME: filter settings
 	sid_filter_t* filterSettings = NULL;
