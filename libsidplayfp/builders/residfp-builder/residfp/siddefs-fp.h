@@ -51,7 +51,7 @@ extern "C"
 #ifndef __VERSION_CC__
 extern const char* residfp_version_string;
 #else
-const char* residfp_version_string = "2.5.0a";
+const char* residfp_version_string = "2.5.0";
 #endif
 }
 
