@@ -37,9 +37,9 @@
 #define _AUDIOQUEUEDRIVER_H_
 
 #include <CoreAudio/CoreAudio.h>
-//#include <AudioToolbox/AudioQueue.h>
-#include <CoreServices/CoreServices.h>
+#include <AudioToolbox/AudioToolbox.h>
 #include <AudioUnit/AudioUnit.h>
+#include <CoreServices/CoreServices.h>
 
 #define DEFAULT_SAMPLERATE 48000
 //#define DEFAULT_SAMPLERATE 44100
@@ -84,17 +84,11 @@ public:
 	inline int getSampleBufferSize()	{ return mSampleBufferSize; }
 	inline bool getIsInitialized()		{ return mIsInitialized; }
     
-    inline int getNumSamplesInBuffer()   { return mNumSamplesInBuffer; }
+    inline int getNumSamplesInBuffer()   { return         mNumSamplesInAudioBuffer; }
 private:
     inline float getScaleFactor()          { return mScaleFactor; }
     
 	void fillBuffer();
-    static OSStatus    MyRenderer(void                 *inRefCon,
-                           AudioUnitRenderActionFlags     *ioActionFlags,
-                           const AudioTimeStamp         *inTimeStamp,
-                           UInt32                         inBusNumber,
-                           UInt32                         inNumberFrames,
-                           AudioBufferList             *ioData);
 	bool							mIsInitialized;
 	PlayerLibSidplay*				mPlayer;
 
@@ -116,7 +110,6 @@ private:
 	float							mAudioLevel;
 	bool							mIsPlaying;
  
-    int                         mNumSamplesInBuffer;
     float                       mScaleFactor;
 
     bool                        mIsPlayingPreRenderedBuffer;
@@ -132,8 +125,24 @@ private:
     
     static const int            sBufferUnderrunLimit = 10;
 
-    int                     mSizeOfAudioBuffer;
+    // buffer handling vars
+    unsigned int        mNumSamplesInAudioBuffer;
+    unsigned int        numberOfBytesInAudioBuffer;
+    unsigned int        numberOfSamplesInAudioBuffer;
     
+    
+    // Core Audio functions
+    static OSStatus MyRenderer(void                 *inRefCon,
+                           AudioUnitRenderActionFlags     *ioActionFlags,
+                           const AudioTimeStamp         *inTimeStamp,
+                           UInt32                         inBusNumber,
+                           UInt32                         inNumberFrames,
+                           AudioBufferList             *ioData);
+    static void AUPropertyListener(void *inRefCon,
+                                   AudioUnit inUnit,
+                                   AudioUnitPropertyID inID,
+                                    AudioUnitScope inScope,
+                                    AudioUnitElement inElement);
 };
 
 

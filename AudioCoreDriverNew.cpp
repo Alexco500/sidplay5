@@ -52,18 +52,17 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
 	//printf("init core audio\n");
 
 	mPlayer = player;
-	mSampleRate = DEFAULT_SAMPLERATE; //sampleRate
-    pointerInPacket = 0;
-    mNumSamplesInBuffer = 768;
     mIsPlaying = false;
     mIsPlayingPreRenderedBuffer = false;
     mBufferUnderrunDetected = false;
     mBufferUnderrunCount = 0;
-    
     mPreRenderedBuffer = NULL;
     mPreRenderedBufferSampleCount = 0;
     mPreRenderedBufferPlaybackPosition = 0;
-    mSizeOfAudioBuffer = mNumSamplesInBuffer * sizeof(short);
+
+    mSampleRate = DEFAULT_SAMPLERATE; //sampleRate
+    mNumSamplesInAudioBuffer = 512;
+    numberOfBytesInAudioBuffer = mNumSamplesInAudioBuffer * sizeof(short);
     
 	if (!mIsInitialized)
 	{
@@ -124,14 +123,20 @@ void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, in
                                     sizeof(AudioStreamBasicDescription));
         if (err) { printf ("AudioUnitSetProperty-SF=%4.4s, %ld\n", (char*)&err, (long int)err); return; }
         
+        
+        err = AudioUnitAddPropertyListener (gOutputUnit,
+                                    kAudioUnitProperty_LastRenderError,
+                                    AUPropertyListener,
+                                            this);
+        if (err) { printf ("AudioUnitAddPropertyListener-CB=%ld\n", (long int)err); return; }
+        
         // Initialize unit
         err = AudioUnitInitialize(gOutputUnit);
         if (err) { printf ("AudioUnitInitialize=%ld\n", (long int)err); return; }
 
         // alloc sample buffer
-        mSampleBuffer = new short[mNumSamplesInBuffer];
-        memset(mSampleBuffer, 0, mSizeOfAudioBuffer);
-
+        mSampleBuffer = new short[mNumSamplesInAudioBuffer];
+        memset(mSampleBuffer, 0, numberOfBytesInAudioBuffer);
 	}
 
 	//printf("init: OK\n");		
@@ -149,87 +154,11 @@ void AudioCoreDriverNew::fillBuffer()
 	{
 		return;
 	}
-    mPlayer->fillBuffer(mSampleBuffer, mSizeOfAudioBuffer);
+    mPlayer->fillBuffer(mSampleBuffer, numberOfBytesInAudioBuffer);
+    // reset value to full buffer
+    numberOfSamplesInAudioBuffer = mNumSamplesInAudioBuffer;
 }
 
-// ________________________________________________________________________________
-//
-// Audio Unit Renderer!!!
-//
-OSStatus    AudioCoreDriverNew::MyRenderer(void     *inRefCon,
-                       AudioUnitRenderActionFlags   *ioActionFlags,
-                       const AudioTimeStamp         *inTimeStamp,
-                       UInt32                        inBusNumber,
-                       UInt32                        inNumberFrames,
-                       AudioBufferList              *ioData)
-
-{
-    // Get the info struct and a pointer to our output data
-    AudioCoreDriverNew* driverInstance = reinterpret_cast<AudioCoreDriverNew*>(inRefCon);
-    short* outBuffer    = (short*) ioData->mBuffers[0].mData;
-    short* audioBuffer = (short*) driverInstance->getSampleBuffer();
-    int bytesInCoreAudioBuffer = ioData->mBuffers[0].mDataByteSize;
-    UInt32 remainingBuffer;
-    float sample = 0.0f;
-    //CoreAdioBuffer expects 2 channels with 16-bit signed ints.
-    //so we have to divide size by 2 before we compare with our internal buffer size
-    bytesInCoreAudioBuffer = bytesInCoreAudioBuffer/2;
-    remainingBuffer = (driverInstance->mSizeOfAudioBuffer - driverInstance->pointerInPacket);
-    // point to the start of unused buffer
-    short* copyBuffer = audioBuffer + (driverInstance->pointerInPacket/sizeof(short));
-
-    if ( remainingBuffer > bytesInCoreAudioBuffer)
-    {
-        // buffer has enough unsend samples
-        // copy shorts into buffer inteleaved, libsid gives us a
-        // mono sound buffer
-        for (int i=0;i<bytesInCoreAudioBuffer;i=i+2) {
-            sample = (*copyBuffer++) * driverInstance->mVolume;
-            *outBuffer++ = (short)sample; // left
-            *outBuffer++ = (short)sample; // right
-        }
-        driverInstance->pointerInPacket += bytesInCoreAudioBuffer;
-        return noErr;
-    }
-    if ( remainingBuffer < bytesInCoreAudioBuffer)
-    {
-        // buffer has only rest of unsend samples
-        // first part
-        // copy shorts into buffer inteleaved, libsid gives us a
-        // mono sound buffer
-        for (int i=0;i<remainingBuffer;i=i+2) {
-            sample = (*copyBuffer++) * driverInstance->mVolume;
-            *outBuffer++ = (short)sample; // left
-            *outBuffer++ = (short)sample; // right
-        }
-        // second part, get new buffer
-        driverInstance->fillBuffer();
-        // reset buffer pointer
-        copyBuffer = audioBuffer;
-        for (int i=0;i<(bytesInCoreAudioBuffer-remainingBuffer);i=i+2) {
-            sample = (*copyBuffer++) * driverInstance->mVolume;
-            *outBuffer++ = (short)sample; // left
-            *outBuffer++ = (short)sample; // right
-        }
-        driverInstance->pointerInPacket = (bytesInCoreAudioBuffer-remainingBuffer);
-        return noErr;
-    }
-
-    if ( remainingBuffer == bytesInCoreAudioBuffer)
-    {
-        // copy shorts into buffer inteleaved, libsid gives us a
-        // mono sound buffer
-        for (int i=0;i<bytesInCoreAudioBuffer;i=i+2) {
-            sample = (*copyBuffer++) * driverInstance->mVolume;
-            *outBuffer++ = (short)sample; // left
-            *outBuffer++ = (short)sample; // right
-        }
-        driverInstance->fillBuffer();
-        driverInstance->pointerInPacket = 0;
-        return noErr;
-    }
-    return noErr;
-}
 
 
 // ----------------------------------------------------------------------------
@@ -245,8 +174,8 @@ bool AudioCoreDriverNew::startPlayback()
 		stopPlayback();
 		
 	mIsPlaying = true;
-    memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
-    
+    //memset(mSampleBuffer, 0, sizeof(short) * mNumSamplesInBuffer);
+    fillBuffer();
     // Start the rendering
     // The DefaultOutputUnit will do any format conversions to the format of the default device
     OSStatus err = AudioOutputUnitStart (gOutputUnit);
@@ -279,4 +208,104 @@ void AudioCoreDriverNew::setVolume(float volume)
 // ----------------------------------------------------------------------------
 {
     mVolume = volume;
+}
+
+#pragma mark Core Audio functions
+// ________________________________________________________________________________
+//
+// Audio Unit Disconnect Handler
+//
+void AudioCoreDriverNew::AUPropertyListener(void *inRefCon,
+                                                AudioUnit inUnit,
+                                                AudioUnitPropertyID inID,
+                                                AudioUnitScope inScope,
+                                                AudioUnitElement inElement)
+{
+  
+  return;
+}
+
+// ________________________________________________________________________________
+//
+// Audio Unit Renderer!!!
+//
+OSStatus    AudioCoreDriverNew::MyRenderer(void     *inRefCon,
+                       AudioUnitRenderActionFlags   *ioActionFlags,
+                       const AudioTimeStamp         *inTimeStamp,
+                       UInt32                        inBusNumber,
+                       UInt32                        inNumberFrames,
+                       AudioBufferList              *ioData)
+
+{
+    // Get the info struct and a pointer to our output data
+    AudioCoreDriverNew* driverInstance = reinterpret_cast<AudioCoreDriverNew*>(inRefCon);
+    short* outAudioBuffer = (short*) ioData->mBuffers[0].mData;
+    short* inAudioBuffer  = (short*) driverInstance->getSampleBuffer();
+    unsigned int numberOfBytesOutAudioBuffer = ioData->mBuffers[0].mDataByteSize;
+    float sample = 0.0f;
+
+    // available samples in outBuffer
+    // need to divide by 2, since we have left/right channel
+    unsigned int numberOfSamplesOutAudioBuffer = numberOfBytesOutAudioBuffer / sizeof(short) /2;
+    // set buffers...
+    short *audioOut = outAudioBuffer;
+    short *audioIn  = &inAudioBuffer[driverInstance->mNumSamplesInAudioBuffer-driverInstance->numberOfSamplesInAudioBuffer];
+    // out buffer shall be organized like sample 0, sample 0, sample 1, sample 1
+    // duplicating the samples (audio buffer, make stereo left/right out of mono
+    // we always need to fill the entire outBuffer
+    // case 1
+    if (driverInstance->numberOfSamplesInAudioBuffer > numberOfSamplesOutAudioBuffer)
+    {
+        for (int x=0;x<numberOfSamplesOutAudioBuffer;x++) {
+            sample = driverInstance->mVolume * (*audioIn++);
+            *audioOut++ = (short)sample; // left
+            *audioOut++ = (short)sample; // right
+        }
+        driverInstance->numberOfSamplesInAudioBuffer -= numberOfSamplesOutAudioBuffer;
+       // NSLog(@"Case 1: copied %d samples (%d bytes)",numberOfSamplesOutAudioBuffer,numberOfBytesOutAudioBuffer);
+    } else
+    // case 2
+    if (driverInstance->numberOfSamplesInAudioBuffer < numberOfSamplesOutAudioBuffer)
+    {
+        int numberOfSamplesToCopy = numberOfSamplesOutAudioBuffer;
+        int tempSampleCopy = driverInstance->numberOfSamplesInAudioBuffer;
+        while (numberOfSamplesToCopy >0 ) {
+            for (int x=0;x<tempSampleCopy;x++) {
+                sample = driverInstance->mVolume * (*audioIn++);
+                *audioOut++ = (short)sample; // left
+                *audioOut++ = (short)sample; // right
+            }
+            // entire in buffer was copied?
+            if (tempSampleCopy == driverInstance->numberOfSamplesInAudioBuffer) {
+                //fill buffer up with fresh samples
+                driverInstance->fillBuffer();
+                audioIn  = inAudioBuffer;
+            } else
+                driverInstance->numberOfSamplesInAudioBuffer -= tempSampleCopy;
+            //NSLog(@"Case 2: copied %d samples.",tempSampleCopy);
+ 
+            //numberOfBytesInAudioBuffer = sizeof(short) * numberOfSamplesInAudioBuffer;
+            numberOfSamplesToCopy -= tempSampleCopy;
+            if (numberOfSamplesToCopy >= driverInstance->numberOfSamplesInAudioBuffer)
+                tempSampleCopy = driverInstance->numberOfSamplesInAudioBuffer;
+            else
+                tempSampleCopy = numberOfSamplesToCopy;
+        }
+    } else
+    //case 3
+    if (driverInstance->numberOfSamplesInAudioBuffer == numberOfSamplesOutAudioBuffer)
+    {
+        for (int x=0;x<numberOfSamplesOutAudioBuffer;x++) {
+            sample = driverInstance->mVolume * (*audioIn++);
+            *audioOut++ = (short)sample; // left
+            *audioOut++ = (short)sample; // right
+        }
+        //fill buffer up with fresh samples
+        driverInstance->fillBuffer();
+        //audioIn  = inAudioBuffer;
+        //NSLog(@"Case 3: copied %d samples (%d bytes)",numberOfSamplesOutAudioBuffer,numberOfBytesOutAudioBuffer);
+    }
+
+
+    return noErr;
 }
