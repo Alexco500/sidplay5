@@ -66,7 +66,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		psid64Task = nil;
 		
 		player = new PlayerLibSidplay;
-		
+        player->initEmuEngine(&gPreferences.mPlaybackSettings);
 		exportItem = item;
 
 		title = [item title];
