@@ -185,6 +185,18 @@
 		DA17E57F2A050B7700419CB8 /* SidTuneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5712A050B7700419CB8 /* SidTuneInfo.cpp */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DA557D522AC6E9F000C02288 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
+		DA557D562AC6E9F000C02288 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA557D552AC6E9F000C02288 /* PreviewViewController.m */; };
+		DA557D592AC6E9F000C02288 /* PreviewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = DA557D582AC6E9F000C02288 /* PreviewProvider.m */; };
+		DA557D5C2AC6E9F000C02288 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA557D5A2AC6E9F000C02288 /* PreviewViewController.xib */; };
+		DA557D612AC6E9F000C02288 /* SIDTuneViewer.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA557D512AC6E9F000C02288 /* SIDTuneViewer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DA557D672AC720CC00C02288 /* PlayerWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA557D662AC720CC00C02288 /* PlayerWrapper.mm */; };
+		DA557D692AC80E8300C02288 /* libsidplayfp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA17E5262A04F5F200419CB8 /* libsidplayfp.a */; };
+		DA557D6A2AC80F2E00C02288 /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; };
+		DA557D6D2ACAB6A300C02288 /* PVScopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA557D6C2ACAB6A300C02288 /* PVScopeView.m */; };
+		DA557D6E2ACAF62300C02288 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
+		DA557D6F2ACAF64700C02288 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EFB2A2674580096847B /* AudioUnit.framework */; };
+		DA557D702ACAF64F00C02288 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF02A178FE00096847B /* CoreAudio.framework */; };
 		DA59B0BE2A05223D00233549 /* c64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3022A04F36000419CB8 /* c64.cpp */; };
 		DA59B0BF2A05224100233549 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3072A04F36000419CB8 /* mmu.cpp */; };
 		DA59B0C02A05224900233549 /* SerialPort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3102A04F36000419CB8 /* SerialPort.cpp */; };
@@ -228,6 +240,13 @@
 			remoteGlobalIDString = DA17E5252A04F5F200419CB8;
 			remoteInfo = sidplayfp;
 		};
+		DA557D5F2AC6E9F000C02288 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA557D502AC6E9F000C02288;
+			remoteInfo = SIDTuneViewer;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -240,6 +259,17 @@
 				1F723C7F1BBC8F8800D69348 /* SIDMusic.mdimporter in Copy Spotlight Plugin */,
 			);
 			name = "Copy Spotlight Plugin";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA557D622AC6E9F000C02288 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DA557D612AC6E9F000C02288 /* SIDTuneViewer.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DAB81A27286870160075CB8E /* Embed Frameworks */ = {
@@ -644,6 +674,18 @@
 		DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMD5SongLengthDatabase.h; sourceTree = "<group>"; };
 		DA212D4F27F70C1F00038CDE /* StringAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringAddons.m; sourceTree = "<group>"; };
 		DA212D5027F70C1F00038CDE /* StringAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringAddons.h; sourceTree = "<group>"; };
+		DA557D512AC6E9F000C02288 /* SIDTuneViewer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SIDTuneViewer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA557D542AC6E9F000C02288 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		DA557D552AC6E9F000C02288 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		DA557D572AC6E9F000C02288 /* PreviewProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewProvider.h; sourceTree = "<group>"; };
+		DA557D582AC6E9F000C02288 /* PreviewProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewProvider.m; sourceTree = "<group>"; };
+		DA557D5B2AC6E9F000C02288 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewViewController.xib; sourceTree = "<group>"; };
+		DA557D5D2AC6E9F000C02288 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA557D5E2AC6E9F000C02288 /* SIDTuneViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SIDTuneViewer.entitlements; sourceTree = "<group>"; };
+		DA557D662AC720CC00C02288 /* PlayerWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayerWrapper.mm; sourceTree = "<group>"; };
+		DA557D682AC720F300C02288 /* PlayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerWrapper.h; sourceTree = "<group>"; };
+		DA557D6B2ACAB6A300C02288 /* PVScopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVScopeView.h; sourceTree = "<group>"; };
+		DA557D6C2ACAB6A300C02288 /* PVScopeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVScopeView.m; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = SIDBlaster/libftd2xx.dylib; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -697,6 +739,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA557D4E2AC6E9F000C02288 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA557D702ACAF64F00C02288 /* CoreAudio.framework in Frameworks */,
+				DA557D6F2ACAF64700C02288 /* AudioUnit.framework in Frameworks */,
+				DA557D6A2AC80F2E00C02288 /* libftd2xx.dylib in Frameworks */,
+				DA557D692AC80E8300C02288 /* libsidplayfp.a in Frameworks */,
+				DA557D522AC6E9F000C02288 /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -739,6 +793,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* SIDPLAY.app */,
 				DA17E5262A04F5F200419CB8 /* libsidplayfp.a */,
+				DA557D512AC6E9F000C02288 /* SIDTuneViewer.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -978,6 +1033,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				1F4BC54E0DFEFFB30077CB56 /* ThirdPartySources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				DA557D532AC6E9F000C02288 /* SIDTuneViewer */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				1FBAFB020CEF9998006CD6A5 /* MD Importer */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -1402,6 +1458,24 @@
 			path = libsidplayfp/sidplayfp;
 			sourceTree = "<group>";
 		};
+		DA557D532AC6E9F000C02288 /* SIDTuneViewer */ = {
+			isa = PBXGroup;
+			children = (
+				DA557D542AC6E9F000C02288 /* PreviewViewController.h */,
+				DA557D552AC6E9F000C02288 /* PreviewViewController.m */,
+				DA557D572AC6E9F000C02288 /* PreviewProvider.h */,
+				DA557D582AC6E9F000C02288 /* PreviewProvider.m */,
+				DA557D5A2AC6E9F000C02288 /* PreviewViewController.xib */,
+				DA557D5D2AC6E9F000C02288 /* Info.plist */,
+				DA557D5E2AC6E9F000C02288 /* SIDTuneViewer.entitlements */,
+				DA557D662AC720CC00C02288 /* PlayerWrapper.mm */,
+				DA557D682AC720F300C02288 /* PlayerWrapper.h */,
+				DA557D6B2ACAB6A300C02288 /* PVScopeView.h */,
+				DA557D6C2ACAB6A300C02288 /* PVScopeView.m */,
+			);
+			path = SIDTuneViewer;
+			sourceTree = "<group>";
+		};
 		DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1450,12 +1524,14 @@
 				DAB81A27286870160075CB8E /* Embed Frameworks */,
 				DAB81A2828689CFB0075CB8E /* CopyFiles */,
 				DA6570C92869ABA70086C126 /* ShellScript */,
+				DA557D622AC6E9F000C02288 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				DA17E5552A04FF8500419CB8 /* PBXTargetDependency */,
 				1F723C7E1BBC8F6900D69348 /* PBXTargetDependency */,
+				DA557D602AC6E9F000C02288 /* PBXTargetDependency */,
 			);
 			name = SIDPLAY;
 			productInstallPath = "$(HOME)/Applications";
@@ -1480,6 +1556,23 @@
 			productReference = DA17E5262A04F5F200419CB8 /* libsidplayfp.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DA557D502AC6E9F000C02288 /* SIDTuneViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA557D652AC6E9F000C02288 /* Build configuration list for PBXNativeTarget "SIDTuneViewer" */;
+			buildPhases = (
+				DA557D4D2AC6E9F000C02288 /* Sources */,
+				DA557D4E2AC6E9F000C02288 /* Frameworks */,
+				DA557D4F2AC6E9F000C02288 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SIDTuneViewer;
+			productName = SIDTuneViewer;
+			productReference = DA557D512AC6E9F000C02288 /* SIDTuneViewer.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1489,6 +1582,9 @@
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					DA17E5252A04F5F200419CB8 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					DA557D502AC6E9F000C02288 = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
 				};
@@ -1513,6 +1609,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* SIDPLAY */,
 				DA17E5252A04F5F200419CB8 /* sidplayfp */,
+				DA557D502AC6E9F000C02288 /* SIDTuneViewer */,
 			);
 		};
 /* End PBXProject section */
@@ -1585,6 +1682,14 @@
 				1FEB2D000FB724B600AD9F79 /* remixRating3.png in Resources */,
 				1FEB2D010FB724B600AD9F79 /* remixRating1.png in Resources */,
 				1FEB2D020FB724B600AD9F79 /* remixRating6.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA557D4F2AC6E9F000C02288 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA557D5C2AC6E9F000C02288 /* PreviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1746,6 +1851,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA557D4D2AC6E9F000C02288 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA557D562AC6E9F000C02288 /* PreviewViewController.m in Sources */,
+				DA557D592AC6E9F000C02288 /* PreviewProvider.m in Sources */,
+				DA557D672AC720CC00C02288 /* PlayerWrapper.mm in Sources */,
+				DA557D6D2ACAB6A300C02288 /* PVScopeView.m in Sources */,
+				DA557D6E2ACAF62300C02288 /* AudioCoreDriverNew.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1758,6 +1875,11 @@
 			isa = PBXTargetDependency;
 			target = DA17E5252A04F5F200419CB8 /* sidplayfp */;
 			targetProxy = DA17E5542A04FF8500419CB8 /* PBXContainerItemProxy */;
+		};
+		DA557D602AC6E9F000C02288 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA557D502AC6E9F000C02288 /* SIDTuneViewer */;
+			targetProxy = DA557D5F2AC6E9F000C02288 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1808,6 +1930,14 @@
 				DA9BC69527E88A2E0027C659 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		DA557D5A2AC6E9F000C02288 /* PreviewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA557D5B2AC6E9F000C02288 /* Base */,
+			);
+			name = PreviewViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1955,6 +2085,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1996,13 +2127,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/libsidplay2/include",
-					"$(SRCROOT)/libsidplay2/include/sidplay",
-					"$(SRCROOT)/libsidplay2/include/sidplay/builders",
-					"$(SRCROOT)/libsidplay2/xsid",
-					"$(SRCROOT)/libsidplay2/resid",
-					"$(SRCROOT)/libsidplay2",
-					"$(SRCROOT)/SIDBlaster",
+					"$(SRCROOT)/libsidplayfp",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/sidplayfp",
+					"$(SRCROOT)/libsidplayfp/sidtune",
+					"$(SRCROOT)/libsidplayfp/utils",
+					"$(SRCROOT)/libsidplayfp/utils/MD5",
+					"$(SRCROOT)/libsidplayfp/utils/STILview",
+					"$(SRCROOT)/sidblasterUSB",
 					"$(SRCROOT)/songlength",
 					"$(SRCROOT)/",
 				);
@@ -2018,6 +2151,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2059,13 +2193,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/libsidplay2/include",
-					"$(SRCROOT)/libsidplay2/include/sidplay",
-					"$(SRCROOT)/libsidplay2/include/sidplay/builders",
-					"$(SRCROOT)/libsidplay2/xsid",
-					"$(SRCROOT)/libsidplay2/resid",
-					"$(SRCROOT)/libsidplay2",
-					"$(SRCROOT)/SIDBlaster",
+					"$(SRCROOT)/libsidplayfp",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/sidplayfp",
+					"$(SRCROOT)/libsidplayfp/sidtune",
+					"$(SRCROOT)/libsidplayfp/utils",
+					"$(SRCROOT)/libsidplayfp/utils/MD5",
+					"$(SRCROOT)/libsidplayfp/utils/STILview",
+					"$(SRCROOT)/sidblasterUSB",
 					"$(SRCROOT)/songlength",
 					"$(SRCROOT)/",
 				);
@@ -2184,6 +2320,112 @@
 			};
 			name = Release;
 		};
+		DA557D632AC6E9F000C02288 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SIDTuneViewer/SIDTuneViewer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 10;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SIDTuneViewer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SIDTuneViewer;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SIDBlaster",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MARKETING_VERSION = 5.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay.SIDTuneViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		DA557D642AC6E9F000C02288 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SIDTuneViewer/SIDTuneViewer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 10;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SIDTuneViewer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SIDTuneViewer;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SIDBlaster",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MARKETING_VERSION = 5.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-ffast-math",
+					"-fno-exceptions",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay.SIDTuneViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2210,6 +2452,15 @@
 			buildConfigurations = (
 				DA17E5282A04F5F200419CB8 /* Debug */,
 				DA17E5292A04F5F200419CB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA557D652AC6E9F000C02288 /* Build configuration list for PBXNativeTarget "SIDTuneViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA557D632AC6E9F000C02288 /* Debug */,
+				DA557D642AC6E9F000C02288 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

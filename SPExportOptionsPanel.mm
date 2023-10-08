@@ -182,14 +182,26 @@
 	NSTextField* textField = sender != nil ? sender : timeTextField;
 	
 	NSString* timeString = textField.stringValue;
-	if (timeString.length == 5 && [timeString characterAtIndex:2] == ':')
+    // fixes export length issue
+	if (timeString.length > 1)
 	{
-		NSString* minutesString = [timeString substringToIndex:2];
-		NSString* secondsString = [timeString substringFromIndex:3];
-
-		int minutes = minutesString.intValue;
-		int seconds = secondsString.intValue;
-		
+        NSArray *timeArray = [timeString componentsSeparatedByString:@":"];
+        int cnt = (int) [timeArray count];
+        NSString* minutesString;
+        NSString* secondsString;
+        int minutes = 0, seconds = 0;
+        switch (cnt) {
+            case 2:
+                minutesString = [timeArray objectAtIndex:0];
+                secondsString = [timeArray objectAtIndex:1];
+                minutes = minutesString.intValue;
+                seconds = secondsString.intValue;
+                break;
+            default:
+                minutes = 0;
+                seconds = 0;
+                break;
+        }
 		NSUInteger timeInSeconds = minutes * 60 + seconds;
 		exportSettings.mTimeInSeconds = timeInSeconds;
 		timeStepper.integerValue = timeInSeconds;
