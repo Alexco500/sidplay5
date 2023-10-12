@@ -40,8 +40,10 @@
 // local module header
 #include "PlayerLibSidplay.h"
 
+#ifndef NO_USB_SUPPORT
 // SIDBlaster USB support
 #include "hardsidsb.h"
+#endif
 
 // bins
 #include "bin/c.h"
@@ -115,7 +117,9 @@ PlayerLibSidplay::PlayerLibSidplay() :
 	mCurrentTempo(50),
 	mPreviousOversamplingFactor(0),
 	mOversamplingBuffer(NULL),
+#ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder(NULL),
+#endif
     mBuilder_reSID(NULL),
     mExtUSBDeviceActive(false)
 {
@@ -138,13 +142,14 @@ PlayerLibSidplay::~PlayerLibSidplay()
 		delete mBuilder;
 		mBuilder = NULL;
 	}
+#ifndef NO_USB_SUPPORT
     if (mSIDBlasterUSBbuilder)
     {
         delete mSIDBlasterUSBbuilder;
         mSIDBlasterUSBbuilder = NULL;
         mExtUSBDeviceActive = false;
     }
-	
+#endif
 	if (mSidEmuEngine)
 	{
 		delete mSidEmuEngine;
@@ -206,6 +211,7 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     if (mBuilder_reSID == NULL)
         mBuilder_reSID = new ReSIDBuilder("reSID");
 
+#ifndef NO_USB_SUPPORT
     // Set up a SIDblasterUSB builder
     if (mSIDBlasterUSBbuilder != NULL) {
         delete mSIDBlasterUSBbuilder;
@@ -214,7 +220,7 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     if (mSIDBlasterUSBbuilder == NULL) {
         mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
     }
-
+#endif
 
     if (mAudioDriver)
 		settings->mFrequency = mAudioDriver->getSampleRate();
@@ -311,6 +317,7 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     // Create SID emulators
     mBuilder->create(maxsids);
     mBuilder_reSID->create(maxsids);
+#ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder->create(maxsids);
     
     int count  = mSIDBlasterUSBbuilder->availDevices();
@@ -322,7 +329,9 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
         cfg.sidEmulation = mSIDBlasterUSBbuilder;
         mExtUSBDeviceActive = true;
     }
-    
+#else
+    mExtUSBDeviceActive = false;
+#endif
    // Check if builder is ok
    if (!mBuilder->getStatus())
    {
@@ -405,7 +414,7 @@ bool PlayerLibSidplay::initSIDTune(PlaybackSettings* settings)
 		mSidTune = NULL;
 		return false;
 	}
-
+#ifndef NO_USB_SUPPORT
 	//printf("setting sid tune info\n");
     if (mSIDBlasterUSBbuilder) {
         libsidplayfp::SidTuneInfoImpl *mSidInfo = (libsidplayfp::SidTuneInfoImpl *)mSidTune->getInfo();
@@ -421,6 +430,7 @@ bool PlayerLibSidplay::initSIDTune(PlaybackSettings* settings)
                 break;
         }
     }
+#endif
 	setupSIDInfo();
 
 	return true;
@@ -439,9 +449,12 @@ bool PlayerLibSidplay::playTuneByPath(const char* filename, int subtune, Playbac
 	//printf("load returned: %d\n", success);
 	
     if (success) {
+#ifndef NO_USB_SUPPORT
+
         if (mSIDBlasterUSBbuilder) {
             mSIDBlasterUSBbuilder->reset(0x0f);
         }
+#endif
         mAudioDriver->startPlayback();
     }
 	return success;
@@ -459,9 +472,11 @@ bool PlayerLibSidplay::playTuneFromBuffer(char* buffer, int length, int subtune,
 	bool success = loadTuneFromBuffer(buffer, length, subtune, settings);
 
     if (success) {
+#ifndef NO_USB_SUPPORT
         if (mSIDBlasterUSBbuilder) {
             mSIDBlasterUSBbuilder->reset(0x0f);
         }
+#endif
         mAudioDriver->startPlayback();
     }
 	return success;

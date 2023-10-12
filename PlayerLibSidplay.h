@@ -11,8 +11,9 @@ class ReSIDfpBuilder;
 class ReSIDBuilder;
 class SidTune;
 class SidTuneInfo;
+#ifndef NO_USB_SUPORT
 class HardSIDSBBuilder;
-
+#endif
 typedef int_fast64_t event_clock_t;
 
 enum SPFilterType
@@ -161,7 +162,9 @@ private:
     ReSIDfpBuilder*		mBuilder;
     ReSIDBuilder*       mBuilder_reSID;
     // SIDblaster USB
+#ifndef NO_USB_SUPORT
     HardSIDSBBuilder*   mSIDBlasterUSBbuilder;
+#endif
     bool                mExtUSBDeviceActive;
     
     SidTuneInfo*		mTuneInfo;

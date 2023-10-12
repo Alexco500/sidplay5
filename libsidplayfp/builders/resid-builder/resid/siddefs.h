@@ -20,7 +20,7 @@
 #ifndef RESID_SIDDEFS_H
 #define RESID_SIDDEFS_H
 
-#define VERSION "1.0.0-VICE"
+#define RVERSION "2.5.0"
 
 // Compilation configuration.
 #define RESID_INLINING 1
@@ -89,7 +89,7 @@ extern "C"
 #ifndef RESID_VERSION_CC
 extern const char* resid_version_string;
 #else
-const char* resid_version_string = VERSION;
+const char* resid_version_string = RVERSION;
 #endif
 }
 

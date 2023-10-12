@@ -570,7 +570,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	outputBufferList.mNumberBuffers = inputFormat.mChannelsPerFrame;
 	outputBufferList.mBuffers[0].mData = renderBuffer;
 	outputBufferList.mBuffers[0].mDataByteSize = renderBufferSize;
-	
+    player->initCurrentSubtune();
     // loop until stopped from an external event, or finished the entire extraction
 	while (!exportStopped)
 	{

@@ -1,10 +1,10 @@
+//
+//  hardsidsb-builderObjC.mm
+//  SIDBlaster Builder
+//
+//  Created by Alexander Coers on 08.05.23.
+//
 /*
- * This file is part of libsidplayfp, a SID player engine.
- *
- * Copyright 2011-2013 Leandro Nini <drfiemost@users.sourceforge.net>
- * Copyright 2007-2010 Antti Lankila
- * Copyright 2001 Simon White
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -20,9 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "hardsidsb.h"
-
-#include "sidcxx11.h"
+#import <Foundation/Foundation.h>
 
 #include <cstring>
 #include <string>
@@ -30,8 +28,9 @@
 #include <sstream>
 #include <algorithm>
 #include <new>
-#import <Foundation/Foundation.h>
 
+#include "hardsidsb.h"
+#include "sidcxx11.h"
 #include "hardsidsb-emuObjC.h"
 
 

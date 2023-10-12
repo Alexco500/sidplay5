@@ -997,7 +997,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="uZp-yr-OUR">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" indentationPerLevel="14" outlineTableColumn="475" id="473" customClass="SPSourceListView">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
@@ -1051,7 +1051,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Lau-qN-6GF">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="SidPlayBrowser" rowHeight="15" headerView="460" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="461" id="459" customClass="SPBrowserView">
                                                     <rect key="frame" x="0.0" y="0.0" width="832" height="582"/>
@@ -2320,6 +2320,7 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="28" y="-260"/>
         </menu>
         <menu title="Playlist Table Column Context Menu" id="1139">
             <items>
