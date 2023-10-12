@@ -286,8 +286,8 @@
 		DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */; };
 		DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */; };
 		DAE237642AD851C800418090 /* SIDBlaster.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */; };
-		DAE237652AD8725000418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
-		DAE237662AD8725100418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
+		DAE2376A2AD895C100418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
+		DAE2376B2AD895C200418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1928,7 +1928,7 @@
 				DA056EDF2A177F1F0096847B /* wave.cc in Sources */,
 				DA17E5792A050B7700419CB8 /* sidbuilder.cpp in Sources */,
 				DA17E5462A04F78C00419CB8 /* psiddrv.cpp in Sources */,
-				DAE237652AD8725000418090 /* filter8580new.cc in Sources */,
+				DAE2376A2AD895C100418090 /* filter8580new.cc in Sources */,
 				DA59B0C22A05224900233549 /* interrupt.cpp in Sources */,
 				DA17E5482A04F79E00419CB8 /* SidTuneBase.cpp in Sources */,
 				DA17E5332A04F70E00419CB8 /* FilterModelConfig8580.cpp in Sources */,
@@ -1991,8 +1991,8 @@
 				DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */,
 				DAE237442AD7E23900418090 /* mos6510debug.cpp in Sources */,
 				DAE237212AD7E16500418090 /* SidTune.cpp in Sources */,
-				DAE237662AD8725100418090 /* filter8580new.cc in Sources */,
 				DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */,
+				DAE2376B2AD895C200418090 /* filter8580new.cc in Sources */,
 				DAE237432AD7E23500418090 /* mos6510.cpp in Sources */,
 				DAE2374D2AD7E26300418090 /* mixer.cpp in Sources */,
 				DAE2373D2AD7E21100418090 /* FilterModelConfig8580.cpp in Sources */,
@@ -2421,6 +2421,7 @@
 					"DEBUG=1",
 					HAVE_CONFIG_H,
 					NO_USB_SUPPORT,
+					NEW_8580_FILTER,
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2476,6 +2477,8 @@
 					HAVE_CONFIG_H,
 					"RESID_DISTORTION_PATCH___NO",
 					NO_USB_SUPPORT,
+					NEW_8580_FILTER,
+					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -2641,6 +2644,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					HAVE_CONFIG_H,
+					NEW_8580_FILTER,
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2675,6 +2679,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_CONFIG_H,
 					"RESID_DISTORTION_PATCH___NO",
+					NEW_8580_FILTER,
+					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
