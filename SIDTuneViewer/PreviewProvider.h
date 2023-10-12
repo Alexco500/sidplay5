@@ -19,6 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#ifndef PREVIEW_PROVIDER_H
+#define PREVIEW_PROVIDER_H
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
@@ -26,3 +28,4 @@ API_AVAILABLE(macos(12.0))
 @interface PreviewProvider : QLPreviewProvider <QLPreviewingController>
 
 @end
+#endif

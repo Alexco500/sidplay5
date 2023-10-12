@@ -19,7 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+#ifndef PVSCOPE_VIEW_H
+#define PVSCOPE_VIEW_H
 #import <Cocoa/Cocoa.h>
 #import "PlayerWrapper.h"
 NS_ASSUME_NONNULL_BEGIN
@@ -33,3 +34,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 NS_ASSUME_NONNULL_END
+#endif

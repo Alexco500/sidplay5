@@ -19,6 +19,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#ifndef PREVIEW_VIEW_CONTROLLER_H
+#define PREVIEW_VIEW_CONTROLLER_H
 #import <Cocoa/Cocoa.h>
 #import "PlayerWrapper.h"
 #import "PVScopeView.h"
@@ -35,3 +37,4 @@
 }
 -(void)updateScopeView;
 @end
+#endif
