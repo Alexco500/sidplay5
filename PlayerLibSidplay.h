@@ -159,8 +159,10 @@ private:
 
 	sidplayfp*			mSidEmuEngine;
     SidTune*			mSidTune;
-    ReSIDfpBuilder*		mBuilder;
-    ReSIDBuilder*       mBuilder_reSID;
+    std::unique_ptr<ReSIDfpBuilder> mBuilder;
+    //ReSIDfpBuilder*		mBuilder;
+    std::unique_ptr<ReSIDBuilder> mBuilder_reSID;
+    //ReSIDBuilder*       mBuilder_reSID;
     // SIDblaster USB
 #ifndef NO_USB_SUPORT
     HardSIDSBBuilder*   mSIDBlasterUSBbuilder;

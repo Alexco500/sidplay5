@@ -107,7 +107,7 @@ PlayerLibSidplay::PlayerLibSidplay() :
 // ----------------------------------------------------------------------------
 	mSidEmuEngine(NULL),
 	mSidTune(NULL),
-	mBuilder(NULL),
+	//mBuilder(NULL),
     mTuneInfo(NULL),
 	mAudioDriver(NULL),
 	mTuneLength(0),
@@ -120,7 +120,7 @@ PlayerLibSidplay::PlayerLibSidplay() :
 #ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder(NULL),
 #endif
-    mBuilder_reSID(NULL),
+    //mBuilder_reSID(NULL),
     mExtUSBDeviceActive(false)
 {
 
@@ -139,9 +139,16 @@ PlayerLibSidplay::~PlayerLibSidplay()
 	
 	if (mBuilder)
 	{
-		delete mBuilder;
-		mBuilder = NULL;
+		//delete mBuilder;
+        mBuilder.release();
+        mBuilder = NULL;
 	}
+    if (mBuilder_reSID)
+    {
+        //delete mBuilder;
+        mBuilder_reSID.release();
+        mBuilder_reSID = NULL;
+    }
 #ifndef NO_USB_SUPPORT
     if (mSIDBlasterUSBbuilder)
     {
@@ -206,10 +213,10 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 
     // Set up a SID builder
 	if (mBuilder == NULL)
-        mBuilder = new ReSIDfpBuilder("reSIDfp");
+         mBuilder = std::unique_ptr<ReSIDfpBuilder> (new ReSIDfpBuilder("reSIDfp"));
     
     if (mBuilder_reSID == NULL)
-        mBuilder_reSID = new ReSIDBuilder("reSID");
+        mBuilder_reSID = std::unique_ptr<ReSIDBuilder>(new ReSIDBuilder("reSID"));
 
 #ifndef NO_USB_SUPPORT
     // Set up a SIDblasterUSB builder
@@ -221,6 +228,8 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
         mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
     }
 #endif
+    // set bins
+    mSidEmuEngine->setRoms(kernalr, basicr, charr);
 
     if (mAudioDriver)
 		settings->mFrequency = mAudioDriver->getSampleRate();
@@ -266,11 +275,11 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 
 	if (mCurrentTempo > 70)
 		cfg.optimisation  = SID2_MAX_OPTIMISATION;
-     */
-    cfg.frequency      = mPlaybackSettings.mFrequency;
+
     // * mPlaybackSettings.mOversampling;
 	//printf("optimization: %d\n", cfg.optimisation);
-
+     */
+    
     if (!mPlaybackSettings.SIDselectorOverrideActive) {
         if (mPlaybackSettings.mSidModel == 0)
             cfg.defaultSidModel    = SidConfig::MOS6581;
@@ -298,19 +307,10 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
             
     }
 //	cfg.sidEmulation  = mBuilder;
-    cfg.sidEmulation  = mBuilder_reSID;
-        
 //	cfg.sidSamples	  = true;
 //	cfg.sampleFormat  = SID2_BIG_UNSIGNED;
-    cfg.frequency = 48000;
-    cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
-    cfg.fastSampling = false;
-    cfg.playback = SidConfig::MONO;
 //	setFilterSettingsFromPlaybackSettings(mFilterSettings, settings);
 	
-    mBuilder_reSID->filter(true);
-    mBuilder_reSID->bias(bias);
-	// setup resid
     // Get the number of SIDs supported by the engine
     unsigned int maxsids = (mSidEmuEngine->info()) .maxsids();
 
@@ -345,13 +345,19 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
         return;
     }
     
-    // set bins
-    mSidEmuEngine->setRoms(kernalr, basicr, charr);
-		
+    mBuilder_reSID->filter(true);
+    mBuilder_reSID->bias(bias);
+
 	mBuilder->filter(false);
 //	mBuilder->filter(&mFilterSettings);
 //	mBuilder->sampling(cfg.frequency);
-	
+
+    cfg.sidEmulation   = mBuilder_reSID.get();
+    cfg.frequency      = mPlaybackSettings.mFrequency;
+    cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
+    cfg.fastSampling   = false;
+    cfg.playback       = SidConfig::MONO;
+
 	bool rc = mSidEmuEngine->config(cfg);
 	if (!rc)
 		printf("configure error: %s\n", mSidEmuEngine->error());
