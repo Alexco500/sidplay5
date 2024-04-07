@@ -16,7 +16,7 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>SIDMusic</string>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -25,6 +25,8 @@
 	<string>6.0</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+    <key>CFBundleName</key>
+    <string>${PRODUCT_NAME}</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
@@ -48,9 +50,11 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.audio</string>
-				<string>public.audiovisual-content</string>
-				<string>public.content</string>
+                <string>public.data</string>
+                <string>public.audio</string>
+                <string>public.audiovisual-content</string>
+                <string>public.content</string>
+                <string>public.message</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>SID tune</string>
