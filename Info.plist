@@ -25,6 +25,8 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.sidmusic.sidtune</string>
@@ -43,6 +45,8 @@
 			<string>PRG file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -55,18 +59,27 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.audio</string>
+				<string>public.audiovisual-content</string>
+				<string>public.content</string>
 				<string>public.message</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>SID tune</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.sidmusic.sidtune</string>
-			<key>UTTypeDescription</key>
-			<string>SID music file</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sidmusic.org/sidplay/mac/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>com.apple.ostype</key>
+				<string>PSID</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>sid</string>
 				</array>
+				<key>public.mime-type</key>
+				<string>audio/prs.sid</string>
 			</dict>
 		</dict>
 	</array>
@@ -75,7 +88,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SIDPLAY</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Version 5.1, Copyright 2022-2023 Alexander Coers</string>
+	<string>Version 5.1, Copyright 2022-2024 Alexander Coers</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
