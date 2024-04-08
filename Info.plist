@@ -30,6 +30,8 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.sidmusic.sidtune</string>
+				<string>pl.rabidus.retrodebugger.sid</string>
+				<string>com.yoyofr.modizer.sid</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -83,8 +85,43 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>pl.rabidus.retrodebugger.sid</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sid</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.yoyofr.modizer.sid</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sid</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string></string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>SIDPLAY</string>
 	<key>CFBundleGetInfoString</key>
@@ -93,8 +130,6 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
