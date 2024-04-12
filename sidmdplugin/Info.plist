@@ -12,6 +12,9 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.sidmusic.sidtune</string>
+				<string>pl.rabidus.retrodebugger.sid</string>
+				<string>com.yoyofr.modizer.sid</string>
+
 			</array>
 		</dict>
 	</array>
@@ -45,7 +48,7 @@
 	</dict>
 	<key>CFPlugInUnloadFunction</key>
 	<string></string>
-	<key>UTExportedTypeDeclarations</key>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>

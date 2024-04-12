@@ -24,12 +24,41 @@
 				<string>PSID</string>
 			</array>
 			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.sidmusic.sidtune</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>sid</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>psid.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>audio/prs.sid</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>PSID music file</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>PSID</string>
+			</array>
+			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.sidmusic.sidtune</string>
 				<string>pl.rabidus.retrodebugger.sid</string>
 				<string>com.yoyofr.modizer.sid</string>
 			</array>
@@ -38,6 +67,7 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
+
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>

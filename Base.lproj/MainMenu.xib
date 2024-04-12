@@ -50,7 +50,7 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wa6-OR-hu8" userLabel="Enable 6">
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="wa6-OR-hu8" userLabel="Enable 6">
                             <rect key="frame" x="184" y="7" width="18" height="18"/>
                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="QLj-pM-NUW">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -98,7 +98,7 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IKb-UT-QDW" userLabel="Enable 8">
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="IKb-UT-QDW" userLabel="Enable 8">
                             <rect key="frame" x="184" y="7" width="18" height="18"/>
                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="90l-Fb-o9D">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -160,8 +160,8 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5qH-He-bBh" userLabel="Ext1">
-                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="5qH-He-bBh" userLabel="Ext1">
+                            <rect key="frame" x="184" y="-1" width="18" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="14" id="1Yn-bX-aqc"/>
                             </constraints>
@@ -209,8 +209,8 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qmu-Vl-O89" userLabel="Ext2">
-                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Qmu-Vl-O89" userLabel="Ext2">
+                            <rect key="frame" x="184" y="-1" width="18" height="34"/>
                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="RsS-QH-eJb">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -255,8 +255,8 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QxF-cC-7uf" userLabel="Ext3">
-                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="QxF-cC-7uf" userLabel="Ext3">
+                            <rect key="frame" x="184" y="-1" width="18" height="34"/>
                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="6bG-DK-HVZ">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -301,8 +301,8 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="llx-Zi-CYz" userLabel="Ext4">
-                            <rect key="frame" x="184" y="15" width="18" height="18"/>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="llx-Zi-CYz" userLabel="Ext4">
+                            <rect key="frame" x="184" y="-1" width="18" height="34"/>
                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="only" inset="2" id="APX-sX-hUe">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -978,7 +978,7 @@
                                                         <action selector="syncCurrentCollection:" target="493" id="843"/>
                                                     </connections>
                                                 </button>
-                                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-xi-M8X">
+                                                <button focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sbp-xi-M8X">
                                                     <rect key="frame" x="103" y="4" width="32" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SIDchip.memorchip" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyUpOrDown" inset="2" id="9E8-YB-hr6">
@@ -1050,11 +1050,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Lau-qN-6GF">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="605"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="590"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="SidPlayBrowser" rowHeight="15" headerView="460" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="461" id="459" customClass="SPBrowserView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="832" height="582"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="832" height="567"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1179,7 +1179,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="458">
-                                            <rect key="frame" x="0.0" y="589" width="768" height="16"/>
+                                            <rect key="frame" x="0.0" y="590" width="768" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="457">
