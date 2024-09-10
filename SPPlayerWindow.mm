@@ -211,11 +211,11 @@ NSString* SPUrlRequestUserAgentString = nil;
 	}
 	else
 	{
-		NSAlert* alert = [NSAlert alertWithMessageText:@"Invalid URL"
-										 defaultButton:@"OK"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"The URL did not contain a valid SID file."];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Invalid URL"];
+		[alert setInformativeText:@"The URL did not contain a valid SID file."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 		
 		[alert runModal];
 	}
@@ -229,11 +229,11 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 // ----------------------------------------------------------------------------
 {
-	NSAlert* alert = [NSAlert alertWithMessageText:@"Download failed"
-									 defaultButton:@"OK"
-								   alternateButton:nil
-									   otherButton:nil
-						 informativeTextWithFormat:@"The connection to the server failed, please check the URL or try again later."];
+	NSAlert *alert = [[NSAlert alloc] init];
+	[alert setMessageText:@"Download failed"];
+	[alert setInformativeText:@"The connection to the server failed, please check the URL or try again later."];
+	[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+	[alert addButtonWithTitle:@"OK"];
 	
 	[alert runModal];
 }
@@ -338,12 +338,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 			audioDriver->setBufferUnderrunDetected(false);
 			[self setPlayPauseButtonToPause:NO];
 			
-			NSAlert* alert = [NSAlert alertWithMessageText:@"Your Mac is too slow to play at the current emulation accuracy"
-											 defaultButton:@"OK"
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:@"Please lower the emulation accuracy or turn off filter distortion in the playback preferences"];
-			
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:@"Your Mac is too slow to play at the current emulation accuracy"];
+			[alert setInformativeText:@"Please lower the emulation accuracy or turn off filter distortion in the playback preferences."];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"OK"];
+						
 			[alert runModal];
 		}
 		else
@@ -375,7 +375,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 		[self setFadeVolume:fadeOutVolume];
 	}
 	
-	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSEventModifierFlagOption ? YES : NO;
 	if (isOptionPressed)
 	{
 		[addPlaylistButton setHidden:YES];
@@ -837,7 +837,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (IBAction) clickFastForwardButton:(id)sender
 // ----------------------------------------------------------------------------
 {
-	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSEventModifierFlagOption ? YES : NO;
 	int tempo = isOptionPressed ? 88 : 75;
 	player->setTempo(tempo);
 	tempoSlider.integerValue = tempo;
@@ -1035,7 +1035,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	
     [openPanel beginSheetModalForWindow:self completionHandler:^(NSInteger result)
      {
-         if (result == NSFileHandlingPanelOKButton)
+         if (result == NSModalResponseOK)
          {
              NSArray* urlsToOpen = openPanel.URLs;
              NSString* file = [urlsToOpen[0] path];
@@ -1206,7 +1206,7 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[visualizerCompositionPaths addObject:defaultVisualizerPath];
 
 	NSInteger index = 1;
-	NSArray* visualizerFiles = [[NSFileManager defaultManager] directoryContentsAtPath:[SPApplicationStorageController visualizerPath]];
+	NSArray* visualizerFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[SPApplicationStorageController visualizerPath] error:nil];
 	for (NSString* visualizerFile in visualizerFiles)
 	{
 		if ([visualizerFile characterAtIndex:0] == '.')
@@ -1487,15 +1487,16 @@ NSString* SPUrlRequestUserAgentString = nil;
 {
 	if ([exportController activeExportTasksCount] > 0)
 	{
-		NSAlert* alert = [NSAlert alertWithMessageText:@"You have active export tasks, do you really want to quit SIDPLAY?"
-										 defaultButton:@"Don't Quit"
-									   alternateButton:@"Quit"
-										   otherButton:nil
-							 informativeTextWithFormat:@"If you decide to quit, the files that are currently being exported will be incomplete or damaged."];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"You have active export tasks, do you really want to quit SIDPLAY?"];
+		[alert setInformativeText:@"If you decide to quit, the files that are currently being exported will be incomplete or damaged."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"Don't Quit"];
+		[alert addButtonWithTitle:@"Quit"];
 
 		NSInteger result = [alert runModal];
 		
-		if (result == NSAlertDefaultReturn)
+		if (result == NSAlertFirstButtonReturn)
 			return NSTerminateCancel;
 	}
 

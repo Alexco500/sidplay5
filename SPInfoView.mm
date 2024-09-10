@@ -261,12 +261,12 @@ static NSImage* SPHudDisclosureTransient = nil;
 		[image setFlipped:controlView.flipped];
 		if (flag)
 		{
-			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositePlusDarker fraction:1.0f];
-			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositePlusDarker fraction:1.0f];
-			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositePlusDarker fraction:1.0f];
+			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationPlusDarker fraction:1.0f];
+			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationPlusDarker fraction:1.0f];
+			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationPlusDarker fraction:1.0f];
 		}
 		else
-			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
+			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 	else
 	{
@@ -288,7 +288,7 @@ static NSImage* SPHudDisclosureTransient = nil;
 		imageFrame.origin.y = (cellFrame.size.height - imageRect.size.height) / 2.0f;
 			
 		[image setFlipped:controlView.flipped];
-		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
+		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 	else
 		[super drawWithFrame:cellFrame inView:controlView];
