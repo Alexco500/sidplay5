@@ -4,19 +4,19 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/English.lproj/InfoPlist.strings</key>
+		<key>Resources/Info.plist</key>
+		<data>
+		acIhA2vyUus+wbEh09eXOUwQ4mc=
+		</data>
+		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AU41sskcqNEA5kGD+f8x+xFru5E=
+			pNwA6xk00OkuNzc0ZT1xe56DRco=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Resources/Info.plist</key>
-		<data>
-		M3lBRxxBZt6IbOFIADIQo+cGnII=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -31,29 +31,29 @@
 			sw5NP1uyR7rSeBdY2QYE8pzETdW9ef7hMKrvfH0lvPA=
 			</data>
 		</dict>
-		<key>Resources/English.lproj/InfoPlist.strings</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			AU41sskcqNEA5kGD+f8x+xFru5E=
-			</data>
-			<key>hash2</key>
-			<data>
-			Y1if55nJc6QDQdeu4xvdmUpTBiXZTojf2Fu1+Bz1RTY=
-			</data>
-			<key>optional</key>
-			<true/>
-		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			M3lBRxxBZt6IbOFIADIQo+cGnII=
+			acIhA2vyUus+wbEh09eXOUwQ4mc=
 			</data>
 			<key>hash2</key>
 			<data>
-			0KkxXzipeEizxyP4dvN2f1DNxEoE7YX3S68rzs2Ss3s=
+			zcvkPGC6a6KDd4e09xYp1O0u2cF4pOzL+zd98TyXfQA=
 			</data>
+		</dict>
+		<key>Resources/en.lproj/InfoPlist.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pNwA6xk00OkuNzc0ZT1xe56DRco=
+			</data>
+			<key>hash2</key>
+			<data>
+			3b1ij5AIrsaO95YeMjm8QPufd/EykmFxW6z+/f1MSYs=
+			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>rules</key>

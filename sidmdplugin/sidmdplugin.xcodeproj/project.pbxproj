@@ -264,6 +264,7 @@
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.2;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -304,6 +305,7 @@
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.2;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -343,6 +345,7 @@
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.2;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
