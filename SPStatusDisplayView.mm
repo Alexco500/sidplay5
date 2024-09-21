@@ -254,7 +254,7 @@
 	[tuneInfo appendAttributedString:additionalTuneInfo];
 	
 	NSMutableParagraphStyle* style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-	style.alignment = NSRightTextAlignment;
+	style.alignment = NSTextAlignmentRight;
 	
 	NSDictionary* subtuneAttrs = @{NSFontAttributeName: [NSFont boldSystemFontOfSize:11.0f], 
 																			NSParagraphStyleAttributeName: style,
@@ -405,7 +405,7 @@
 	rect = self.bounds;
 
 	// Draw background
-	NSDrawThreePartImage(rect, leftBackGroundImage, middleBackGroundImage, rightBackGroundImage, NO, NSCompositeSourceOver, 0.8f, NO);
+	NSDrawThreePartImage(rect, leftBackGroundImage, middleBackGroundImage, rightBackGroundImage, NO, NSCompositingOperationSourceOver, 0.8f, NO);
 	
 	if (logoVisible)
 		logoView.frame = self.bounds;
@@ -423,7 +423,7 @@
 		NSRect minusImageFrame = NSMakeRect(xpos - 13.0f, ypos, minusImage.size.width, minusImage.size.height);
 		NSRect minusImageRect = NSMakeRect(0.0f, 0.0f, minusImage.size.width, minusImage.size.height);
 		[minusImage setFlipped:self.flipped];
-		[minusImage drawInRect:minusImageFrame fromRect:minusImageRect operation:NSCompositeSourceOver fraction:1.0f];
+		[minusImage drawInRect:minusImageFrame fromRect:minusImageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 	
 	for (int i = 0; i < 4; i++)
@@ -433,7 +433,7 @@
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 			
 		[image setFlipped:self.flipped];
-		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
+		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 		
 		xpos += image.size.width + 3.0f;
 		
@@ -443,7 +443,7 @@
 			imageRect = NSMakeRect(0.0f, 0.0f, timeDividerImage.size.width, timeDividerImage.size.height);
 				
 			[timeDividerImage setFlipped:self.flipped];
-			[timeDividerImage drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
+			[timeDividerImage drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 
 			xpos += image.size.width + 1.0f;
 		}
@@ -484,7 +484,7 @@
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, leftWidth, leftHeight);
 			
 		[leftArrowImage setFlipped:self.flipped];
-		[leftArrowImage drawInRect:leftArrowFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:mouseDownInLeftArrow ? 1.0f : 0.64f];
+		[leftArrowImage drawInRect:leftArrowFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:mouseDownInLeftArrow ? 1.0f : 0.64f];
 
 		xpos += leftWidth + 1.0f;
 
@@ -492,7 +492,7 @@
 		imageRect = NSMakeRect(0.0f, 0.0f, rightWidth, rightHeight);
 			
 		[rightArrowImage setFlipped:self.flipped];
-		[rightArrowImage drawInRect:rightArrowFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:mouseDownInRightArrow ? 1.0f : 0.64f];
+		[rightArrowImage drawInRect:rightArrowFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:mouseDownInRightArrow ? 1.0f : 0.64f];
 	}
 }
 

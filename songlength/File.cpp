@@ -32,7 +32,7 @@ using namespace std;
 #include "File.h"
 
 // String comparison functor for sort function.
-struct myStrLessThan : public binary_function<const char*, const char*, bool> 
+struct myStrLessThan : public __binary_function<const char*, const char*, bool>
 {
     bool operator()(const char* x, const char* y) 
     {

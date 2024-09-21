@@ -317,7 +317,7 @@ static const float desiredContainerWidth = 415.0f;
     animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
     animation.animationBlockingMode = NSAnimationNonblocking;
 	
-	BOOL isShiftPressed = NSApp.currentEvent.modifierFlags & NSShiftKeyMask ? YES : NO;
+	BOOL isShiftPressed = NSApp.currentEvent.modifierFlags & NSEventModifierFlagShift ? YES : NO;
 
     animation.duration = isShiftPressed ? 3.0 : 0.2;
 	animation.delegate = self;

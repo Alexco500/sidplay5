@@ -153,7 +153,7 @@ static const int sIconHeight = 16.0f;
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 		
 		[image setFlipped:controlView.flipped];
-		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0f];
+		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 
 	if (progressIndicator != nil)

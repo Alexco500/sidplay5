@@ -164,7 +164,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			
 			long result2 = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
 			
-			if (result2 == NSOKButton)
+			if (result2 == NSModalResponseOK)
 			{
 				NSArray* filesToOpen = [openPanel filenames];
 				NSString* path = filesToOpen[0];
@@ -220,7 +220,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	NSMutableArray* playlistsToMigrate = [[NSMutableArray alloc] init];
 	
 	// Iterate files in ~/Application Support/SIDPLAY/Playlists/
-	NSArray* playlistFiles = [[NSFileManager defaultManager] directoryContentsAtPath:[SPApplicationStorageController playlistPath]];
+	NSArray* playlistFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[SPApplicationStorageController playlistPath] error:nil];
 	for (NSString* playlistFile in playlistFiles)
 	{
 		if ([playlistFile characterAtIndex:0] == '.')
@@ -507,15 +507,16 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			deletePlaylist = NO;
 			
 			NSString* alertText = [NSString stringWithFormat:@"Are you sure you want to delete the playlist \"%@\"", [[item playlist] name]];
-			NSAlert* alert = [NSAlert alertWithMessageText:alertText
-											 defaultButton:@"Cancel"
-										   alternateButton:@"Delete"
-											   otherButton:nil
-								 informativeTextWithFormat:@"If you delete the playlist, it will not be possible to undo the operation!"];
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:alertText];
+			[alert setInformativeText:@"If you delete the playlist, it will not be possible to undo the operation!"];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert addButtonWithTitle:@"Delete"];
 			
 			[alert setShowsSuppressionButton:YES];
 			
-			if ([alert runModal] == NSAlertAlternateReturn)
+			if ([alert runModal] == NSAlertSecondButtonReturn)
 			{
 				if (alert.suppressionButton.state == NSOnState)
 					[[NSUserDefaults standardUserDefaults] setBool:YES forKey:SPDefaultKeyDontShowDeletePlaylistAlert];
@@ -854,7 +855,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	if (!sourceListView.window.visible)
 		return;
 		
-	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSAlternateKeyMask ? YES : NO;
+	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSEventModifierFlagOption ? YES : NO;
 	if (isOptionPressed)
 	{
 		[self addNewSmartPlaylist:sender];
@@ -965,7 +966,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
             
             [savePanel beginSheetModalForWindow:sourceListView.window completionHandler:^(NSInteger result)
              {
-                 if (result == NSFileHandlingPanelOKButton)
+                 if (result == NSModalResponseOK)
                  {
                      BOOL exportRelativePaths = (self->m3uExportRelativePathsButton.state == NSOnState);
                      NSString* exportPathPrefix = self->m3uExportPathPrefixTextField.stringValue;
@@ -1139,28 +1140,31 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		if (triggeredByAutoInterval)
 		{
 			NSString* alertText = [NSString stringWithFormat:@"Do you want to sync the collection '%@' with the latest available HVSC version now?", [currentCollection name].string];
-			NSAlert* alert = [NSAlert alertWithMessageText:alertText
-											 defaultButton:@"Remind me later"
-										   alternateButton:@"Sync Collection"
-											   otherButton:@"Skip this time"
-								 informativeTextWithFormat:@"This will delete any files that you've manually added to the collection!"];
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:alertText];
+			[alert setInformativeText:@"This will delete any files that you've manually added to the collection!"];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"Remind me later"];
+			[alert addButtonWithTitle:@"Sync Collection"];
+			[alert addButtonWithTitle:@"Skip this time"];
 
 			NSInteger returnStatus = [alert runModal];
-			if (returnStatus == NSAlertAlternateReturn)
+			if (returnStatus == NSAlertSecondButtonReturn)
 				doSync = YES;
-			else if (returnStatus == NSAlertOtherReturn)
+			else if (returnStatus == NSAlertThirdButtonReturn)
 				gPreferences.mLastSyncTime = [NSDate date];
 		}
 		else
 		{
 			NSString* alertText = [NSString stringWithFormat:@"Do you really want to sync the collection '%@' with the latest available HVSC version?", [currentCollection name].string];
-			NSAlert* alert = [NSAlert alertWithMessageText:alertText
-											 defaultButton:@"Cancel"
-										   alternateButton:@"Sync Collection"
-											   otherButton:nil
-								 informativeTextWithFormat:@"This will delete any files that you've manually added to the collection!"];
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:alertText];
+			[alert setInformativeText:@"This will delete any files that you've manually added to the collection!"];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"Cancel"];
+			[alert addButtonWithTitle:@"Sync Collection"];
 
-			if ([alert runModal] == NSAlertAlternateReturn)
+			if ([alert runModal] == NSAlertSecondButtonReturn)
 				doSync = YES;
 		}
 	}
@@ -1217,11 +1221,11 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	}
 	else
 	{
-		NSAlert* alert = [NSAlert alertWithMessageText:@"Sync operation could not be started."
-									defaultButton:@"OK"
-								  alternateButton:nil
-									  otherButton:nil
-						informativeTextWithFormat:@"Destination folder of collection does not exist and can't be created."];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Sync operation could not be started."];
+		[alert setInformativeText:@"Destination folder of collection does not exist and can't be created."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 		
 		[alert runModal];
 		
@@ -1350,27 +1354,27 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	{
 		syncProgressIndicator.doubleValue = 100.0f;
 		
-		alert = [NSAlert alertWithMessageText:@"Sync operation has completed."
-										 defaultButton:@"OK"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"Your collection is now up-to-date."];
+		alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Sync operation has completed."];
+		[alert setInformativeText:@"Your collection is now up-to-date."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 	}
 	else if (result == 20)
 	{
-		alert = [NSAlert alertWithMessageText:@"Sync operation was cancelled."
-										 defaultButton:@"OK"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"Some files may have already been updated, please check your collection."];
+		alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Sync operation was cancelled."];
+		[alert setInformativeText:@"Some files may have already been updated, please check your collection."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 	}
 	else
 	{
-		alert = [NSAlert alertWithMessageText:@"Sync operation was stopped due to an error."
-										 defaultButton:@"OK"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"Please try again later, or select a different sync mirror server."];
+		alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Sync operation was stopped due to an error."];
+		[alert setInformativeText:@"Please try again later, or select a different sync mirror server."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 	}
 	
 	[alert runModal];
