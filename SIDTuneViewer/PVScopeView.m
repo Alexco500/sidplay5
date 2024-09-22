@@ -41,9 +41,6 @@
     contextRect.size.width = dirtyRect.size.width;
     contextRect.size.height = dirtyRect.size.height;
 
-    //NSLog(@"Bounds: %f", bounds.size.width);
-    //NSLog(@"Dirty: %f", dirtyRect.size.width);
- 
     CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
     CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.6f);
     CGContextFillRect(context, contextRect);
@@ -79,7 +76,7 @@
         float stepW;
         float factorH = height/32767/2;
         // clamp width to array size
-        // FIXME: find a better solution than to use a fixed max. width
+        // FIXME: find a better solution that to use a fixed max. width
         if (width > 2048)
             width = 2048;
         
