@@ -33,6 +33,7 @@ public:
 	virtual bool	getIsPlaying() = 0;
 	virtual short*	getSampleBuffer() = 0;
 	virtual int		getSampleRate() = 0;
+    virtual int     getNumSamplesInBuffer() = 0;
 };
 
 

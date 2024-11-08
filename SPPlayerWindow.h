@@ -2,6 +2,8 @@
 #import "PlayerLibSidplay.h"
 #import "SPExporter.h"
 
+#import "SPOscilloscopeWindowController.h"
+#import "PlayerInfoProtocol.h"
 
 // Forward declares
 class AudioDriver;
@@ -25,7 +27,7 @@ extern NSString* SPPlayerInitializedNotification;
 extern NSString* SPUrlRequestUserAgentString;
 
 
-@interface SPPlayerWindow : NSWindow <NSSplitViewDelegate>
+@interface SPPlayerWindow : NSWindow <NSSplitViewDelegate, PlayerInfo>
 {
     IBOutlet id leftView;
     IBOutlet id rightView;
@@ -114,6 +116,8 @@ extern NSString* SPUrlRequestUserAgentString;
     IBOutlet NSMenuItem *checkForUpdatesMenuItem;
 
     __weak IBOutlet NSMenuItem *addCurrentSongToPlaylistMenuItem;
+    
+     SPOscilloscopeWindowController *oscillosscopeWindowController;
 }
 
 - (void) playTuneAtPath:(NSString*)path;
@@ -205,6 +209,10 @@ extern NSString* SPUrlRequestUserAgentString;
 - (IBAction) checkEnable8:(id)sender;
 - (IBAction) resetSIDSelector:(id)sender;
 - (IBAction) addCurrentSongToPlaylist:(id)sender;
+
+
+- (IBAction) toggleOscilloscopeWindow:(id)sender;
+@property (weak) IBOutlet NSWindow *oScopeWindow;
 @end
 
 

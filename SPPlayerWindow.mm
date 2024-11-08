@@ -374,7 +374,11 @@ NSString* SPUrlRequestUserAgentString = nil;
 			
 		[self setFadeVolume:fadeOutVolume];
 	}
-	
+    // update big scope view
+    if (oscillosscopeWindowController)
+    {
+        [oscillosscopeWindowController updateScope];
+    }
 	BOOL isOptionPressed = NSApp.currentEvent.modifierFlags & NSEventModifierFlagOption ? YES : NO;
 	if (isOptionPressed)
 	{
@@ -775,6 +779,46 @@ NSString* SPUrlRequestUserAgentString = nil;
     return player->getCurrentSubtune();
 }
 
+#pragma mark -
+#pragma mark PlayerInfo protocol methods
+- (short*) audioDriverSampleBuffer
+{
+    if (audioDriver != NULL)
+        return audioDriver->getSampleBuffer();
+    return NULL;
+}
+- (BOOL) audioDriverIsPlaying
+{
+    if (audioDriver != NULL)
+        return audioDriver->getIsPlaying();
+    return NO;
+}
+- (unsigned int) currentNumberOfSamples
+{
+    if (audioDriver != NULL)
+        return audioDriver->getNumSamplesInBuffer();
+    return 0;
+}
+- (NSString *)currentTitle
+{
+    NSString *tempString;
+    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
+        tempString = [NSString stringWithCString:player->getCurrentTitle() encoding:NSISOLatin1StringEncoding];
+    else
+        tempString = [NSString string];
+    return tempString;
+}
+- (NSString *)currentAuthor
+{
+    NSString *tempString;
+    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
+        tempString = [NSString stringWithCString:player->getCurrentAuthor() encoding:NSISOLatin1StringEncoding];
+    else
+        tempString = [NSString string];
+    return tempString;
+}
+
+
 
 #pragma mark -
 #pragma mark UI action methods
@@ -976,7 +1020,17 @@ NSString* SPUrlRequestUserAgentString = nil;
 	[infoWindowController toggleWindow:sender];
 }
 
+- (IBAction) toggleOscilloscopeWindow:(id)sender
+{
+    if (oscillosscopeWindowController == nil)
+    {
+        oscillosscopeWindowController = [[SPOscilloscopeWindowController alloc] initWithWindow:_oScopeWindow];
+        [oscillosscopeWindowController setPlayerWindow:self];
+        
+    }
+    [oscillosscopeWindowController toggleWindow:(id)sender];
 
+}
 // ----------------------------------------------------------------------------
 - (IBAction) toggleInfoPane:(id)sender
 // ----------------------------------------------------------------------------

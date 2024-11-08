@@ -1,30 +1,32 @@
 //
-//  PVScopeView.m
-//  SIDTuneViewer
+//  SPBigOscilloscopeView.m
+//  SIDPLAY
 //
-//  Created by Alexander Coers on 02.10.23.
+//  Created by Alexander Coers on 12.04.24.
 //
-/*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-#import "PVScopeView.h"
+#import <Cocoa/Cocoa.h>
+#import "SPBigOscilloscopeView.h"
 
-@implementation PVScopeView
+#import "SPPlayerWindow.h"
 
+@implementation SPBigOscilloscopeView
+- (void)setPlayerWindow:(SPPlayerWindow*)newPlayerW
+{
+    @synchronized (playerW) {
+        playerW = (SPPlayerWindow*)newPlayerW;
+    }
+    hSample = 0;
+}
+
+-(void)updatePlayerInfo
+{
+    currentTitle = [playerW currentTitle];
+    currentAuthor = [playerW currentAuthor];
+    updateNeeded = YES;
+}
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
+    
 
     // Drawing code here.
     NSColor* darkColor = nil;
@@ -41,17 +43,31 @@
     contextRect.size.width = dirtyRect.size.width;
     contextRect.size.height = dirtyRect.size.height;
 
+ 
     CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
     CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.6f);
     CGContextFillRect(context, contextRect);
-
-    //AudioDriver* audioDriver = (AudioDriver*) [[container ownerWindow] audioDriver];
-    if (playerW == nil)
+    short* sampleBuffer = NULL;
+    BOOL isPlaying = NO;
+    /* we use protocols here, simply because I don't want
+     * to change the whole LibPlayerClass here
+     */
+    if ([playerW conformsToProtocol: @protocol (PlayerInfo)]== YES)
+    {
+        sampleBuffer = [playerW audioDriverSampleBuffer];
+     
+    }
+    if (sampleBuffer == NULL)
         return;
-    
-    short* sampleBuffer = [playerW currentAudioBuffer];
-    BOOL isPlaying = [playerW isPlaying];
-    
+    unsigned int numSamples =  0;
+
+    /* normally we could skip this test, since we tested it aleady above, but...*/
+    if ([(id)playerW conformsToProtocol: @protocol (PlayerInfo)]== YES)
+    {
+        isPlaying = [(id)playerW audioDriverIsPlaying];
+        numSamples = [(id)playerW currentNumberOfSamples];
+     
+    }
     float zeroLineHeight = contextRect.size.height * 0.5f + 0.5f;
     float width = contextRect.size.width;
     float height = contextRect.size.height;
@@ -72,14 +88,10 @@
     if (isPlaying && sampleBuffer != nil)
     {
         static CGPoint linePoints[2048];
-        unsigned int numSamples = [playerW currentNumberOfSamples];
         float stepW;
-        float factorH = height/32767/2;
-        // clamp width to array size
-        // FIXME: find a better solution than to use a fixed max. width
-        if (width > 2048)
-            width = 2048;
-        
+        //sample buffer contains signed 16 bit samples
+        // -32768 - 32767
+        float factorH = height/33000/2;
         // create a ratio for the width, since the audio buffer can differ in size
         // and maybe less than width pixels
         if ((width == 0) || (numSamples == 0))
@@ -90,14 +102,12 @@
         for (int i = 0; i < width; i++)
         {
             linePoints[i].x = i + 0.5f;
-            //sample buffer contains signed 16 bit samples
-            // –32768 to 32767
             linePoints[i].y = zeroLineHeight + (sampleBuffer[(int)trunc(indexS)] * factorH);
+            if (sampleBuffer[(int)trunc(indexS)] > hSample)
+                hSample = sampleBuffer[(int)trunc(indexS)];
             indexS +=stepW;
-            if (highestVal < sampleBuffer[(int)trunc(indexS)])
-                highestVal = sampleBuffer[(int)trunc(indexS)];
         }
-
+        
         CGContextAddLines(context, linePoints, width);
         CGContextDrawPath(context, kCGPathStroke);
         
@@ -113,18 +123,25 @@
         CGContextAddLines(context, linePoints, 2);
         CGContextDrawPath(context, kCGPathFillStroke);
     }
+    if (updateNeeded)
+    {
+        // new text needs to be printed
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:currentTitle];
+        if ([text length] != 0) {
+            [text appendAttributedString:[[NSAttributedString alloc] initWithString:@" by "]];
+            [text appendAttributedString:[[NSAttributedString alloc] initWithString:currentAuthor]];
+            CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)text);
+            // Set text position and draw the line into the graphics context
+            CGContextSetTextPosition(context, 10.0, 50.0);
+            CTLineDraw(line, context);
+            CFRelease(line);
+        }
+    }
     //draw a frame around the view
     [darkColor set];
     NSFrameRect(bounds);
     bounds = NSInsetRect(bounds, 1.0f, 1.0f);
     [brightColor set];
+}
 
-}
--(void)setPlayer:(PlayerWrapper *)player withInstance:(unsigned int)instance
-{
-    playerW = player;
-    myInstance = instance;
-    highestVal = 0;
-}
 @end
-
