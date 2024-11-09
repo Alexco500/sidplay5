@@ -5,11 +5,23 @@
 //  Created by Alexander Coers on 12.04.24.
 //
 #import <Cocoa/Cocoa.h>
+#import <CoreImage/CIFilter.h>
 #import "SPBigOscilloscopeView.h"
-
 #import "SPPlayerWindow.h"
 
 @implementation SPBigOscilloscopeView
+
+- (void) awakeFromNib
+// ----------------------------------------------------------------------------
+{
+        [self setWantsLayer:YES];
+        CIFilter *filter = [CIFilter filterWithName:@"CIBloom"];
+        [filter setDefaults];
+        [filter setValue:@4.0f forKey:@"inputRadius"];
+        filter.name = @"bloomFilter";
+        self.contentFilters = @[filter];
+}
+
 - (void)setPlayerWindow:(SPPlayerWindow*)newPlayerW
 {
     @synchronized (playerW) {
@@ -45,7 +57,7 @@
 
  
     CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
-    CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.6f);
+    CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 0.8f);
     CGContextFillRect(context, contextRect);
     short* sampleBuffer = NULL;
     BOOL isPlaying = NO;
@@ -130,6 +142,7 @@
         if ([text length] != 0) {
             [text appendAttributedString:[[NSAttributedString alloc] initWithString:@" by "]];
             [text appendAttributedString:[[NSAttributedString alloc] initWithString:currentAuthor]];
+            [text addAttribute:NSForegroundColorAttributeName value:[NSColor colorWithCalibratedRed:0.2f green:1.0f blue:1.0f alpha:1.0f] range:NSMakeRange(0,[text length])];
             CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)text);
             // Set text position and draw the line into the graphics context
             CGContextSetTextPosition(context, 10.0, 50.0);
