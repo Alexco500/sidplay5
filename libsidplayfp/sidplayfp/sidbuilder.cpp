@@ -22,8 +22,6 @@
 
 #include "sidbuilder.h"
 
-#include <algorithm>
-
 #include "sidemu.h"
 
 #include "sidcxx11.h"
@@ -32,9 +30,9 @@ libsidplayfp::sidemu *sidbuilder::lock(libsidplayfp::EventScheduler *env, SidCon
 {
     m_status = true;
 
-    for (emuset_t::iterator it=sidobjs.begin(); it != sidobjs.end(); ++it)
+    for (auto sidobj: sidobjs)
     {
-        libsidplayfp::sidemu *sid = (*it);
+        libsidplayfp::sidemu *sid = (sidobj);
         if (sid->lock(env))
         {
             sid->model(model, digiboost);
@@ -57,12 +55,10 @@ void sidbuilder::unlock(libsidplayfp::sidemu *device)
     }
 }
 
-template<class T>
-void Delete(T s) { delete s; }
-
 void sidbuilder::remove()
 {
-    std::for_each(sidobjs.begin(), sidobjs.end(), Delete<emuset_t::value_type>);
+    for (auto sidobj: sidobjs)
+        delete sidobj;
 
     sidobjs.clear();
 }

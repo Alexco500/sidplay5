@@ -96,6 +96,8 @@ void ReSID::clock()
     reSID::cycle_count cycles = eventScheduler->getTime(EVENT_CLOCK_PHI1) - m_accessClk;
     m_accessClk += cycles;
     m_bufferpos += m_sid.clock(cycles, (short *) m_buffer + m_bufferpos, OUTPUTBUFFERSIZE - m_bufferpos, 1);
+    // Adjust in case not all cycles have been consumed
+    m_accessClk -= cycles;
 }
 
 void ReSID::filter(bool enable)
@@ -131,16 +133,6 @@ void ReSID::sampling(float systemclock, float freq,
     m_status = true;
 }
 
-void ReSID::voice(unsigned int num, bool mute)
-{
-    if (mute)
-        m_voiceMask &= ~(1<<num);
-    else
-        m_voiceMask |= 1<<num;
-
-    m_sid.set_voice_mask(m_voiceMask);
-}
-
 // Set the emulated SID model
 void ReSID::model(SidConfig::sid_model_t model, bool digiboost)
 {
@@ -170,11 +162,6 @@ void ReSID::model(SidConfig::sid_model_t model, bool digiboost)
     m_sid.set_voice_mask(m_voiceMask);
     m_sid.input(sample);
     m_status = true;
-}
-#pragma mark additions for VICE settings
-void ReSID::external_filter(bool enable)
-{
-    m_sid.enable_external_filter(enable);
 }
 
 }

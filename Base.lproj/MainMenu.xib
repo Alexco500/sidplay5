@@ -875,9 +875,8 @@
                                     <action selector="toggleInfoWindow:" target="371" id="810"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show Oscilloscope Window" id="I5B-uR-svU">
+                            <menuItem title="Show Oscilloscope Window" keyEquivalent="O" id="I5B-uR-svU">
                                 <attributedString key="attributedTitle"/>
-                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="toggleOscilloscopeWindow:" target="371" id="Vcj-El-GRr"/>
                                 </connections>

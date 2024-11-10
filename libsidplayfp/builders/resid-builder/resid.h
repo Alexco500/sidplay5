@@ -61,8 +61,6 @@ public:
      */
     void bias(double dac_bias);
     //@}
-#pragma mark additions for VICE settings
-    void external_filter(bool enable);
 };
 
 #endif // RESID_H

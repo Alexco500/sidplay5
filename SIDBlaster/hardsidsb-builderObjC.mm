@@ -120,7 +120,8 @@ void HardSIDSBBuilder::flush()
 
 void HardSIDSBBuilder::filter(bool enable)
 {
-    std::for_each(sidobjs.begin(), sidobjs.end(), applyParameter<libsidplayfp::HardSIDSB, bool>(&libsidplayfp::HardSIDSB::filter, enable));
+    for (libsidplayfp::sidemu* e: sidobjs)
+        static_cast<libsidplayfp::HardSIDSB*>(e)->filter(enable);
 }
 
 int HardSIDSBBuilder::init()

@@ -1,7 +1,7 @@
 /*
  * This file is part of libsidplayfp, a SID player engine.
  *
- * Copyright 2011-2023 Leandro Nini <drfiemost@users.sourceforge.net>
+ * Copyright 2011-2024 Leandro Nini <drfiemost@users.sourceforge.net>
  * Copyright 2007-2010 Antti Lankila
  * Copyright 2000 Simon White
  *
@@ -23,7 +23,7 @@
 #include "mixer.h"
 
 #include <cassert>
-#include <algorithm>
+#include <cstring>
 
 #include "sidemu.h"
 
@@ -31,49 +31,21 @@
 namespace libsidplayfp
 {
 
-void clockChip(sidemu *s) { s->clock(); }
-
-class bufferPos
-{
-public:
-    bufferPos(int i) : pos(i) {}
-    void operator()(sidemu *s) { s->bufferpos(pos); }
-
-private:
-    int pos;
-};
-
-class bufferMove
-{
-public:
-    bufferMove(int p, int s) : pos(p), samples(s) {}
-    void operator()(short *dest)
-    {
-        const short* src = dest + pos;
-        for (int j = 0; j < samples; j++)
-        {
-            dest[j] = src[j];
-        }
-    }
-
-private:
-    int pos;
-    int samples;
-};
-
 void Mixer::clockChips()
 {
-    std::for_each(m_chips.begin(), m_chips.end(), clockChip);
+    for (sidemu* chip: m_chips)
+        chip->clock();
 }
 
 void Mixer::resetBufs()
 {
-    std::for_each(m_chips.begin(), m_chips.end(), bufferPos(0));
+    for (sidemu* chip: m_chips)
+        chip->bufferpos(0);
 }
 
 void Mixer::doMix()
 {
-    short *buf = m_sampleBuffer + m_sampleIndex;
+    short *outputBuffer = m_sampleBuffer + m_sampleIndex;
 
     // extract buffer info now that the SID is updated.
     // clock() may update bufferpos.
@@ -81,19 +53,12 @@ void Mixer::doMix()
     const int sampleCount = m_chips.front()->bufferpos();
 
     int i = 0;
-    while (i < sampleCount)
+    while (
+        (i < sampleCount) &&
+        (m_sampleIndex < m_sampleCount) &&      // Handle whatever output the sid has generated so far
+        (i + m_fastForwardFactor < sampleCount) // Are there enough samples to generate the next one?
+    )
     {
-        // Handle whatever output the sid has generated so far
-        if (m_sampleIndex >= m_sampleCount)
-        {
-            break;
-        }
-        // Are there enough samples to generate the next one?
-        if (i + m_fastForwardFactor >= sampleCount)
-        {
-            break;
-        }
-
         // This is a crude boxcar low-pass filter to
         // reduce aliasing during fast forward.
         for (size_t k = 0; k < m_buffers.size(); k++)
@@ -116,15 +81,22 @@ void Mixer::doMix()
         {
             const int_least32_t tmp = (this->*(m_scale[ch]))(ch);
             assert(tmp >= -32768 && tmp <= 32767);
-            *buf++ = static_cast<short>(tmp);
+            *outputBuffer++ = static_cast<short>(tmp);
             m_sampleIndex++;
         }
     }
 
     // move the unhandled data to start of buffer, if any.
     const int samplesLeft = sampleCount - i;
-    std::for_each(m_buffers.begin(), m_buffers.end(), bufferMove(i, samplesLeft));
-    std::for_each(m_chips.begin(), m_chips.end(), bufferPos(samplesLeft));
+    assert(samplesLeft >= 0);
+
+    for (short* buffer: m_buffers)
+        std::memmove(buffer, buffer+i, samplesLeft*2);
+
+    for (sidemu* chip: m_chips)
+        chip->bufferpos(samplesLeft);
+
+    m_wait = static_cast<uint_least32_t>(samplesLeft) > m_sampleCount;
 }
 
 void Mixer::begin(short *buffer, uint_least32_t count)
@@ -133,12 +105,6 @@ void Mixer::begin(short *buffer, uint_least32_t count)
 
     // don't allow odd counts for stereo playback
     if (m_stereo && (count & 1))
-        throw badBufferSize();
-
-    // TODO short buffers make the emulator crash, should investigate why
-    //      in the meantime set a reasonable lower bound of 5ms
-    const uint_least32_t lowerBound = m_sampleRate / (m_stereo ? 100 : 200);
-    if (count && (count < lowerBound))
         throw badBufferSize();
 
     m_sampleIndex  = 0;
@@ -151,15 +117,15 @@ void Mixer::updateParams()
     switch (m_buffers.size())
     {
     case 1:
-        m_mix[0] = m_stereo ? &Mixer::stereo_OneChip : &Mixer::mono<1>;
+        m_mix[0] = m_stereo ? &Mixer::stereo_OneChip : &Mixer::template mono<1>;
         if (m_stereo) m_mix[1] = &Mixer::stereo_OneChip;
         break;
     case 2:
-        m_mix[0] = m_stereo ? &Mixer::stereo_ch1_TwoChips : &Mixer::mono<2>;
+        m_mix[0] = m_stereo ? &Mixer::stereo_ch1_TwoChips : &Mixer::template mono<2>;
         if (m_stereo) m_mix[1] = &Mixer::stereo_ch2_TwoChips;
         break;
     case 3:
-        m_mix[0] = m_stereo ? &Mixer::stereo_ch1_ThreeChips : &Mixer::mono<3>;
+        m_mix[0] = m_stereo ? &Mixer::stereo_ch1_ThreeChips : &Mixer::template mono<3>;
         if (m_stereo) m_mix[1] = &Mixer::stereo_ch2_ThreeChips;
         break;
      }

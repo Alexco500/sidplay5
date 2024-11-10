@@ -20,7 +20,7 @@
 #ifndef RESID_SIDDEFS_H
 #define RESID_SIDDEFS_H
 
-#define RVERSION "2.5.0"
+#define RVERSION "2.11.0"
 
 // Compilation configuration.
 #define RESID_INLINING 1

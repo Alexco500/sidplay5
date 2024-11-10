@@ -48,7 +48,7 @@ public:
 
 public:
     ReSIDfp(sidbuilder *builder);
-    ~ReSIDfp();
+    ~ReSIDfp() override;
 
     bool getStatus() const { return m_status; }
 
@@ -64,14 +64,14 @@ public:
     void sampling(float systemclock, float freq,
         SidConfig::sampling_method_t method, bool) override;
 
-    void voice(unsigned int num, bool mute) override { m_sid.mute(num, mute); }
-
     void model(SidConfig::sid_model_t model, bool digiboost) override;
 
-    // Specific to resid
+    // Specific to residfp
     void filter(bool enable);
     void filter6581Curve(double filterCurve);
+    void filter6581Range(double adjustment);
     void filter8580Curve(double filterCurve);
+    void combinedWaveforms(SidConfig::sid_cw_t cws);
 };
 
 }
