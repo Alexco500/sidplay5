@@ -30,6 +30,19 @@
 #include "resid/siddefs.h"
 #include "resid/spline.h"
 
+
+// enable ASID extension here:
+#define ASID_EXTENSION 1
+
+
+#if ASID_EXTENSION
+extern "C" {
+    extern void ASID_MIDI_Write(uint_least8_t addr, uint8_t data);
+    extern void ASID_MIDI_FlushBuffer(void);
+}
+#endif /* ASID_EXTENSION */
+
+
 namespace libsidplayfp
 {
 
@@ -77,6 +90,12 @@ void ReSID::reset(uint8_t volume)
     m_accessClk = 0;
     m_sid.reset();
     m_sid.write(0x18, volume);
+
+
+    #if ASID_EXTENSION
+        ASID_MIDI_Write(0x18, volume);
+        ASID_MIDI_FlushBuffer();
+    #endif /* ASID_EXTENSION */
 }
 
 uint8_t ReSID::read(uint_least8_t addr)
@@ -89,6 +108,10 @@ void ReSID::write(uint_least8_t addr, uint8_t data)
 {
     clock();
     m_sid.write(addr, data);
+
+    #if ASID_EXTENSION
+        ASID_MIDI_Write(addr, data);
+    #endif /* ASID_EXTENSION */
 }
 
 void ReSID::clock()
