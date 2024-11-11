@@ -82,7 +82,7 @@
 	{
 		// NSSize imageCacheSize  = imageCache.size;
 		NSRect imageRect = NSMakeRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-		[imageCache drawInRect:rect fromRect:imageRect operation:NSCompositeCopy fraction:1.0];
+		[imageCache drawInRect:rect fromRect:imageRect operation:NSCompositingOperationCopy fraction:1.0];
 		
 #ifdef SP_DEBUG		
 		NSMutableDictionary * attribs = [NSMutableDictionary dictionaryWithCapacity:2];

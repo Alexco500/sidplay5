@@ -18,11 +18,11 @@
 /* define if the compiler supports basic C++17 syntax */
 #undef HAVE_CXX17
 
+/* define if the compiler supports basic C++20 syntax */
+#undef HAVE_CXX20
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
-
-/* Define to 1 if you have the <emmintrin.h> header file. */
-#undef HAVE_EMMINTRIN_H
 
 /* Define to 1 if you have libexsid (-lexsid). */
 #undef HAVE_EXSID
@@ -42,14 +42,14 @@
 /* Define to 1 if you have libgcrypt (-lgcrypt). */
 #undef HAVE_LIBGCRYPT
 
-/* Define to 1 if you have the <mmintrin.h> header file. */
-#undef HAVE_MMINTRIN_H
-
 /* Define to 1 if you have pthread.h */
 #undef HAVE_PTHREAD_H
 
 /* Have PTHREAD_PRIO_INHERIT. */
 #undef HAVE_PTHREAD_PRIO_INHERIT
+
+/* Define to 1 if you have the <smmintrin.h> header file. */
+#undef HAVE_SMMINTRIN_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H

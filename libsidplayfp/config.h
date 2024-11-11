@@ -5,7 +5,7 @@
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
 /* Define for threaded driver */
-#define EXSID_THREADED 1
+/* #undef EXSID_THREADED */
 
 /* Define to 1 if you have the <arm_neon.h> header file. */
 /* #undef HAVE_ARM_NEON_H */
@@ -17,13 +17,13 @@
 /* #undef HAVE_CXX14 */
 
 /* define if the compiler supports basic C++17 syntax */
-#define HAVE_CXX17 1
+/* #undef HAVE_CXX17 */
+
+/* define if the compiler supports basic C++20 syntax */
+#define HAVE_CXX20 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
-
-/* Define to 1 if you have the <emmintrin.h> header file. */
-/* #undef HAVE_EMMINTRIN_H */
 
 /* Define to 1 if you have libexsid (-lexsid). */
 /* #undef HAVE_EXSID */
@@ -35,22 +35,22 @@
 /* #undef HAVE_FTD2XX_H */
 
 /* Define to 1 if you have ftdi.h */
-#define HAVE_FTDI 1
+/* #undef HAVE_FTDI */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have libgcrypt (-lgcrypt). */
-/* #define HAVE_LIBGCRYPT 1 */
-
-/* Define to 1 if you have the <mmintrin.h> header file. */
-/* #undef HAVE_MMINTRIN_H */
+/* #undef HAVE_LIBGCRYPT */
 
 /* Define to 1 if you have pthread.h */
-#define HAVE_PTHREAD_H 1
+/* #undef HAVE_PTHREAD_H */
 
 /* Have PTHREAD_PRIO_INHERIT. */
-#define HAVE_PTHREAD_PRIO_INHERIT 1
+/* #undef HAVE_PTHREAD_PRIO_INHERIT */
+
+/* Define to 1 if you have the <smmintrin.h> header file. */
+/* #undef HAVE_SMMINTRIN_H */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -95,7 +95,7 @@
 #define PACKAGE_NAME "libsidplayfp"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libsidplayfp 2.5.0"
+#define PACKAGE_STRING "libsidplayfp 2.11.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libsidplayfp"
@@ -104,7 +104,7 @@
 #define PACKAGE_URL "https://github.com/libsidplayfp/libsidplayfp/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.5.0"
+#define PACKAGE_VERSION "2.11.0"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
@@ -125,7 +125,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "2.5.0"
+#define VERSION "2.11.0"
 
 /* Path to VICE testsuite. */
 /* #undef VICE_TESTSUITE */

@@ -1,7 +1,7 @@
 /*
  * This file is part of libsidplayfp, a SID player engine.
  *
- *  Copyright 2014-2022 Leandro Nini
+ *  Copyright 2014-2024 Leandro Nini
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,10 @@
 #endif
 
 
+#ifdef HAVE_CXX20
+#  define HAVE_CXX17
+#endif
+
 #ifdef HAVE_CXX17
 #  define HAVE_CXX14
 #  define MAYBE_UNUSED [[ maybe_unused ]]
@@ -41,15 +45,7 @@
 #endif
 
 #ifndef HAVE_CXX11
-#  define nullptr    0
-#  define override
-#  define final
-#  define unique_ptr auto_ptr
-#  define DEFAULT {}
-#  define DELETE {}
-#else
-#  define DEFAULT = default
-#  define DELETE  = delete
+#  error "This is not a C++11 compiler"
 #endif
 
 

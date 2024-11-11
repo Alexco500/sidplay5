@@ -287,7 +287,14 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
             cfg.defaultSidModel    = SidConfig::MOS8580;
 
         if (mPlaybackSettings.mForceSidModel)
+        { // force SID and PAL/NTSC if user wants that
             cfg.forceSidModel = true;
+            cfg.forceC64Model = true;
+        } else {
+            cfg.forceSidModel = false;
+            cfg.forceC64Model = false;
+
+        }
     } else {
         // manual ovveride of settings
         if (mPlaybackSettings.SIDselectorOverrideModel == 0)
@@ -326,7 +333,6 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     {
         printf("SIDBlasterUSB configure error: %s\n", mSIDBlasterUSBbuilder->error());
     } else {
-        cfg.sidEmulation = mSIDBlasterUSBbuilder;
         mExtUSBDeviceActive = true;
     }
 #else
@@ -351,8 +357,11 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
 	mBuilder->filter(false);
 //	mBuilder->filter(&mFilterSettings);
 //	mBuilder->sampling(cfg.frequency);
-
-    cfg.sidEmulation   = mBuilder_reSID.get();
+    if (mExtUSBDeviceActive)
+        cfg.sidEmulation   = (sidbuilder*)mSIDBlasterUSBbuilder;
+    else
+        cfg.sidEmulation   = mBuilder.get();
+    
     cfg.frequency      = mPlaybackSettings.mFrequency;
     cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
     cfg.fastSampling   = false;

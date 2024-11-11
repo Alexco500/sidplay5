@@ -204,7 +204,7 @@ static model_filter_init_t model_filter_init[2] = {
     opamp_voltage_8580,
     sizeof(opamp_voltage_8580)/sizeof(*opamp_voltage_8580),
     // FIXME: Measure for the 8580.
-    0.30,
+    0.24,
     // FIXME: Measure for the 8580.
     4.84,
     // Capacitor value.
@@ -280,6 +280,12 @@ Filter::Filter()
       double N31 = norm*((1u << 31) - 1);
       mf.vo_N16 = N16;
 
+      // In the 6581 the mixer input resistors for the filter lines
+      // are slightly bigger than the voice ones
+      // Scale the values accordingly
+      const double scaleFactor = m==0 ? 0.93 : 1.0;
+      mf.filterGain = static_cast<int>(scaleFactor * (1 << 12));
+
       // The "zero" output level of the voices.
       // The digital range of one voice is 20 bits; create a scaling term
       // for multiplication which fits in 11 bits.
@@ -299,6 +305,8 @@ Filter::Filter()
       // points.
       // double_point scaled_voltage[fi.opamp_voltage_size];
       double_point scaled_voltage[50];
+
+      assert((fi.opamp_voltage_size > 0) && (fi.opamp_voltage_size < 50));
 
       for (int i = 0; i < fi.opamp_voltage_size; i++) {
         // The target output range is 16 bits, in order to fit in an unsigned
@@ -508,10 +516,11 @@ Filter::Filter()
 
         // kVg_Vx = k*Vg - Vx
         // I.e. if k != 1.0, Vg must be scaled accordingly.
-        for (int kVg_Vx = 0; kVg_Vx < (1 << 16); kVg_Vx++) {
+        for (int i = 0; i < (1 << 16); i++) {
+          int kVg_Vx = i - (1 << 15);
           double log_term = log1p(exp((kVg_Vx/N16 - kVt)/(2*Ut)));
           // Scaled by m*2^15
-          vcr_n_Ids_term[kVg_Vx] = (unsigned short)(n_Is*log_term*log_term);
+          vcr_n_Ids_term[i] = (unsigned short)(n_Is*log_term*log_term);
         }
       } else {
         // 8580 only

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2013-2016 Leandro Nini
  * Copyright (C) 2001 Dag Lem
- * Copyright (C) 1989-1997 André Fachat (a.fachat@physik.tu-chemnitz.de)
+ * Copyright (C) 1989-1997 AndrÃ© Fachat (a.fachat@physik.tu-chemnitz.de)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 #include "sidplayfp/siddefs.h"
 
 /// 16 bit header
-const int HEADER_SIZE = (8 + 9 * 2);
+constexpr int HEADER_SIZE = (8 + 9 * 2);
 
 /// Magic number
 const unsigned char o65hdr[] = {1, 0, 'o', '6', '5'};
@@ -99,7 +99,7 @@ bool reloc65::reloc(unsigned char **buf, int *fsize)
 {
     unsigned char *tmpBuf = *buf;
 
-    if (memcmp(tmpBuf, o65hdr, 5) != 0)
+    if (std::memcmp(tmpBuf, o65hdr, 5) != 0)
     {
         return false;
     }

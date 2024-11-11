@@ -15,10 +15,10 @@
 
 #include "exsid-emu.h"
 
+#include <cstdio>
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <sstream>
+#include <unistd.h>
 
 #ifdef HAVE_EXSID
 #  include <exSID.h>
@@ -35,18 +35,9 @@ unsigned int exSID::sid = 0;
 
 const char* exSID::getCredits()
 {
-    static std::string credits;
-
-    if (credits.empty())
-    {
-        // Setup credits
-        std::ostringstream ss;
-        ss << "exSID V" << VERSION << " Engine:\n";
-        ss << "\t(C) 2015-2017,2021 Thibaut VARENE\n";
-        credits = ss.str();
-    }
-
-	return credits.c_str();
+    return
+        "exSID V" VERSION " Engine:\n"
+        "\t(C) 2015-2017,2021 Thibaut VARENE\n";
 }
 
 exSID::exSID(sidbuilder *builder) :
@@ -70,8 +61,6 @@ exSID::exSID(sidbuilder *builder) :
 
     m_status = true;
     sid++;
-  
-    muted[0] = muted[1] = muted[2] = false;
 }
 
 exSID::~exSID()
@@ -148,15 +137,7 @@ void exSID::write(uint_least8_t addr, uint8_t data)
 
     const unsigned int cycles = delay();
 
-    if (addr % 7 == 4 && muted[addr / 7])
-        data = 0;
-
     exSID_clkdwrite(exsid, cycles, addr, data);
-}
-
-void exSID::voice(unsigned int num, bool mute)
-{
-    muted[num] = mute;
 }
 
 void exSID::model(SidConfig::sid_model_t model, MAYBE_UNUSED bool digiboost)

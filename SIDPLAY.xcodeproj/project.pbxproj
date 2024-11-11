@@ -182,6 +182,8 @@
 		DA17E57F2A050B7700419CB8 /* SidTuneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5712A050B7700419CB8 /* SidTuneInfo.cpp */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DA5578112CDE2063005C2A42 /* SPBigOscilloscopeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.mm */; };
+		DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5578132CDE20ED005C2A42 /* SPOscilloscopeWindowController.m */; };
 		DA557D522AC6E9F000C02288 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
 		DA557D562AC6E9F000C02288 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA557D552AC6E9F000C02288 /* PreviewViewController.m */; };
 		DA557D592AC6E9F000C02288 /* PreviewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = DA557D582AC6E9F000C02288 /* PreviewProvider.m */; };
@@ -742,6 +744,11 @@
 		DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMD5SongLengthDatabase.h; sourceTree = "<group>"; };
 		DA212D4F27F70C1F00038CDE /* StringAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringAddons.m; sourceTree = "<group>"; };
 		DA212D5027F70C1F00038CDE /* StringAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringAddons.h; sourceTree = "<group>"; };
+		DA55780F2CDE2063005C2A42 /* SPBigOscilloscopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPBigOscilloscopeView.h; sourceTree = "<group>"; };
+		DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SPBigOscilloscopeView.mm; sourceTree = "<group>"; };
+		DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPOscilloscopeWindowController.h; sourceTree = "<group>"; };
+		DA5578132CDE20ED005C2A42 /* SPOscilloscopeWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPOscilloscopeWindowController.m; sourceTree = "<group>"; };
+		DA5578152CDE3878005C2A42 /* PlayerInfoProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerInfoProtocol.h; sourceTree = "<group>"; };
 		DA557D512AC6E9F000C02288 /* SIDTuneViewer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SIDTuneViewer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA557D542AC6E9F000C02288 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		DA557D552AC6E9F000C02288 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
@@ -833,6 +840,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DA5578152CDE3878005C2A42 /* PlayerInfoProtocol.h */,
+				DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */,
+				DA5578132CDE20ED005C2A42 /* SPOscilloscopeWindowController.m */,
 				1FDD6E790D82E40E00489870 /* SPPlayerWindow.mm */,
 				1FDD6E780D82E40E00489870 /* SPPlayerWindow.h */,
 				1FDD6E770D82E40E00489870 /* SPMiniPlayerWindow.mm */,
@@ -878,6 +888,8 @@
 		1F0FF64D0CF773E2000DAD6D /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				DA55780F2CDE2063005C2A42 /* SPBigOscilloscopeView.h */,
+				DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.mm */,
 				1FCC6AE10CF2264E005AFA9A /* SPStatusDisplayView.mm */,
 				1FCC6AE00CF2264E005AFA9A /* SPStatusDisplayView.h */,
 				1F05AA7B0D511BEE004725C5 /* SPVisualizerView.mm */,
@@ -1604,8 +1616,8 @@
 				1F17B2480CEF9BC90000EA52 /* Copy Spotlight Plugin */,
 				DAB81A27286870160075CB8E /* Embed Frameworks */,
 				DAB81A2828689CFB0075CB8E /* CopyFiles */,
-				DA6570C92869ABA70086C126 /* ShellScript */,
 				DA557D622AC6E9F000C02288 /* Embed Foundation Extensions */,
+				DA6570C92869ABA70086C126 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1677,7 +1689,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					DA17E5252A04F5F200419CB8 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -1838,6 +1851,7 @@
 				1F5173E80CF9A9F30064AFA2 /* SPInfoWindowController.mm in Sources */,
 				1F5176620CFB72010064AFA2 /* SPInfoContainerView.mm in Sources */,
 				DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */,
+				DA5578112CDE2063005C2A42 /* SPBigOscilloscopeView.mm in Sources */,
 				1F5176630CFB72020064AFA2 /* SPInfoView.mm in Sources */,
 				1F51769B0CFB73260064AFA2 /* SPOscilloscopeView.mm in Sources */,
 				DAA731B029E763A300B274D5 /* SPGradientBox.mm in Sources */,
@@ -1860,6 +1874,7 @@
 				1F207ADD0D414B6100BBEF40 /* SPSmartPlaylist.mm in Sources */,
 				1F2822460D469EA100AAB993 /* SPPlaylistItem.mm in Sources */,
 				1F05AA7D0D511BEF004725C5 /* SPVisualizerView.mm in Sources */,
+				DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */,
 				1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */,
 				1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */,
 				1FDD6E7A0D82E40E00489870 /* SPMiniPlayerWindow.mm in Sources */,
@@ -2173,7 +2188,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -2241,7 +2256,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2291,6 +2306,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2358,6 +2374,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2443,7 +2460,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/sidblasterUSB",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2499,7 +2516,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/sidblasterUSB",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2552,7 +2569,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2604,7 +2621,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2649,7 +2666,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2684,7 +2701,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;

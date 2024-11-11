@@ -24,7 +24,9 @@
 				<string>PSID</string>
 			</array>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.sidmusic.sidtune</string>
@@ -37,12 +39,46 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>sid</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>psid.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>audio/prs.sid</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>PSID music file</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>PSID</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>pl.rabidus.retrodebugger.sid</string>
+				<string>com.yoyofr.modizer.sid</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>prg</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>PRG file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -55,12 +91,54 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>public.audio</string>
+				<string>public.audiovisual-content</string>
+				<string>public.content</string>
 				<string>public.message</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>SID tune</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.sidmusic.sidtune</string>
-			<key>UTTypeDescription</key>
-			<string>SID music file</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.sidmusic.org/sidplay/mac/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>PSID</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sid</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>audio/prs.sid</string>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>pl.rabidus.retrodebugger.sid</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sid</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.yoyofr.modizer.sid</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -72,16 +150,16 @@
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string></string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>SIDPLAY</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Version 5.1, Copyright 2022-2023 Alexander Coers</string>
+	<string>Version 5.1, Copyright 2022-2024 Alexander Coers</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

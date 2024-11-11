@@ -107,7 +107,7 @@ public:
 
     void model(SidConfig::sid_model_t, bool digiboost) override {}
 
-    void voice(unsigned int num, bool mute) override;
+    void voice(unsigned int num, bool mute) ;
 
     // HardSID specific
     void flush();

@@ -155,11 +155,11 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 		}
 		else
 		{
-			NSAlert* alert = [NSAlert alertWithMessageText:@"No remixes found"
-											 defaultButton:@"OK"
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:@"There are no remixes of this tune available from http://remix.kwed.org/."];
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:@"No remixes found"];
+			[alert setInformativeText:@"There are no remixes of this tune available from http://remix.kwed.org/."];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"OK"];
 			
 			[alert runModal];
 		}
@@ -168,11 +168,11 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	{
 		foundRemixes = nil;
 		
-		NSAlert* alert = [NSAlert alertWithMessageText:@"No remix database available"
-										 defaultButton:@"OK"
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:@"The remix database could not be downloaded, please try again later."];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"No remix database available"];
+		[alert setInformativeText:@"The remix database could not be downloaded, please try again later."];
+		[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+		[alert addButtonWithTitle:@"OK"];
 		
 		[alert runModal];
 	}
@@ -183,7 +183,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 - (IBAction) cancelRemixSheet:(id)sender
 // ----------------------------------------------------------------------------
 {
-	[NSApp endSheet:(NSWindow*)remixSelectionPanel returnCode:NSCancelButton];
+	[NSApp endSheet:(NSWindow*)remixSelectionPanel returnCode:NSModalResponseCancel];
 }
 
 
@@ -194,7 +194,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 	if (sender == remixTableView && remixTableView.clickedRow == -1)
 		return;
 		
-	[NSApp endSheet:(NSWindow*)remixSelectionPanel returnCode:NSOKButton];
+	[NSApp endSheet:(NSWindow*)remixSelectionPanel returnCode:NSModalResponseOK];
 }
 
 
@@ -204,7 +204,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 {
     [sheet orderOut:self];
 	
-	if (returnCode == NSOKButton)
+	if (returnCode == NSModalResponseOK)
 	{
 		NSInteger selectedRow = remixTableView.selectedRow;
 		if (foundRemixes != nil)

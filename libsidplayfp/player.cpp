@@ -32,6 +32,8 @@
 
 #include "sidcxx11.h"
 
+#include <ctime>
+
 namespace libsidplayfp
 {
 
@@ -69,8 +71,8 @@ Player::Player() :
     // Set default settings for system
     m_tune(nullptr),
     m_errorString(ERR_NA),
-    m_isPlaying(STOPPED),
-    m_rand((unsigned int)::time(0))
+    m_isPlaying(state_t::STOPPED),
+    m_rand((unsigned int)std::time(nullptr))
 {
     // We need at least some minimal interrupt handling
     m_c64.getMemInterface().setKernal(nullptr);
@@ -126,7 +128,7 @@ bool Player::fastForward(unsigned int percent)
 
 void Player::initialise()
 {
-    m_isPlaying = STOPPED;
+    m_isPlaying = state_t::STOPPED;
 
     m_c64.reset();
 
@@ -190,26 +192,35 @@ void Player::mute(unsigned int sidNum, unsigned int voice, bool enable)
         s->voice(voice, enable);
 }
 
+void Player::filter(unsigned int sidNum, bool enable)
+{
+    sidemu *s = m_mixer.getSid(sidNum);
+    if (s != nullptr)
+        s->filter(enable);
+}
+
 /**
  * @throws MOS6510::haltInstruction
  */
 void Player::run(unsigned int events)
 {
-    for (unsigned int i = 0; m_isPlaying && i < events; i++)
+    for (unsigned int i = 0; (m_isPlaying != state_t::STOPPED) && (i < events); i++)
         m_c64.clock();
 }
 
 uint_least32_t Player::play(short *buffer, uint_least32_t count)
 {
+    static constexpr unsigned int CYCLES = 3000;
+
     // Make sure a tune is loaded
     if (m_tune == nullptr)
         return 0;
 
     // Start the player loop
-    if (m_isPlaying == STOPPED)
-        m_isPlaying = PLAYING;
+    if (m_isPlaying == state_t::STOPPED)
+        m_isPlaying = state_t::PLAYING;
 
-    if (m_isPlaying == PLAYING)
+    if (m_isPlaying == state_t::PLAYING)
     {
         try
         {
@@ -223,9 +234,10 @@ uint_least32_t Player::play(short *buffer, uint_least32_t count)
                     count = 0;
 
                     // Clock chips and mix into output buffer
-                    while (m_isPlaying && m_mixer.notFinished())
+                    while ((m_isPlaying != state_t::STOPPED) && m_mixer.notFinished())
                     {
-                        run(sidemu::OUTPUTBUFFERSIZE);
+                        if (!m_mixer.wait())
+                            run(CYCLES);
 
                         m_mixer.clockChips();
                         m_mixer.doMix();
@@ -236,9 +248,9 @@ uint_least32_t Player::play(short *buffer, uint_least32_t count)
                 {
                     // Clock chips and discard buffers
                     int size = m_c64.getMainCpuSpeed() / m_cfg.frequency;
-                    while (m_isPlaying && --size)
+                    while ((m_isPlaying != state_t::STOPPED) && --size)
                     {
-                        run(sidemu::OUTPUTBUFFERSIZE);
+                        run(CYCLES);
 
                         m_mixer.clockChips();
                         m_mixer.resetBufs();
@@ -249,32 +261,32 @@ uint_least32_t Player::play(short *buffer, uint_least32_t count)
             {
                 // Clock the machine
                 int size = m_c64.getMainCpuSpeed() / m_cfg.frequency;
-                while (m_isPlaying && --size)
+                while ((m_isPlaying != state_t::STOPPED) && --size)
                 {
-                    run(sidemu::OUTPUTBUFFERSIZE);
+                    run(CYCLES);
                 }
             }
         }
         catch (MOS6510::haltInstruction const &)
         {
             m_errorString = "Illegal instruction executed";
-            m_isPlaying = STOPPING;
+            m_isPlaying = state_t::STOPPING;
         }
         catch (Mixer::badBufferSize const &)
         {
             m_errorString = "Bad buffer size";
-            m_isPlaying = STOPPING;
+            m_isPlaying = state_t::STOPPING;
         }
     }
 
-    if (m_isPlaying == STOPPING)
+    if (m_isPlaying == state_t::STOPPING)
     {
         try
         {
             initialise();
         }
         catch (configError const &) {}
-        m_isPlaying = STOPPED;
+        m_isPlaying = state_t::STOPPED;
     }
 
     return count;
@@ -282,9 +294,9 @@ uint_least32_t Player::play(short *buffer, uint_least32_t count)
 
 void Player::stop()
 {
-    if (m_tune != nullptr && m_isPlaying == PLAYING)
+    if ((m_tune != nullptr) && (m_isPlaying == state_t::PLAYING))
     {
-        m_isPlaying = STOPPING;
+        m_isPlaying = state_t::STOPPING;
     }
 }
 
@@ -354,8 +366,9 @@ bool Player::config(const SidConfig &cfg, bool force)
         }
         catch (configError const &e)
         {
+            sidRelease();
             m_errorString = e.message();
-            m_cfg.sidEmulation = 0;
+            m_cfg.sidEmulation = nullptr;
             if (&m_cfg != &cfg)
             {
                 config(m_cfg);

@@ -180,7 +180,7 @@
 	
     [savePanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
     {
-        if (result == NSFileHandlingPanelOKButton)
+        if (result == NSModalResponseOK)
         {
             [self->exportTaskWindow orderFront:self];
             
@@ -209,7 +209,7 @@
 
     [openPanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
      {
-         if (result == NSFileHandlingPanelOKButton)
+         if (result == NSModalResponseOK)
          {
              [self->exportTaskWindow orderFront:self];
              

@@ -24,11 +24,11 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                 </customView>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ADg-AZ-QIy" userLabel="Right  View">
-                    <rect key="frame" x="200" y="0.0" width="300" height="200"/>
+                    <rect key="frame" x="199" y="0.0" width="301" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <subviews>
                         <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-tc-M5K" userLabel="InfoTextView">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="301" height="200"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" allowsEditingTextAttributes="YES" id="PwX-nz-QLp">
                                 <font key="font" metaFont="system"/>

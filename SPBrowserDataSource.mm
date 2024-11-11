@@ -516,7 +516,7 @@ NSDate* fillStart = nil;
 	[browserView scrollRowToVisible:0];
 	
 	NSString* relativeUrlString = [[NSURL URLWithString:currentSharedCollection] relativePath];
-	NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
 	NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/%@", escapedCollectionName, relativeUrlString];
 	//NSLog(@"%@ %@ %@ %@\n", currentSharedCollection, relativeUrlString, escapedCollectionName, pathControlUrlString);
 	[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
@@ -778,11 +778,11 @@ NSDate* fillStart = nil;
 - (void) updatePathControlForPlaylistMode:(BOOL)isCaching
 // ----------------------------------------------------------------------------
 {
-	NSString* escapedPlaylistName = [[playlist name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString* escapedPlaylistName = [[playlist name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
 	if (browserMode == BROWSER_MODE_SHARED_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST)
 	{
 		BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST;
-		NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
 		NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/PLAYLISTS/%@%%20(%lu%%20songs)", escapedCollectionName, escapedPlaylistName, (unsigned long)[rootItems count]];
 
 		[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
@@ -1567,7 +1567,7 @@ NSDate* fillStart = nil;
 - (void)didEndMissingFileSheet:(NSOpenPanel*)openPanel returnCode:(int)returnCode contextInfo:(void*)contextInfo
 // ----------------------------------------------------------------------------
 {
-	if (returnCode == NSOKButton)
+	if (returnCode == NSModalResponseOK)
 	{
         NSArray *filesToOpen = [openPanel filenames];
         NSString* file = [filesToOpen objectAtIndex:0];
@@ -2683,15 +2683,16 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	{
 		if ([item fileDoesNotExist])
 		{
-			NSAlert* alert = [NSAlert alertWithMessageText:@"This file cannot be found!"
-											 defaultButton:@"Locate File"
-										   alternateButton:@"Cancel"
-											   otherButton:nil
-								 informativeTextWithFormat:@"Do you want to update the playlist entry by specifying a new file?"];
+			NSAlert *alert = [[NSAlert alloc] init];
+			[alert setMessageText:@"This file cannot be found!"];
+			[alert setInformativeText:@"Do you want to update the playlist entry by specifying a new file?"];
+			[alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+			[alert addButtonWithTitle:@"Locate File"];
+			[alert addButtonWithTitle:@"Cancel"];
 
 			NSInteger returnStatus = [alert runModal];
 			
-			if (returnStatus == NSAlertDefaultReturn)
+			if (returnStatus == NSAlertFirstButtonReturn)
 				[dataSource findMissingPlaylistFileOfItem:item];
 		}
 		else
@@ -2862,7 +2863,7 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 		[path fill];
 		[[NSColor colorWithCalibratedWhite:0.0f alpha:0.5f] set];
 		[path stroke];
-		[defaultImage compositeToPoint:NSMakePoint(0, 0) operation:NSCompositeSourceOver];
+		[defaultImage compositeToPoint:NSMakePoint(0, 0) operation:NSCompositingOperationSourceOver];
 		[image unlockFocus];
 		
 		return image;
@@ -2875,8 +2876,8 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, [iconImage size].width, [iconImage size].height);
 		NSImage* image = [[NSImage alloc] initWithSize:NSMakeSize(64.0f, 64.0f)];
 		[image lockFocus];
-		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.5f];
-		[badgeImage compositeToPoint:NSMakePoint(38.0f, 10.0f) operation:NSCompositeSourceOver];
+		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositingOperationSourceOver fraction:0.5f];
+		[badgeImage compositeToPoint:NSMakePoint(38.0f, 10.0f) operation:NSCompositingOperationSourceOver];
 		NSDictionary* normalAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:11.0f], NSFontAttributeName,
 																		       [NSColor whiteColor], NSForegroundColorAttributeName, nil];
 		NSMutableAttributedString* numberString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", (unsigned long)[dragRows count]] attributes:normalAttrs];
@@ -2892,9 +2893,9 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 		NSRect iconImageRect = NSMakeRect(0.0f, 0.0f, [iconImage size].width, [iconImage size].height);
 		NSImage* image = [[NSImage alloc] initWithSize:NSMakeSize(64.0f, 64.0f)];
 		[image lockFocus];
-		[iconImage drawInRect:NSMakeRect(12.0f, 20.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.8f];
-		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.8f];
-		[iconImage drawInRect:NSMakeRect(20.0f, 12.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositeSourceOver fraction:0.8f];
+		[iconImage drawInRect:NSMakeRect(12.0f, 20.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositingOperationSourceOver fraction:0.8f];
+		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositingOperationSourceOver fraction:0.8f];
+		[iconImage drawInRect:NSMakeRect(20.0f, 12.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositingOperationSourceOver fraction:0.8f];
 		[image unlockFocus];
 
 		return image;

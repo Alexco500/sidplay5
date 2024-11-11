@@ -54,7 +54,7 @@ const char* HardSIDSB::getCredits()
         // Setup credits
         std::ostringstream ss;
         ss << "SIDBlaster USB Emu for sidplayerfp " << VERSION << " Engine:\n";
-        ss << "\t(C) 2023 Alexander Coers\n";
+        ss << "\t(C) 2024 Alexander Coers\n";
         ss << "\tbased on HardSID builder by\n";
         ss << "\t(C) 2001-2002 Jarno Paanenen\n\and indispensable help of Winfred Bos\n";
         credits = ss.str();

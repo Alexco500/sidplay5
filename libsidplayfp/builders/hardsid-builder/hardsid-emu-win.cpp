@@ -48,18 +48,9 @@ unsigned int HardSID::sid = 0;
 
 const char* HardSID::getCredits()
 {
-    static std::string credits;
-
-    if (credits.empty())
-    {
-        // Setup credits
-        std::ostringstream ss;
-        ss << "HardSID V" << VERSION << " Engine:\n";
-        ss << "\t(C) 1999-2002 Simon White\n";
-        credits = ss.str();
-    }
-
-    return credits.c_str();
+    return
+        "HardSID V" VERSION " Engine:\n"
+        "\t(C) 1999-2002 Simon White\n";
 }
 
 HardSID::HardSID(sidbuilder *builder) :
@@ -129,14 +120,6 @@ void HardSID::reset(uint8_t volume)
 
     if (eventScheduler != nullptr)
         eventScheduler->schedule(*this, HARDSID_DELAY_CYCLES, EVENT_CLOCK_PHI1);
-}
-
-void HardSID::voice(unsigned int num, bool mute)
-{
-    if (hsid2.Version >= HSID_VERSION_207)
-        hsid2.Mute2((BYTE) m_instance, (BYTE) num, (BOOL) mute, FALSE);
-    else
-        hsid2.Mute((BYTE) m_instance, (BYTE) num, (BOOL) mute);
 }
 
 // Set execution environment and lock sid to it

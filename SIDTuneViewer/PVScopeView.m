@@ -76,7 +76,7 @@
         float stepW;
         float factorH = height/32767/2;
         // clamp width to array size
-        // FIXME: find a better solution that to use a fixed max. width
+        // FIXME: find a better solution than to use a fixed max. width
         if (width > 2048)
             width = 2048;
         
