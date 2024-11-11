@@ -9,8 +9,10 @@
     The current version of this software can be found at http://pete.yandell.com/software
      
     Copyright (c) 2002-2004 Peter Yandell.  All Rights Reserved.
+ 
+    Fixed: PYMIDIGetEndpointName's string len validation // 2024-08-05 rio rattenrudel
     
-    $Id: PYMIDIUtils.m 137 2008-11-30 14:28:22Z tk $
+    $Id: PYMIDIUtils.m 137 2024-08-05 22:49:22Z rr $
 */
 
 
@@ -46,10 +48,14 @@ PYMIDIGetEndpointName (MIDIEndpointRef midiEndpointRef)
     
     if (endpointName != nil) {
         if (deviceName != nil) {
-            bool endpointNameBeginsWithDeviceName = 
+            
+            CFIndex eLen = CFStringGetLength (endpointName);
+            CFIndex dLen = CFStringGetLength (deviceName);
+            
+            bool endpointNameBeginsWithDeviceName =
                 CFStringCompareWithOptions (
                     endpointName, deviceName,
-                    CFRangeMake(0, CFStringGetLength (deviceName)),
+                    CFRangeMake(0, eLen < dLen ? eLen : dLen),
                     kCFCompareCaseInsensitive
                 ) == kCFCompareEqualTo;
                 
