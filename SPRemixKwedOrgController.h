@@ -8,7 +8,7 @@
 	BOOL databaseAvailable;
 	NSMutableDictionary* remixKwedOrgDatabase;
 	NSMutableData* databaseDownloadData;
-	NSURLConnection* databaseDownloadConnection;
+    NSURLSession*   databaseDownloadSession;
 	NSMutableArray* foundRemixes;
 	NSWindow* ownerWindow;
 	NSImage* ratingImages[REMIX_RATING_COUNT];
@@ -21,6 +21,8 @@
 - (void) acquireDatabase;
 - (void) setOwnerWindow:(NSWindow*)owner;
 - (void) findRemixesForHvscPath:(NSString*)path withTitle:(NSString*)title;
+- (void) didEndRemixSheetWithReturnCode:(long)returnCode;
+- (void) connectionDidFinishLoading;
 
 - (IBAction) cancelRemixSheet:(id)sender;
 - (IBAction) confirmRemixSheet:(id)sender;

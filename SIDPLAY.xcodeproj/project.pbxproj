@@ -90,7 +90,7 @@
 		1FE7390A0D03E82100C37ADB /* numberlarge0.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738DB0D03E82100C37ADB /* numberlarge0.tiff */; };
 		1FE7390B0D03E82100C37ADB /* logo.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738DC0D03E82100C37ADB /* logo.qtz */; };
 		1FE739120D03E82100C37ADB /* button.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1FE738E30D03E82100C37ADB /* button.tiff */; };
-		1FEB2ADB0FB5C14900AD9F79 /* SPRemixKwedOrgController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.mm */; };
+		1FEB2ADB0FB5C14900AD9F79 /* SPRemixKwedOrgController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.m */; };
 		1FEB2CFC0FB724B600AD9F79 /* remixRating2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FEB2CF50FB724B600AD9F79 /* remixRating2.png */; };
 		1FEB2CFD0FB724B600AD9F79 /* remixRating0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FEB2CF60FB724B600AD9F79 /* remixRating0.png */; };
 		1FEB2CFE0FB724B600AD9F79 /* remixRating4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FEB2CF70FB724B600AD9F79 /* remixRating4.png */; };
@@ -502,7 +502,7 @@
 		1FE738DC0D03E82100C37ADB /* logo.qtz */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = logo.qtz; path = Resources/logo.qtz; sourceTree = "<group>"; };
 		1FE738E30D03E82100C37ADB /* button.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = button.tiff; path = Resources/button.tiff; sourceTree = "<group>"; };
 		1FEB2AD90FB5C14900AD9F79 /* SPRemixKwedOrgController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRemixKwedOrgController.h; sourceTree = "<group>"; };
-		1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPRemixKwedOrgController.mm; sourceTree = "<group>"; };
+		1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRemixKwedOrgController.m; sourceTree = "<group>"; };
 		1FEB2CF50FB724B600AD9F79 /* remixRating2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remixRating2.png; path = Resources/remixRating2.png; sourceTree = "<group>"; };
 		1FEB2CF60FB724B600AD9F79 /* remixRating0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remixRating0.png; path = Resources/remixRating0.png; sourceTree = "<group>"; };
 		1FEB2CF70FB724B600AD9F79 /* remixRating4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remixRating4.png; path = Resources/remixRating4.png; sourceTree = "<group>"; };
@@ -861,7 +861,7 @@
 				1FEF90510D02E5550014D7B2 /* SPColorProvider.h */,
 				1F571B570E8B6DD8001F3425 /* SPURLConnectionScheduler.mm */,
 				1F571B560E8B6DD8001F3425 /* SPURLConnectionScheduler.h */,
-				1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.mm */,
+				1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.m */,
 				1FEB2AD90FB5C14900AD9F79 /* SPRemixKwedOrgController.h */,
 				1F3896690CEE37C200942B17 /* Browser */,
 				1F3895C70CED827000942B17 /* Source List */,
@@ -1887,7 +1887,7 @@
 				1F932CE30F8DC7B900BC8A4F /* SPSynchronizedScrollView.mm in Sources */,
 				DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */,
 				1F4CA9680FA342A800B56AB6 /* SPCachedView.mm in Sources */,
-				1FEB2ADB0FB5C14900AD9F79 /* SPRemixKwedOrgController.mm in Sources */,
+				1FEB2ADB0FB5C14900AD9F79 /* SPRemixKwedOrgController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
