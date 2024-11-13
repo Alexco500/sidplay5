@@ -360,7 +360,7 @@ void PlayerLibSidplay::initEmuEngine(PlaybackSettings *settings)
     if (mExtUSBDeviceActive)
         cfg.sidEmulation   = (sidbuilder*)mSIDBlasterUSBbuilder;
     else
-        cfg.sidEmulation   = mBuilder.get();
+        cfg.sidEmulation   = mBuilder_reSID.get();
     
     cfg.frequency      = mPlaybackSettings.mFrequency;
     cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;

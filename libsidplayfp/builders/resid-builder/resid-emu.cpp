@@ -91,7 +91,6 @@ void ReSID::reset(uint8_t volume)
     m_sid.reset();
     m_sid.write(0x18, volume);
 
-
     #if ASID_EXTENSION
         ASID_MIDI_Write(0x18, volume);
         ASID_MIDI_FlushBuffer();
