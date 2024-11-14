@@ -231,7 +231,7 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
 		if (remix != nil)
 		{
 			//NSString* remix64UrlString = [NSString stringWithFormat:@"http://www.remix64.com/box.php?id=%d00", remix.identifier];
-			NSString* remix64UrlString = [NSString stringWithFormat:@"http://www.remix64.com/tune_%ld00.html", (long)remix.identifier];
+			NSString* remix64UrlString = [NSString stringWithFormat:@"https://www.remix64.com/voting/gb/box/?id=%ld00", (long)remix.identifier];
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:remix64UrlString]];
 		}
 	}
