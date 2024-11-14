@@ -14,8 +14,8 @@ It still needs [midi_patchbay](https://github.com/rio-rattenrudel/midi_patchbay/
 
 * install xcode and load sidplay project
 * to compile for the first time, add your Apple developer account for the team and your developer's signing certificate in the build settings for it's target
-* compile/start midi_patchbay
 * compile/start Sidplay5 (asid)
+* compile/start midi_patchbay
 * configure midi_patchbay with the MIDI input as ASID OUT and set the MIDI output to your MIDI interface
 * power on your SID device and play sid tunes in Sidplay5 (emulator and data transfer run simultaneously)
 
