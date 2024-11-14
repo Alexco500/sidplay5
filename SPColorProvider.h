@@ -3,7 +3,7 @@
 
 @interface SPColorProvider : NSObject
 {
-	BOOL providesDarkColors;
+    BOOL providesDarkColors;
 }
 
 + (SPColorProvider*) sharedInstance;

@@ -5,17 +5,17 @@
 
 @interface SPRemixKwedOrgController : NSObject
 {
-	BOOL databaseAvailable;
-	NSMutableDictionary* remixKwedOrgDatabase;
-	NSMutableData* databaseDownloadData;
+    BOOL databaseAvailable;
+    NSMutableDictionary* remixKwedOrgDatabase;
+    NSMutableData* databaseDownloadData;
     NSURLSession*   databaseDownloadSession;
-	NSMutableArray* foundRemixes;
-	NSWindow* ownerWindow;
-	NSImage* ratingImages[REMIX_RATING_COUNT];
-	
-	IBOutlet NSPanel* remixSelectionPanel;
-	IBOutlet NSTextField* remixSelectionCaption;
-	IBOutlet NSTableView* remixTableView;
+    NSMutableArray* foundRemixes;
+    NSWindow* ownerWindow;
+    NSImage* ratingImages[REMIX_RATING_COUNT];
+    
+    IBOutlet NSPanel* remixSelectionPanel;
+    IBOutlet NSTextField* remixSelectionCaption;
+    IBOutlet NSTableView* remixTableView;
 }
 
 - (void) acquireDatabase;

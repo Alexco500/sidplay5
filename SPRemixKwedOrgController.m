@@ -54,17 +54,17 @@ static NSString* SPRemixKwedOrgDatabaseDumpUrl = @"http://www.sidmusic.org/rko_d
     // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
     databaseDownloadSession = [NSURLSession sharedSession];
     NSURLSessionDataTask *dwnTask = [databaseDownloadSession dataTaskWithRequest:request
-                                             completionHandler:
-         ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                               completionHandler:
+                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
-                NSLog(@"Error: %@", error.localizedDescription);
-            } else {
-                [self->databaseDownloadData appendData:data];
-                [self connectionDidFinishLoading];
-            }
-         }];
-         
-     [dwnTask resume];
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            [self->databaseDownloadData appendData:data];
+            [self connectionDidFinishLoading];
+        }
+    }];
+    
+    [dwnTask resume];
 }
 
 // ----------------------------------------------------------------------------

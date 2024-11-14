@@ -30,7 +30,7 @@
 		1F40A9570D3AAFC400AD3B5D /* minus.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1F40A9560D3AAFC300AD3B5D /* minus.tiff */; };
 		1F41C53F0D5E11A30070C628 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F41C53D0D5E11A30070C628 /* Credits.rtf */; };
 		1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A48D0CFCC5DB0063F7E7 /* SPSidRegisterView.mm */; };
-		1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */; };
+		1F42425A0D70967D003FB09F /* SPColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.m */; };
 		1F46266B0D9AEE5000C12916 /* SPSourceListDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F46266A0D9AEE5000C12916 /* SPSourceListDataSource.mm */; };
 		1F4CA9680FA342A800B56AB6 /* SPCachedView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F4CA9670FA342A800B56AB6 /* SPCachedView.mm */; };
 		1F5173E20CF9A9BD0064AFA2 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F5173E00CF9A9BD0064AFA2 /* InfoWindow.xib */; };
@@ -515,7 +515,7 @@
 		1FEE5AB30CF88604006A04B0 /* SPCollectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCollectionUtilities.h; sourceTree = "<group>"; };
 		1FEE5AB40CF88604006A04B0 /* SPCollectionUtilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPCollectionUtilities.mm; sourceTree = "<group>"; };
 		1FEF90510D02E5550014D7B2 /* SPColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPColorProvider.h; sourceTree = "<group>"; };
-		1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SPColorProvider.mm; sourceTree = "<group>"; };
+		1FEF90520D02E5550014D7B2 /* SPColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPColorProvider.m; sourceTree = "<group>"; };
 		1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDPLAY_Prefix.pch; sourceTree = "<group>"; };
@@ -857,7 +857,7 @@
 				1F00F6230D053D8000E91BB9 /* SPStilBrowserController.h */,
 				1FEE5AB40CF88604006A04B0 /* SPCollectionUtilities.mm */,
 				1FEE5AB30CF88604006A04B0 /* SPCollectionUtilities.h */,
-				1FEF90520D02E5550014D7B2 /* SPColorProvider.mm */,
+				1FEF90520D02E5550014D7B2 /* SPColorProvider.m */,
 				1FEF90510D02E5550014D7B2 /* SPColorProvider.h */,
 				1F571B570E8B6DD8001F3425 /* SPURLConnectionScheduler.mm */,
 				1F571B560E8B6DD8001F3425 /* SPURLConnectionScheduler.h */,
@@ -1876,7 +1876,7 @@
 				1F05AA7D0D511BEF004725C5 /* SPVisualizerView.mm in Sources */,
 				DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */,
 				1F41C6050D5F58E20070C628 /* SPSidRegisterView.mm in Sources */,
-				1F42425A0D70967D003FB09F /* SPColorProvider.mm in Sources */,
+				1F42425A0D70967D003FB09F /* SPColorProvider.m in Sources */,
 				1FDD6E7A0D82E40E00489870 /* SPMiniPlayerWindow.mm in Sources */,
 				1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */,
 				1F14E3F40D83F3F9001BAB20 /* SPBrowserState.mm in Sources */,
