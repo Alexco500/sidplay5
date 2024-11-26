@@ -45,7 +45,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 {
 	if (self = [super init])
 	{
-		[self setType:(SourceListItemType)[coder decodeIntForKey:@"type"]];
+		[self setType:(enum SourceListItemType)[coder decodeIntForKey:@"type"]];
 		[self setName:[coder decodeObjectForKey:@"name"]];
 		[self setPath:[coder decodeObjectForKey:@"path"]];
 		[self setIcon:[coder decodeObjectForKey:@"icon"]];
@@ -184,7 +184,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (SourceListItemType) type
+- (enum SourceListItemType) type
 // ----------------------------------------------------------------------------
 {
 	return type;
@@ -192,7 +192,7 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (void) setType:(SourceListItemType)theType
+- (void) setType:(enum SourceListItemType)theType
 // ----------------------------------------------------------------------------
 {
 	type = theType;

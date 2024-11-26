@@ -1,12 +1,19 @@
 #import <Cocoa/Cocoa.h>
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPExporter.h"
 
 #import "SPOscilloscopeWindowController.h"
 #import "PlayerInfoProtocol.h"
 
-// Forward declares
+// C++ Forward declares
+#ifdef __cplusplus
 class AudioDriver;
+
+#else
+typedef void AudioDriver;
+#endif
+
+
 @class SPStatusDisplayView;
 @class SPInfoWindowController;
 @class SPInfoContainerView;
@@ -19,7 +26,6 @@ class AudioDriver;
 @class SPMiniPlayerWindow;
 @class SPVisualizerView;
 @class SPRemixKwedOrgController;
-
 
 extern NSString* SPTuneChangedNotification;
 extern NSString* SPPlayerInitializedNotification;
@@ -64,7 +70,7 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSMenuItem* analyzerWindowMenuItem;
 	IBOutlet NSMenuItem* exportTaskWindowMenuItem;
 	
-	PlayerLibSidplay* player;
+    PlayerLibSidplayWrapper* player;
 	AudioDriver* audioDriver;
 	NSString* currentTunePath;
 	NSInteger currentTuneLengthInSeconds;
@@ -136,7 +142,7 @@ extern NSString* SPUrlRequestUserAgentString;
 - (void) stopFadeOut;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
-@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplay *player;
+@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplayWrapper *player;
 
 - (void) addInfoContainerView:(NSScrollView*)infoContainerScrollView;
 

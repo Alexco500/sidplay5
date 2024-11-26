@@ -382,7 +382,7 @@ NSDate* fillStart = nil;
 	NSArray* items = [tableHeaderContextMenu itemArray];
 	for (NSMenuItem* item in items)
 	{
-		ColumnType columnType = (ColumnType)[item tag];
+		enum ColumnType columnType = (enum ColumnType)[item tag];
 		NSTableColumn* column = tableColumns[columnType];
 		if ([column isHidden])
 			[item setState:NSOffState];
@@ -393,7 +393,7 @@ NSDate* fillStart = nil;
 	items = [tableHeaderPlaylistContextMenu itemArray];
 	for (NSMenuItem* item in items)
 	{
-		ColumnType columnType = (ColumnType)[item tag];
+		enum ColumnType columnType = (enum ColumnType)[item tag];
 		NSTableColumn* column = tableColumns[columnType];
 		if ([column isHidden])
 			[item setState:NSOffState];
@@ -1156,7 +1156,7 @@ NSDate* fillStart = nil;
 - (IBAction) searchTypeChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	gPreferences.mSearchType = (SPSearchType) [sender tag];
+	gPreferences.mSearchType = (enum SPSearchType) [sender tag];
 	[self searchStringEntered:toolbarSearchField];
 	[self adjustSearchTypeControlsAndMenu];
 }
@@ -1166,7 +1166,7 @@ NSDate* fillStart = nil;
 - (IBAction) searchTypeChangedViaButtons:(id)sender
 // ----------------------------------------------------------------------------
 {
-	gPreferences.mSearchType = (SPSearchType) ([sender tag] - 10);
+	gPreferences.mSearchType = (enum SPSearchType) ([sender tag] - 10);
 	[self searchStringEntered:toolbarSearchField];
 	[self adjustSearchTypeControlsAndMenu];
 }
@@ -1497,7 +1497,7 @@ NSDate* fillStart = nil;
 
 
 // ----------------------------------------------------------------------------
-- (BrowserMode) browserMode
+- (enum BrowserMode) browserMode
 // ----------------------------------------------------------------------------
 {
 	return browserMode;
@@ -1505,7 +1505,7 @@ NSDate* fillStart = nil;
 
 
 // ----------------------------------------------------------------------------
-- (void) setBrowserMode:(BrowserMode)mode
+- (void) setBrowserMode:(enum BrowserMode)mode
 // ----------------------------------------------------------------------------
 {
 	browserMode = mode;
@@ -1667,7 +1667,7 @@ NSDate* fillStart = nil;
 {
     if (sender)
     {
-		ColumnType columnType = (ColumnType) [sender tag];
+		enum ColumnType columnType = (enum ColumnType) [sender tag];
 		NSTableColumn* column = tableColumns[columnType];
 		
 		if ([sender state] == NSOffState)
@@ -1947,7 +1947,7 @@ NSDate* fillStart = nil;
 - (IBAction) exportSelectedItems:(id)sender
 // ----------------------------------------------------------------------------
 {
-	ExportFileType type = (ExportFileType) [sender tag];
+	enum ExportFileType type = (enum ExportFileType) [sender tag];
 	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
 	SPExportController* exportController = [window exportController];
 

@@ -6,7 +6,7 @@
 
 @interface SPMiniPlayerWindow : NSPanel
 {
-	IBOutlet SPPlayerWindow* mainWindow;
+    IBOutlet SPPlayerWindow* mainWindow;
 }
 
 @end

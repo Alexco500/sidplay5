@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NewMD5SongLengthDatabase.h"
+#import "SidTuneWrapper.h"
 
-class SidTuneWrapper;
 
 @interface SongLengthDatabase : NSObject
 {

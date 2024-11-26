@@ -20,7 +20,7 @@ enum SourceListItemType
 
 @interface SPSourceListItem : NSObject
 {
-	SourceListItemType type;
+	enum SourceListItemType type;
 	NSAttributedString* name;
 	NSString* path;
 	NSImage* icon;
@@ -59,7 +59,7 @@ enum SourceListItemType
 
 @property (NS_NONATOMIC_IOSONLY, strong) NSNetService *service;
 
-@property (NS_NONATOMIC_IOSONLY) SourceListItemType type;
+@property (NS_NONATOMIC_IOSONLY) enum SourceListItemType type;
 @property (NS_NONATOMIC_IOSONLY, getter=isHeader, readonly) BOOL header;
 @property (NS_NONATOMIC_IOSONLY, getter=isCollectionItem, readonly) BOOL collectionItem;
 @property (NS_NONATOMIC_IOSONLY, getter=isPlaylistItem, readonly) BOOL playlistItem;

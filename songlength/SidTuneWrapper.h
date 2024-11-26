@@ -21,8 +21,8 @@
 
 #include "SidTuneInfo.h"
 
-class emuEngine;
-struct emuConfig;
+//class emuEngine;
+//struct emuConfig;
 class SidTune;
 
 

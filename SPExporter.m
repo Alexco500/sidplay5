@@ -1,7 +1,7 @@
 #import "SPExporter.h"
 #import "SPExportController.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SongLengthDatabase.h"
 #import "SPCollectionUtilities.h"
 #import "SPPreferencesController.h"
@@ -65,8 +65,8 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		
 		psid64Task = nil;
 		
-		player = new PlayerLibSidplay;
-        player->initEmuEngine(&gPreferences.mPlaybackSettings);
+        player = [[PlayerLibSidplayWrapper alloc] init];
+        [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
 		exportItem = item;
 
 		title = [item title];
@@ -95,17 +95,19 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	settings = gPreferences.mPlaybackSettings;
 	NSString* path = [exportItem path];
 	int subtune = [exportItem subtune];
-	bool success = player->loadTuneByPath([path cStringUsingEncoding:NSUTF8StringEncoding], subtune, &settings);
+    bool success = [player loadTuneByPath:
+                    [path cStringUsingEncoding:NSUTF8StringEncoding]
+                                  subtune: subtune withSettings:&settings];
 	if (!success)
 		return NO;
 
-	exportSettings.mTimeInSeconds = [[SongLengthDatabase sharedInstance] getSongLengthByPath:path andSubtune:subtune];
-	if (exportSettings.mTimeInSeconds == 0)
-		exportSettings.mTimeInSeconds = gPreferences.mDefaultPlayTime;
+    exportSettings.mTimeInSeconds = [[SongLengthDatabase sharedInstance] getSongLengthByPath:path andSubtune:subtune];
+    if (exportSettings.mTimeInSeconds == 0)
+        exportSettings.mTimeInSeconds = gPreferences.mDefaultPlayTime;
 	if ([exportItem loopCount] > 0)
-		exportSettings.mTimeInSeconds *= [exportItem loopCount];
+        exportSettings.mTimeInSeconds *= [exportItem loopCount];
 
-	releaseInfo = [NSString stringWithCString:player->getCurrentReleaseInfo() encoding:NSISOLatin1StringEncoding];
+	releaseInfo = [NSString stringWithCString:[player getCurrentReleaseInfo] encoding:NSISOLatin1StringEncoding];
 
 	exportItemLoaded = YES;
 
@@ -125,7 +127,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 
 // ----------------------------------------------------------------------------
-- (ExportSettings) exportSettings
+- (ExportSettings *) exportSettings
 // ----------------------------------------------------------------------------
 {
 	return exportSettings;
@@ -133,7 +135,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 
 // ----------------------------------------------------------------------------
-- (void) setExportSettings:(ExportSettings)theExportSettings
+- (void) setExportSettings:(ExportSettings *)theExportSettings
 // ----------------------------------------------------------------------------
 {
 	exportSettings = theExportSettings;
@@ -221,7 +223,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 
 // ----------------------------------------------------------------------------
-- (PlayerLibSidplay*) player
+- (PlayerLibSidplayWrapper*) player
 // ----------------------------------------------------------------------------
 {
 	return player;
@@ -587,8 +589,8 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		// write it to the file
 		if (numSamplesThisSlice > 0)
 		{
-			player->fillBuffer(outputBufferList.mBuffers[0].mData, outputBufferList.mBuffers[0].mDataByteSize);
-
+            [player fillBuffer:outputBufferList.mBuffers[0].mData withLen:outputBufferList.mBuffers[0].mDataByteSize];
+            
 			if (exportSettings.mWithFadeOut && (samplesRemaining - numSamplesThisSlice) < fadeTimeInSamples)
 			{
 				short* sampleBuffer = (short*) renderBuffer;
@@ -701,7 +703,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		// write it to the file
 		if (numSamplesThisSlice > 0)
 		{
-			player->fillBuffer(renderBuffer, renderBufferSize);
+            [player fillBuffer:renderBuffer withLen:renderBufferSize];
 
 			if (exportSettings.mWithFadeOut && (samplesRemaining - numSamplesThisSlice) < fadeTimeInSamples)
 			{
@@ -890,6 +892,33 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 {
 	exporter = theExporter;
 }
+@end
 
+@implementation ExportSettings
+@synthesize     mFileType;
+@synthesize         mTimeInSeconds;
+@synthesize             mWithFadeOut;
+@synthesize                 mFadeOutTime;
+@synthesize                 mBitRate;
+@synthesize             mUseVBR;
+@synthesize             mQuality;
 
+@synthesize             mBlankScreen;
+@synthesize             mIncludeStilComment;
+@synthesize             mCompressOutputFile;
+- (id) init
+{
+    self = [super init];
+    mTimeInSeconds = 180;
+    mWithFadeOut = NO;
+    mFadeOutTime = 3;
+    mBitRate = 128;
+    mUseVBR = NO;
+    mQuality = 0.5f;
+
+    mBlankScreen = NO;
+    mIncludeStilComment = NO;
+    mCompressOutputFile = NO;
+    return self;
+}
 @end
