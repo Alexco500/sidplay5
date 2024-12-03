@@ -66,7 +66,9 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		psid64Task = nil;
 		
         player = [[PlayerLibSidplayWrapper alloc] init];
-        [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+        struct PlaybackSettings dummy;
+        [gPreferences getPlaybackSettings:&dummy];
+        [player initEmuEngineWithSettings:&dummy];
 		exportItem = item;
 
 		title = [item title];
@@ -91,8 +93,8 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 {
 	if (exportItemLoaded)
 		return NO;
-		
-	settings = gPreferences.mPlaybackSettings;
+    [gPreferences getPlaybackSettings:&settings];
+
 	NSString* path = [exportItem path];
 	int subtune = [exportItem subtune];
     bool success = [player loadTuneByPath:
@@ -567,8 +569,10 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 
 	AudioBufferList outputBufferList;
 	UInt32 renderBufferSize = (maxSamplesPerSlice * inputFormat.mBytesPerFrame);
-	char* renderBuffer = new char[renderBufferSize];
+    char* renderBuffer = malloc(sizeof(char)*renderBufferSize);
 
+    if (renderBuffer == nil)
+        return;
 	outputBufferList.mNumberBuffers = inputFormat.mChannelsPerFrame;
 	outputBufferList.mBuffers[0].mData = renderBuffer;
 	outputBufferList.mBuffers[0].mDataByteSize = renderBufferSize;
@@ -579,7 +583,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 			break;
 
 		// progress update
-		NSNumber* progress = @((float)samplesCompleted / float(samplesCompleted + samplesRemaining));
+		NSNumber* progress = @((float)samplesCompleted / (float)(samplesCompleted + samplesRemaining));
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
 		UInt32 numSamplesThisSlice = (int)samplesRemaining;
@@ -599,7 +603,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 				{
 					if ((samplesRemaining - i) < fadeTimeInSamples)
 					{
-						float fadeOutFactor = float(samplesRemaining - i) / float(fadeTimeInSamples);
+						float fadeOutFactor = (float)(samplesRemaining - i) / (float)(fadeTimeInSamples);
 						short sample = fadeOutFactor * sampleBuffer[i];
 						sampleBuffer[i] = sample;
 					}
@@ -615,7 +619,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 		samplesCompleted += numSamplesThisSlice;
     }
 
-	delete[] renderBuffer;
+	free(renderBuffer);
 		
     if (outputFileRef != NULL)
 		ExtAudioFileDispose(outputFileRef);
@@ -682,10 +686,13 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	const int fadeTimeInSamples = exportSettings.mFadeOutTime * settings.mFrequency;
 
 	UInt32 renderBufferSize = (maxSamplesPerSlice * sizeof(short));
-	char* renderBuffer = new char[renderBufferSize];
-
-	int mp3BufferSize = (int) (1.25f * maxSamplesPerSlice + 7200);
-	unsigned char* mp3Buffer = new unsigned char[mp3BufferSize];
+    
+    char* renderBuffer = malloc(sizeof(char)*renderBufferSize);
+    if (renderBuffer == nil)
+        return;
+    int mp3BufferSize = (int) (1.25f * maxSamplesPerSlice + 7200);
+    
+    unsigned char* mp3Buffer = malloc(sizeof(unsigned char)*mp3BufferSize);
 
 	while (!exportStopped)
 	{
@@ -693,7 +700,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 			break;
 
 		// progress update
-		NSNumber* progress = @((float)samplesCompleted / float(samplesCompleted + samplesRemaining));
+		NSNumber* progress = @((float)samplesCompleted / (float)(samplesCompleted + samplesRemaining));
 		[self performSelectorOnMainThread:@selector(exportInProgressNotification:) withObject:progress waitUntilDone:NO];
 		
 		UInt32 numSamplesThisSlice = (int)samplesRemaining;
@@ -713,7 +720,7 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 				{
 					if ((samplesRemaining - i) < fadeTimeInSamples)
 					{
-						float fadeOutFactor = float(samplesRemaining - i) / float(fadeTimeInSamples);
+						float fadeOutFactor = (float)(samplesRemaining - i) / (float)(fadeTimeInSamples);
 						short sample = fadeOutFactor * sampleBuffer[i];
 						sampleBuffer[i] = sample;
 					}
@@ -733,8 +740,8 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 	fwrite(mp3Buffer, 1, rc, outputFileHandle);
 	lame_close(lameState);
 
-	delete[] renderBuffer;
-	delete[] mp3Buffer;
+	free (renderBuffer);
+	free (mp3Buffer);
 		
     if (outputFileHandle != NULL)
 		fclose(outputFileHandle);

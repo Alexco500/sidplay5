@@ -1918,7 +1918,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	SPBrowserDataSource* browserDataSource = [dataSource browserDataSource];
 	SPPlaylist* currentPlaylist = [browserDataSource playlist];
 	
-	SourceListItemType type = [selectedItem type];
+	enum SourceListItemType type = [selectedItem type];
 	
 	switch (type)
 	{

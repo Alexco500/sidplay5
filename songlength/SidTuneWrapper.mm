@@ -16,9 +16,10 @@
 
 #include "SidTuneWrapper.h"
 #include "MD5.h"
-#include "SidTune.h"
 #include "TypeWrapper.h"
 
+// sid lib
+#include "SidTune.h"
 #include "sidplayfp/SidTuneInfo.h"
 
 
@@ -29,24 +30,33 @@ const uint_least16_t SIDTUNE_MAX_SONGS = 256;
 const uint_least32_t SIDTUNE_MAX_MEMORY = 65536;
 const uint_least32_t SIDTUNE_MAX_FILELEN = SIDTUNE_MAX_MEMORY+2+0x7C; //memory + SID file overhead
 
-int SidTuneWrapper::getMaxSongs()  // static
+
+
+SidTune* pSid;
+SidTuneInfo* pSidInfo;
+char* pDigest;
+
+@implementation SidTuneWrapper
+-(int) getMaxSongs
 {
 	return SIDTUNE_MAX_SONGS;
 }
 
-unsigned long int SidTuneWrapper::getMaxSidFileLen()  // static
+-(unsigned long int) getMaxSidFileLen
 {
     return SIDTUNE_MAX_FILELEN;
 }
 
-SidTuneWrapper::SidTuneWrapper()
+-(id)init
 {
+    self = [super init];
     pSid = new SidTune(0);
     //pSidInfo = new SidTuneInfo;
     pDigest = NULL;
+    return self;
 }
 
-SidTuneWrapper::~SidTuneWrapper()
+-(void)dealloc
 {
 	if ( pDigest != NULL ) {
 		free( pDigest );
@@ -56,23 +66,23 @@ SidTuneWrapper::~SidTuneWrapper()
     delete pSid;
 }
 
-bool SidTuneWrapper::open(const char* fileName)
+- (BOOL) open:(const char*) fileName
 {
     pSid->load(fileName);
     bool ret = pSid->getStatus();
-    updateInfo();
+    [self updateInfo];
     return ret;
 }
 
-bool SidTuneWrapper::load(void* buf, unsigned long int bufLen)
+- (BOOL) load:(void*) buf withLength:(unsigned long int) bufLen
 {
     pSid->read((const ubyte_emuwt*)buf,(udword_emuwt)bufLen);
     bool ret = pSid->getStatus();
-    updateInfo();
+    [self updateInfo];
     return ret;
 }
 
-const char *SidTuneWrapper::getMD5_Digest()
+- (const char*) getMD5_Digest
 {
     /*
     MD5 myMD5;
@@ -101,75 +111,74 @@ const char *SidTuneWrapper::getMD5_Digest()
     return pSid->createMD5();
 }
 
-void SidTuneWrapper::updateInfo()
+-(void) updateInfo
 {
     pSidInfo = (SidTuneInfo *)pSid->getInfo();
 }
 
-bool SidTuneWrapper::getStatus() const
+-(BOOL) getStatus
 {
     return pSid->getStatus();
 }
 
-int SidTuneWrapper::getLoadAddr() const
+-(int) getLoadAddr
 {
     return pSidInfo->loadAddr();
 }
 
-int SidTuneWrapper::getInitAddr() const
+-(int) getInitAddr;
 {
     return pSidInfo->initAddr();
 }
 
-int SidTuneWrapper::getPlayAddr() const
+-(int) getPlayAddr;
 {
     return pSidInfo->playAddr();
 }
 
-int SidTuneWrapper::getSongs() const
+-(int) getSongs;
 {
     return pSidInfo->songs();
 }
 
-int SidTuneWrapper::getCurrentSong() const
+-(int) getCurrentSong;
 {
     return pSidInfo->currentSong();
 }
 
-int SidTuneWrapper::getStartSong() const
+-(int) getStartSong;
 {
     return pSidInfo->startSong();
 }
 
-const char* SidTuneWrapper::getInfoString(int i) const
+-(const char*) getInfoStringWithNumber:(int) number;
 {
-    return pSidInfo->infoString(i);
+    return pSidInfo->infoString(number);
 }
 
-int SidTuneWrapper::getInfoStringsNum() const
+-(int) getInfoStringsNum
 {
     return pSidInfo->numberOfInfoStrings();
 }
 
-const char* SidTuneWrapper::getStatusString() const
+-(const char*) getStatusString
 {
     return pSid->statusString();
 }
 
-const char* SidTuneWrapper::getFormatString() const
+-(const char*) getFormatString
 {    
     return pSidInfo->formatString();
 }
-
-bool SidTuneWrapper::savePSID(const char* fileName, bool overWrite)
+-(BOOL) savePSID:(const char *) fileName withOverwrite:(BOOL) overWrite
 {
     return false;
     /* FIXME: missing PSID */
     //return pSid->savePSIDfile(fileName,overWrite);
 }
 
-SidTune* SidTuneWrapper::getSidTune() const
+- (void *)getSidTune
 {
     return pSid;
 }
-
+@end

@@ -2,7 +2,7 @@
 #import "SPTuneInfoView.h"
 #import "SPColorProvider.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPPreferencesController.h"
 
 
@@ -182,7 +182,7 @@ static const char* sRowTitles[] =
     if (player == NULL)
     {
         SPInfoContainerView* container = self.enclosingScrollView.documentView;
-        player = (PlayerLibSidplay*) [[container ownerWindow] player];
+        player = (PlayerLibSidplayWrapper*) [[container ownerWindow] player];
     }
 
     float xpos = rect.origin.x + 3.0f;
@@ -197,48 +197,48 @@ static const char* sRowTitles[] =
 
     if (player != NULL)
 	{
-		if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-		{
+		if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        {
             xpos = rect.origin.x + 3.0f + columnWidth;
             ypos = rect.origin.y + rect.size.height - 9.0f;
             
-            CFStringRef titleStringRef = CFStringCreateWithCString(NULL, player->getCurrentTitle(), kCFStringEncodingISOLatin1);
+            CFStringRef titleStringRef = CFStringCreateWithCString(NULL, [player getCurrentTitle], kCFStringEncodingISOLatin1);
             CFStringGetCString(titleStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-
-            CFStringRef authorStringRef = CFStringCreateWithCString(NULL, player->getCurrentAuthor(), kCFStringEncodingISOLatin1);
+            
+            CFStringRef authorStringRef = CFStringCreateWithCString(NULL, [player getCurrentAuthor], kCFStringEncodingISOLatin1);
             CFStringGetCString(authorStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-
-            CFStringRef releaseStringRef = CFStringCreateWithCString(NULL, player->getCurrentReleaseInfo(), kCFStringEncodingISOLatin1);
+            
+            CFStringRef releaseStringRef = CFStringCreateWithCString(NULL, [player getCurrentReleaseInfo], kCFStringEncodingISOLatin1);
             CFStringGetCString(releaseStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
-//            snprintf(stringBuffer, 255, player->getCurrentReleaseInfo());
+            //            snprintf(stringBuffer, 255, player->getCurrentReleaseInfo());
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-
-            snprintf(stringBuffer, 255, "%d (default: %d)", player->getSubtuneCount(), player->getDefaultSubtune());
+            
+            snprintf(stringBuffer, 255, "%d (default: %d)", [player getSubtuneCount], [player getDefaultSubtune]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "%d", player->getSidChips());
+            snprintf(stringBuffer, 255, "%d", [player getSidChips]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
-            ypos -= rowHeight;            snprintf(stringBuffer, 255, "$%04x", player->getCurrentLoadAddress());
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
-            ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "$%04x", player->getCurrentInitAddress());
+            ypos -= rowHeight;            snprintf(stringBuffer, 255, "$%04x", [player getCurrentLoadAddress]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "$%04x", player->getCurrentPlayAddress());
+            snprintf(stringBuffer, 255, "$%04x", [player getCurrentInitAddress]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "%s", player->getCurrentFormat());
+            snprintf(stringBuffer, 255, "$%04x", [player getCurrentPlayAddress]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "%d bytes", player->getCurrentFileSize());
+            snprintf(stringBuffer, 255, "%s", [player getCurrentFormat]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             ypos -= rowHeight;
-            snprintf(stringBuffer, 255, "%s", player->getCurrentChipModel());
+            snprintf(stringBuffer, 255, "%d bytes", [player getCurrentFileSize]);
+            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            ypos -= rowHeight;
+            snprintf(stringBuffer, 255, "%s", [player getCurrentChipModel]);
             CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
             //ypos -= rowHeight;
 		}

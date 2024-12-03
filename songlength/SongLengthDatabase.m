@@ -1,7 +1,9 @@
 #import "SongLengthDatabase.h"
-#include "SongLength.h"
-#include "SidTuneWrapper.h"
+#import "SidTuneWrapper.h"
 #import "SPPlayerWindow.h"
+
+#include "SongLength.h"
+#include "Item.h"
 
 static NSString* SidplaySongLengthDataBaseRelativePath = @"DOCUMENTS/Songlengths.txt";
 static NSString* SidplaySongLengthDataBaseRelativePathNewMD5 = @"DOCUMENTS/Songlengths.md5";
@@ -34,6 +36,7 @@ static SongLengthDatabase* sharedInstance = nil;
     {
         databaseAvailable = NO;
         newMD5FormatUsed = NO;
+        songLength = nil;
     }
     return self;
 }
@@ -65,8 +68,8 @@ static SongLengthDatabase* sharedInstance = nil;
             databasePath = [rootPath stringByAppendingPathComponent:SidplaySongLengthDataBaseRelativePath];
             //NSLog(@"databasePath: %@\n", databasePath);
             
-            success = SongLength::init([databasePath cStringUsingEncoding:NSUTF8StringEncoding]);
-            if (success) {
+            songLength =  [[SongLength alloc] initWithFile:[databasePath cStringUsingEncoding:NSUTF8StringEncoding]];
+            if ([songLength isAvailable]) {
                 databaseAvailable = YES;
                 return self;
             }
@@ -127,7 +130,9 @@ static SongLengthDatabase* sharedInstance = nil;
 	char* dataBuffer = (char*) downloadData.bytes;
 	int size = (int) downloadData.length;
 	
-	bool success = SongLength::init(dataBuffer, size);
+    SongLength *dummy =  [[SongLength alloc] initWithDB:dataBuffer andSize:size];
+   
+    bool success = [dummy isAvailable];
 	
     if (!success) {
         newMD5db = [[NewMD5SongLengthDatabase alloc] initWithData:downloadData];
@@ -162,32 +167,38 @@ static SongLengthDatabase* sharedInstance = nil;
 - (int) getSongLengthByPath:(NSString*)path andSubtune:(int)subtune
 // ----------------------------------------------------------------------------
 {
-	if (!databaseAvailable)
+    if (!databaseAvailable)
 		return 0;
 	
 	if (path == nil)
 		return 0;
     if (!newMD5FormatUsed) {
-        SongLengthDBitem item;
-        bool success = SongLength::getItem([collectionRootPath cStringUsingEncoding:NSUTF8StringEncoding], [path cStringUsingEncoding:NSUTF8StringEncoding], subtune, item);
-
-        if (success)
-            return item.playtime;
+        struct SongLengthDBitem item;
+        item.playtime = 0;
+       
+ 
+        if ([songLength isAvailable]) {
+            bool success = [songLength getItem:[collectionRootPath cStringUsingEncoding:NSUTF8StringEncoding]
+                                          file:[path cStringUsingEncoding:NSUTF8StringEncoding]
+                                          song:subtune item:&item];
+            
+            if (success)
+                return item.playtime;
+        }
     } else {
         return [newMD5db getSongLengthByPath:path andSubtune:subtune];
     }
     return 0;
 }
 
-
 // ----------------------------------------------------------------------------
 - (int) getSongLengthFromBuffer:(void*)buffer withBufferLength:(int)length andSubtune:(int)subtune
 // ----------------------------------------------------------------------------
 {
     if (!newMD5FormatUsed) {
-        SidTuneWrapper sidtune;
-        sidtune.load(buffer, length);
-        return [self getSongLengthFromSidTune:&sidtune andSubtune:subtune];
+        SidTuneWrapper* sidtune = [[SidTuneWrapper alloc] init];
+        [sidtune load:buffer withLength:length];
+        return [self getSongLengthFromSidTune:sidtune andSubtune:subtune];
     } else {
         return [newMD5db getSongLengthFromBuffer:buffer withBufferLength:length andSubtune:subtune];
     }
@@ -201,8 +212,8 @@ static SongLengthDatabase* sharedInstance = nil;
 	if (!databaseAvailable)
 		return 0;
 
-	SongLengthDBitem item;
-	bool success = SongLength::getItem(sidtune, subtune, item);
+    struct SongLengthDBitem item;
+    bool success = [songLength getItem:sidtune number:subtune item:&item];
 
 	if (success)
 		return item.playtime;

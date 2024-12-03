@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "PlayerLibSidplay.h"
+#include "PlayerLibSidplayWrapper.h"
 #include "AudioCoreDriverNew.h"
 
 // ----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ AudioCoreDriverNew::~AudioCoreDriverNew()
 
 
 // ----------------------------------------------------------------------------
-void AudioCoreDriverNew::initialize(PlayerLibSidplay* player, int sampleRate, int bitsPerSample)
+void AudioCoreDriverNew::initialize(PlayerLibSidplayWrapper* player, int sampleRate, int bitsPerSample)
 // ----------------------------------------------------------------------------
 {
 	//printf("init core audio\n");
@@ -154,7 +154,7 @@ void AudioCoreDriverNew::fillBuffer()
 	{
 		return;
 	}
-    mPlayer->fillBuffer(mSampleBuffer, numberOfBytesInAudioBuffer);
+    [mPlayer fillBuffer:mSampleBuffer withLen:numberOfBytesInAudioBuffer];
     // reset value to full buffer
     numberOfSamplesInAudioBuffer = mNumSamplesInAudioBuffer;
 }

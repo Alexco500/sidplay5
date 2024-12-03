@@ -10,7 +10,7 @@
 
 #include <vector>
 // module headers
-#include "AudioDriver.h"
+#include "AudioCoreDriverNew.h"
 #include "SidTune.h"
 
 #include <sidplayfp.h>
@@ -52,15 +52,12 @@ class HardSIDSBBuilder;
 HardSIDSBBuilder*   mSIDBlasterUSBbuilder;
 #endif
 
-SidTuneInfo*        mTuneInfo;
-PlaybackSettings    mPlaybackSettings;
 
-AudioDriver*        mAudioDriver;
 
 //sid_filter_t        mFilterSettings;
+PlaybackSettings    mPlaybackSettings;
 
 SidRegisterLog        mRegisterLog;
-
 struct SidRegisterFrame currentRegisterFrame;
 
 @implementation PlayerLibSidplayWrapper
@@ -68,6 +65,9 @@ struct SidRegisterFrame currentRegisterFrame;
 @synthesize sChipModel8580;
 @synthesize sChipModelUnknown;
 @synthesize sChipModelUnspecified;
+
+SidTuneInfo*        mTuneInfo;
+AudioCoreDriverNew*        mAudioDriver;
 
 - (id)init
 {
@@ -198,7 +198,7 @@ static inline float approximate_dac(int x, float kinkiness)
 }
 - (void) setAudioDriver:(void*) audioDriver
 {
-    mAudioDriver = (AudioDriver *)audioDriver;
+    mAudioDriver = (AudioCoreDriverNew *)audioDriver;
 }
 - (void) updateSampleRate:(unsigned int) newSampleRate
 {

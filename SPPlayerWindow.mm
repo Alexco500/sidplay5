@@ -16,12 +16,13 @@
 #import "SPMiniPlayerWindow.h"
 
 #import "AudioCoreDriverNew.h"
-
+#include <new>
 
 NSString* SPTuneChangedNotification = @"SPTuneChangedNotification";
 NSString* SPPlayerInitializedNotification = @"SPPlayerInitializedNotification";
 
 NSString* SPUrlRequestUserAgentString = nil;
+AudioCoreDriverNew* audioDriver = nil;
 
 @implementation SPPlayerWindow
 
@@ -44,12 +45,18 @@ NSString* SPUrlRequestUserAgentString = nil;
     prefsWindowController = nil;
     
     player = [[PlayerLibSidplayWrapper alloc] init];
-    audioDriver = new AudioCoreDriverNew;
+    audioDriver = new (std::nothrow) AudioCoreDriverNew;
+    if (audioDriver == nil)
+        return;
+    
     [player setAudioDriver:(void*)audioDriver];
     
     audioDriver->initialize(player);
     audioDriver->setVolume(gPreferences.mPlaybackVolume);
-    gPreferences.mPlaybackSettings.mFrequency = audioDriver->getSampleRate();
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    dummySettings.mFrequency = audioDriver->getSampleRate();
+    [gPreferences copyPlaybackSettings:&dummySettings];
     
     /* FIXME: Filter settings (again)
      sid_filter_t filterSettings;
@@ -135,11 +142,14 @@ NSString* SPUrlRequestUserAgentString = nil;
 // ----------------------------------------------------------------------------
 - (void) playTuneAtPath:(NSString*)path subtune:(int)subtuneIndex
 {
-    gPreferences.mPlaybackSettings.mFrequency = audioDriver->getSampleRate();
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    dummySettings.mFrequency = audioDriver->getSampleRate();
+    [gPreferences copyPlaybackSettings:&dummySettings];
     
     bool success = [player playTuneByPath:[path cStringUsingEncoding:NSUTF8StringEncoding]
                                   subtune:subtuneIndex
-                             withSettings:&gPreferences.mPlaybackSettings];
+                             withSettings:&dummySettings];
     if (success)
     {
         if (fadeOutInProgress)
@@ -190,10 +200,12 @@ NSString* SPUrlRequestUserAgentString = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 // ----------------------------------------------------------------------------
 {
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
     bool success = [player playTuneFromBuffer:(char*)urlDownloadData.bytes
                                    withLength:(int)urlDownloadData.length
                                       subtune: (int)urlDownloadSubtuneIndex
-                                 withSettings:&gPreferences.mPlaybackSettings];
+                                 withSettings:&dummySettings];
     if (success)
     {
         currentTunePath = nil;
@@ -456,7 +468,7 @@ NSString* SPUrlRequestUserAgentString = nil;
     int subtuneCount = [player getSubtuneCount];
     
     int tuneLength = 0;
-    char* tuneBuffer = [player getTuneBuffer:tuneLength];
+    char* tuneBuffer = [player getTuneBuffer:&tuneLength];
     
     //char* tuneBuffer = NULL;
     currentTuneLengthInSeconds = tuneBuffer == NULL ? 0 : [[SongLengthDatabase sharedInstance] getSongLengthFromBuffer:tuneBuffer withBufferLength:tuneLength andSubtune:currentSubtune];
@@ -495,13 +507,43 @@ NSString* SPUrlRequestUserAgentString = nil;
     }
     
 }
-
+#pragma mark Audio Driver helper functions
+- (BOOL) audioDriverIsAvailable
+{
+    if (audioDriver != nil)
+        return YES;
+    else
+        return NO;
+}
+- (void) audioDriverStartPlaying
+{
+    if (audioDriver)
+        audioDriver->startPlayback();
+}
+- (void) audioDriverStopPlaying
+{
+    if (audioDriver)
+        audioDriver->stopPlayback();
+}
+- (short*) audioDriverSampleBuffer
+{
+    if (audioDriver != NULL)
+        return audioDriver->getSampleBuffer();
+    return NULL;
+}
+- (BOOL) audioDriverIsPlaying
+{
+    if (audioDriver != NULL)
+        return audioDriver->getIsPlaying();
+    return NO;
+}
+/*
 // ----------------------------------------------------------------------------
 - (AudioDriver*) audioDriver
 {
     return audioDriver;
 }
-
+*/
 // ----------------------------------------------------------------------------
 - (PlayerLibSidplayWrapper*) player;
 {
@@ -711,18 +753,6 @@ NSString* SPUrlRequestUserAgentString = nil;
 
 #pragma mark -
 #pragma mark PlayerInfo protocol methods
-- (short*) audioDriverSampleBuffer
-{
-    if (audioDriver != NULL)
-        return audioDriver->getSampleBuffer();
-    return NULL;
-}
-- (BOOL) audioDriverIsPlaying
-{
-    if (audioDriver != NULL)
-        return audioDriver->getIsPlaying();
-    return NO;
-}
 - (unsigned int) currentNumberOfSamples
 {
     if (audioDriver != NULL)
@@ -1183,8 +1213,11 @@ NSString* SPUrlRequestUserAgentString = nil;
     
     newText6 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel6];
     newText8 = [[NSMutableAttributedString alloc] initWithAttributedString:sidModel8];
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+
     // check which SID device is set in prefs
-    if (gPreferences.mPlaybackSettings.mSidModel == 0)
+    if (dummySettings.mSidModel == 0)
     {
         [newText6 appendAttributedString:userDefault];
         addedText6 = YES;
@@ -1192,7 +1225,7 @@ NSString* SPUrlRequestUserAgentString = nil;
         // overwritten down below, if tune settings are different
         [check6 setState:NSOnState];
         [check8 setState:NSOffState];
-    } else if (gPreferences.mPlaybackSettings.mSidModel == 1)
+    } else if (dummySettings.mSidModel == 1)
     {
         [newText8 appendAttributedString:userDefault];
         addedText8 = YES;
@@ -1221,9 +1254,9 @@ NSString* SPUrlRequestUserAgentString = nil;
     
     [check6 setEnabled:YES];
     [check8 setEnabled:YES];
-    if (!gPreferences.mPlaybackSettings.SIDselectorOverrideActive) {
+    if (!dummySettings.SIDselectorOverrideActive) {
         // SIDselector override is not active, check if we force SID in prefs
-        if (!gPreferences.mPlaybackSettings.mForceSidModel) {
+        if (!dummySettings.mForceSidModel) {
             // get default SID from tune
             if (strcmp([player getCurrentChipModel],"MOS 6581") == 0)
             {
@@ -1236,7 +1269,7 @@ NSString* SPUrlRequestUserAgentString = nil;
             }
         }
     } else {
-        if (gPreferences.mPlaybackSettings.SIDselectorOverrideModel == 0) {
+        if (dummySettings.SIDselectorOverrideModel == 0) {
             [check6 setState:NSOnState];
             [check8 setState:NSOffState];
         } else {
@@ -1289,16 +1322,19 @@ NSString* SPUrlRequestUserAgentString = nil;
         [checkE3 setState:NSOffState];
         [checkE4 setState:NSOffState];
         // reconfigure replayer
-        gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
-        gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
+        struct PlaybackSettings dummySettings;
+        [gPreferences getPlaybackSettings:&dummySettings];
+        dummySettings.SIDselectorOverrideActive = YES;
+        dummySettings.SIDselectorOverrideModel = 0;
         if (audioDriver->getIsPlaying())
         {
             audioDriver->stopPlayback();
-            [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+            [player initEmuEngineWithSettings:&dummySettings];
             audioDriver->startPlayback();
         } else {
-            [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+            [player initEmuEngineWithSettings:&dummySettings];
         }
+        [gPreferences copyPlaybackSettings:&dummySettings];
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
     } else
@@ -1319,16 +1355,21 @@ NSString* SPUrlRequestUserAgentString = nil;
         [checkE2 setState:NSOffState];
         [checkE3 setState:NSOffState];
         [checkE4 setState:NSOffState];
+        struct PlaybackSettings dummySettings;
+        [gPreferences getPlaybackSettings:&dummySettings];
+
         // reconfigure replayer
-        gPreferences.mPlaybackSettings.SIDselectorOverrideActive = YES;
-        gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 1;
+        dummySettings.SIDselectorOverrideActive = YES;
+        dummySettings.SIDselectorOverrideModel = 1;
+        
+        [gPreferences copyPlaybackSettings:&dummySettings];
         if (audioDriver->getIsPlaying())
         {
             audioDriver->stopPlayback();
-            [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+            [player initEmuEngineWithSettings:&dummySettings];
             audioDriver->startPlayback();
         } else {
-            [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+            [player initEmuEngineWithSettings:&dummySettings];
         }
         [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
         [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];
@@ -1340,17 +1381,20 @@ NSString* SPUrlRequestUserAgentString = nil;
 // ----------------------------------------------------------------------------
 - (IBAction) resetSIDSelector:(id)sender
 {
-    gPreferences.mPlaybackSettings.SIDselectorOverrideActive = NO;
-    gPreferences.mPlaybackSettings.SIDselectorOverrideModel = 0;
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    dummySettings.SIDselectorOverrideActive = NO;
+    dummySettings.SIDselectorOverrideModel = 0;
     // reconfigure replayer
     if (audioDriver->getIsPlaying())
     {
         audioDriver->stopPlayback();
-        [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+        [player initEmuEngineWithSettings:&dummySettings];
         audioDriver->startPlayback();
     } else {
-        [player initEmuEngineWithSettings:&gPreferences.mPlaybackSettings];
+        [player initEmuEngineWithSettings:&dummySettings];
     }
+    [gPreferences copyPlaybackSettings:&dummySettings];
     [[SPPreferencesController sharedInstance] initializeFilterSettingsFromChipModelOfPlayer:player];
     [self populateSIDselector];
     [[NSNotificationCenter defaultCenter] postNotificationName:SPTuneChangedNotification object:self];

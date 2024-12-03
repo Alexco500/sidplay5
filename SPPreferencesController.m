@@ -836,14 +836,13 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 
     [gPreferences copyPlaybackSettings:&dummy];
     PlayerLibSidplayWrapper* player = [ownerWindow player];
-    AudioDriver* audioDriver = [ownerWindow audioDriver];
-    bool isPlaying = audioDriver->getIsPlaying();
+    bool isPlaying = [ownerWindow audioDriverIsPlaying];
     if (isPlaying)
-        audioDriver->stopPlayback();
+        [ownerWindow audioDriverStopPlaying];
     [player initEmuEngineWithSettings:&dummy];
     [player initCurrentSubtune];
     if (isPlaying)
-        audioDriver->startPlayback();
+        [ownerWindow audioDriverStartPlaying];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:SPPlaybackSettingsChangedNotification object:self];
 }

@@ -21,11 +21,11 @@
  */
 #import <Foundation/Foundation.h>
 #import "PlayerWrapper.h"
-#include "PlayerLibSidplay.h"
+#include "PlayerLibSidplayWrapper.h"
 #include "AudioCoreDriverNew.h"
 
 @implementation PlayerWrapper
-PlayerLibSidplay* player;
+PlayerLibSidplayWrapper* player;
 AudioCoreDriverNew* audioDriver;
 struct PlaybackSettings mPlaybackSettings;
 unsigned int mInstance;
@@ -48,9 +48,9 @@ unsigned int mInstance;
 }
 - (void)initPlayer
 {
-    player = new PlayerLibSidplay;
+    player = [[PlayerLibSidplayWrapper alloc] init];
     audioDriver = new AudioCoreDriverNew;
-    player->setAudioDriver(audioDriver);
+    [player setAudioDriver:(audioDriver)];
     
     audioDriver->initialize(player);
     audioDriver->setVolume(1.0f);
@@ -75,7 +75,6 @@ unsigned int mInstance;
         audioDriver = nil;
     }
     if (player) {
-        delete player;
         player = nil;
     }
 }
@@ -90,11 +89,12 @@ unsigned int mInstance;
         }
         //[self destroyPlayer];
         //[self initPlayer];
-        retVal = player->loadTuneFromBuffer((char *)[data bytes], (int) [data length], 0, &mPlaybackSettings);
+        retVal = [player loadTuneFromBuffer:(char*)[data bytes] withLength:(int) [data length] subtune:0 withSettings:&mPlaybackSettings];
+
         tuneLoaded = retVal;
         if (tuneLoaded) {
             isPlaying = YES;
-            player->initCurrentSubtune();
+            [player initCurrentSubtune];
             if (*instance == 0) {
                 @synchronized (self) {
                     mInstance++;
@@ -153,8 +153,8 @@ unsigned int mInstance;
 - (NSString *)currentTitle
 {
     NSString *tempString;
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        tempString = [NSString stringWithCString:player->getCurrentTitle() encoding:NSISOLatin1StringEncoding];
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        tempString = [NSString stringWithCString:[player getCurrentTitle] encoding:NSISOLatin1StringEncoding];
     else
         tempString = [NSString string];
     return tempString;
@@ -162,8 +162,8 @@ unsigned int mInstance;
 - (NSString *)currentAuthor
 {
     NSString *tempString;
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        tempString = [NSString stringWithCString:player->getCurrentAuthor() encoding:NSISOLatin1StringEncoding];
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        tempString = [NSString stringWithCString:[player getCurrentAuthor] encoding:NSISOLatin1StringEncoding];
     else
         tempString = [NSString string];
     return tempString;
@@ -171,8 +171,8 @@ unsigned int mInstance;
 - (NSString *)currentReleaseInfo
 {
     NSString *tempString;
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        tempString = [NSString stringWithCString:player->getCurrentReleaseInfo() encoding:NSISOLatin1StringEncoding];
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        tempString = [NSString stringWithCString:[player getCurrentReleaseInfo] encoding:NSISOLatin1StringEncoding];
     else
         tempString = [NSString string];
     return tempString;
@@ -180,8 +180,8 @@ unsigned int mInstance;
 - (NSString *)currentFormat
 {
     NSString *tempString;
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        tempString = [NSString stringWithCString:player->getCurrentFormat() encoding:NSISOLatin1StringEncoding];
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        tempString = [NSString stringWithCString:[player getCurrentFormat] encoding:NSISOLatin1StringEncoding];
     else
         tempString = [NSString string];
     return tempString;
@@ -189,58 +189,58 @@ unsigned int mInstance;
 - (NSString *)currentChipModel
 {
     NSString *tempString;
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        tempString = [NSString stringWithCString:player->getCurrentChipModel() encoding:NSISOLatin1StringEncoding];
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        tempString = [NSString stringWithCString:[player getCurrentChipModel] encoding:NSISOLatin1StringEncoding];
     else
         tempString = [NSString string];
     return tempString;
 }
 - (unsigned int)currentLoadAddress
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getCurrentLoadAddress();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getCurrentLoadAddress];
     else
         return 0;
 }
 - (unsigned int)currentInitAddress
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getCurrentInitAddress();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getCurrentInitAddress];
     else
         return 0;
 }
 - (unsigned int)currentPlayAddress
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getCurrentPlayAddress();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getCurrentPlayAddress];
     else
         return 0;
 }
 - (unsigned int)sidChips
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getSidChips();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getSidChips];
     else
         return 0;
 }
 - (unsigned int)currentFileSize
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getCurrentFileSize();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getCurrentFileSize];
     else
         return 0;
 }
 - (unsigned int)subtuneCount
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getSubtuneCount();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getSubtuneCount];
     else
         return 0;
 }
 - (unsigned int)defaultSubtune
 {
-    if (player->isTuneLoaded() && player->hasTuneInformationStrings())
-        return (unsigned int)player->getDefaultSubtune();
+    if ([player isTuneLoaded] && [player hasTuneInformationStrings])
+        return (unsigned int)[player getDefaultSubtune];
     else
         return 0;
 }

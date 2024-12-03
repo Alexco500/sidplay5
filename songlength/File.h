@@ -30,9 +30,9 @@ class SongLengthFile : public SongLengthDB
     bool init(const char* fileName);
 	bool init(char* databaseBuffer, int databaseSize);
 	
-    bool getSongLength(const char* md5digest, int songNum, SongLengthDBitem& item);
+    bool getSongLength(const char* md5digest, int songNum, struct SongLengthDBitem* item);
 	// [AV] added item retrieval by verbose filename
-	bool getSongLengthByFileName(const char* rootPath, const char* filename, int songNum, SongLengthDBitem& item);
+	bool getSongLengthByFileName(const char* rootPath, const char* filename, int songNum, struct SongLengthDBitem* item);
 
     bool getStatus()  { return status; }
     const char* getErrorStr()  { return errorString; }

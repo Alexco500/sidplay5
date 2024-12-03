@@ -63,11 +63,11 @@
 			SPExporter* exporter = [item exporter];
 			if (exporter != nil)
 			{
-				PlayerLibSidplay* player = [exporter player];
+                PlayerLibSidplayWrapper* player = [exporter player];
 				if (player != NULL)
 				{
-					subTuneCount = player->getSubtuneCount();
-					defaultSubTune = player->getDefaultSubtune();
+                    subTuneCount = [player getSubtuneCount];
+					defaultSubTune = [player getDefaultSubtune];
 				}
 			}
 		}
@@ -93,7 +93,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (ExportSettings) exportSettings
+- (ExportSettings*) exportSettings
 // ----------------------------------------------------------------------------
 {
 	return exportSettings;
@@ -121,7 +121,7 @@
 - (void) updateFileSizeTextField
 // ----------------------------------------------------------------------------
 {
-	int fileSize = [exportController calculateExpectedFileSizeForSettings:&exportSettings];
+	int fileSize = [exportController calculateExpectedFileSizeForSettings:exportSettings];
 	
 	NSString* fileSizeText = nil;
 	

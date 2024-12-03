@@ -5,7 +5,7 @@
 //  Created by Alexander Coers on 01.04.22.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 #import "StringAddons.h"
 

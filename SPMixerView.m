@@ -1,7 +1,7 @@
 #import "SPInfoContainerView.h"
 #import "SPMixerView.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPPreferencesController.h"
 
 
@@ -138,10 +138,10 @@
 // ----------------------------------------------------------------------------
 {
 	if (!player)
-		player = (PlayerLibSidplay*) [[container ownerWindow] player];
+		player = (PlayerLibSidplayWrapper*) [[container ownerWindow] player];
 
 	if (player)
-		player->setVoiceVolume(voice, volume);
+        [player setVoiceVolume:volume forVoice:voice];
 }
 
 

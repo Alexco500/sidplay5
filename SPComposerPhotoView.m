@@ -2,7 +2,7 @@
 #import "SPComposerPhotoView.h"
 #import "SPApplicationStorageController.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPPreferencesController.h"
 
 
@@ -41,12 +41,12 @@ static NSString* SPComposerUrlPrefix = @"http://twinbirds.com/sidplay/composers/
 // ----------------------------------------------------------------------------
 {
 	if (player == NULL)
-		player = (PlayerLibSidplay*) [[container ownerWindow] player];
+		player = (PlayerLibSidplayWrapper*) [[container ownerWindow] player];
 
-	if (player != NULL && player->isTuneLoaded())
+	if (player != NULL && [player isTuneLoaded])
 	{
-		if (player->hasTuneInformationStrings())
-			[self updateWithComposerName:[NSString stringWithCString:player->getCurrentAuthor() encoding:NSISOLatin1StringEncoding]];
+		if ([player hasTuneInformationStrings])
+			[self updateWithComposerName:[NSString stringWithCString:[player getCurrentAuthor] encoding:NSISOLatin1StringEncoding]];
 		else
 			[self setImageFromPath:nil];
 	}

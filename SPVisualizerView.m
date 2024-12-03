@@ -1,6 +1,6 @@
 #import "SPVisualizerView.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 
 
 @implementation SPVisualizerView
@@ -22,7 +22,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (void) update:(const VisualizerState*) state
+- (void) update:(const struct VisualizerState*) state
 // ----------------------------------------------------------------------------
 {
 	[self setValue:@(state->voice[0].Gatebit) forInputKey:@"Voice1Gate"];
@@ -68,16 +68,16 @@
 		if (window == nil)
 			return;
 			
-		player = (PlayerLibSidplay*) [window player];
+		player = (PlayerLibSidplayWrapper*) [window player];
 	}
 
 	if (player == NULL)
 		return;
 		
-	[self setValue:[NSString stringWithCString:player->getCurrentTitle() encoding:NSISOLatin1StringEncoding] forInputKey:@"Title"];
-	[self setValue:[NSString stringWithCString:player->getCurrentAuthor() encoding:NSISOLatin1StringEncoding] forInputKey:@"Author"];
-	[self setValue:[NSString stringWithCString:player->getCurrentReleaseInfo() encoding:NSISOLatin1StringEncoding] forInputKey:@"Released"];
-	[self setValue:[NSString stringWithCString:player->getCurrentChipModel() encoding:NSISOLatin1StringEncoding] forInputKey:@"ChipName"];
+	[self setValue:[NSString stringWithCString:[player getCurrentTitle] encoding:NSISOLatin1StringEncoding] forInputKey:@"Title"];
+	[self setValue:[NSString stringWithCString:[player getCurrentAuthor] encoding:NSISOLatin1StringEncoding] forInputKey:@"Author"];
+	[self setValue:[NSString stringWithCString:[player getCurrentReleaseInfo] encoding:NSISOLatin1StringEncoding] forInputKey:@"Released"];
+	[self setValue:[NSString stringWithCString:[player getCurrentChipModel] encoding:NSISOLatin1StringEncoding] forInputKey:@"ChipName"];
 	
 	[self setValue:@YES forInputKey:@"TuneInfoSignal"];
 	[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(disableTuneInfoSignal) userInfo:nil repeats:NO];

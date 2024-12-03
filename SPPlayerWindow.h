@@ -5,14 +5,15 @@
 #import "SPOscilloscopeWindowController.h"
 #import "PlayerInfoProtocol.h"
 
+/*
 // C++ Forward declares
 #ifdef __cplusplus
-class AudioDriver;
+#include "AudioCoreDriverNew.h"
 
 #else
 typedef void AudioDriver;
 #endif
-
+*/
 
 @class SPStatusDisplayView;
 @class SPInfoWindowController;
@@ -71,7 +72,7 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSMenuItem* exportTaskWindowMenuItem;
 	
     PlayerLibSidplayWrapper* player;
-	AudioDriver* audioDriver;
+	//AudioDriver* audioDriver;
 	NSString* currentTunePath;
 	NSInteger currentTuneLengthInSeconds;
 	CGFloat currentVolume;
@@ -125,7 +126,10 @@ extern NSString* SPUrlRequestUserAgentString;
     
      SPOscilloscopeWindowController *oscillosscopeWindowController;
 }
-
+- (BOOL) audioDriverIsAvailable;
+- (BOOL) audioDriverIsPlaying;
+- (void) audioDriverStartPlaying;
+- (void) audioDriverStopPlaying;
 - (void) playTuneAtPath:(NSString*)path;
 - (void) playTuneAtPath:(NSString*)path subtune:(int)subtuneIndex;
 - (void) playTuneAtURL:(NSString*)urlString;
@@ -141,7 +145,7 @@ extern NSString* SPUrlRequestUserAgentString;
 - (void) startFadeOut;
 - (void) stopFadeOut;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
+//@property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
 @property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplayWrapper *player;
 
 - (void) addInfoContainerView:(NSScrollView*)infoContainerScrollView;

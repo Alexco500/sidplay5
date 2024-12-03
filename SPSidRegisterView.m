@@ -1,7 +1,7 @@
 #import "SPInfoContainerView.h"
 #import "SPColorProvider.h"
 #import "SPPlayerWindow.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPSidRegisterView.h"
 #import "SPPreferencesController.h"
 
@@ -135,13 +135,15 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	if (player == NULL)
 	{
 		SPInfoContainerView* container = self.enclosingScrollView.documentView;
-		player = (PlayerLibSidplay*) [[container ownerWindow] player];
+		player = (PlayerLibSidplayWrapper*) [[container ownerWindow] player];
 	}
-	SidRegisterFrame registerFrame;
-	if (player != NULL)
-		registerFrame = player->getCurrentSidRegisters();
+	struct SidRegisterFrame* registerFrame;
+	if (player == NULL)
+        return; // FIXME: better error handling
+    
+    registerFrame = [player getCurrentSidRegisters];
 
-	registers = registerFrame.mRegisters;
+	registers = registerFrame->mRegisters;
 	
 	for (int i = 0; i < 3; i++)
 		[self drawVoice:i intoContext:context atHorizontalPosition:rect.origin.x + columnWidth * i + 3.0f andVerticalPosition:rect.origin.y + rect.size.height - 10.0f];

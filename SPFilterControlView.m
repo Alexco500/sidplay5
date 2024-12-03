@@ -45,7 +45,7 @@
 - (void) playerInitialized:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	player = (PlayerLibSidplay*) [[container ownerWindow] player];
+	player = (PlayerLibSidplayWrapper*) [[container ownerWindow] player];
 	if (player != NULL)
 	{
 		[filterCurveView setPlayer:player];
@@ -58,11 +58,13 @@
 - (void) playbackSettingsChanged:(NSNotification *)aNotification
 // ----------------------------------------------------------------------------
 {
-	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    BOOL enableFilterSliders = dummySettings.mFilterType != SID_FILTER_8580;
 	offsetSlider.enabled = enableFilterSliders;
 	steepnessSlider.enabled = enableFilterSliders;
 
-	BOOL enableDistortionSliders = enableFilterSliders && gPreferences.mPlaybackSettings.mEnableFilterDistortion;
+    BOOL enableDistortionSliders = enableFilterSliders && dummySettings.mEnableFilterDistortion;
 	rateSlider.enabled = enableDistortionSliders;
 	headroomSlider.enabled = enableDistortionSliders;
 	
@@ -105,19 +107,21 @@
 - (void) applyFilterSettings
 // ----------------------------------------------------------------------------
 {
-	[typePopUpButton selectItemWithTag:gPreferences.mPlaybackSettings.mFilterType];
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    [typePopUpButton selectItemWithTag:dummySettings.mFilterType];
 	
-	offsetSlider.floatValue = gPreferences.mPlaybackSettings.mFilterOffset;
-	steepnessSlider.floatValue = gPreferences.mPlaybackSettings.mFilterSteepness;
+    offsetSlider.floatValue = dummySettings.mFilterOffset;
+    steepnessSlider.floatValue = dummySettings.mFilterSteepness;
 
-	rateSlider.intValue = gPreferences.mPlaybackSettings.mDistortionRate;
-	headroomSlider.intValue = gPreferences.mPlaybackSettings.mDistortionHeadroom;
+    rateSlider.intValue = dummySettings.mDistortionRate;
+    headroomSlider.intValue = dummySettings.mDistortionHeadroom;
 
-	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
+    BOOL enableFilterSliders = dummySettings.mFilterType != SID_FILTER_8580;
 	offsetSlider.enabled = enableFilterSliders;
 	steepnessSlider.enabled = enableFilterSliders;
 
-	BOOL enableDistortionSliders = enableFilterSliders && gPreferences.mPlaybackSettings.mEnableFilterDistortion;
+    BOOL enableDistortionSliders = enableFilterSliders && dummySettings.mEnableFilterDistortion;
 	rateSlider.enabled = enableDistortionSliders;
 	headroomSlider.enabled = enableDistortionSliders;
 
@@ -136,22 +140,30 @@
 - (IBAction) parameterChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	gPreferences.mPlaybackSettings.mFilterType = SID_FILTER_CUSTOM;
+    struct PlaybackSettings dummySettings;
+    struct PlaybackSettings dummyFilter;
+    
+    [gPreferences getPlaybackSettings:&dummySettings];
+    [gPreferences getCustomFilterSettings:&dummyFilter];
+    
+    dummySettings.mFilterType = SID_FILTER_CUSTOM;
 	
-	gPreferences.mPlaybackSettings.mFilterOffset = offsetSlider.floatValue;
-	gPreferences.mPlaybackSettings.mFilterSteepness = steepnessSlider.floatValue;
+    dummySettings.mFilterOffset = offsetSlider.floatValue;
+    dummySettings.mFilterSteepness = steepnessSlider.floatValue;
 
-	gPreferences.mPlaybackSettings.mDistortionRate = rateSlider.intValue;
-	gPreferences.mPlaybackSettings.mDistortionHeadroom = headroomSlider.intValue;
+    dummySettings.mDistortionRate = rateSlider.intValue;
+    dummySettings.mDistortionHeadroom = headroomSlider.intValue;
 	
-	gPreferences.mCustomFilterSettings.mFilterKinkiness = gPreferences.mPlaybackSettings.mFilterKinkiness;
-	gPreferences.mCustomFilterSettings.mFilterBaseLevel = gPreferences.mPlaybackSettings.mFilterBaseLevel;
-	gPreferences.mCustomFilterSettings.mFilterOffset = gPreferences.mPlaybackSettings.mFilterOffset;
-	gPreferences.mCustomFilterSettings.mFilterSteepness = gPreferences.mPlaybackSettings.mFilterSteepness;
-	gPreferences.mCustomFilterSettings.mFilterRolloff = gPreferences.mPlaybackSettings.mFilterRolloff;
-	gPreferences.mCustomFilterSettings.mDistortionRate = gPreferences.mPlaybackSettings.mDistortionRate;
-	gPreferences.mCustomFilterSettings.mDistortionHeadroom = gPreferences.mPlaybackSettings.mDistortionHeadroom;
+    dummyFilter.mFilterKinkiness = dummySettings.mFilterKinkiness;
+    dummyFilter.mFilterBaseLevel = dummySettings.mFilterBaseLevel;
+    dummyFilter.mFilterOffset = dummySettings.mFilterOffset;
+    dummyFilter.mFilterSteepness = dummySettings.mFilterSteepness;
+    dummyFilter.mFilterRolloff = dummySettings.mFilterRolloff;
+    dummyFilter.mDistortionRate = dummySettings.mDistortionRate;
+    dummyFilter.mDistortionHeadroom = dummySettings.mDistortionHeadroom;
 	
+    [gPreferences copyPlaybackSettings:&dummySettings];
+    [gPreferences copyCustomFilterSettings:&dummyFilter];
 	[self applyFilterSettings];
 }
 
@@ -160,7 +172,10 @@
 - (IBAction) filterTypeChanged:(id)sender
 // ----------------------------------------------------------------------------
 {
-	gPreferences.mPlaybackSettings.mFilterType = (SPFilterType) [sender tag];
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    dummySettings.mFilterType = (SPFilterType) [sender tag];
+    [gPreferences copyPlaybackSettings:&dummySettings];
 	[self setFilterPreferencesFromTypeDefaults];
 	[self applyFilterSettings];
 }
@@ -170,9 +185,11 @@
 - (void) setFilterPreferencesFromTypeDefaults
 // ----------------------------------------------------------------------------
 {
-	gPreferences.setDistortionParametersBasedOnFilterType();
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+    [gPreferences setDistortionParametersBasedOnFilterType];
 	
-	BOOL enableFilterSliders = gPreferences.mPlaybackSettings.mFilterType != SID_FILTER_8580;
+    BOOL enableFilterSliders = dummySettings.mFilterType != SID_FILTER_8580;
 	offsetSlider.enabled = enableFilterSliders;
 	steepnessSlider.enabled = enableFilterSliders;
 	rateSlider.enabled = enableFilterSliders;
@@ -204,7 +221,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (void) setPlayer:(PlayerLibSidplay*)thePlayer
+- (void) setPlayer:(PlayerLibSidplayWrapper*)thePlayer
 // ----------------------------------------------------------------------------
 {
 	player = thePlayer;

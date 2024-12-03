@@ -16,63 +16,42 @@
 
 #ifndef SIDTUNEWRAPPER_H
 #define SIDTUNEWRAPPER_H
+#import <Foundation/Foundation.h>
 
-//#include <qthread.h>
-
-#include "SidTuneInfo.h"
-
-//class emuEngine;
-//struct emuConfig;
-class SidTune;
-
-
-class SidTuneWrapper
+@interface SidTuneWrapper : NSObject
 {
- public:
-    SidTuneWrapper();
-    ~SidTuneWrapper();
+}
+- (BOOL) open:(const char*) fileName;
+- (BOOL) load:(void*) buf withLength:(unsigned long int) bufLen;
 
-    bool open(const char*);
-    bool load(void*, unsigned long int);
-    
-    const char* getMD5_Digest();
-    
-    void updateInfo();
+- (const char*) getMD5_Digest;
 
-    bool getStatus() const;
-    
-    int getSongs() const;
-    int getCurrentSong() const;
-    int getStartSong() const;
-    
-    const char* getInfoString(int) const;
-    int getInfoStringsNum() const;
-    // (ms) For a free-form credit field with an arbitrary number
-    // of lines, a line-iterator would be more comfortable.
+-(void) updateInfo;
 
-    int getLoadAddr() const;
-    int getInitAddr() const;
-    int getPlayAddr() const;
+-(BOOL) getStatus;
 
-    const char* getStatusString() const;
-    const char* getFormatString() const;
-    
-    bool savePSID(const char *, bool overWrite);
+-(int) getSongs;
+-(int) getCurrentSong;
+-(int) getStartSong;
 
-    SidTune* getSidTune() const;
+-(const char*) getInfoStringWithNumber:(int) number;
+-(int) getInfoStringsNum;
+// (ms) For a free-form credit field with an arbitrary number
+// of lines, a line-iterator would be more comfortable.
 
-    static int getMaxSongs();
-    static unsigned long int getMaxSidFileLen();
-    
- protected:
-    SidTune* pSid;
-    SidTuneInfo* pSidInfo;
-    char* pDigest;
-    
- private:
-    // prevent copying
-    SidTuneWrapper(const SidTuneWrapper&);
-    SidTuneWrapper& operator=(SidTuneWrapper&);  
-};
+-(int) getLoadAddr;
+-(int) getInitAddr;
+-(int) getPlayAddr;
+
+-(const char*) getStatusString;
+-(const char*) getFormatString;
+
+-(BOOL) savePSID:(const char *) fileName withOverwrite:(BOOL) overWrite;
+- (void *)getSidTune;
+
+-(int) getMaxSongs;
+-(unsigned long int) getMaxSidFileLen;
+
+@end
 
 #endif  /* SIDTUNEWRAPPER_H */

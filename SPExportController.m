@@ -18,12 +18,12 @@
 	NSProcessInfo* processInfo = [NSProcessInfo processInfo];
 	numberOfConcurrentExportTasks = (int)MIN(8, [processInfo activeProcessorCount]);
 	
-	exportSettings.Init();
+    exportSettings = [[ExportSettings alloc] init];
 }
 
 
 // ----------------------------------------------------------------------------
-- (void) exportFile:(SPExportItem*)item withType:(ExportFileType)type
+- (void) exportFile:(SPExportItem*)item withType:(enum ExportFileType)type
 // ----------------------------------------------------------------------------
 {
 	exportSettings.mFileType = type;
@@ -50,7 +50,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (void) exportFiles:(NSMutableArray*)items withType:(ExportFileType)type
+- (void) exportFiles:(NSMutableArray*)items withType:(enum ExportFileType)type
 // ----------------------------------------------------------------------------
 {
 	exportSettings.mFileType = type;
@@ -108,7 +108,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (BOOL) isCompressedFileType:(ExportFileType)type
+- (BOOL) isCompressedFileType:(enum ExportFileType)type
 // ----------------------------------------------------------------------------
 {
 	switch (type)
@@ -132,21 +132,22 @@
 // ----------------------------------------------------------------------------
 {
 	long fileSize = 0;
-	
-	switch(settings->mFileType)
+    struct PlaybackSettings dummySettings;
+    [gPreferences getPlaybackSettings:&dummySettings];
+	switch([settings mFileType])
 	{
 		case EXPORT_TYPE_MP3:
-			if (settings->mUseVBR)
+			if ([settings mUseVBR])
 				fileSize = -1;
 			else
-				fileSize = settings->mTimeInSeconds * settings->mBitRate * 1000 / 8;
+				fileSize = [settings mTimeInSeconds] * [settings mBitRate] * 1000 / 8;
 			break;
 			
 		case EXPORT_TYPE_AAC:
-			if (settings->mUseVBR)
+			if ([settings mUseVBR])
 				fileSize = -1;
 			else
-				fileSize = settings->mTimeInSeconds * settings->mBitRate * 1000 / 8;
+				fileSize = [settings mTimeInSeconds] * [settings mBitRate] * 1000 / 8;
 			break;
 			
 		case EXPORT_TYPE_ALAC:
@@ -154,7 +155,7 @@
 			break;
 			
 		case EXPORT_TYPE_AIFF:
-			fileSize = settings->mTimeInSeconds * gPreferences.mPlaybackSettings.mFrequency * sizeof(short); 
+            fileSize = [settings mTimeInSeconds] * dummySettings.mFrequency * sizeof(short);
 			break;
 			
 		default:
@@ -304,7 +305,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (ExportSettings) exportSettings
+- (ExportSettings *) exportSettings
 // ----------------------------------------------------------------------------
 {
 	return exportSettings;
@@ -312,7 +313,7 @@
 
 
 // ----------------------------------------------------------------------------
-- (void) setExportSettings:(ExportSettings)settings
+- (void) setExportSettings:(ExportSettings*)settings
 // ----------------------------------------------------------------------------
 {
 	exportSettings = settings;

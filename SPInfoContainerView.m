@@ -2,7 +2,7 @@
 #import "SPOscilloscopeView.h"
 #import "SPColorProvider.h"
 #import "SPPlayerWindow.h"
-#import "AudioDriver.h"
+
 
 
 @implementation SPInfoContainerView
@@ -59,11 +59,10 @@ static const float desiredContainerWidth = 415.0f;
 	if (self.hidden || !self.window.visible || ![NSApplication sharedApplication].active)
 		return;
 		
-	AudioDriver* audioDriver = (AudioDriver*) [ownerWindow audioDriver];
-	if (audioDriver == NULL)
+    if (![ownerWindow audioDriverIsAvailable])
 		return;
 
-	if (!audioDriver->getIsPlaying())
+    if (![ownerWindow audioDriverIsPlaying])
 		return;
 			
 	//static IMP oscDisplayImp = GETIMP(oscilloscopeView, display);

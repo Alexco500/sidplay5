@@ -1,8 +1,7 @@
 #import "SPInfoContainerView.h"
 #import "SPOscilloscopeView.h"
 #import "SPPlayerWindow.h"
-#import "AudioDriver.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPPreferencesController.h"
 #import "SPColorProvider.h"
 
@@ -93,14 +92,13 @@
 		CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
 	CGContextFillRect(context, contextRect);
 
-	AudioDriver* audioDriver = (AudioDriver*) [[container ownerWindow] audioDriver];
-	if (audioDriver == NULL)
+	if ([[container ownerWindow] audioDriverIsAvailable] == NO)
 		return;
 	
 	float fadeVolume = [[container ownerWindow] fadeVolume];
 	
-	short* sampleBuffer = audioDriver->getSampleBuffer();
-	bool isPlaying = audioDriver->getIsPlaying();
+    short* sampleBuffer = [[container ownerWindow] audioDriverSampleBuffer];
+    bool isPlaying = [[container ownerWindow] audioDriverIsPlaying];
 	
 	float zeroLineHeight = contextRect.size.height * 0.5f + 0.5f;
 	float width = contextRect.size.width;
