@@ -44,8 +44,12 @@
 		currentExportPanel = exportFilePanel;
 	
 	[currentExportPanel setExportController:self];
-	
-	[NSApp beginSheet:(NSWindow*)currentExportPanel modalForWindow:(NSWindow*)ownerWindow modalDelegate:self didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:) contextInfo:NULL];
+	 
+    [ownerWindow beginSheet:currentExportPanel completionHandler:nil];
+    
+    NSInteger result = [NSApp runModalForWindow:ownerWindow];
+    [self didEndExportSheet:currentExportPanel returnCode:(int)result contextInfo:nil];
+
 }
 
 
@@ -67,7 +71,13 @@
 	[currentExportPanel setExportController:self];
 	[currentExportPanel updateFileListTextView:items];
 
-	[NSApp beginSheet:(NSWindow*)currentExportPanel modalForWindow:(NSWindow*)ownerWindow modalDelegate:self didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:) contextInfo:NULL];
+    [ownerWindow beginSheet:currentExportPanel completionHandler:nil];
+    
+    NSInteger result = [NSApp runModalForWindow:ownerWindow];
+    [self didEndExportSheet:currentExportPanel returnCode:(int)result contextInfo:nil];
+
+    
+	//[NSApp beginSheet:(NSWindow*)currentExportPanel modalForWindow:(NSWindow*)ownerWindow modalDelegate:self didEndSelector:@selector(didEndExportSheet:returnCode:contextInfo:) contextInfo:NULL];
 }
 
 
@@ -75,7 +85,8 @@
 - (IBAction) cancelExportSheet:(id)sender
 // ----------------------------------------------------------------------------
 {
-	[NSApp endSheet:(NSWindow*)currentExportPanel returnCode:NSModalResponseCancel];
+    [NSApp stopModalWithCode:NSModalResponseCancel];
+    //[NSApp endSheet:(NSWindow*)currentExportPanel returnCode:NSModalResponseCancel];
 }
 
 
@@ -84,7 +95,8 @@
 // ----------------------------------------------------------------------------
 {
 	[currentExportPanel timeChanged:nil];
-	[NSApp endSheet:(NSWindow*)currentExportPanel returnCode:NSModalResponseOK];
+    [NSApp stopModalWithCode:NSModalResponseOK];
+	//[NSApp endSheet:(NSWindow*)currentExportPanel returnCode:NSModalResponseOK];
 }
 
 
@@ -178,21 +190,21 @@
     savePanel.nameFieldStringValue = suggestedFilename;
     savePanel.allowedFileTypes = @[suggestedExtension];
 	[savePanel setCanSelectHiddenExtension:YES];
-	
-    [savePanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
+    
+    
+    NSModalResponse result = [savePanel runModal];
+    
+    if (result == NSModalResponseOK)
     {
-        if (result == NSModalResponseOK)
-        {
-            [self->exportTaskWindow orderFront:self];
-            
-            SPExporter* exporterA = [self->itemsToExport[0] exporter];
-            [exporterA setExportSettings:self->exportSettings];
-            [exporterA setDestinationPath:(savePanel.URL).path];
-            [self->exporterArray addObject:exporter];
-            [self updateExporterState];
-        }
+        [self->exportTaskWindow orderFront:self];
+        
+        SPExporter* exporterA = [self->itemsToExport[0] exporter];
+        [exporterA setExportSettings:self->exportSettings];
+        [exporterA setDestinationPath:(savePanel.URL).path];
+        [self->exporterArray addObject:exporter];
+        [self updateExporterState];
     }
-    ];
+
 }
 
 
@@ -208,7 +220,8 @@
 	openPanel.title = @"Select export destination";
 	openPanel.prompt = @"Choose";
 
-    [openPanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
+    NSModalResponse result = [openPanel runModal];
+    //[openPanel beginSheetModalForWindow:ownerWindow completionHandler:^(NSInteger result)
      {
          if (result == NSModalResponseOK)
          {
@@ -237,7 +250,7 @@
              [self updateExporterState];
          }
      }
-     ];
+     //];
 }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,12 +41,12 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="586" y="515" width="467" height="212"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="950"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="467" height="212"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="639F4044-BCC2-4470-8A3B-C5A339636E15" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="11">
+            <toolbar key="toolbar" implicitIdentifier="639F4044-BCC2-4470-8A3B-C5A339636E15" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="11">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="17"/>
                     <toolbarItem implicitItemIdentifier="3E04A271-D2DF-48CB-A62F-102DD4DFF798" label="General" paletteLabel="General" image="NSPreferencesGeneral" sizingBehavior="auto" id="20">
@@ -87,7 +87,7 @@
             <rect key="frame" x="0.0" y="0.0" width="504" height="242"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="166">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="166">
                     <rect key="frame" x="33" y="89" width="88" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="STIL Browser:" id="167">
                         <font key="font" metaFont="system"/>
@@ -108,7 +108,7 @@
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" minValue="16" maxValue="100" doubleValue="16" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="148">
                     <rect key="frame" x="435" y="196" width="16" height="16"/>
                 </progressIndicator>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54">
                     <rect key="frame" x="136" y="114" width="251" height="28"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="247" id="Hf5-aS-bW6"/>
@@ -119,7 +119,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="52">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="52">
                     <rect key="frame" x="210" y="154" width="53" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="minutes" id="53">
                         <font key="font" metaFont="system"/>
@@ -134,7 +134,7 @@
                         <action selector="clickTimeStepper:" target="-2" id="150"/>
                     </connections>
                 </stepper>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
                     <rect key="frame" x="138" y="152" width="45" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="9L1-oC-jUh"/>
@@ -148,7 +148,7 @@
                         <action selector="timeChanged:" target="-2" id="151"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46">
                     <rect key="frame" x="40" y="155" width="81" height="15"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Song length:" id="47">
                         <font key="font" metaFont="system"/>
@@ -156,7 +156,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="44">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="44">
                     <rect key="frame" x="58" y="196" width="63" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Spotlight:" id="45">
                         <font key="font" metaFont="system"/>
@@ -164,7 +164,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40">
                     <rect key="frame" x="62" y="63" width="59" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Updates:" id="41">
                         <font key="font" metaFont="system"/>
@@ -247,7 +247,7 @@
             <rect key="frame" x="0.0" y="0.0" width="510" height="275"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="198">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="198">
                     <rect key="frame" x="207" y="98" width="160" height="29"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="156" id="A9Z-g0-lJb"/>
@@ -258,7 +258,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="174">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="174">
                     <rect key="frame" x="87" y="74" width="102" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preferred Timing:" id="175">
                         <font key="font" metaFont="system"/>
@@ -306,7 +306,7 @@
                         <action selector="playbackSettingsChanged:" target="-2" id="181"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="163">
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="163">
                     <rect key="frame" x="223" y="164" width="198" height="28"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="194" id="0tn-DE-7CL"/>
@@ -317,7 +317,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="124">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="124">
                     <rect key="frame" x="69" y="233" width="129" height="15"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Emulation Accuracy:" id="125">
                         <font key="font" metaFont="system"/>
@@ -327,12 +327,9 @@
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="123">
                     <rect key="frame" x="204" y="226" width="138" height="26"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="61s-tG-7KS"/>
-                    </constraints>
                     <popUpButtonCell key="cell" type="push" title="Good" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" selectedItem="133" id="126">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="127">
                             <items>
                                 <menuItem title="Normal (fastest)" tag="2" id="134"/>
@@ -341,6 +338,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="61s-tG-7KS"/>
+                    </constraints>
                     <connections>
                         <action selector="playbackSettingsChanged:" target="-2" id="140"/>
                     </connections>
@@ -380,7 +380,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="1x (off)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" inset="2" selectedItem="86" id="84">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="85">
                             <items>
                                 <menuItem title="1x (off)" state="on" tag="1" id="86"/>
@@ -407,7 +407,7 @@
                         <action selector="playbackSettingsChanged:" target="-2" id="141"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69">
                     <rect key="frame" x="68" y="48" width="131" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preferred SID Model:" id="70">
                         <font key="font" metaFont="system"/>
@@ -415,7 +415,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="67">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="67">
                     <rect key="frame" x="106" y="141" width="92" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Oversampling:" id="68">
                         <font key="font" metaFont="system"/>
@@ -423,7 +423,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
                     <rect key="frame" x="95" y="202" width="102" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Filter Emulation:" id="62">
                         <font key="font" metaFont="system"/>
@@ -490,27 +490,24 @@
                 </button>
                 <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="157">
                     <rect key="frame" x="45" y="35" width="293" height="26"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="k5G-sS-E92"/>
-                    </constraints>
                     <popUpButtonCell key="cell" type="push" title="rsync://www.sidmusic.org/hvsc" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="191" id="158">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="159">
                             <items>
                                 <menuItem title="rsync://www.sidmusic.org/hvsc" state="on" id="191"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="k5G-sS-E92"/>
+                    </constraints>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="117">
                     <rect key="frame" x="276" y="89" width="104" height="26"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="Q8M-I2-PhH"/>
-                    </constraints>
                     <popUpButtonCell key="cell" type="push" title="Daily" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="192" id="118">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" title="OtherViews" id="119">
                             <items>
                                 <menuItem title="Daily" state="on" id="192">
@@ -531,6 +528,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Q8M-I2-PhH"/>
+                    </constraints>
                 </popUpButton>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="115">
                     <rect key="frame" x="36" y="94" width="237" height="19"/>
@@ -542,7 +542,7 @@
                         <action selector="clickAutoSyncButton:" target="-2" id="197"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
                     <rect key="frame" x="45" y="67" width="220" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select preferred sync mirror server:" id="112">
                         <font key="font" metaFont="system"/>
@@ -577,7 +577,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="wtr-ZA-zhh">
                         <rect key="frame" x="1" y="1" width="297" height="133"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="19" id="226" customClass="SPSharedPlaylistsTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="297" height="133"/>
@@ -654,14 +654,14 @@
                 </matrix>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="206">
                     <rect key="frame" x="77" y="215" width="321" height="26"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="207">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message"/>
+                        <menu key="menu" title="OtherViews" id="208"/>
+                    </popUpButtonCell>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="cXX-Eu-jQE"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="207">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" title="OtherViews" id="208"/>
-                    </popUpButtonCell>
                 </popUpButton>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="204">
                     <rect key="frame" x="59" y="247" width="278" height="18"/>

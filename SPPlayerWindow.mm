@@ -178,26 +178,27 @@ AudioCoreDriverNew* audioDriver = nil;
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
-    urlDownloadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (urlDownloadConnection != nil)
-        urlDownloadData = [NSMutableData data];
+    
+    // moved from NSURLConnection to NSURLSession, according to
+    // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+    NSURLSession* databaseDownloadSession = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dwnTask = [databaseDownloadSession dataTaskWithRequest:request
+                                                               completionHandler:
+                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            [self->urlDownloadData appendData:data];
+            [self connectionDidFinishLoading];
+        }
+    }];
+    
+    [dwnTask resume];
+    
 }
 
 // ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-// ----------------------------------------------------------------------------
-{
-    urlDownloadData.length = 0;
-}
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-{
-    [urlDownloadData appendData:data];
-}
-
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 // ----------------------------------------------------------------------------
 {
     struct PlaybackSettings dummySettings;
@@ -387,12 +388,14 @@ AudioCoreDriverNew* audioDriver = nil;
         struct SidRegisterFrame *registerFrame = [player getCurrentSidRegisters];
         unsigned char* registers = registerFrame->mRegisters;
         
-        if (audioDriver->getIsPlaying())
-        {
-            //TODO: where is that used?
+        //TODO: where is that used?
+        // if (audioDriver->getIsPlaying())
+        //{
+            /*
             float levelVoice1 = (registers[0x04] & 0x01) ? float(registers[0x06] >> 4) / 15.0f : 0.0f;
             float levelVoice2 = (registers[0x0b] & 0x01) ? float(registers[0x0d] >> 4) / 15.0f : 0.0f;
             float levelVoice3 = (registers[0x12] & 0x01) ? float(registers[0x14] >> 4) / 15.0f : 0.0f;
+            */
             /*
              if ([statusDisplay logoVisible])
              [statusDisplay updateUvMetersWithVoice1:levelVoice1 andVoice2:levelVoice2 andVoice3:levelVoice3];
@@ -409,7 +412,7 @@ AudioCoreDriverNew* audioDriver = nil;
              [miniStatusDisplay updateUvMetersWithVoice1:0.0f andVoice2:0.0f andVoice3:0.0f];
              }
              */
-        }
+        //}
         if (visualizerView != nil && visualizerView.superview != nil)
         {
             VisualizerState state;
@@ -1045,7 +1048,8 @@ AudioCoreDriverNew* audioDriver = nil;
     if (!self.visible)
         return;
     
-    [NSApp beginSheet:openUrlSheetPanel modalForWindow:self modalDelegate:self didEndSelector:@selector(didEndOpenUrlSheet:returnCode:contextInfo:) contextInfo:nil];
+    //[NSApp beginSheet:openUrlSheetPanel modalForWindow:self modalDelegate:self didEndSelector:@selector(didEndOpenUrlSheet:returnCode:contextInfo:) contextInfo:nil];
+    [self beginSheet:openUrlSheetPanel completionHandler:^(NSModalResponse returnCode) {}];
 }
 
 // ----------------------------------------------------------------------------

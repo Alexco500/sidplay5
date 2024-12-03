@@ -174,7 +174,7 @@
 {
     struct PlaybackSettings dummySettings;
     [gPreferences getPlaybackSettings:&dummySettings];
-    dummySettings.mFilterType = (SPFilterType) [sender tag];
+    dummySettings.mFilterType = (enum SPFilterType) [sender tag];
     [gPreferences copyPlaybackSettings:&dummySettings];
 	[self setFilterPreferencesFromTypeDefaults];
 	[self applyFilterSettings];

@@ -10,7 +10,7 @@
 - (instancetype) init
 // ----------------------------------------------------------------------------
 {
-    return [self initWithPath:nil isFolder:NO forParent:nil withDefaultSubtune:NULL];
+    return [self initWithPath:nil isFolder:NO forParent:nil withDefaultSubtune:0];
 }
 // ----------------------------------------------------------------------------
 - (instancetype) initWithPath:(NSString*)thePath isFolder:(BOOL)folder forParent:(SPBrowserItem*)parentItem withDefaultSubtune:(NSInteger)subtuneIndex

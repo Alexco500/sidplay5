@@ -100,31 +100,31 @@ static SongLengthDatabase* sharedInstance = nil;
 		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 		[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
 		downloadData = [NSMutableData data];
-		downloadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
 		//NSLog(@"Songlength database downloading %@\n", databasePath);
+        /*
+        // moved from NSURLConnection to NSURLSession, according to
+        // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+         */
+        downloadConnection = [NSURLSession sharedSession];
+        NSURLSessionDataTask *dwnTask = [downloadConnection dataTaskWithRequest:request
+                                                                   completionHandler:
+                                         ^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", error.localizedDescription);
+            } else {
+                [self->downloadData appendData:data];
+                [self connectionDidFinishLoading:self->downloadConnection];
+            }
+        }];
+        
+        [dwnTask resume];
 	}
 	return self;
 }
 
-
 // ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-// ----------------------------------------------------------------------------
-{
-	downloadData.length = 0;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-// ----------------------------------------------------------------------------
-{
-	[downloadData appendData:data];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLSession *)connection
 // ----------------------------------------------------------------------------
 {
 	char* dataBuffer = (char*) downloadData.bytes;
@@ -155,7 +155,7 @@ static SongLengthDatabase* sharedInstance = nil;
     // changed finalize back to dealloc
 	if (downloadConnection != nil)
 	{
-		[downloadConnection cancel];
+        [downloadConnection invalidateAndCancel];
 		downloadConnection = nil;
 	}
 	

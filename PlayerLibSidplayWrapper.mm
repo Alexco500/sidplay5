@@ -33,6 +33,14 @@
 #include "bin/k.h"
 
 
+
+@implementation PlayerLibSidplayWrapper
+@synthesize sChipModel6581;
+@synthesize sChipModel8580;
+@synthesize sChipModelUnknown;
+@synthesize sChipModelUnspecified;
+
+
 unsigned char sid_registers[ 0x19 ];
 
 double mixer_value1 = 1.0;
@@ -43,7 +51,7 @@ typedef std::vector<SidRegisterFrame> SidRegisterLog;
 
 // C++ variables
 sidplayfp*   mSidEmuEngine;
-SidTune*     mSidTune;
+std::unique_ptr<SidTune>     mSidTune;
 std::unique_ptr<ReSIDfpBuilder> mBuilder;
 std::unique_ptr<ReSIDBuilder> mBuilder_reSID;
 // SIDblaster USB
@@ -60,11 +68,6 @@ PlaybackSettings    mPlaybackSettings;
 SidRegisterLog        mRegisterLog;
 struct SidRegisterFrame currentRegisterFrame;
 
-@implementation PlayerLibSidplayWrapper
-@synthesize sChipModel6581;
-@synthesize sChipModel8580;
-@synthesize sChipModelUnknown;
-@synthesize sChipModelUnspecified;
 
 SidTuneInfo*        mTuneInfo;
 AudioCoreDriverNew*        mAudioDriver;
@@ -91,8 +94,8 @@ AudioCoreDriverNew*        mAudioDriver;
 #ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder = nil;
 #endif
-    //mBuilder_reSID = nil;
-    //mBuilder = nil;
+    mBuilder_reSID = nil;
+    mBuilder = nil;
     mExtUSBDeviceActive = false;
     
     return self;
@@ -129,19 +132,19 @@ AudioCoreDriverNew*        mAudioDriver;
 - (bool) initSIDTune:(struct PlaybackSettings*) settings
 {
     //printf("init sidtune\n");
-    
+    /*
     if (mSidTune != NULL)
     {
         delete mSidTune;
         mSidTune = NULL;
         mSidEmuEngine->load(NULL);
     }
-    
+    */
     //printf("init emu engine\n");
     
     [self initEmuEngineWithSettings:settings];
     
-    mSidTune = new SidTune((uint_least8_t *) mTuneBuffer, mTuneLength);
+    mSidTune = std::unique_ptr <SidTune>(new SidTune((uint_least8_t *) mTuneBuffer, mTuneLength));
     
     if (!mSidTune)
         return false;
@@ -152,11 +155,11 @@ AudioCoreDriverNew*        mAudioDriver;
     
     //printf("loading sid tune data\n");
     
-    int rc = mSidEmuEngine->load(mSidTune);
+    int rc = mSidEmuEngine->load(mSidTune.get());
     
     if (rc == -1)
     {
-        delete mSidTune;
+        //delete mSidTune;
         mSidTune = NULL;
         return false;
     }
@@ -181,6 +184,8 @@ AudioCoreDriverNew*        mAudioDriver;
     
     return true;
 }
+//FIXME: For what was this one used?
+/*
 static inline float approximate_dac(int x, float kinkiness)
 {
     float bits = 0.0f;
@@ -191,6 +196,7 @@ static inline float approximate_dac(int x, float kinkiness)
     return x * (1.0f + bits * kinkiness);
     
 }
+ */
 #pragma mark public ObjC methods
 - (void) stopEmuEngine
 {
@@ -340,7 +346,7 @@ static inline float approximate_dac(int x, float kinkiness)
     
     int count  = mSIDBlasterUSBbuilder->availDevices();
     // Check if builder is ok
-    if (!mSIDBlasterUSBbuilder->getStatus())
+    if ((!mSIDBlasterUSBbuilder->getStatus()) && (count >0))
     {
         printf("SIDBlasterUSB configure error: %s\n", mSIDBlasterUSBbuilder->error());
     } else {
@@ -531,7 +537,7 @@ static inline float approximate_dac(int x, float kinkiness)
         return false;
     
     mSidTune->selectSong(mCurrentSubtune);
-    mSidEmuEngine->load(mSidTune);
+    mSidEmuEngine->load(mSidTune.get());
     
     return true;
 }

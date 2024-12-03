@@ -164,18 +164,23 @@ static const char* sRowTitles[] =
 //    [[[SPColorProvider sharedInstance] gridColor] set];
 //    [NSBezierPath strokeLineFromPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height) toPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height - sRowCount * rowHeight)];
     
-    CGContextSelectFont(context, "Lucida Grande", 9.0f, kCGEncodingMacRoman);
+    NSColor *strokeColor, *fillColor;
     if ([[SPColorProvider sharedInstance] providesDarkColors])
     {
         CGContextSetRGBStrokeColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
         CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
+        strokeColor = [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
+        fillColor = [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
     }
     else
     {
         CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
         CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
+        strokeColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
+        fillColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
     }
-    
+    NSDictionary* stringAttributes = @{NSFontAttributeName:[NSFont fontWithName:@"Lucida Grande" size:9.0f], NSForegroundColorAttributeName:strokeColor};
+
     CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0f, 1.0f));
     CGContextSetTextDrawingMode(context, kCGTextFill);
     
@@ -191,7 +196,8 @@ static const char* sRowTitles[] =
 
     for (int i = 0; i < sRowCount; i++)
     {
-        CGContextShowTextAtPoint(context, xpos, ypos, sRowTitles[i], strlen(sRowTitles[i]));
+       // CGContextShowTextAtPoint(context, xpos, ypos, sRowTitles[i], strlen(sRowTitles[i]));
+        [[NSString stringWithCString:sRowTitles[i] encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
         ypos -= rowHeight;
     }
 
@@ -202,44 +208,45 @@ static const char* sRowTitles[] =
             xpos = rect.origin.x + 3.0f + columnWidth;
             ypos = rect.origin.y + rect.size.height - 9.0f;
             
-            CFStringRef titleStringRef = CFStringCreateWithCString(NULL, [player getCurrentTitle], kCFStringEncodingISOLatin1);
-            CFStringGetCString(titleStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:[player getCurrentTitle] encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
             
-            CFStringRef authorStringRef = CFStringCreateWithCString(NULL, [player getCurrentAuthor], kCFStringEncodingISOLatin1);
-            CFStringGetCString(authorStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:[player getCurrentAuthor] encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
             
-            CFStringRef releaseStringRef = CFStringCreateWithCString(NULL, [player getCurrentReleaseInfo], kCFStringEncodingISOLatin1);
-            CFStringGetCString(releaseStringRef, stringBuffer, 255, kCFStringEncodingMacRoman);
-            //            snprintf(stringBuffer, 255, player->getCurrentReleaseInfo());
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:[player getCurrentReleaseInfo] encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
             
             snprintf(stringBuffer, 255, "%d (default: %d)", [player getSubtuneCount], [player getDefaultSubtune]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "%d", [player getSidChips]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
-            ypos -= rowHeight;            snprintf(stringBuffer, 255, "$%04x", [player getCurrentLoadAddress]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
+            snprintf(stringBuffer, 255, "$%04x", [player getCurrentLoadAddress]);
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
+            ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "$%04x", [player getCurrentInitAddress]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "$%04x", [player getCurrentPlayAddress]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "%s", [player getCurrentFormat]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "%d bytes", [player getCurrentFileSize]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             ypos -= rowHeight;
+            
             snprintf(stringBuffer, 255, "%s", [player getCurrentChipModel]);
-            CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));
+            [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
             //ypos -= rowHeight;
 		}
     }

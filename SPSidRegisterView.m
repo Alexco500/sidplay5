@@ -5,7 +5,7 @@
 #import "SPSidRegisterView.h"
 #import "SPPreferencesController.h"
 
-
+#pragma mark SPSidRegisterView
 @implementation SPSidRegisterView
 
 // ----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ struct NoteMapEntry
 static const int sNoteCount = 8 * 12;
 
 // taken from JCH's player... 
-static NoteMapEntry sNoteMap[sNoteCount] = 
+static struct NoteMapEntry sNoteMap[sNoteCount] = 
 {
 	{ 0x0116, "C-1" }, { 0x0127, "C#1" }, { 0x0138, "D-1" }, { 0x014b, "D#1" }, { 0x015f, "E-1" }, { 0x0173, "F-1" }, { 0x018a, "F#1" }, { 0x01a1, "G-1" }, { 0x01ba, "G#1" }, { 0x01d4, "A-1" }, { 0x01f0, "A#1" }, { 0x020e, "B-1" },	
 	{ 0x022d, "C-2" }, { 0x024e, "C#2" }, { 0x0271, "D-2" }, { 0x0296, "D#2" }, { 0x02bd, "E-2" }, { 0x02e7, "F-2" }, { 0x0313, "F#2" }, { 0x0342, "G-2" }, { 0x0374, "G#2" }, { 0x03a9, "A-2" }, { 0x03e0, "A#2" }, { 0x041b, "B-2" },
@@ -67,6 +67,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 }
 
 
+#pragma mark SPSidRegisterContentView
 @implementation SPSidRegisterContentView
 
 
@@ -94,7 +95,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	const float rowCount = 8;
 	const float	columnWidth = 120.0f;
 
-	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
+	CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
 	NSArray* colors = [[SPColorProvider sharedInstance] alternatingRowBackgroundColors];
 	NSColor* even = colors[1];
 	NSColor* odd = colors[0];
@@ -117,18 +118,15 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 //	[NSBezierPath strokeLineFromPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height) toPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height - 5.0f * rowHeight)];
 //	[NSBezierPath strokeLineFromPoint:NSMakePoint(2.0f * columnWidth - 0.5f, rect.size.height) toPoint:NSMakePoint(2.0f * columnWidth - 0.5f, rect.size.height - 5.0f * rowHeight)];
 	
-	CGContextSelectFont(context, "Lucida Grande", 9.0f, kCGEncodingMacRoman); 
-	if ([[SPColorProvider sharedInstance] providesDarkColors])
-	{
-		CGContextSetRGBStrokeColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-		CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-	}
-	else
-	{
-		CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-		CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-	}
-	
+    NSColor *strokeColor, *fillColor;
+    strokeColor = [[SPColorProvider sharedInstance] rgbStrokeColor];
+    fillColor = [[SPColorProvider sharedInstance] rgbFillColor];
+
+    CGContextSetRGBStrokeColor(context,strokeColor.redComponent, strokeColor.greenComponent, strokeColor.blueComponent, strokeColor.alphaComponent);
+    CGContextSetRGBFillColor(context,fillColor.redComponent, fillColor.greenComponent, fillColor.blueComponent, fillColor.alphaComponent);
+
+    NSDictionary* stringAttributes = @{NSFontAttributeName:[NSFont fontWithName:@"Lucida Grande" size:9.0f], NSForegroundColorAttributeName:strokeColor};
+    
 	CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0f, 1.0f));
 	CGContextSetTextDrawingMode(context, kCGTextFill);
 
@@ -154,7 +152,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	
 	unsigned short filterCutoff = (registers[0x15] + (registers[0x16] << 8)) >> 5;
 	snprintf(stringBuffer, 255, "Filter Cutoff: $%04x", filterCutoff);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 
 	int filtervoices = registers[0x17] & 0x07;
@@ -189,7 +187,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	}
 
 	snprintf(stringBuffer, 255, "Resonance/Filter: $%02x %s", registers[0x17], filterString);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 
 	int filterMode = (registers[0x18] & 0x70) >> 4;
@@ -224,7 +222,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	}
 
 	snprintf(stringBuffer, 255, "Filtermode/Volume: $%02x %s", registers[0x18], filterModeString);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 }
 
 
@@ -249,32 +247,33 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 			voiceString = "Voice 3";
 			break;
 	}
+    NSDictionary* stringAttributes = @{NSFontAttributeName:[NSFont fontWithName:@"Lucida Grande" size:9.0f], NSForegroundColorAttributeName:[[SPColorProvider sharedInstance] rgbStrokeColor]};
 
-	CGContextShowTextAtPoint(context, xpos, ypos, voiceString, strlen(voiceString));			
+    [[NSString stringWithCString:voiceString encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 	
 	char stringBuffer[256];
 
 	unsigned short frequency = registers[registerOffset] + (registers[registerOffset + 1] << 8);
 	snprintf(stringBuffer, 255, "Frequency: $%04x", frequency);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	
 	const char* noteString = sLookUpNoteStringForFrequency(frequency);
-	CGContextShowTextAtPoint(context, xpos + 86.0f, ypos, noteString, strlen(noteString));			
+    [[NSString stringWithCString:noteString encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos + 86.0f, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 
 	unsigned short pulseWidth = (registers[registerOffset + 2] + (registers[registerOffset + 3 ] << 8)) & 0x0FFF;
 	snprintf(stringBuffer, 255, "Pulsewidth: $%04x", pulseWidth);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 
 	snprintf(stringBuffer, 255, "Waveform: $%02x", registers[registerOffset + 4]);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 
 	unsigned short adsr = registers[registerOffset + 6] + (registers[registerOffset + 5] << 8);
 	snprintf(stringBuffer, 255, "ADSR: $%04x", adsr);
-	CGContextShowTextAtPoint(context, xpos, ypos, stringBuffer, strlen(stringBuffer));			
+    [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
 	ypos -= rowHeight;
 }
 

@@ -62,6 +62,7 @@ static NSColor* sAnalyzerVoiceColors[3][3] = { { nil, nil, nil }, { nil, nil, ni
         sAnalyzerVoiceColors[2][0] = [NSColor colorWithCalibratedRed:0.82f * 0.5f green:0.56f * 0.5f blue:0.99f * 0.5f alpha:1.0f];
         sAnalyzerVoiceColors[2][1] = [NSColor colorWithCalibratedRed:0.61f * 0.5f green:0.99f * 0.5f blue:0.62f * 0.5f alpha:1.0f];
         sAnalyzerVoiceColors[2][2] = [NSColor colorWithCalibratedRed:0.61f * 0.5f green:0.85f * 0.5f blue:0.99f * 0.5f alpha:1.0f];
+        
     }
     return self;
 }
@@ -118,5 +119,22 @@ static NSColor* sAnalyzerVoiceColors[3][3] = { { nil, nil, nil }, { nil, nil, ni
 - (NSColor*) analyzerVoiceColor:(int)inVoice shade:(int)inShade
 {
     return sAnalyzerVoiceColors[inShade][inVoice];
+}
+
+-(NSColor*) rgbFillColor
+{
+    // used in tune info view
+    if (providesDarkColors)
+        return [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
+    else
+        return [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
+}
+-(NSColor*) rgbStrokeColor
+{
+    // used in tune info view
+    if (providesDarkColors)
+        return [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
+    else
+        return [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
 }
 @end

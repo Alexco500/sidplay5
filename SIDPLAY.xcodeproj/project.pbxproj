@@ -31,7 +31,6 @@
 		1F41C53F0D5E11A30070C628 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1F41C53D0D5E11A30070C628 /* Credits.rtf */; };
 		1F41C6050D5F58E20070C628 /* SPSidRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F25A48D0CFCC5DB0063F7E7 /* SPSidRegisterView.m */; };
 		1F42425A0D70967D003FB09F /* SPColorProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF90520D02E5550014D7B2 /* SPColorProvider.m */; };
-		1F46266B0D9AEE5000C12916 /* SPBrowserDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F46266A0D9AEE5000C12916 /* SPBrowserDataSource.m */; };
 		1F4CA9680FA342A800B56AB6 /* SPCachedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4CA9670FA342A800B56AB6 /* SPCachedView.m */; };
 		1F5173E20CF9A9BD0064AFA2 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F5173E00CF9A9BD0064AFA2 /* InfoWindow.xib */; };
 		1F5173E80CF9A9F30064AFA2 /* SPInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5173E70CF9A9F30064AFA2 /* SPInfoWindowController.m */; };
@@ -216,85 +215,21 @@
 		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB81A2928689D100075CB8E /* psid64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DAC0A7322CFF425F0081B57D /* SPSourceListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A7312CFF425F0081B57D /* SPSourceListDataSource.m */; };
+		DAC0A7332CFF66640081B57D /* libsidplayfp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA17E5262A04F5F200419CB8 /* libsidplayfp.a */; };
+		DAC0A7362D0106D30081B57D /* NSImage+FlipImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A7352D0106D30081B57D /* NSImage+FlipImage.m */; };
 		DAE237112AD3EC6000418090 /* libsidplayfp_USB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE2370A2AD3EC0F00418090 /* libsidplayfp_USB.a */; };
-		DAE237142AD7E10A00418090 /* PlayerLibSidplayfp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */; };
-		DAE237152AD7E11300418090 /* SidConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E55B2A050B7700419CB8 /* SidConfig.cpp */; };
 		DAE237162AD7E14100418090 /* siddefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E55A2A050B7700419CB8 /* siddefs.h */; };
 		DAE237172AD7E14700418090 /* sidbuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E55C2A050B7700419CB8 /* sidbuilder.h */; };
 		DAE237182AD7E14A00418090 /* SidTune.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E55D2A050B7700419CB8 /* SidTune.h */; };
-		DAE237192AD7E14D00418090 /* sidplayfp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E55E2A050B7700419CB8 /* sidplayfp.cpp */; };
-		DAE2371A2AD7E15000418090 /* SidInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5602A050B7700419CB8 /* SidInfo.cpp */; };
 		DAE2371B2AD7E15300418090 /* SidConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E5612A050B7700419CB8 /* SidConfig.h */; };
-		DAE2371C2AD7E15700418090 /* sidbuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5622A050B7700419CB8 /* sidbuilder.cpp */; };
 		DAE2371D2AD7E15A00418090 /* sidplayfp.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E5632A050B7700419CB8 /* sidplayfp.h */; };
 		DAE2371E2AD7E15D00418090 /* sidversion.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E5642A050B7700419CB8 /* sidversion.h */; };
 		DAE2371F2AD7E16000418090 /* SidTuneInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E5652A050B7700419CB8 /* SidTuneInfo.h */; };
 		DAE237202AD7E16200418090 /* SidInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E5662A050B7700419CB8 /* SidInfo.h */; };
-		DAE237212AD7E16500418090 /* SidTune.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5672A050B7700419CB8 /* SidTune.cpp */; };
-		DAE237222AD7E16800418090 /* SidTuneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5712A050B7700419CB8 /* SidTuneInfo.cpp */; };
-		DAE237232AD7E18200418090 /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3642A04F36000419CB8 /* envelope.cc */; };
-		DAE237242AD7E18400418090 /* pot.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3652A04F36000419CB8 /* pot.cc */; };
-		DAE237252AD7E19100418090 /* voice.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E36E2A04F36000419CB8 /* voice.cc */; };
-		DAE237262AD7E19900418090 /* sid.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3712A04F36000419CB8 /* sid.cc */; };
-		DAE237282AD7E1A600418090 /* dac.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3792A04F36000419CB8 /* dac.cc */; };
-		DAE2372A2AD7E1C200418090 /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3972A04F36000419CB8 /* extfilt.cc */; };
-		DAE2372B2AD7E1C700418090 /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3992A04F36000419CB8 /* wave.cc */; };
-		DAE2372C2AD7E1CB00418090 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39D2A04F36000419CB8 /* version.cc */; };
-		DAE2372D2AD7E1D000418090 /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39E2A04F36000419CB8 /* resid-builder.cpp */; };
-		DAE2372E2AD7E1D300418090 /* resid-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A02A04F36000419CB8 /* resid-emu.cpp */; };
-		DAE2372F2AD7E1D900418090 /* residfp-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A72A04F36000419CB8 /* residfp-emu.cpp */; };
-		DAE237302AD7E1DC00418090 /* residfp-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A82A04F36000419CB8 /* residfp-builder.cpp */; };
-		DAE237312AD7E1E400418090 /* OpAmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3AB2A04F36000419CB8 /* OpAmp.cpp */; };
-		DAE237322AD7E1E900418090 /* EnvelopeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3BB2A04F36000419CB8 /* EnvelopeGenerator.cpp */; };
-		DAE237332AD7E1EC00418090 /* Dac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3BC2A04F36000419CB8 /* Dac.cpp */; };
-		DAE237342AD7E1EE00418090 /* WaveformGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3BE2A04F36000419CB8 /* WaveformGenerator.cpp */; };
-		DAE237352AD7E1F200418090 /* SID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3C02A04F36000419CB8 /* SID.cpp */; };
-		DAE237362AD7E1F600418090 /* FilterModelConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3C22A04F36000419CB8 /* FilterModelConfig.cpp */; };
-		DAE237372AD7E1FA00418090 /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3C42A04F36000419CB8 /* Filter.cpp */; };
-		DAE237382AD7E1FF00418090 /* Filter6581.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3C82A04F36000419CB8 /* Filter6581.cpp */; };
-		DAE237392AD7E20100418090 /* FilterModelConfig6581.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3C92A04F36000419CB8 /* FilterModelConfig6581.cpp */; };
-		DAE2373A2AD7E20400418090 /* Integrator6581.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3CA2A04F36000419CB8 /* Integrator6581.cpp */; };
-		DAE2373B2AD7E20A00418090 /* Integrator8580.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3CE2A04F36000419CB8 /* Integrator8580.cpp */; };
-		DAE2373C2AD7E20E00418090 /* ExternalFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3D02A04F36000419CB8 /* ExternalFilter.cpp */; };
-		DAE2373D2AD7E21100418090 /* FilterModelConfig8580.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3D12A04F36000419CB8 /* FilterModelConfig8580.cpp */; };
-		DAE2373E2AD7E21500418090 /* Filter8580.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3D42A04F36000419CB8 /* Filter8580.cpp */; };
-		DAE2373F2AD7E21700418090 /* WaveformCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3D52A04F36000419CB8 /* WaveformCalculator.cpp */; };
-		DAE237402AD7E21D00418090 /* Spline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3EE2A04F36000419CB8 /* Spline.cpp */; };
-		DAE237412AD7E22200418090 /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3F22A04F36000419CB8 /* version.cc */; };
-		DAE237422AD7E22F00418090 /* mos656x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E2ED2A04F36000419CB8 /* mos656x.cpp */; };
-		DAE237432AD7E23500418090 /* mos6510.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E2F72A04F36000419CB8 /* mos6510.cpp */; };
-		DAE237442AD7E23900418090 /* mos6510debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3002A04F36000419CB8 /* mos6510debug.cpp */; };
-		DAE237452AD7E23C00418090 /* c64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3022A04F36000419CB8 /* c64.cpp */; };
-		DAE237462AD7E24000418090 /* mmu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3072A04F36000419CB8 /* mmu.cpp */; };
-		DAE237472AD7E24400418090 /* mos652x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E30D2A04F36000419CB8 /* mos652x.cpp */; };
-		DAE237482AD7E24700418090 /* tod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E30F2A04F36000419CB8 /* tod.cpp */; };
-		DAE237492AD7E24900418090 /* SerialPort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3102A04F36000419CB8 /* SerialPort.cpp */; };
-		DAE2374A2AD7E24B00418090 /* interrupt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3112A04F36000419CB8 /* interrupt.cpp */; };
-		DAE2374B2AD7E24E00418090 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3122A04F36000419CB8 /* timer.cpp */; };
-		DAE2374C2AD7E26000418090 /* EventScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4272A04F36000419CB8 /* EventScheduler.cpp */; };
-		DAE2374D2AD7E26300418090 /* mixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3FD2A04F36000419CB8 /* mixer.cpp */; };
-		DAE2374E2AD7E26500418090 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4002A04F36000419CB8 /* player.cpp */; };
-		DAE2374F2AD7E26B00418090 /* psiddrv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3FE2A04F36000419CB8 /* psiddrv.cpp */; };
-		DAE237502AD7E26F00418090 /* reloc65.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4542A04F36100419CB8 /* reloc65.cpp */; };
-		DAE237512AD7E27200418090 /* sidemu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E44F2A04F36100419CB8 /* sidemu.cpp */; };
-		DAE237522AD7E27800418090 /* PSID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E42E2A04F36000419CB8 /* PSID.cpp */; };
-		DAE237532AD7E27B00418090 /* SidTuneBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E42F2A04F36000419CB8 /* SidTuneBase.cpp */; };
-		DAE237542AD7E27E00418090 /* MUS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4342A04F36000419CB8 /* MUS.cpp */; };
-		DAE237552AD7E28000418090 /* SidTuneTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4372A04F36000419CB8 /* SidTuneTools.cpp */; };
-		DAE237562AD7E28300418090 /* prg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4402A04F36000419CB8 /* prg.cpp */; };
-		DAE237572AD7E28600418090 /* p00.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4442A04F36000419CB8 /* p00.cpp */; };
-		DAE237582AD7E29200418090 /* md5Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4042A04F36000419CB8 /* md5Factory.cpp */; };
-		DAE237592AD7E29600418090 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4062A04F36000419CB8 /* MD5.cpp */; };
-		DAE2375A2AD7E29A00418090 /* iniParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4102A04F36000419CB8 /* iniParser.cpp */; };
-		DAE2375B2AD7E29E00418090 /* SidDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E41C2A04F36000419CB8 /* SidDatabase.cpp */; };
-		DAE2375C2AD7E2A400418090 /* stil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4132A04F36000419CB8 /* stil.cpp */; };
-		DAE2375D2AD7E40900418090 /* SincResampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3AE2A04F36000419CB8 /* SincResampler.cpp */; };
-		DAE2375E2AD7E40E00418090 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3AF2A04F36000419CB8 /* test.cpp */; };
 		DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */; };
 		DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */; };
 		DAE237642AD851C800418090 /* SIDBlaster.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */; };
 		DAE2376A2AD895C100418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
-		DAE2376B2AD895C200418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -785,6 +720,8 @@
 		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
 		DAB81A1E28686C670075CB8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SIDPLAY/Images.xcassets; sourceTree = "<group>"; };
 		DAC0A7312CFF425F0081B57D /* SPSourceListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSourceListDataSource.m; sourceTree = "<group>"; };
+		DAC0A7342D0106D30081B57D /* NSImage+FlipImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+FlipImage.h"; sourceTree = "<group>"; };
+		DAC0A7352D0106D30081B57D /* NSImage+FlipImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+FlipImage.m"; sourceTree = "<group>"; };
 		DAE2370A2AD3EC0F00418090 /* libsidplayfp_USB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsidplayfp_USB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE237132AD4596A00418090 /* hardsidsb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = hardsidsb.h; path = SIDBlaster/hardsidsb.h; sourceTree = "<group>"; };
 		DAEE5F4E2A56DB6A00F912CE /* SIDBlaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIDBlaster.h; path = SIDBlaster/SIDBlaster.h; sourceTree = "<group>"; };
@@ -813,6 +750,7 @@
 				DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */,
 				DA056EF82A1790310096847B /* Quartz.framework in Frameworks */,
 				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
+				DAC0A7332CFF66640081B57D /* libsidplayfp.a in Frameworks */,
 				DAE237112AD3EC6000418090 /* libsidplayfp_USB.a in Frameworks */,
 				DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */,
 			);
@@ -1148,6 +1086,8 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				DAC0A7342D0106D30081B57D /* NSImage+FlipImage.h */,
+				DAC0A7352D0106D30081B57D /* NSImage+FlipImage.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -1705,7 +1645,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					DA17E5252A04F5F200419CB8 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -1854,6 +1794,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				1F3895C40CED826800942B17 /* SPSourceListItem.m in Sources */,
 				1F3895C50CED826800942B17 /* SPSourceListCell.m in Sources */,
+				DAC0A7362D0106D30081B57D /* NSImage+FlipImage.m in Sources */,
 				1F38966C0CEE37DF00942B17 /* SPBrowserDataSource.m in Sources */,
 				1F38966F0CEE383900942B17 /* SPBrowserItem.m in Sources */,
 				1FCC686F0CF07344005AFA9A /* File.cpp in Sources */,
@@ -1897,7 +1838,6 @@
 				1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */,
 				1F14E3F40D83F3F9001BAB20 /* SPBrowserState.m in Sources */,
 				DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */,
-				1F46266B0D9AEE5000C12916 /* SPBrowserDataSource.m in Sources */,
 				1F9C78A40E4F4BBC0075F535 /* SPHttpBrowserItem.m in Sources */,
 				1F571B580E8B6DD8001F3425 /* SPURLConnectionScheduler.m in Sources */,
 				1F932CE30F8DC7B900BC8A4F /* SPSynchronizedScrollView.m in Sources */,
@@ -1997,76 +1937,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAE237462AD7E24000418090 /* mmu.cpp in Sources */,
-				DAE237332AD7E1EC00418090 /* Dac.cpp in Sources */,
-				DAE2372E2AD7E1D300418090 /* resid-emu.cpp in Sources */,
-				DAE237282AD7E1A600418090 /* dac.cc in Sources */,
-				DAE2375E2AD7E40E00418090 /* test.cpp in Sources */,
-				DAE237552AD7E28000418090 /* SidTuneTools.cpp in Sources */,
-				DAE237472AD7E24400418090 /* mos652x.cpp in Sources */,
-				DAE2374A2AD7E24B00418090 /* interrupt.cpp in Sources */,
-				DAE237452AD7E23C00418090 /* c64.cpp in Sources */,
-				DAE237492AD7E24900418090 /* SerialPort.cpp in Sources */,
-				DAE2374F2AD7E26B00418090 /* psiddrv.cpp in Sources */,
-				DAE237382AD7E1FF00418090 /* Filter6581.cpp in Sources */,
-				DAE2372A2AD7E1C200418090 /* extfilt.cc in Sources */,
-				DAE2371C2AD7E15700418090 /* sidbuilder.cpp in Sources */,
-				DAE2374B2AD7E24E00418090 /* timer.cpp in Sources */,
-				DAE2372D2AD7E1D000418090 /* resid-builder.cpp in Sources */,
-				DAE237352AD7E1F200418090 /* SID.cpp in Sources */,
-				DAE2371A2AD7E15000418090 /* SidInfo.cpp in Sources */,
-				DAE237242AD7E18400418090 /* pot.cc in Sources */,
-				DAE2373E2AD7E21500418090 /* Filter8580.cpp in Sources */,
-				DAE237582AD7E29200418090 /* md5Factory.cpp in Sources */,
-				DAE237322AD7E1E900418090 /* EnvelopeGenerator.cpp in Sources */,
-				DAE237302AD7E1DC00418090 /* residfp-builder.cpp in Sources */,
 				DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */,
-				DAE237442AD7E23900418090 /* mos6510debug.cpp in Sources */,
-				DAE237212AD7E16500418090 /* SidTune.cpp in Sources */,
 				DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */,
-				DAE2376B2AD895C200418090 /* filter8580new.cc in Sources */,
-				DAE237432AD7E23500418090 /* mos6510.cpp in Sources */,
-				DAE2374D2AD7E26300418090 /* mixer.cpp in Sources */,
-				DAE2373D2AD7E21100418090 /* FilterModelConfig8580.cpp in Sources */,
-				DAE237422AD7E22F00418090 /* mos656x.cpp in Sources */,
-				DAE237152AD7E11300418090 /* SidConfig.cpp in Sources */,
-				DAE2373A2AD7E20400418090 /* Integrator6581.cpp in Sources */,
-				DAE237482AD7E24700418090 /* tod.cpp in Sources */,
-				DAE237392AD7E20100418090 /* FilterModelConfig6581.cpp in Sources */,
-				DAE237562AD7E28300418090 /* prg.cpp in Sources */,
-				DAE2375A2AD7E29A00418090 /* iniParser.cpp in Sources */,
-				DAE237142AD7E10A00418090 /* PlayerLibSidplayfp.cpp in Sources */,
-				DAE237402AD7E21D00418090 /* Spline.cpp in Sources */,
-				DAE237252AD7E19100418090 /* voice.cc in Sources */,
-				DAE237512AD7E27200418090 /* sidemu.cpp in Sources */,
-				DAE237232AD7E18200418090 /* envelope.cc in Sources */,
-				DAE237502AD7E26F00418090 /* reloc65.cpp in Sources */,
-				DAE237592AD7E29600418090 /* MD5.cpp in Sources */,
-				DAE237372AD7E1FA00418090 /* Filter.cpp in Sources */,
-				DAE2374E2AD7E26500418090 /* player.cpp in Sources */,
-				DAE237532AD7E27B00418090 /* SidTuneBase.cpp in Sources */,
-				DAE237412AD7E22200418090 /* version.cc in Sources */,
-				DAE237192AD7E14D00418090 /* sidplayfp.cpp in Sources */,
-				DAE2374C2AD7E26000418090 /* EventScheduler.cpp in Sources */,
-				DAE2375D2AD7E40900418090 /* SincResampler.cpp in Sources */,
-				DAE237312AD7E1E400418090 /* OpAmp.cpp in Sources */,
-				DAE2373B2AD7E20A00418090 /* Integrator8580.cpp in Sources */,
-				DAE237542AD7E27E00418090 /* MUS.cpp in Sources */,
-				DAE237572AD7E28600418090 /* p00.cpp in Sources */,
-				DAE237522AD7E27800418090 /* PSID.cpp in Sources */,
-				DAE2375B2AD7E29E00418090 /* SidDatabase.cpp in Sources */,
 				DAE237642AD851C800418090 /* SIDBlaster.m in Sources */,
 				DA10945F2CE696C9001433DC /* PlayerLibSidplayWrapper.mm in Sources */,
-				DAE237222AD7E16800418090 /* SidTuneInfo.cpp in Sources */,
-				DAE237262AD7E19900418090 /* sid.cc in Sources */,
-				DAE2373F2AD7E21700418090 /* WaveformCalculator.cpp in Sources */,
-				DAE2372B2AD7E1C700418090 /* wave.cc in Sources */,
-				DAE2375C2AD7E2A400418090 /* stil.cpp in Sources */,
-				DAE2372F2AD7E1D900418090 /* residfp-emu.cpp in Sources */,
-				DAE237342AD7E1EE00418090 /* WaveformGenerator.cpp in Sources */,
-				DAE2373C2AD7E20E00418090 /* ExternalFilter.cpp in Sources */,
-				DAE2372C2AD7E1CB00418090 /* version.cc in Sources */,
-				DAE237362AD7E1F600418090 /* FilterModelConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2460,6 +2334,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/libsidplayfp",
@@ -2516,6 +2391,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/libsidplayfp",

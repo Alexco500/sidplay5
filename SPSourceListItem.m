@@ -76,13 +76,13 @@ static NSImage* sSmartPlaylistIcon = nil;
     // changed finalize back to dealloc
 	if (playlistIndexDownloadConnection != nil)
 	{
-		[playlistIndexDownloadConnection cancel];
+        [playlistIndexDownloadConnection invalidateAndCancel];
 		playlistIndexDownloadConnection = nil;
 	}
 
 	if (playlistDownloadConnection != nil)
 	{
-		[playlistDownloadConnection cancel];
+        [playlistDownloadConnection invalidateAndCancel];
 		playlistDownloadConnection = nil;
 	}
 	
@@ -361,7 +361,24 @@ static NSImage* sSmartPlaylistIcon = nil;
 	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
 	[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
 	updateRevisionData = [NSMutableData data];
-	updateRevisionConnection = [NSURLConnection connectionWithRequest:request delegate:self];
+
+    /*
+    // moved from NSURLConnection to NSURLSession, according to
+    // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+     */
+    updateRevisionConnection = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dwnTask = [updateRevisionConnection dataTaskWithRequest:request
+                                                               completionHandler:
+                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            [self->updateRevisionData appendData:data];
+            [self connectionDidFinishLoading:self->updateRevisionConnection];
+        }
+    }];
+    
+    [dwnTask resume];
 }
 
 
@@ -379,41 +396,31 @@ static NSImage* sSmartPlaylistIcon = nil;
 		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:playlistIndexURLString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
 		[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
 		playlistIndexDownloadData = [NSMutableData data];
-		playlistIndexDownloadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
 		//NSLog(@"Downloading playlist index: %@\n", playlistIndexURLString);
+        
+        /*
+        // moved from NSURLConnection to NSURLSession, according to
+        // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+         */
+        playlistIndexDownloadConnection = [NSURLSession sharedSession];
+        NSURLSessionDataTask *dwnTask = [playlistIndexDownloadConnection dataTaskWithRequest:request
+                                                                   completionHandler:
+                                         ^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error) {
+                NSLog(@"Error: %@", error.localizedDescription);
+            } else {
+                [self->updateRevisionData appendData:data];
+                [self connectionDidFinishLoading:self->playlistIndexDownloadConnection];
+            }
+        }];
+        
+        [dwnTask resume];
 	}
 	
 }
-
-
 // ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-// ----------------------------------------------------------------------------
-{
-	if (connection == playlistIndexDownloadConnection)
-		playlistIndexDownloadData.length = 0;
-	else if (connection == playlistDownloadConnection)
-		playlistDownloadData.length = 0;
-	else if (connection == updateRevisionConnection)
-		updateRevisionData.length = 0;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-// ----------------------------------------------------------------------------
-{
-	if (connection == playlistIndexDownloadConnection)
-		[playlistIndexDownloadData appendData:data];
-	else if (connection == playlistDownloadConnection)
-		[playlistDownloadData appendData:data];
-	else if (connection == updateRevisionConnection)
-		[updateRevisionData appendData:data];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLSession *)connection
 // ----------------------------------------------------------------------------
 {
 	if (connection == playlistIndexDownloadConnection)
@@ -493,8 +500,25 @@ static NSImage* sSmartPlaylistIcon = nil;
 	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
 	[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
 	playlistDownloadData = [NSMutableData data];
-	playlistDownloadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
 	//NSLog(@"Downloading playlist: %@\n", urlString);
+    /*
+    // moved from NSURLConnection to NSURLSession, according to
+    // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+     */
+    playlistDownloadConnection = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dwnTask = [playlistDownloadConnection dataTaskWithRequest:request
+                                                               completionHandler:
+                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            [self->updateRevisionData appendData:data];
+            [self connectionDidFinishLoading:self->playlistDownloadConnection];
+        }
+    }];
+    
+    [dwnTask resume];
 }
 
 

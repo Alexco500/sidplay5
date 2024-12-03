@@ -3,7 +3,7 @@
 #import "SPPlayerWindow.h"
 #import "SPMiniPlayerWindow.h"
 #import "SPStatusDisplayView.h"
-
+#import "NSImage+FlipImage.h"
 
 
 @implementation SPQCView
@@ -422,7 +422,12 @@
 	{
 		NSRect minusImageFrame = NSMakeRect(xpos - 13.0f, ypos, minusImage.size.width, minusImage.size.height);
 		NSRect minusImageRect = NSMakeRect(0.0f, 0.0f, minusImage.size.width, minusImage.size.height);
-		[minusImage setFlipped:self.flipped];
+        if (self.flipped)
+        {
+            //[minusImage setFlipped:self.flipped];
+            minusImage = [minusImage flipImageVertical];
+        }
+
 		[minusImage drawInRect:minusImageFrame fromRect:minusImageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 	
@@ -432,7 +437,13 @@
 		NSRect imageFrame = NSMakeRect(xpos, ypos, image.size.width, image.size.height);
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 			
-		[image setFlipped:self.flipped];
+
+        if (self.flipped)
+        {
+            //[image setFlipped:self.flipped];
+            image = [image flipImageVertical];
+        }
+
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 		
 		xpos += image.size.width + 3.0f;
@@ -441,8 +452,12 @@
 		{
 			imageFrame = NSMakeRect(xpos, ypos, timeDividerImage.size.width, timeDividerImage.size.height);
 			imageRect = NSMakeRect(0.0f, 0.0f, timeDividerImage.size.width, timeDividerImage.size.height);
-				
-			[timeDividerImage setFlipped:self.flipped];
+            if (self.flipped)
+            {
+                //[timeDividerImage setFlipped:self.flipped];
+                timeDividerImage = [timeDividerImage flipImageVertical];
+            }
+			
 			[timeDividerImage drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 
 			xpos += image.size.width + 1.0f;
@@ -483,7 +498,12 @@
 		leftArrowFrame = NSMakeRect(xpos, ypos, leftWidth, leftHeight);
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, leftWidth, leftHeight);
 			
-		[leftArrowImage setFlipped:self.flipped];
+		
+        if (self.flipped)
+        {
+            //[leftArrowImage setFlipped:self.flipped];
+            leftArrowImage = [leftArrowImage flipImageVertical];
+        }
 		[leftArrowImage drawInRect:leftArrowFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:mouseDownInLeftArrow ? 1.0f : 0.64f];
 
 		xpos += leftWidth + 1.0f;
@@ -491,7 +511,12 @@
 		rightArrowFrame = NSMakeRect(xpos, ypos, rightWidth, rightHeight);
 		imageRect = NSMakeRect(0.0f, 0.0f, rightWidth, rightHeight);
 			
-		[rightArrowImage setFlipped:self.flipped];
+
+        if (self.flipped)
+        {
+            //[rightArrowImage setFlipped:self.flipped];
+            rightArrowImage = [rightArrowImage flipImageVertical];
+        }
 		[rightArrowImage drawInRect:rightArrowFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:mouseDownInRightArrow ? 1.0f : 0.64f];
 	}
 }

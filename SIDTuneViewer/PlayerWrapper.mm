@@ -27,7 +27,7 @@
 @implementation PlayerWrapper
 PlayerLibSidplayWrapper* player;
 AudioCoreDriverNew* audioDriver;
-struct PlaybackSettings mPlaybackSettings;
+struct PlaybackSettings mSimplePlaybackSettings;
 unsigned int mInstance;
 
 + (id)sharedPlayer
@@ -54,18 +54,18 @@ unsigned int mInstance;
     
     audioDriver->initialize(player);
     audioDriver->setVolume(1.0f);
-    mPlaybackSettings.mFrequency = audioDriver->getSampleRate();
+    mSimplePlaybackSettings.mFrequency = audioDriver->getSampleRate();
 
     tuneLoaded = NO;
     isPlaying = NO;
     // setup player engine
     //mPlaybackSettings.mFrequency = 44100;
-    mPlaybackSettings.mBits = 16;
-    mPlaybackSettings.mStereo = false;
-    mPlaybackSettings.mOversampling = 1;
-    mPlaybackSettings.mSidModel = 0;
-    mPlaybackSettings.mForceSidModel = false;
-    mPlaybackSettings.mClockSpeed = 0;
+    mSimplePlaybackSettings.mBits = 16;
+    mSimplePlaybackSettings.mStereo = false;
+    mSimplePlaybackSettings.mOversampling = 1;
+    mSimplePlaybackSettings.mSidModel = 0;
+    mSimplePlaybackSettings.mForceSidModel = false;
+    mSimplePlaybackSettings.mClockSpeed = 0;
 }
 - (void)destroyPlayer
 {
@@ -89,7 +89,7 @@ unsigned int mInstance;
         }
         //[self destroyPlayer];
         //[self initPlayer];
-        retVal = [player loadTuneFromBuffer:(char*)[data bytes] withLength:(int) [data length] subtune:0 withSettings:&mPlaybackSettings];
+        retVal = [player loadTuneFromBuffer:(char*)[data bytes] withLength:(int) [data length] subtune:0 withSettings:&mSimplePlaybackSettings];
 
         tuneLoaded = retVal;
         if (tuneLoaded) {

@@ -469,37 +469,30 @@ NSDate* fillStart = nil;
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
     indexData = [NSMutableData data];
-    indexDownloadConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+     /*
+     // moved from NSURLConnection to NSURLSession, according to
+     // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
+      */
+     NSURLSession* databaseDownloadSession = [NSURLSession sharedSession];
+     NSURLSessionDataTask *dwnTask = [databaseDownloadSession dataTaskWithRequest:request
+                                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+         if (error) {
+             NSLog(@"Error: %@", error.localizedDescription);
+         } else {
+             [self->indexData appendData:data];
+             [self connectionDidFinishLoading];
+         }
+     }];
+     
+     [dwnTask resume];
+  
 	//NSLog(@"Downloading index of shared collection dir at: %@\n", urlString);
 }
 
 
 // ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-// ----------------------------------------------------------------------------
-{
-	[indexData setLength:0];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-// ----------------------------------------------------------------------------
-{
-	[indexData appendData:data];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-// ----------------------------------------------------------------------------
-{
-	//NSLog(@"connection failed!\n");
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 // ----------------------------------------------------------------------------
 {
     NSString* indexDataString = [[NSString alloc] initWithData:indexData encoding:NSUTF8StringEncoding];
@@ -1551,46 +1544,39 @@ NSDate* fillStart = nil;
 		return;
 		
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	NSArray* fileTypes = [NSArray arrayWithObject:@"sid"];
-	
+	//NSArray* fileTypes = [NSArray arrayWithObject:@"sid"];
+    openPanel.canChooseDirectories = NO;
 	NSString* directory = [[missingItem path] stringByDeletingLastPathComponent];
 	BOOL isFolder = NO;
 	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:directory isDirectory:&isFolder];
 	if (!exists || !isFolder)
 		directory = nil;
-		
-	[openPanel beginSheetForDirectory:directory file:nil types:fileTypes modalForWindow:[browserView window] modalDelegate:self didEndSelector:@selector(didEndMissingFileSheet:returnCode:contextInfo:) contextInfo:(void*)missingItem];
+    else
+        openPanel.directoryURL = [NSURL fileURLWithPath:directory];
+    
+    if ([openPanel runModal] == NSModalResponseOK)
+    {
+        NSArray *filesToOpen = [openPanel URLs];
+        NSString* file = [[filesToOpen objectAtIndex:0] path];
+        
+        int playlistIndex = (int)[missingItem playlistIndex];
+        if (self->playlist != nil)
+        {
+            SPPlaylistItem* playlistItem = [self->playlist itemAtIndex:playlistIndex];
+            if (playlistItem != nil)
+            {
+                NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:file];
+                if (relativePath != nil)
+                {
+                    [playlistItem setPath:relativePath];
+                    [self->playlist saveToFile];
+                    [self switchToPlaylist:self->playlist];
+                }
+            }
+        }
+
+    }
 }
-
-
-// ----------------------------------------------------------------------------
-- (void)didEndMissingFileSheet:(NSOpenPanel*)openPanel returnCode:(int)returnCode contextInfo:(void*)contextInfo
-// ----------------------------------------------------------------------------
-{
-	if (returnCode == NSModalResponseOK)
-	{
-        NSArray *filesToOpen = [openPanel filenames];
-        NSString* file = [filesToOpen objectAtIndex:0];
-		
-		SPBrowserItem* missingItem = (__bridge SPBrowserItem*) contextInfo;
-		int playlistIndex = (int)[missingItem playlistIndex];
-		if (playlist != nil)
-		{
-			SPPlaylistItem* playlistItem = [playlist itemAtIndex:playlistIndex];
-			if (playlistItem != nil)
-			{
-				NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:file];
-				if (relativePath != nil)
-				{
-					[playlistItem setPath:relativePath];
-					[playlist saveToFile];
-					[self switchToPlaylist:playlist];
-				}
-			}
-		}
-    }	
-}
-
 
 // ----------------------------------------------------------------------------
 - (BOOL) playSelectedItem
@@ -2863,7 +2849,9 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 		[path fill];
 		[[NSColor colorWithCalibratedWhite:0.0f alpha:0.5f] set];
 		[path stroke];
-		[defaultImage compositeToPoint:NSMakePoint(0, 0) operation:NSCompositingOperationSourceOver];
+		//[defaultImage compositeToPoint:NSMakePoint(0, 0) operation:NSCompositingOperationSourceOver];
+        [defaultImage drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0.0f, 0.0f, imageSize.width, imageSize.height) operation:NSCompositingOperationSourceOver fraction:1.0];
+        
 		[image unlockFocus];
 		
 		return image;
@@ -2877,7 +2865,8 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 		NSImage* image = [[NSImage alloc] initWithSize:NSMakeSize(64.0f, 64.0f)];
 		[image lockFocus];
 		[iconImage drawInRect:NSMakeRect(16.0f, 16.0f, 32.0f, 32.0f) fromRect:iconImageRect operation:NSCompositingOperationSourceOver fraction:0.5f];
-		[badgeImage compositeToPoint:NSMakePoint(38.0f, 10.0f) operation:NSCompositingOperationSourceOver];
+		//[badgeImage compositeToPoint:NSMakePoint(38.0f, 10.0f) operation:NSCompositingOperationSourceOver];
+        [badgeImage drawAtPoint:NSMakePoint(38.0f, 10.0f) fromRect:NSMakeRect(0.0f, 0.0f, [iconImage size].width, [iconImage size].height) operation:NSCompositingOperationSourceOver fraction:1.0];
 		NSDictionary* normalAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:11.0f], NSFontAttributeName,
 																		       [NSColor whiteColor], NSForegroundColorAttributeName, nil];
 		NSMutableAttributedString* numberString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", (unsigned long)[dragRows count]] attributes:normalAttrs];

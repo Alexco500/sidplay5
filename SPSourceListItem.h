@@ -29,10 +29,10 @@ enum SourceListItemType
 	NSMutableArray* children;
 	
 	NSMutableData* playlistIndexDownloadData;
-	NSURLConnection* playlistIndexDownloadConnection;
+    NSURLSession* playlistIndexDownloadConnection;
 	NSMutableData* playlistDownloadData;
-	NSURLConnection* playlistDownloadConnection;
-	NSURLConnection* updateRevisionConnection;
+    NSURLSession* playlistDownloadConnection;
+    NSURLSession* updateRevisionConnection;
 	NSMutableData* updateRevisionData;
 	NSInteger currentRemoveUpdateRevision;
 	

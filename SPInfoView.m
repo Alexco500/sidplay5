@@ -2,7 +2,7 @@
 #import "SPColorProvider.h"
 #import "SPPreferencesController.h"
 #import "SPInfoView.h"
-
+#import "NSImage+FlipImage.h"
 
 @implementation SPInfoView
 
@@ -257,8 +257,12 @@ static NSImage* SPHudDisclosureTransient = nil;
 		NSRect imageFrame = imageRect;
 		imageFrame.origin.x = (cellFrame.size.width - imageRect.size.width) / 2.0f;
 		imageFrame.origin.y = (cellFrame.size.height - imageRect.size.height) / 2.0f;
-			
-		[image setFlipped:controlView.flipped];
+        
+        if ([controlView isFlipped])
+        {
+            //[image setFlipped:controlView.flipped];
+            image = [image flipImageVertical];
+        }
 		if (flag)
 		{
 			[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationPlusDarker fraction:1.0f];
@@ -286,8 +290,11 @@ static NSImage* SPHudDisclosureTransient = nil;
 		NSRect imageFrame = imageRect;
 		imageFrame.origin.x = (cellFrame.size.width - imageRect.size.width) / 2.0f;
 		imageFrame.origin.y = (cellFrame.size.height - imageRect.size.height) / 2.0f;
-			
-		[image setFlipped:controlView.flipped];
+        if ([controlView isFlipped])
+        {
+            //[image setFlipped:controlView.flipped];
+            image = [image flipImageVertical];
+        }
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 	else

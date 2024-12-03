@@ -155,19 +155,20 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		if (result == 1)
 		{
 			NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-			NSArray* fileTypes = @[@""];
+			//NSArray* fileTypes = @[@""];
 			[openPanel setCanChooseDirectories:YES];
 			[openPanel setCanChooseFiles:NO];
 			[openPanel setAllowsMultipleSelection:NO];
 			openPanel.title = @"Select HVSC collection folder (usually called C64Music) or other folder containing .sid music files";
 			openPanel.prompt = @"Choose";
 			
-			long result2 = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
-			
+			//long result2 = [openPanel runModalForDirectory:nil file:nil types:fileTypes];
+            long result2 = [openPanel runModal];
+
 			if (result2 == NSModalResponseOK)
 			{
-				NSArray* filesToOpen = [openPanel filenames];
-				NSString* path = filesToOpen[0];
+                NSArray* filesToOpen = [openPanel URLs];
+				NSString* path = [filesToOpen[0] path];
 				[gPreferences.mCollections addObject:path];
 			}
 		}
@@ -527,8 +528,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		if (deletePlaylist)
 		{
-			[[NSFileManager defaultManager] removeFileAtPath:[item path] handler:nil];
+			//[[NSFileManager defaultManager] removeFileAtPath:[item path] handler:nil];
 			
+            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:[item path]] error:nil];
 			container = playlistsContainerItem;
 			[[container children] removeObject:item];
 			itemWasRemoved = YES;
@@ -947,8 +949,10 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
         SPSourceListItem* item = [sourceListView itemAtRow:row];
 		if (![item isPlaylistItem] && ![item isSmartPlaylistItem])
 			return;
-		
-		[NSApp beginSheet:m3uExportOptionsPanel modalForWindow:sourceListView.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        //__block NSInteger result;
+		//[NSApp beginSheet:m3uExportOptionsPanel modalForWindow:sourceListView.window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+        [sourceListView.window beginSheet:m3uExportOptionsPanel completionHandler:nil];
+        
 		NSInteger result = [NSApp runModalForWindow:sourceListView.window];
 		[NSApp endSheet:m3uExportOptionsPanel];
 		[m3uExportOptionsPanel orderOut:self];
@@ -964,9 +968,9 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			NSString* filename = [NSString stringWithFormat:@"%@.m3u", [playlist name]];
             savePanel.nameFieldStringValue = filename;
             
-            [savePanel beginSheetModalForWindow:sourceListView.window completionHandler:^(NSInteger result)
+            [savePanel beginSheetModalForWindow:sourceListView.window completionHandler:^(NSInteger res)
              {
-                 if (result == NSModalResponseOK)
+                 if (res == NSModalResponseOK)
                  {
                      BOOL exportRelativePaths = (self->m3uExportRelativePathsButton.state == NSOnState);
                      NSString* exportPathPrefix = self->m3uExportPathPrefixTextField.stringValue;

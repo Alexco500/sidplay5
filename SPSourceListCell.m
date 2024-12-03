@@ -1,6 +1,6 @@
 #import "SPSourceListCell.h"
 #import "SPSourceListDataSource.h"
-
+#import "NSImage+FlipImage.h"
 
 static const float sLeftMargin = 3.0f;
 static const float sImageTextSpacing = 3.0f;
@@ -126,7 +126,6 @@ static const int sIconHeight = 16.0f;
 	return newRect;
 }
 
-
 // ----------------------------------------------------------------------------
 - (void) drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 // ----------------------------------------------------------------------------
@@ -152,7 +151,12 @@ static const int sIconHeight = 16.0f;
 
 		NSRect imageRect = NSMakeRect(0.0f, 0.0f, image.size.width, image.size.height);
 		
-		[image setFlipped:controlView.flipped];
+        if ([controlView isFlipped])
+        {
+            //[image setFlipped:controlView.flipped];
+            image = [image flipImageVertical];
+        }
+
 		[image drawInRect:imageFrame fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0f];
 	}
 

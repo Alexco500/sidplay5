@@ -12,7 +12,7 @@
     NewMD5SongLengthDatabase* newMD5db;
 	
 	NSMutableData* downloadData;
-    NSURLConnection* downloadConnection;
+    NSURLSession* downloadConnection;
     SongLength* songLength;
 }
 

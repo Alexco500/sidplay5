@@ -74,6 +74,7 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
         
         NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:scheduledRequest.request delegate:scheduledRequest.delegate];
         activeConnections[[scheduledRequest.delegate path]] = connection;
+        
     }
 }
 
@@ -112,7 +113,7 @@ static NSInteger sDefaultMaxConcurrentConnections = 8;
 // ----------------------------------------------------------------------------
 - (id) init
 {
-    return [self initWithRequest:nil andDelegate:nil andPriority:NULL];
+    return [self initWithRequest:nil andDelegate:nil andPriority:0];
 }
 
 // ----------------------------------------------------------------------------

@@ -424,15 +424,17 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
     // create the file
     if (outputFileRef == NULL)
 	{
-		NSString* directory = destinationPath.stringByDeletingLastPathComponent;
-		NSString* filename = [[NSString alloc] initWithString:destinationPath.lastPathComponent];
+		// NSString* directory = destinationPath.stringByDeletingLastPathComponent;
+		// NSString* filename = [[NSString alloc] initWithString:destinationPath.lastPathComponent];
+        
+        NSURL* fileUrl = [[NSURL alloc] initFileURLWithPath:destinationPath];
 
 		BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:destinationPath];
 		if (exists)
-			[[NSFileManager defaultManager] removeFileAtPath:destinationPath handler:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:destinationPath error:nil];
 
-		FSRef directoryFileRef;
-		err = FSPathMakeRef((const UInt8*)directory.fileSystemRepresentation, &directoryFileRef, NULL);
+		//FSRef directoryFileRef;
+		//err = FSPathMakeRef((const UInt8*)directory.fileSystemRepresentation, &directoryFileRef, NULL);
 
 		// The format in which we render the SID output
 		inputFormat.mChannelsPerFrame = 1;
@@ -478,7 +480,8 @@ static AudioFileTypeID exportAudioFileIDs[NUM_EXPORT_TYPES] =
 				outputFormat.mBitsPerChannel = 16;
 		}
 		
-		err = ExtAudioFileCreateNew(&directoryFileRef, (__bridge CFStringRef)filename, exportAudioFileIDs[exportSettings.mFileType], &outputFormat, NULL, &outputFileRef);		
+		//err = ExtAudioFileCreateNew(&directoryFileRef, (__bridge CFStringRef)filename, exportAudioFileIDs[exportSettings.mFileType], &outputFormat, NULL, &outputFileRef);		
+        err = ExtAudioFileCreateWithURL((__bridge CFURLRef)fileUrl, exportAudioFileIDs[exportSettings.mFileType], &outputFormat, NULL, 0, &outputFileRef);
 
 		NSImage* icon = [[NSWorkspace sharedWorkspace] iconForFile:destinationPath];
 		//[icon setScalesWhenResized:NO];

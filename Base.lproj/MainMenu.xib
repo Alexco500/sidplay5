@@ -2516,7 +2516,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="323" width="466" height="210"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="950"/>
             <view key="contentView" id="1240">
                 <rect key="frame" x="0.0" y="0.0" width="466" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
