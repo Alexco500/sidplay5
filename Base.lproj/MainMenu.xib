@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
-        <capability name="NSView safe area layout guides" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -926,7 +925,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="950"/>
             <value key="minSize" type="size" width="940" height="450"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1269" height="633"/>
@@ -1264,12 +1263,11 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="4160A338-4B68-4901-85A1-A6940E89E30B" centeredItem="697" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="427">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="430"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="433"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="432"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarCustomizeToolbarItem" id="434"/>
                     <toolbarItem implicitItemIdentifier="9F2C79E4-EFCD-4D68-AD2F-7B542B3EC7BA" label="Search" paletteLabel="Search" sizingBehavior="auto" id="525">
                         <nil key="toolTip"/>
-                        <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" id="523">
+                        <searchField key="view" toolTip="Search collection contents" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" id="523">
                             <rect key="frame" x="0.0" y="14" width="175" height="22"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsSearchStringImmediately="YES" maximumRecents="10" recentsAutosaveName="SidplaySearchField" id="524">
@@ -1287,11 +1285,11 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D96617F5-1208-4F74-87EA-59CA03D1A1F9" label="Playback" paletteLabel="Playback" tag="-1" sizingBehavior="auto" id="665">
                         <nil key="toolTip"/>
-                        <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" id="664">
-                            <rect key="frame" x="0.0" y="14" width="131" height="41"/>
+                        <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="664">
+                            <rect key="frame" x="0.0" y="14" width="131" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="38I-Zu-ash">
-                                <rect key="frame" x="0.0" y="0.0" width="131" height="41"/>
+                                <rect key="frame" x="0.0" y="0.0" width="131" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button autoresizesSubviews="NO" toolTip="Enable fast forwarding of playback" horizontalHuggingPriority="249" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="668">
@@ -1334,10 +1332,10 @@
                     <toolbarItem implicitItemIdentifier="72C5334C-E597-4DEC-A288-BB132D3CCCA4" label="Shuffle Play" paletteLabel="Shuffle Play" tag="-1" sizingBehavior="auto" id="EdM-CA-UNY" userLabel="Shuffle Play">
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" transparent="YES" id="eXZ-Q9-Q49">
-                            <rect key="frame" x="16" y="14" width="38" height="41"/>
+                            <rect key="frame" x="15" y="14" width="41" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <view key="contentView" id="TQm-YW-OCY">
-                                <rect key="frame" x="0.0" y="0.0" width="38" height="41"/>
+                            <view key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="TQm-YW-OCY">
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Start/pause shuffle playback" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YpA-WW-IXT">
@@ -1358,10 +1356,10 @@
                     <toolbarItem implicitItemIdentifier="7FF68482-4049-4504-BAF1-1B0DF9D2D1A5" label="Tempo" paletteLabel="Tempo" tag="-1" sizingBehavior="auto" id="688">
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="687">
-                            <rect key="frame" x="0.0" y="14" width="156" height="39"/>
+                            <rect key="frame" x="0.0" y="14" width="156" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="Cj9-K8-7ll">
-                                <rect key="frame" x="0.0" y="0.0" width="156" height="39"/>
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
@@ -1383,18 +1381,16 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="SIDtempo_right.music.quarternote.3" id="722"/>
                                     </imageView>
                                 </subviews>
-                                <viewLayoutGuide key="safeArea" id="K1h-0x-nek"/>
-                                <viewLayoutGuide key="layoutMargins" id="qcW-yX-05Q"/>
                             </view>
                         </box>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="569A0D8D-FE75-4387-8036-176B1FE1416B" label="Volume" paletteLabel="Volume" tag="-1" sizingBehavior="auto" id="697">
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" titlePosition="noTitle" transparent="YES" id="698">
-                            <rect key="frame" x="0.0" y="14" width="156" height="39"/>
+                            <rect key="frame" x="0.0" y="14" width="156" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="yRq-JK-WOb">
-                                <rect key="frame" x="0.0" y="0.0" width="156" height="39"/>
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="699">
@@ -1422,26 +1418,22 @@
                     <toolbarItem implicitItemIdentifier="F496D0B9-3EF8-4398-A96F-4DEEEFBD51E1" label="Status" paletteLabel="Status" tag="-1" sizingBehavior="auto" id="748">
                         <nil key="toolTip"/>
                         <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="line" borderWidth="0.0" titlePosition="noTitle" id="747" customClass="SPStatusDisplayView">
-                            <rect key="frame" x="0.0" y="14" width="401" height="46"/>
+                            <rect key="frame" x="0.0" y="14" width="400" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <view key="contentView" id="rSe-qd-gdQ">
-                                <rect key="frame" x="0.0" y="0.0" width="401" height="46"/>
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="46"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </box>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="433"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="665"/>
                     <toolbarItem reference="EdM-CA-UNY"/>
                     <toolbarItem reference="688"/>
-                    <toolbarItem reference="433"/>
-                    <toolbarItem reference="432"/>
-                    <toolbarItem reference="432"/>
                     <toolbarItem reference="748"/>
-                    <toolbarItem reference="697"/>
                     <toolbarItem reference="525"/>
+                    <toolbarItem reference="697"/>
                 </defaultToolbarItems>
                 <connections>
                     <outlet property="delegate" destination="371" id="2024"/>
