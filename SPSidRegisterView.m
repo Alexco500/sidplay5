@@ -274,7 +274,7 @@ static const char* sLookUpNoteStringForFrequency(unsigned short frequency)
 	unsigned short adsr = registers[registerOffset + 6] + (registers[registerOffset + 5] << 8);
 	snprintf(stringBuffer, 255, "ADSR: $%04x", adsr);
     [[NSString stringWithCString:stringBuffer encoding:NSISOLatin1StringEncoding] drawAtPoint:CGPointMake(xpos, ypos) withAttributes:stringAttributes];
-	ypos -= rowHeight;
+	//ypos -= rowHeight;
 }
 
 @end

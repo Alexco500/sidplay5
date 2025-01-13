@@ -32,8 +32,8 @@
 	if (self = [super init])
 	{
         [self setPath:[coder decodeObject]];
-        [coder decodeValueOfObjCType:@encode(int) at:&subtune];
-        [coder decodeValueOfObjCType:@encode(int) at:&loopCount];
+        [coder decodeValueOfObjCType:@encode(int) at:&subtune size:sizeof(int)];
+        [coder decodeValueOfObjCType:@encode(int) at:&loopCount size:sizeof(int)];
 	}
 	return self;
 }

@@ -234,7 +234,7 @@ Preferences*	gPreferences;
     mPlaybackSettings.mFilterKinkiness          = pbSettings->mFilterKinkiness;
     mPlaybackSettings.mFilterBaseLevel          = pbSettings->mFilterBaseLevel;
     mPlaybackSettings.mFilterOffset             = pbSettings->mFilterOffset;
-    mPlaybackSettings.mFilterOffset             = pbSettings->mFilterSteepness;
+    mPlaybackSettings.mFilterSteepness          = pbSettings->mFilterSteepness;
     mPlaybackSettings.mFilterRolloff            = pbSettings->mFilterRolloff;
     mPlaybackSettings.mFilterType               = pbSettings->mFilterType;
 
@@ -287,7 +287,7 @@ Preferences*	gPreferences;
     pbSettings->mFilterKinkiness          = mPlaybackSettings.mFilterKinkiness;
     pbSettings->mFilterBaseLevel          = mPlaybackSettings.mFilterBaseLevel;
     pbSettings->mFilterOffset             = mPlaybackSettings.mFilterOffset;
-    pbSettings->mFilterOffset             = mPlaybackSettings.mFilterSteepness;
+    pbSettings->mFilterSteepness          = mPlaybackSettings.mFilterSteepness;
     pbSettings->mFilterRolloff            = mPlaybackSettings.mFilterRolloff;
     pbSettings->mFilterType               = mPlaybackSettings.mFilterType;
 

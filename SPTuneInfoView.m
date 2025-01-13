@@ -164,21 +164,11 @@ static const char* sRowTitles[] =
 //    [[[SPColorProvider sharedInstance] gridColor] set];
 //    [NSBezierPath strokeLineFromPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height) toPoint:NSMakePoint(columnWidth - 0.5f, rect.size.height - sRowCount * rowHeight)];
     
-    NSColor *strokeColor, *fillColor;
-    if ([[SPColorProvider sharedInstance] providesDarkColors])
-    {
-        CGContextSetRGBStrokeColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-        CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-        strokeColor = [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
-        fillColor = [NSColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
-    }
-    else
-    {
-        CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-        CGContextSetRGBFillColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-        strokeColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-        fillColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
-    }
+    NSColor *strokeColor;
+    strokeColor = [[SPColorProvider sharedInstance] rgbStrokeColor];
+    //NSColor *fillColor;
+    //fillColor = [[SPColorProvider sharedInstance] rgbFillColor];
+    
     NSDictionary* stringAttributes = @{NSFontAttributeName:[NSFont fontWithName:@"Lucida Grande" size:9.0f], NSForegroundColorAttributeName:strokeColor};
 
     CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0f, 1.0f));
