@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SPInfoView.h"
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 
 @class SPFilterCurveView;
 
@@ -9,7 +9,7 @@
 	/* FIXME: filter settings
     sid_filter_t filterSettings;
      */
-	PlayerLibSidplay* player;
+	PlayerLibSidplayWrapper* player;
 
 	IBOutlet NSTextField* distortionLabel;
 	IBOutlet NSTextField* typeLabel;
@@ -47,9 +47,9 @@
 
 @interface SPFilterCurveView : NSView
 {
-	PlayerLibSidplay* player;
+    PlayerLibSidplayWrapper* player;
 }
 
-- (void) setPlayer:(PlayerLibSidplay*)thePlayer;
+- (void) setPlayer:(PlayerLibSidplayWrapper*)thePlayer;
 
 @end;
