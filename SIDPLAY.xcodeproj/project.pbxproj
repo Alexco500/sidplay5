@@ -100,7 +100,6 @@
 		1FEE59950CF8231D006A04B0 /* SPPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE59940CF8231D006A04B0 /* SPPreferencesController.m */; };
 		1FEE5AB50CF88604006A04B0 /* SPCollectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE5AB40CF88604006A04B0 /* SPCollectionUtilities.m */; };
 		1FF0D9670D01D6B100796FBF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF0D9650D01D6B100796FBF /* MainMenu.xib */; };
-		1FFB9B8F1D2312DB00D47739 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		DA056ED62A177EDC0096847B /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39E2A04F36000419CB8 /* resid-builder.cpp */; };
@@ -214,6 +213,8 @@
 		DAB81A25286870160075CB8E /* LAME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; };
 		DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAACB1D22804C92F0029ED3C /* LAME.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB81A2928689D100075CB8E /* psid64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F40A5F20D3A364200AD3B5D /* psid64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DAC0509A2D369DCC009892D4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC050992D369DCC009892D4 /* Sparkle.framework */; };
+		DAC0509B2D369DE2009892D4 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAC050992D369DCC009892D4 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAC0A7322CFF425F0081B57D /* SPSourceListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A7312CFF425F0081B57D /* SPSourceListDataSource.m */; };
 		DAC0A7332CFF66640081B57D /* libsidplayfp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA17E5262A04F5F200419CB8 /* libsidplayfp.a */; };
 		DAC0A7362D0106D30081B57D /* NSImage+FlipImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A7352D0106D30081B57D /* NSImage+FlipImage.m */; };
@@ -294,6 +295,7 @@
 			files = (
 				DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */,
 				DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */,
+				DAC0509B2D369DE2009892D4 /* Sparkle.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,7 +458,6 @@
 		1FEE5AB40CF88604006A04B0 /* SPCollectionUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCollectionUtilities.m; sourceTree = "<group>"; };
 		1FEF90510D02E5550014D7B2 /* SPColorProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPColorProvider.h; sourceTree = "<group>"; };
 		1FEF90520D02E5550014D7B2 /* SPColorProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPColorProvider.m; sourceTree = "<group>"; };
-		1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDPLAY_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -719,6 +720,7 @@
 		DAA731AF29E763A300B274D5 /* SPGradientBox.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = SPGradientBox.m; sourceTree = "<group>"; };
 		DAACB1D22804C92F0029ED3C /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LAME.framework; sourceTree = "<group>"; };
 		DAB81A1E28686C670075CB8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SIDPLAY/Images.xcassets; sourceTree = "<group>"; };
+		DAC050992D369DCC009892D4 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		DAC0A7312CFF425F0081B57D /* SPSourceListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSourceListDataSource.m; sourceTree = "<group>"; };
 		DAC0A7342D0106D30081B57D /* NSImage+FlipImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+FlipImage.h"; sourceTree = "<group>"; };
 		DAC0A7352D0106D30081B57D /* NSImage+FlipImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+FlipImage.m"; sourceTree = "<group>"; };
@@ -743,6 +745,7 @@
 				DA056EFC2A2674580096847B /* AudioUnit.framework in Frameworks */,
 				DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */,
 				DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */,
+				DAC0509A2D369DCC009892D4 /* Sparkle.framework in Frameworks */,
 				DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */,
 				DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */,
 				DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */,
@@ -1098,7 +1101,6 @@
 				DAB81A1E28686C670075CB8E /* Images.xcassets */,
 				1F05AABD0D5121AF004725C5 /* DefaultVisualizer.qtz */,
 				1FE738DC0D03E82100C37ADB /* logo.qtz */,
-				1FFB9B8E1D2312DB00D47739 /* dsa_pub.pem */,
 				1F3895900CECF80F00942B17 /* Images */,
 				1F40A5F20D3A364200AD3B5D /* psid64 */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -1125,6 +1127,7 @@
 				DA056EF22A178FE80096847B /* OpenGL.framework */,
 				DA056EF72A1790310096847B /* Quartz.framework */,
 				DA59B1022A0A763C00233549 /* libftd2xx.dylib */,
+				DAC050992D369DCC009892D4 /* Sparkle.framework */,
 				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 			);
 			name = Frameworks;
@@ -1736,7 +1739,6 @@
 				1FD3B2761BF1588D0051A741 /* fingerCursor.png in Resources */,
 				1FCE7F1D1BEEA6CA00BA374A /* display_middle.png in Resources */,
 				DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */,
-				1FFB9B8F1D2312DB00D47739 /* dsa_pub.pem in Resources */,
 				1FCE7F1E1BEEA6CA00BA374A /* display_middle@2x.png in Resources */,
 				1FCE7F1B1BEEA6CA00BA374A /* display_left.png in Resources */,
 				1F5920500FA4B02C00B84DDC /* waveform_side.png in Resources */,

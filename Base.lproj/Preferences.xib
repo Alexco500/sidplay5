@@ -41,7 +41,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="586" y="515" width="467" height="212"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="950"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="467" height="212"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +174,7 @@
                 </textField>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
                     <rect key="frame" x="136" y="61" width="277" height="18"/>
-                    <buttonCell key="cell" type="check" title="Automatically check for SIDPLAY updates" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="39">
+                    <buttonCell key="cell" type="check" title="Automatically check for SIDPLAY updates" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="39">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

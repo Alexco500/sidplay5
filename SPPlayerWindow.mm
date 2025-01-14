@@ -82,7 +82,7 @@ AudioCoreDriverNew* audioDriver = nil;
     [exportController setOwnerWindow:self];
     
     //disable Update item for now
-    [checkForUpdatesMenuItem setEnabled:FALSE];
+    //[checkForUpdatesMenuItem setEnabled:FALSE];
     
     [self populateVisualizerMenu];
     //FIXME: Beta designation!
