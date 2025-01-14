@@ -1443,6 +1443,7 @@
                 <outlet property="ExtLine1" destination="VU4-QG-Dno" id="LoG-6s-0xM"/>
                 <outlet property="ExtLine2" destination="pfR-3L-Dud" id="tUf-RE-nlr"/>
                 <outlet property="ExtText" destination="hQM-nW-dSn" id="EL4-va-8Kb"/>
+                <outlet property="Updater" destination="AIi-0S-WPi" id="a0x-Eh-dte"/>
                 <outlet property="addCurrentSongToPlaylistMenuItem" destination="skQ-0A-Qv1" id="vyT-tB-7dQ"/>
                 <outlet property="addPlaylistButton" destination="557" id="1064"/>
                 <outlet property="analyzerWindowMenuItem" destination="2180" id="2182"/>
@@ -2759,7 +2760,7 @@ DQ
                         <rect key="frame" x="20" y="110" width="482" height="165"/>
                         <clipView key="contentView" drawsBackground="NO" id="LwW-yl-dEH">
                             <rect key="frame" x="1" y="1" width="480" height="163"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="YES" spellingCorrection="YES" id="1473">
                                     <rect key="frame" x="0.0" y="-14" width="480" height="163"/>
@@ -3709,7 +3710,7 @@ http://psid64.sourceforge.net/</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="U2e-Rm-zPx">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <collectionView maxNumberOfColumns="1" id="1375">
                                     <rect key="frame" x="0.0" y="0.0" width="338" height="437"/>
@@ -4226,7 +4227,7 @@ Gw
                         <rect key="frame" x="23" y="60" width="567" height="291"/>
                         <clipView key="contentView" id="2bm-2Y-l0Y">
                             <rect key="frame" x="1" y="1" width="565" height="289"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" autosaveName="RemixTableView" headerView="2255" id="2254">
                                     <rect key="frame" x="0.0" y="0.0" width="565" height="266"/>

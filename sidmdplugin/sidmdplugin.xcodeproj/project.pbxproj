@@ -44,7 +44,6 @@
 		C88FB7D7067446EC006EBB30 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		DA9BC69227E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA9BC69327E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
-		DAB81A2128686F7A0075CB8E /* LAME.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LAME.framework; path = ../LAME.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +114,6 @@
 		DAB81A2028686F7A0075CB8E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DAB81A2128686F7A0075CB8E /* LAME.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
