@@ -4,6 +4,7 @@
 
 #import "SPOscilloscopeWindowController.h"
 #import "PlayerInfoProtocol.h"
+#import "Sparkle/Sparkle.h"
 
 /*
 // C++ Forward declares
@@ -125,6 +126,8 @@ extern NSString* SPUrlRequestUserAgentString;
     __weak IBOutlet NSMenuItem *addCurrentSongToPlaylistMenuItem;
     
      SPOscilloscopeWindowController *oscillosscopeWindowController;
+    __weak IBOutlet SPUStandardUpdaterController *Updater;
+    
 }
 - (BOOL) audioDriverIsAvailable;
 - (BOOL) audioDriverIsPlaying;

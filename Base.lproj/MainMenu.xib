@@ -1443,6 +1443,7 @@
                 <outlet property="ExtLine1" destination="VU4-QG-Dno" id="LoG-6s-0xM"/>
                 <outlet property="ExtLine2" destination="pfR-3L-Dud" id="tUf-RE-nlr"/>
                 <outlet property="ExtText" destination="hQM-nW-dSn" id="EL4-va-8Kb"/>
+                <outlet property="Updater" destination="AIi-0S-WPi" id="a0x-Eh-dte"/>
                 <outlet property="addCurrentSongToPlaylistMenuItem" destination="skQ-0A-Qv1" id="vyT-tB-7dQ"/>
                 <outlet property="addPlaylistButton" destination="557" id="1064"/>
                 <outlet property="analyzerWindowMenuItem" destination="2180" id="2182"/>
