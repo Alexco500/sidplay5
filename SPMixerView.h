@@ -1,8 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SPInfoView.h"
-
-
-class PlayerLibSidplay;
+#import "PlayerLibSidplayWrapper.h"
 
 
 @interface SPMixerView : SPInfoView
@@ -28,7 +26,7 @@ class PlayerLibSidplay;
 	float currentVolumes[3];
 	float preMuteVolumes[3];
 	NSSlider* voiceSliders[3];
-	PlayerLibSidplay* player;
+	PlayerLibSidplayWrapper* player;
 }
 
 - (void) containerBackgroundChanged:(NSNotification *)aNotification;

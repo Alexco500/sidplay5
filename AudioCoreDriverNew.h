@@ -41,21 +41,19 @@
 #include <AudioUnit/AudioUnit.h>
 #include <CoreServices/CoreServices.h>
 
+
 #define DEFAULT_SAMPLERATE 48000
 //#define DEFAULT_SAMPLERATE 44100
 
-class PlayerLibSidplay;
 
-
-
-class AudioCoreDriverNew : public AudioDriver
+class AudioCoreDriverNew
 {
 public:
 
     AudioCoreDriverNew();
 	~AudioCoreDriverNew();
 
-	void initialize(PlayerLibSidplay* player, int sampleRate = DEFAULT_SAMPLERATE, int bitsPerSample = 16);
+	void initialize(PlayerLibSidplayWrapper* player, int sampleRate = DEFAULT_SAMPLERATE, int bitsPerSample = 16);
     void deinitialize();
 
 	bool startPlayback();
@@ -90,7 +88,7 @@ private:
     
 	void fillBuffer();
 	bool							mIsInitialized;
-	PlayerLibSidplay*				mPlayer;
+	PlayerLibSidplayWrapper*				mPlayer;
 
 	UInt32							mAudioFrameCount;
 	AudioStreamBasicDescription		mStreamFormat;

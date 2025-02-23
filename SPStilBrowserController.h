@@ -5,21 +5,21 @@
 
 @interface SPStilBrowserController : NSWindowController <NSAnimationDelegate>
 {
-	SPPlayerWindow* ownerWindow;
-	NSString* stilDatabasePath;
-	NSMutableDictionary* indexedStilDatabase;
-	BOOL indexingInProgress;
-	BOOL stilDataBaseValid;
-	NSViewAnimation* animation;
-	NSString* currentPath;
-	BOOL cancelSearch;
-	BOOL searchInProgress;
-	NSString* currentSearchString;
+    SPPlayerWindow* ownerWindow;
+    NSString* stilDatabasePath;
+    NSMutableDictionary* indexedStilDatabase;
+    BOOL indexingInProgress;
+    BOOL stilDataBaseValid;
+    NSViewAnimation* animation;
+    NSString* currentPath;
+    BOOL cancelSearch;
+    BOOL searchInProgress;
+    NSString* currentSearchString;
     NSAttributedString* lastResult;
     
-	IBOutlet NSTextView* textView;
-	IBOutlet NSSearchField* searchField;
-	IBOutlet NSTextField* databasePathTextField;
+    IBOutlet NSTextView* textView;
+    IBOutlet NSSearchField* searchField;
+    IBOutlet NSTextField* databasePathTextField;
 }
 
 + (SPStilBrowserController*) sharedInstance;
@@ -45,7 +45,7 @@
 
 @interface SPBrowserPanel : NSPanel
 {
-
+    
 }
 
 @end
@@ -53,7 +53,7 @@
 
 @interface SPBrowserTextView : NSTextView
 {
-
+    
 }
 
 + (NSCursor*) fingerCursor;

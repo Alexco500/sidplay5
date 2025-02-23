@@ -115,8 +115,7 @@
     }
     //draw a frame around the view
     [darkColor set];
-    NSFrameRect(bounds);
-    bounds = NSInsetRect(bounds, 1.0f, 1.0f);
+    NSFrameRect(NSInsetRect(bounds, 1.0f, 1.0f));
     [brightColor set];
 
 }

@@ -3,9 +3,9 @@
 
 @interface SPURLConnectionScheduler : NSObject
 {
-	NSInteger maxConcurrentConnections;
-	NSMutableDictionary* activeConnections;
-	NSMutableArray* pendingRequests;
+    NSInteger maxConcurrentConnections;
+    NSMutableDictionary* activeConnections;
+    NSMutableArray* pendingRequests;
     NSLock* lock;
 }
 
@@ -26,9 +26,9 @@
 
 @interface SPScheduledURLRequest : NSObject
 {
-	NSURLRequest* request;
-	id delegate;
-	NSInteger priority;
+    NSURLRequest* request;
+    id delegate;
+    NSInteger priority;
 }
 
 @property (nonatomic, retain) NSURLRequest* request;

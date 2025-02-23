@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SPInfoView.h"
+#import "PlayerLibSidplayWrapper.h"
 
 @interface SPTuneInfoView : SPInfoView
 {
@@ -9,7 +10,6 @@
 @end
 
 
-class PlayerLibSidplay;
 
 @interface SPTuneInfoContentView : NSView
 {
@@ -17,7 +17,7 @@ class PlayerLibSidplay;
 //	NSMutableArray* tuneInfoHeaders;
 //	NSMutableArray* tuneInfoStrings;
 	
-	PlayerLibSidplay* player;
+	PlayerLibSidplayWrapper* player;
 }
 
 - (void) updateTuneInfo:(NSNotification *)aNotification;

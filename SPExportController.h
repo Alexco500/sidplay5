@@ -11,7 +11,7 @@
 	SPExportOptionsPanel* currentExportPanel;
 	SPPlayerWindow* ownerWindow;
 
-	ExportSettings exportSettings;
+	ExportSettings* exportSettings;
 	NSArray* itemsToExport;
 	NSString* exportDirectoryPath;
 	int numberOfConcurrentExportTasks;
@@ -27,8 +27,8 @@
 	IBOutlet NSTextField* exportTasksCount;
 }
 
-- (void) exportFile:(SPExportItem*)item withType:(ExportFileType)type;
-- (void) exportFiles:(NSMutableArray*)items withType:(ExportFileType)type;
+- (void) exportFile:(SPExportItem*)item withType:(enum ExportFileType)type;
+- (void) exportFiles:(NSMutableArray*)items withType:(enum ExportFileType)type;
 - (void) selectDestinationFilename;
 - (void) selectDestinationDirectory;
 
@@ -38,12 +38,12 @@
 
 - (void) updateExporterState;
 
-- (BOOL) isCompressedFileType:(ExportFileType)type;
+- (BOOL) isCompressedFileType:(enum ExportFileType)type;
 - (int) calculateExpectedFileSizeForSettings:(ExportSettings*)settings;
 
 - (void) setOwnerWindow:(SPPlayerWindow*)window;
 
-@property (NS_NONATOMIC_IOSONLY) ExportSettings exportSettings;
+@property (NS_NONATOMIC_IOSONLY) ExportSettings* exportSettings;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *itemsToExport;
 

@@ -259,7 +259,7 @@ const unsigned int HardSIDSB::numberOfDevices()
     
     // create the device information list
     ftStatus = FT_CreateDeviceInfoList(&numDevs);
-    if (numDevs > 0) {
+    if ((numDevs > 0) && (ftStatus == FT_OK)) {
         // allocate storage for list based on numDevs
         devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE)*numDevs);
         // get the device information list

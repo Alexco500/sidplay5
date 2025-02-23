@@ -1,6 +1,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
+#import "PlayerLibSidplayWrapper.h"
+
 struct VoiceState
 {
 	bool Gatebit;
@@ -16,7 +18,7 @@ struct VoiceState
 
 struct VisualizerState
 {
-	VoiceState voice[3];
+    struct VoiceState voice[3];
 	int FilterCutoff;
 	int FilterResonance;
 	int FilterVoices;
@@ -25,14 +27,12 @@ struct VisualizerState
 };
 
 
-class PlayerLibSidplay;
-
 @interface SPVisualizerView : QCView
 {
-	PlayerLibSidplay* player;
+    PlayerLibSidplayWrapper* player;
 }
 
-- (void) update:(const VisualizerState*) state;
+- (void) update:(const struct VisualizerState*) state;
 - (void) updateTuneInfo:(NSNotification *)aNotification;
 - (void) disableTuneInfoSignal;
 

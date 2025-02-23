@@ -22,6 +22,7 @@ extern NSString* SPTuneChangedNotification;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTuneInfo:) name:SPTuneChangedNotification object:nil];    
     return self;
 }
+
 - (void)updateTuneInfo:(NSNotification *)aNotification;
 {
     // tune has changed
@@ -44,6 +45,7 @@ extern NSString* SPTuneChangedNotification;
         [[self window] setIsVisible:YES];
     }
 }
+
 - (void)updateScope
 {
     // needs to be called via timer to update scope regulary

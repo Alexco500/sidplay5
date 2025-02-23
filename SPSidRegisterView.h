@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SPInfoView.h"
+#import "PlayerLibSidplayWrapper.h"
 
 @interface SPSidRegisterView : SPInfoView
 {
@@ -9,11 +10,9 @@
 @end
 
 
-class PlayerLibSidplay;
-
 @interface SPSidRegisterContentView : NSView
 {
-	PlayerLibSidplay* player;
+	PlayerLibSidplayWrapper* player;
 	unsigned char* registers;
 }
 
