@@ -15,9 +15,6 @@
 #import "SPGradientBox.h"
 #import "SPMiniPlayerWindow.h"
 
-#import "PlayerLibSidplayWrapper.h"
-
-#import <MediaPlayer/MediaPlayer.h>
 #import "AudioCoreDriverNew.h"
 #include <new>
 
@@ -68,8 +65,6 @@ AudioCoreDriverNew* audioDriver = nil;
      */
     [[NSNotificationCenter defaultCenter] postNotificationName:SPPlayerInitializedNotification object:self];
     
-    [self setupRemoteCommandCenter];
-    
     volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
     miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
     volumeIsMuted = NO;
@@ -86,7 +81,6 @@ AudioCoreDriverNew* audioDriver = nil;
     
     [exportController setOwnerWindow:self];
     
-    showPlayButton = YES;
     //disable Update item for now
     //[checkForUpdatesMenuItem setEnabled:FALSE];
     
@@ -140,47 +134,6 @@ AudioCoreDriverNew* audioDriver = nil;
 }
 
 // ----------------------------------------------------------------------------
-- (void)setupRemoteCommandCenter {
-    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
-
-    // Enable commands
-    commandCenter.playCommand.enabled = YES;
-    commandCenter.pauseCommand.enabled = YES;
-    commandCenter.togglePlayPauseCommand.enabled = YES;
-    commandCenter.nextTrackCommand.enabled = YES;
-    commandCenter.previousTrackCommand.enabled = YES;
-
-    [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        [self clickPlayPauseButton:nil];
-        return MPRemoteCommandHandlerStatusSuccess;
-    }];
-
-    [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        [self clickPlayPauseButton:nil];
-        return MPRemoteCommandHandlerStatusSuccess;
-    }];
-
-    [commandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        [self clickPlayPauseButton:nil];
-        return MPRemoteCommandHandlerStatusSuccess;
-    }];
-
-    [commandCenter.nextTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        [self nextSubtune:nil];
-        return MPRemoteCommandHandlerStatusSuccess;
-    }];
-
-    [commandCenter.previousTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        [self previousSubtune:nil];
-        return MPRemoteCommandHandlerStatusSuccess;
-    }];
-
-    // To register in Now Playing, we have to set to 'Playing' once – but we're actually stopped.
-    [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
-    [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStateStopped;
-}
-
-// ----------------------------------------------------------------------------
 - (void) playTuneAtPath:(NSString*)path
 {
     [self playTuneAtPath:path subtune:0];
@@ -222,7 +175,6 @@ AudioCoreDriverNew* audioDriver = nil;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
     
     urlDownloadSubtuneIndex = subtuneIndex;
-    urlDownloadData = [NSMutableData data];
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
@@ -235,20 +187,9 @@ AudioCoreDriverNew* audioDriver = nil;
                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error.localizedDescription);
-			dispatch_async(dispatch_get_main_queue(), ^{
-				NSAlert *alert = [[NSAlert alloc] init];
-				[alert setMessageText:@"Download failed"];
-				[alert setInformativeText:error.localizedDescription];
-				[alert setAlertStyle:NSAlertStyleInformational];
-				[alert addButtonWithTitle:@"OK"];
-
-				[alert runModal];
-			});
         } else {
             [self->urlDownloadData appendData:data];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self connectionDidFinishLoading];
-            });
+            [self connectionDidFinishLoading];
         }
     }];
     
@@ -289,6 +230,19 @@ AudioCoreDriverNew* audioDriver = nil;
 }
 
 // ----------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+// ----------------------------------------------------------------------------
+{
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Download failed"];
+    [alert setInformativeText:@"The connection to the server failed, please check the URL or try again later."];
+    [alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
+    [alert addButtonWithTitle:@"OK"];
+    
+    [alert runModal];
+}
+
+// ----------------------------------------------------------------------------
 - (void) setPlayPauseButtonToPause:(BOOL)pause
 {
     if (pause)
@@ -298,9 +252,6 @@ AudioCoreDriverNew* audioDriver = nil;
         
         miniPlayPauseButton.image = [NSImage imageNamed:@"SIDhud_pause.pause"];
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
-
-        [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
-        showPlayButton = false;
     }
     else
     {
@@ -309,9 +260,6 @@ AudioCoreDriverNew* audioDriver = nil;
         
         miniPlayPauseButton.image = [NSImage imageNamed:@"SIDhud_play.play"];
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
-
-        [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePaused;
-        showPlayButton = true;
     }
 }
 
@@ -362,21 +310,6 @@ AudioCoreDriverNew* audioDriver = nil;
     [statusDisplay setPlaybackSeconds:seconds];
     [miniStatusDisplay setPlaybackSeconds:seconds];
     [browserDataSource updateCurrentSong:seconds];
-
-    // disable sidPopup menu in case of USB player
-    if ([player isUsbDeviceActive]) {
-        [sidPopup setEnabled:FALSE];
-    } else
-        [sidPopup setEnabled:TRUE];
-    [sidPopup setNeedsDisplay:TRUE];
-    [sidPopup.superview displayIfNeeded];
-    
-    // update elapsed time for media controls
-    NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
-    if (nowPlayingInfo) {
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(seconds);
-        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
-    }
     
     if (player != NULL && [NSRunLoop currentRunLoop].currentMode != NSEventTrackingRunLoopMode)
     {
@@ -395,7 +328,7 @@ AudioCoreDriverNew* audioDriver = nil;
         if (audioDriver->getBufferUnderrunDetected())
         {
             updatesWithNoBufferUnderrun = 0;
-            [player stopPlayback];
+            audioDriver->stopPlayback();
             audioDriver->setBufferUnderrunDetected(false);
             [self setPlayPauseButtonToPause:NO];
             
@@ -424,16 +357,6 @@ AudioCoreDriverNew* audioDriver = nil;
 {
     if (infoWindowController != nil)
         [[infoWindowController containerView] updateAnimatedViews];
-    if ([player usbError]) {
-        // in case of USB issues stop
-        [self clickStopButton:self];
-        [player releaseUSBDevices];
-        // restart everything.
-        player = [[PlayerLibSidplayWrapper alloc] init];
-        audioDriver->initialize(player);
-        [player setAudioDriver:audioDriver];
-        return;
-    }
     
     if (fadeOutInProgress)
     {
@@ -586,13 +509,6 @@ AudioCoreDriverNew* audioDriver = nil;
         item.tag = i;
     }
     
-    // update Now Playing Info for media controls
-    NSMutableDictionary *nowPlayingInfo = [NSMutableDictionary dictionary];
-    nowPlayingInfo[MPMediaItemPropertyTitle] = title;
-    nowPlayingInfo[MPMediaItemPropertyArtist] = author;
-    nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(currentTuneLengthInSeconds);
-    nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @([player getPlaybackSeconds]);
-    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
 }
 #pragma mark Audio Driver helper functions
 - (BOOL) audioDriverIsAvailable
@@ -604,11 +520,13 @@ AudioCoreDriverNew* audioDriver = nil;
 }
 - (void) audioDriverStartPlaying
 {
-    [player startPlayback];
+    if (audioDriver)
+        audioDriver->startPlayback();
 }
 - (void) audioDriverStopPlaying
 {
-    [player stopPlayback];
+    if (audioDriver)
+        audioDriver->stopPlayback();
 }
 - (short*) audioDriverSampleBuffer
 {
@@ -876,15 +794,15 @@ AudioCoreDriverNew* audioDriver = nil;
         return;
     }
     
-    if (showPlayButton) {
-        if ([player isPlaying])
-            [player resumePlayback];
-        else
-            [player startPlayback];
-        [self setPlayPauseButtonToPause:YES];
-    } else {
-        [player pausePlayback];
+    if (audioDriver->getIsPlaying())
+    {
+        audioDriver->stopPlayback();
         [self setPlayPauseButtonToPause:NO];
+    }
+    else
+    {
+        audioDriver->startPlayback();
+        [self setPlayPauseButtonToPause:YES];
     }
     
     [[SPPreferencesController sharedInstance] save];
@@ -907,7 +825,7 @@ AudioCoreDriverNew* audioDriver = nil;
     if (audioDriver == NULL)
         return;
     
-    [player stopPlayback];
+    audioDriver->stopPlayback();
     [self setPlayPauseButtonToPause:NO];
     
     [player initCurrentSubtune];
@@ -1378,6 +1296,7 @@ AudioCoreDriverNew* audioDriver = nil;
     [stackViewExternal2 setHidden:!enable_ext2];
     [stackViewExternal3 setHidden:!enable_ext3];
     [stackViewExternal4 setHidden:!enable_ext4];
+    
 }
 // ----------------------------------------------------------------------------
 - (IBAction) SIDSelectorButtonPressed:(id)sender
@@ -1411,11 +1330,11 @@ AudioCoreDriverNew* audioDriver = nil;
         [gPreferences getPlaybackSettings:&dummySettings];
         dummySettings.SIDselectorOverrideActive = YES;
         dummySettings.SIDselectorOverrideModel = 0;
-        if ([player isPlaying])
+        if (audioDriver->getIsPlaying())
         {
-            [player stopPlayback];
+            audioDriver->stopPlayback();
             [player initEmuEngineWithSettings:&dummySettings];
-            [player startPlayback];
+            audioDriver->startPlayback();
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1448,11 +1367,11 @@ AudioCoreDriverNew* audioDriver = nil;
         dummySettings.SIDselectorOverrideModel = 1;
         
         [gPreferences copyPlaybackSettings:&dummySettings];
-        if ([player isPlaying])
+        if (audioDriver->getIsPlaying())
         {
-            [player stopPlayback];
+            audioDriver->stopPlayback();
             [player initEmuEngineWithSettings:&dummySettings];
-            [player startPlayback];
+            audioDriver->startPlayback();
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1471,11 +1390,11 @@ AudioCoreDriverNew* audioDriver = nil;
     dummySettings.SIDselectorOverrideActive = NO;
     dummySettings.SIDselectorOverrideModel = 0;
     // reconfigure replayer
-    if ([player isPlaying])
+    if (audioDriver->getIsPlaying())
     {
-        [player stopPlayback];
+        audioDriver->stopPlayback();
         [player initEmuEngineWithSettings:&dummySettings];
-        [player startPlayback];
+        audioDriver->startPlayback();
     } else {
         [player initEmuEngineWithSettings:&dummySettings];
     }
@@ -1562,9 +1481,6 @@ AudioCoreDriverNew* audioDriver = nil;
     }
     
     [statusDisplay prepareForQuit];
-    if ([self audioDriverIsPlaying]) {
-        [self audioDriverStopPlaying];
-    }
     
     return NSTerminateNow;
 }
