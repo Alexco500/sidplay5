@@ -29,7 +29,7 @@ class SongLengthDB
 	
     // Get database entry for a file name relative to the HVSC root.
     virtual bool getSongLength(const char* md5digest, int songNum,
-                               SongLengthDBitem& item) = 0;
+                               struct SongLengthDBitem* item) = 0;
     
     virtual const char* getErrorStr() = 0;
 };

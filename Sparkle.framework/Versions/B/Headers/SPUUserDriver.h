@@ -6,17 +6,19 @@
 //  Copyright © 2016 Sparkle Project. All rights reserved.
 //
 
-#if __has_feature(modules)
-#if __has_warning("-Watimport-in-framework-header")
-#pragma clang diagnostic ignored "-Watimport-in-framework-header"
-#endif
-@import Foundation;
-#else
 #import <Foundation/Foundation.h>
-#endif
 
+#if defined(BUILDING_SPARKLE_SOURCES_EXTERNALLY)
+// Ignore incorrect warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wquoted-include-in-framework-header"
+#import "SPUUserUpdateState.h"
+#import "SUExport.h"
+#pragma clang diagnostic pop
+#else
 #import <Sparkle/SPUUserUpdateState.h>
 #import <Sparkle/SUExport.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +46,7 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
 - (void)showUpdatePermissionRequest:(SPUUpdatePermissionRequest *)request reply:(void (^)(SUUpdatePermissionResponse *))reply;
 
 /**
- * Show the user initating an update check
+ * Show the user initiating an update check
  *
  * Respond to the user initiating an update check. Sparkle uses this to show the user a window with an indeterminate progress bar.
  *
@@ -62,11 +64,11 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
  *
  *  `SPUUpdateStateNotDownloaded` - Update has not been downloaded yet.
  *
- *  `SPUUpdateStateDownloaded` - Update has already been downloaded but not started installing yet.
+ *  `SPUUpdateStateDownloaded` - Update has already been downloaded in the background automatically (via `SUAutomaticallyUpdate`) but not started installing yet.
  *
  *  `SPUUpdateStateInstalling` - Update has been downloaded and already started installing.
  *
- *  The `userIntiated` property on the @c state indicates if the update was initiated by the user or if it was automatically scheduled in the background.
+ *  The `userInitiated` property on the @c state indicates if the update was initiated by the user or if it was automatically scheduled in the background.
  *
  *  Additionally, these properties on the @c appcastItem are of importance:
  *
@@ -76,9 +78,10 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
  *
  *  @c appcastItem.criticalUpdate indicates if the update is a critical update.
  *
- * A reply of `SPUUserUpdateChoiceInstall` begins or resumes downloading or installing the update.
+ * A reply of `SPUUserUpdateChoiceInstall` begins or resumes downloading, extracting, or installing the update.
  * If the state.stage is `SPUUserUpdateStateInstalling`, this may send a quit event to the application and relaunch it immediately (in this state, this behaves as a fast "install and Relaunch").
- * Do not use this reply if @c appcastItem.informationOnlyUpdate is YES.
+ * If the state.stage is `SPUUpdateStateNotDownloaded` or `SPUUpdateStateDownloaded` the user may be presented an authorization prompt to install the update after `-showDownloadDidStartExtractingUpdate` is called if authorization is required for installation. For example, this may occur if the update on disk is owned by a different user (e.g. root or admin for non-admin users), or if the update is a package install.
+ * Do not use a reply of `SPUUserUpdateChoiceInstall` if @c appcastItem.informationOnlyUpdate is YES.
  *
  * A reply of `SPUUserUpdateChoiceDismiss` dismisses the update for the time being. The user may be reminded of the update at a later point.
  * If the state.stage is `SPUUserUpdateStateDownloaded`, the downloaded update is kept after dismissing until the next time an update is shown to the user.
@@ -181,8 +184,11 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
  *
  * Sparkle uses this to show an indeterminate progress bar.
  *
- * Note that an update can resume at this point after having been downloaded before,
- * so this may be called without any of the download callbacks being invoked prior.
+ * Before this point, `showDownloadDidReceiveDataOfLength:` or `showUpdateFoundWithAppcastItem:state:reply:` may be called.
+ * An update can potentially resume at this point after having been automatically downloaded in the background (without the user driver)  before.
+ *
+ * After extraction starts, the user may be shown an authorization prompt to install the update if authorization is required for installation.
+ * For example, this may occur if the update on disk is owned by a different user (e.g. root or admin for non-admin users), or if the update is a package install.
  */
 - (void)showDownloadDidStartExtractingUpdate;
 
@@ -226,8 +232,13 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
  * If the application hasn't been terminated, a quit event is sent to the running application before installing the update.
  * If the application or user delays or cancels termination, there may be an indefinite period of time before the application fully quits.
  * It is up to the implementor whether or not to decide to continue showing installation progress in this case.
+ *
+ * @param retryTerminatingApplication This handler gives a chance for the application to re-try sending a quit event to the running application before installing the update.
+ * The application may cancel or delay termination. This handler gives the user driver another chance to allow the user to try terminating the application again.
+ * If the application does not delay or cancel application termination, there is no need to invoke this handler. This handler may be invoked multiple times.
+ * Note this handler should not be invoked if @c applicationTerminated is already @c YES
  */
-- (void)showInstallingUpdateWithApplicationTerminated:(BOOL)applicationTerminated;
+- (void)showInstallingUpdateWithApplicationTerminated:(BOOL)applicationTerminated retryTerminatingApplication:(void (^)(void))retryTerminatingApplication;
 
 /**
  * Show the user that the update installation finished
@@ -238,7 +249,7 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
  * the updater's lifetime is tied to the application it is updating. This implementation must not try to reference
  * the old bundle prior to the installation, which will no longer be around.
  *
- * Before this point, `-showInstallingUpdateWithApplicationTerminated:` will be called.
+ * Before this point, `-showInstallingUpdateWithApplicationTerminated:retryTerminatingApplication:` will be called.
  *
  * @param relaunched Indicates if the update was relaunched.
  * @param acknowledgement Acknowledge to the updater that the finished installation was shown.
@@ -278,9 +289,11 @@ SU_EXPORT @protocol SPUUserDriver <NSObject>
 
 - (void)dismissUserInitiatedUpdateCheck __deprecated_msg("Transition to new UI appropriately when a new update is shown, when no update is found, or when an update error occurs.");
 
-- (void)showInstallingUpdate __deprecated_msg("Implement -showInstallingUpdateWithApplicationTerminated: instead.");
+- (void)showInstallingUpdate __deprecated_msg("Implement -showInstallingUpdateWithApplicationTerminated:retryTerminatingApplication: instead.");
 
-- (void)showSendingTerminationSignal __deprecated_msg("Implement -showInstallingUpdateWithApplicationTerminated: instead.");
+- (void)showSendingTerminationSignal __deprecated_msg("Implement -showInstallingUpdateWithApplicationTerminated:retryTerminatingApplication: instead.");
+
+- (void)showInstallingUpdateWithApplicationTerminated:(BOOL)applicationTerminated __deprecated_msg("Implement -showInstallingUpdateWithApplicationTerminated:retryTerminatingApplication: instead.");;
 
 @end
 

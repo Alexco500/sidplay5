@@ -4,8 +4,8 @@
 
 @interface SPApplicationStorageController : NSObject 
 {
-
-
+    
+    
 }
 
 + (NSString*) applicationSupportPath;

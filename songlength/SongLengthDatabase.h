@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NewMD5SongLengthDatabase.h"
-
-class SidTuneWrapper;
+#import "SidTuneWrapper.h"
+#import "SongLength.h"
 
 @interface SongLengthDatabase : NSObject
 {
@@ -12,7 +12,8 @@ class SidTuneWrapper;
     NewMD5SongLengthDatabase* newMD5db;
 	
 	NSMutableData* downloadData;
-    NSURLConnection* downloadConnection;
+    NSURLSession* downloadConnection;
+    SongLength* songLength;
 }
 
 + (SongLengthDatabase*) sharedInstance;

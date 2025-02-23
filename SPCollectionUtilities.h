@@ -3,18 +3,18 @@
 
 @interface SPCollectionUtilities : NSObject
 {
-	NSString* rootPath;
-	
-	NSMutableData* ryncMirrorListData;
-	NSURLConnection* rsyncMirrorListUrlConnection;
-	NSMutableArray* rsyncMirrorList;
-	id rsyncMirrorListNotificationTarget;
-	SEL rsyncMirrorListNotificationSelector;
+    NSString* rootPath;
+    
+    NSMutableData* ryncMirrorListData;
+    NSURLConnection* rsyncMirrorListUrlConnection;
+    NSMutableArray* rsyncMirrorList;
+    id rsyncMirrorListNotificationTarget;
+    SEL rsyncMirrorListNotificationSelector;
 }
 
 + (SPCollectionUtilities*) sharedInstance;
 
-- (instancetype) init;
+- (id) init;
 
 @property (NS_NONATOMIC_IOSONLY, copy) NSString *rootPath;
 

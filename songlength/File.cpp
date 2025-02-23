@@ -30,6 +30,7 @@
 using namespace std;
 
 #include "File.h"
+#include "Item.h"
 
 // String comparison functor for sort function.
 struct myStrLessThan : public __binary_function<const char*, const char*, bool>
@@ -221,7 +222,7 @@ char *_strlwr(char *str)
 	return str;
 }
 
-bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* filename, int songNum, SongLengthDBitem& item)
+bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* filename, int songNum, struct SongLengthDBitem* item)
 {
 	// taken from xmp_sid plugin by Sebastian Szczepaniak
 	char temp[256];
@@ -301,7 +302,7 @@ bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* f
 
 					if ( leftToParse>0 )
 					{
-						item.playtime = parseTimeStamp(pEntry);
+						item->playtime = parseTimeStamp(pEntry);
 						errorString = _SongLengthFile_text_noErrors;
 						return true;
 					}
@@ -331,13 +332,13 @@ bool SongLengthFile::getSongLengthByFileName(const char* rootPath, const char* f
 
 
 bool SongLengthFile::getSongLength(const char* md5digest, int songNum,
-                                   SongLengthDBitem& item)
+                                   struct SongLengthDBitem* item)
 {
 #ifdef XSID_WB_DEBUG
     cout << "::getSongLength()" << endl << md5digest << endl << songNum << endl;
 #endif
     
-    item.clear();
+    item->playtime = 0;
     if ( !status )
         return false;
 
@@ -422,7 +423,7 @@ bool SongLengthFile::getSongLength(const char* md5digest, int songNum,
 
     if ( leftToParse>0 )
     {
-        item.playtime = parseTimeStamp(pEntry);
+        item->playtime = parseTimeStamp(pEntry);
         errorString = _SongLengthFile_text_noErrors;
         return true;
     }

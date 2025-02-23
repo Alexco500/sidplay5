@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>SIDPLAY</title>
+        <item>
+            <title>5.1.0</title>
+            <pubDate>Thu, 14 Nov 2024 16:22:11 +0100</pubDate>
+            <sparkle:version>95</sparkle:version>
+            <sparkle:shortVersionString>5.1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://github.com/Alexco500/sidplay5/releases/tag/v5.1.0_95</sparkle:releaseNotesLink>
+            <link>https://github.com/Alexco500/sidplay5/releases</link>
+        </item>
+    </channel>
+</rss>

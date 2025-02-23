@@ -1,13 +1,11 @@
 #import <Cocoa/Cocoa.h>
 #import "SPInfoView.h"
-
-
-class PlayerLibSidplay;
+#import "PlayerLibSidplayWrapper.h"
 
 
 @interface SPComposerPhotoView : SPInfoView <NSURLDownloadDelegate>
 {
-	PlayerLibSidplay* player;
+	PlayerLibSidplayWrapper* player;
 	BOOL imageDownloadInProgress;
 	NSURLDownload* imageDownload;
 	NSString* currentImageLocation;

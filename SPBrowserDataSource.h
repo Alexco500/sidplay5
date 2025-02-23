@@ -64,7 +64,7 @@ enum BrowserMode
 	int browseHistoryIndex;
 	SPBrowserItem* currentItem;
 	SPPlaylist* playlist;
-	BrowserMode browserMode;
+	enum BrowserMode browserMode;
 	
 	NSString* currentSharedCollection;
 	NSString* currentSharedCollectionRoot;
@@ -159,7 +159,7 @@ enum BrowserMode
 @property (NS_NONATOMIC_IOSONLY, getter=isSharedCollection, readonly) BOOL sharedCollection;
 @property (NS_NONATOMIC_IOSONLY, getter=isSharedPlaylist, readonly) BOOL sharedPlaylist;
 @property (NS_NONATOMIC_IOSONLY, getter=isSharedSmartPlaylist, readonly) BOOL sharedSmartPlaylist;
-@property (NS_NONATOMIC_IOSONLY) BrowserMode browserMode;
+@property (NS_NONATOMIC_IOSONLY) enum BrowserMode browserMode;
 
 - (IBAction) clickNavigateControl:(id)sender;
 - (IBAction) clickPathControl:(id)sender;

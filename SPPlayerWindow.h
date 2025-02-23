@@ -1,12 +1,21 @@
 #import <Cocoa/Cocoa.h>
-#import "PlayerLibSidplay.h"
+#import "PlayerLibSidplayWrapper.h"
 #import "SPExporter.h"
 
 #import "SPOscilloscopeWindowController.h"
 #import "PlayerInfoProtocol.h"
+#import "Sparkle/Sparkle.h"
 
-// Forward declares
-class AudioDriver;
+/*
+// C++ Forward declares
+#ifdef __cplusplus
+#include "AudioCoreDriverNew.h"
+
+#else
+typedef void AudioDriver;
+#endif
+*/
+
 @class SPStatusDisplayView;
 @class SPInfoWindowController;
 @class SPInfoContainerView;
@@ -19,7 +28,6 @@ class AudioDriver;
 @class SPMiniPlayerWindow;
 @class SPVisualizerView;
 @class SPRemixKwedOrgController;
-
 
 extern NSString* SPTuneChangedNotification;
 extern NSString* SPPlayerInitializedNotification;
@@ -64,8 +72,8 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSMenuItem* analyzerWindowMenuItem;
 	IBOutlet NSMenuItem* exportTaskWindowMenuItem;
 	
-	PlayerLibSidplay* player;
-	AudioDriver* audioDriver;
+    PlayerLibSidplayWrapper* player;
+	//AudioDriver* audioDriver;
 	NSString* currentTunePath;
 	NSInteger currentTuneLengthInSeconds;
 	CGFloat currentVolume;
@@ -118,8 +126,13 @@ extern NSString* SPUrlRequestUserAgentString;
     __weak IBOutlet NSMenuItem *addCurrentSongToPlaylistMenuItem;
     
      SPOscilloscopeWindowController *oscillosscopeWindowController;
+    __weak IBOutlet SPUStandardUpdaterController *Updater;
+    
 }
-
+- (BOOL) audioDriverIsAvailable;
+- (BOOL) audioDriverIsPlaying;
+- (void) audioDriverStartPlaying;
+- (void) audioDriverStopPlaying;
 - (void) playTuneAtPath:(NSString*)path;
 - (void) playTuneAtPath:(NSString*)path subtune:(int)subtuneIndex;
 - (void) playTuneAtURL:(NSString*)urlString;
@@ -135,8 +148,8 @@ extern NSString* SPUrlRequestUserAgentString;
 - (void) startFadeOut;
 - (void) stopFadeOut;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
-@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplay *player;
+//@property (NS_NONATOMIC_IOSONLY, readonly) AudioDriver *audioDriver;
+@property (NS_NONATOMIC_IOSONLY, readonly) PlayerLibSidplayWrapper *player;
 
 - (void) addInfoContainerView:(NSScrollView*)infoContainerScrollView;
 
