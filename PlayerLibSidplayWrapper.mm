@@ -377,7 +377,7 @@ static inline float approximate_dac(int x, float kinkiness)
     if (mExtUSBDeviceActive)
         cfg.sidEmulation   = (sidbuilder*)mSIDBlasterUSBbuilder;
     else
-        cfg.sidEmulation   = mBuilder.get();
+        cfg.sidEmulation   = mBuilder_reSID.get();
     
     cfg.frequency      = mPlaybackSettings.mFrequency;
     cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
