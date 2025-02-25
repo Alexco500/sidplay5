@@ -102,6 +102,83 @@
 		1FF0D9670D01D6B100796FBF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF0D9650D01D6B100796FBF /* MainMenu.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		9227F3E02D6D1E31004C71FF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B92D6D1E31004C71FF /* index.html */; };
+		9227F3E12D6D1E31004C71FF /* PYMIDIManager.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AE2D6D1E31004C71FF /* PYMIDIManager.html */; };
+		9227F3E22D6D1E31004C71FF /* PYMIDIVirtualSource.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B42D6D1E31004C71FF /* PYMIDIVirtualSource.html */; };
+		9227F3E32D6D1E31004C71FF /* overview.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BC2D6D1E31004C71FF /* overview.html */; };
+		9227F3E42D6D1E31004C71FF /* toc.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C02D6D1E31004C71FF /* toc.html */; };
+		9227F3E52D6D1E31004C71FF /* PYMIDIEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AB2D6D1E31004C71FF /* PYMIDIEndpoint.html */; };
+		9227F3E62D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B32D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html */; };
+		9227F3E72D6D1E31004C71FF /* sending.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BF2D6D1E31004C71FF /* sending.html */; };
+		9227F3E82D6D1E31004C71FF /* Read Me.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C42D6D1E31004C71FF /* Read Me.html */; };
+		9227F3E92D6D1E31004C71FF /* receiving.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BD2D6D1E31004C71FF /* receiving.html */; };
+		9227F3EA2D6D1E31004C71FF /* descriptors.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B72D6D1E31004C71FF /* descriptors.html */; };
+		9227F3EB2D6D1E31004C71FF /* PYMIDIEndpointSet.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AD2D6D1E31004C71FF /* PYMIDIEndpointSet.html */; };
+		9227F3EC2D6D1E31004C71FF /* PYMIDIVirtualDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B22D6D1E31004C71FF /* PYMIDIVirtualDestination.html */; };
+		9227F3ED2D6D1E31004C71FF /* selection.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BE2D6D1E31004C71FF /* selection.html */; };
+		9227F3EE2D6D1E31004C71FF /* endpoints.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B82D6D1E31004C71FF /* endpoints.html */; };
+		9227F3EF2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html */; };
+		9227F3F02D6D1E31004C71FF /* PYMIDIRealEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B02D6D1E31004C71FF /* PYMIDIRealEndpoint.html */; };
+		9227F3F12D6D1E31004C71FF /* archiving.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B62D6D1E31004C71FF /* archiving.html */; };
+		9227F3F22D6D1E31004C71FF /* PYMIDIRealDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AF2D6D1E31004C71FF /* PYMIDIRealDestination.html */; };
+		9227F3F32D6D1E31004C71FF /* manager.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BA2D6D1E31004C71FF /* manager.html */; };
+		9227F3F42D6D1E31004C71FF /* Release Notes.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C52D6D1E31004C71FF /* Release Notes.html */; };
+		9227F3F52D6D1E31004C71FF /* MIT-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C32D6D1E31004C71FF /* MIT-LICENSE */; };
+		9227F3F62D6D1E31004C71FF /* PYMIDIRealSource.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B12D6D1E31004C71FF /* PYMIDIRealSource.html */; };
+		9227F3F72D6D1E31004C71FF /* To Do.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C62D6D1E31004C71FF /* To Do.html */; };
+		9227F3F82D6D1E31004C71FF /* notification.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BB2D6D1E31004C71FF /* notification.html */; };
+		9227F3F92D6D1E31004C71FF /* Bugs.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C22D6D1E31004C71FF /* Bugs.html */; };
+		9227F3FA2D6D1E31004C71FF /* PYMIDIRealDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D22D6D1E31004C71FF /* PYMIDIRealDestination.m */; };
+		9227F3FB2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m */; };
+		9227F3FC2D6D1E31004C71FF /* PYMIDIEndpointSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CE2D6D1E31004C71FF /* PYMIDIEndpointSet.m */; };
+		9227F3FD2D6D1E31004C71FF /* PYMIDIEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CA2D6D1E31004C71FF /* PYMIDIEndpoint.m */; };
+		9227F3FE2D6D1E31004C71FF /* PYMIDIRealSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D62D6D1E31004C71FF /* PYMIDIRealSource.m */; };
+		9227F3FF2D6D1E31004C71FF /* PYMIDIRealEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D42D6D1E31004C71FF /* PYMIDIRealEndpoint.m */; };
+		9227F4002D6D1E31004C71FF /* PYMIDIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D82D6D1E31004C71FF /* PYMIDIUtils.m */; };
+		9227F4012D6D1E31004C71FF /* PYMIDIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D02D6D1E31004C71FF /* PYMIDIManager.m */; };
+		9227F4022D6D1E31004C71FF /* PYMIDIVirtualSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DE2D6D1E31004C71FF /* PYMIDIVirtualSource.m */; };
+		9227F4032D6D1E31004C71FF /* PYMIDIVirtualDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DA2D6D1E31004C71FF /* PYMIDIVirtualDestination.m */; };
+		9227F4042D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DC2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m */; };
+		9227F4052D6D1E31004C71FF /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B92D6D1E31004C71FF /* index.html */; };
+		9227F4062D6D1E31004C71FF /* PYMIDIManager.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AE2D6D1E31004C71FF /* PYMIDIManager.html */; };
+		9227F4072D6D1E31004C71FF /* PYMIDIVirtualSource.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B42D6D1E31004C71FF /* PYMIDIVirtualSource.html */; };
+		9227F4082D6D1E31004C71FF /* overview.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BC2D6D1E31004C71FF /* overview.html */; };
+		9227F4092D6D1E31004C71FF /* toc.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C02D6D1E31004C71FF /* toc.html */; };
+		9227F40A2D6D1E31004C71FF /* PYMIDIEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AB2D6D1E31004C71FF /* PYMIDIEndpoint.html */; };
+		9227F40B2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B32D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html */; };
+		9227F40C2D6D1E31004C71FF /* sending.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BF2D6D1E31004C71FF /* sending.html */; };
+		9227F40D2D6D1E31004C71FF /* Read Me.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C42D6D1E31004C71FF /* Read Me.html */; };
+		9227F40E2D6D1E31004C71FF /* receiving.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BD2D6D1E31004C71FF /* receiving.html */; };
+		9227F40F2D6D1E31004C71FF /* descriptors.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B72D6D1E31004C71FF /* descriptors.html */; };
+		9227F4102D6D1E31004C71FF /* PYMIDIEndpointSet.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AD2D6D1E31004C71FF /* PYMIDIEndpointSet.html */; };
+		9227F4112D6D1E31004C71FF /* PYMIDIVirtualDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B22D6D1E31004C71FF /* PYMIDIVirtualDestination.html */; };
+		9227F4122D6D1E31004C71FF /* selection.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BE2D6D1E31004C71FF /* selection.html */; };
+		9227F4132D6D1E31004C71FF /* endpoints.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B82D6D1E31004C71FF /* endpoints.html */; };
+		9227F4142D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html */; };
+		9227F4152D6D1E31004C71FF /* PYMIDIRealEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B02D6D1E31004C71FF /* PYMIDIRealEndpoint.html */; };
+		9227F4162D6D1E31004C71FF /* archiving.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B62D6D1E31004C71FF /* archiving.html */; };
+		9227F4172D6D1E31004C71FF /* PYMIDIRealDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3AF2D6D1E31004C71FF /* PYMIDIRealDestination.html */; };
+		9227F4182D6D1E31004C71FF /* manager.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BA2D6D1E31004C71FF /* manager.html */; };
+		9227F4192D6D1E31004C71FF /* Release Notes.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C52D6D1E31004C71FF /* Release Notes.html */; };
+		9227F41A2D6D1E31004C71FF /* MIT-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C32D6D1E31004C71FF /* MIT-LICENSE */; };
+		9227F41B2D6D1E31004C71FF /* PYMIDIRealSource.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3B12D6D1E31004C71FF /* PYMIDIRealSource.html */; };
+		9227F41C2D6D1E31004C71FF /* To Do.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C62D6D1E31004C71FF /* To Do.html */; };
+		9227F41D2D6D1E31004C71FF /* notification.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3BB2D6D1E31004C71FF /* notification.html */; };
+		9227F41E2D6D1E31004C71FF /* Bugs.html in Resources */ = {isa = PBXBuildFile; fileRef = 9227F3C22D6D1E31004C71FF /* Bugs.html */; };
+		9227F41F2D6D1E31004C71FF /* PYMIDIRealDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D22D6D1E31004C71FF /* PYMIDIRealDestination.m */; };
+		9227F4202D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m */; };
+		9227F4212D6D1E31004C71FF /* PYMIDIEndpointSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CE2D6D1E31004C71FF /* PYMIDIEndpointSet.m */; };
+		9227F4222D6D1E31004C71FF /* PYMIDIEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3CA2D6D1E31004C71FF /* PYMIDIEndpoint.m */; };
+		9227F4232D6D1E31004C71FF /* PYMIDIRealSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D62D6D1E31004C71FF /* PYMIDIRealSource.m */; };
+		9227F4242D6D1E31004C71FF /* PYMIDIRealEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D42D6D1E31004C71FF /* PYMIDIRealEndpoint.m */; };
+		9227F4252D6D1E31004C71FF /* PYMIDIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D82D6D1E31004C71FF /* PYMIDIUtils.m */; };
+		9227F4262D6D1E31004C71FF /* PYMIDIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3D02D6D1E31004C71FF /* PYMIDIManager.m */; };
+		9227F4272D6D1E31004C71FF /* PYMIDIVirtualSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DE2D6D1E31004C71FF /* PYMIDIVirtualSource.m */; };
+		9227F4282D6D1E31004C71FF /* PYMIDIVirtualDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DA2D6D1E31004C71FF /* PYMIDIVirtualDestination.m */; };
+		9227F4292D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F3DC2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m */; };
+		9227F42C2D6D1E40004C71FF /* ASID_MIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F42B2D6D1E40004C71FF /* ASID_MIDI.m */; };
+		9227F42D2D6D1E40004C71FF /* ASID_MIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227F42B2D6D1E40004C71FF /* ASID_MIDI.m */; };
+		9227F42F2D6D1E67004C71FF /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9227F42E2D6D1E67004C71FF /* CoreMIDI.framework */; };
 		DA056ED62A177EDC0096847B /* resid-builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39E2A04F36000419CB8 /* resid-builder.cpp */; };
 		DA056ED72A177EDF0096847B /* resid-emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3A02A04F36000419CB8 /* resid-emu.cpp */; };
 		DA056ED82A177EF60096847B /* envelope.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3642A04F36000419CB8 /* envelope.cc */; };
@@ -462,6 +539,58 @@
 		32CA4F630368D1EE00C91783 /* SIDPLAY_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIDPLAY_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SIDPLAY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SIDPLAY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9227F3AB2D6D1E31004C71FF /* PYMIDIEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpoint.html; sourceTree = "<group>"; };
+		9227F3AC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpointDescriptor.html; sourceTree = "<group>"; };
+		9227F3AD2D6D1E31004C71FF /* PYMIDIEndpointSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpointSet.html; sourceTree = "<group>"; };
+		9227F3AE2D6D1E31004C71FF /* PYMIDIManager.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIManager.html; sourceTree = "<group>"; };
+		9227F3AF2D6D1E31004C71FF /* PYMIDIRealDestination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealDestination.html; sourceTree = "<group>"; };
+		9227F3B02D6D1E31004C71FF /* PYMIDIRealEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealEndpoint.html; sourceTree = "<group>"; };
+		9227F3B12D6D1E31004C71FF /* PYMIDIRealSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealSource.html; sourceTree = "<group>"; };
+		9227F3B22D6D1E31004C71FF /* PYMIDIVirtualDestination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualDestination.html; sourceTree = "<group>"; };
+		9227F3B32D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualEndpoint.html; sourceTree = "<group>"; };
+		9227F3B42D6D1E31004C71FF /* PYMIDIVirtualSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualSource.html; sourceTree = "<group>"; };
+		9227F3B62D6D1E31004C71FF /* archiving.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = archiving.html; sourceTree = "<group>"; };
+		9227F3B72D6D1E31004C71FF /* descriptors.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = descriptors.html; sourceTree = "<group>"; };
+		9227F3B82D6D1E31004C71FF /* endpoints.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = endpoints.html; sourceTree = "<group>"; };
+		9227F3B92D6D1E31004C71FF /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = index.html; sourceTree = "<group>"; };
+		9227F3BA2D6D1E31004C71FF /* manager.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = manager.html; sourceTree = "<group>"; };
+		9227F3BB2D6D1E31004C71FF /* notification.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = notification.html; sourceTree = "<group>"; };
+		9227F3BC2D6D1E31004C71FF /* overview.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = overview.html; sourceTree = "<group>"; };
+		9227F3BD2D6D1E31004C71FF /* receiving.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = receiving.html; sourceTree = "<group>"; };
+		9227F3BE2D6D1E31004C71FF /* selection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = selection.html; sourceTree = "<group>"; };
+		9227F3BF2D6D1E31004C71FF /* sending.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = sending.html; sourceTree = "<group>"; };
+		9227F3C02D6D1E31004C71FF /* toc.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = toc.html; sourceTree = "<group>"; };
+		9227F3C22D6D1E31004C71FF /* Bugs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Bugs.html; sourceTree = "<group>"; };
+		9227F3C32D6D1E31004C71FF /* MIT-LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
+		9227F3C42D6D1E31004C71FF /* Read Me.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Read Me.html"; sourceTree = "<group>"; };
+		9227F3C52D6D1E31004C71FF /* Release Notes.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Release Notes.html"; sourceTree = "<group>"; };
+		9227F3C62D6D1E31004C71FF /* To Do.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "To Do.html"; sourceTree = "<group>"; };
+		9227F3C82D6D1E31004C71FF /* PYMIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDI.h; sourceTree = "<group>"; };
+		9227F3C92D6D1E31004C71FF /* PYMIDIEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpoint.h; sourceTree = "<group>"; };
+		9227F3CA2D6D1E31004C71FF /* PYMIDIEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpoint.m; sourceTree = "<group>"; };
+		9227F3CB2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpointDescriptor.h; sourceTree = "<group>"; };
+		9227F3CC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpointDescriptor.m; sourceTree = "<group>"; };
+		9227F3CD2D6D1E31004C71FF /* PYMIDIEndpointSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpointSet.h; sourceTree = "<group>"; };
+		9227F3CE2D6D1E31004C71FF /* PYMIDIEndpointSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpointSet.m; sourceTree = "<group>"; };
+		9227F3CF2D6D1E31004C71FF /* PYMIDIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIManager.h; sourceTree = "<group>"; };
+		9227F3D02D6D1E31004C71FF /* PYMIDIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIManager.m; sourceTree = "<group>"; };
+		9227F3D12D6D1E31004C71FF /* PYMIDIRealDestination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealDestination.h; sourceTree = "<group>"; };
+		9227F3D22D6D1E31004C71FF /* PYMIDIRealDestination.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealDestination.m; sourceTree = "<group>"; };
+		9227F3D32D6D1E31004C71FF /* PYMIDIRealEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealEndpoint.h; sourceTree = "<group>"; };
+		9227F3D42D6D1E31004C71FF /* PYMIDIRealEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealEndpoint.m; sourceTree = "<group>"; };
+		9227F3D52D6D1E31004C71FF /* PYMIDIRealSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealSource.h; sourceTree = "<group>"; };
+		9227F3D62D6D1E31004C71FF /* PYMIDIRealSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealSource.m; sourceTree = "<group>"; };
+		9227F3D72D6D1E31004C71FF /* PYMIDIUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIUtils.h; sourceTree = "<group>"; };
+		9227F3D82D6D1E31004C71FF /* PYMIDIUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIUtils.m; sourceTree = "<group>"; };
+		9227F3D92D6D1E31004C71FF /* PYMIDIVirtualDestination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualDestination.h; sourceTree = "<group>"; };
+		9227F3DA2D6D1E31004C71FF /* PYMIDIVirtualDestination.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualDestination.m; sourceTree = "<group>"; };
+		9227F3DB2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualEndpoint.h; sourceTree = "<group>"; };
+		9227F3DC2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualEndpoint.m; sourceTree = "<group>"; };
+		9227F3DD2D6D1E31004C71FF /* PYMIDIVirtualSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualSource.h; sourceTree = "<group>"; };
+		9227F3DE2D6D1E31004C71FF /* PYMIDIVirtualSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualSource.m; sourceTree = "<group>"; };
+		9227F42A2D6D1E40004C71FF /* ASID_MIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASID_MIDI.h; sourceTree = "<group>"; };
+		9227F42B2D6D1E40004C71FF /* ASID_MIDI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASID_MIDI.m; sourceTree = "<group>"; };
+		9227F42E2D6D1E67004C71FF /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		DA056EEC2A178FCA0096847B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DA056EEE2A178FD60096847B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		DA056EF02A178FE00096847B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -746,6 +875,7 @@
 				DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */,
 				DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */,
 				DAC0509A2D369DCC009892D4 /* Sparkle.framework in Frameworks */,
+				9227F42F2D6D1E67004C71FF /* CoreMIDI.framework in Frameworks */,
 				DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */,
 				DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */,
 				DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */,
@@ -790,6 +920,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9227F3DF2D6D1E31004C71FF /* PYMIDI */,
+				9227F42A2D6D1E40004C71FF /* ASID_MIDI.h */,
+				9227F42B2D6D1E40004C71FF /* ASID_MIDI.m */,
 				DA1094592CE66290001433DC /* PlaybackSettings.h */,
 				DA5578152CDE3878005C2A42 /* PlayerInfoProtocol.h */,
 				DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */,
@@ -1117,6 +1250,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9227F42E2D6D1E67004C71FF /* CoreMIDI.framework */,
 				DA056EFB2A2674580096847B /* AudioUnit.framework */,
 				DA056EEE2A178FD60096847B /* AppKit.framework */,
 				DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */,
@@ -1131,6 +1265,86 @@
 				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9227F3B52D6D1E31004C71FF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9227F3AB2D6D1E31004C71FF /* PYMIDIEndpoint.html */,
+				9227F3AC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html */,
+				9227F3AD2D6D1E31004C71FF /* PYMIDIEndpointSet.html */,
+				9227F3AE2D6D1E31004C71FF /* PYMIDIManager.html */,
+				9227F3AF2D6D1E31004C71FF /* PYMIDIRealDestination.html */,
+				9227F3B02D6D1E31004C71FF /* PYMIDIRealEndpoint.html */,
+				9227F3B12D6D1E31004C71FF /* PYMIDIRealSource.html */,
+				9227F3B22D6D1E31004C71FF /* PYMIDIVirtualDestination.html */,
+				9227F3B32D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html */,
+				9227F3B42D6D1E31004C71FF /* PYMIDIVirtualSource.html */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		9227F3C12D6D1E31004C71FF /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				9227F3B52D6D1E31004C71FF /* Classes */,
+				9227F3B62D6D1E31004C71FF /* archiving.html */,
+				9227F3B72D6D1E31004C71FF /* descriptors.html */,
+				9227F3B82D6D1E31004C71FF /* endpoints.html */,
+				9227F3B92D6D1E31004C71FF /* index.html */,
+				9227F3BA2D6D1E31004C71FF /* manager.html */,
+				9227F3BB2D6D1E31004C71FF /* notification.html */,
+				9227F3BC2D6D1E31004C71FF /* overview.html */,
+				9227F3BD2D6D1E31004C71FF /* receiving.html */,
+				9227F3BE2D6D1E31004C71FF /* selection.html */,
+				9227F3BF2D6D1E31004C71FF /* sending.html */,
+				9227F3C02D6D1E31004C71FF /* toc.html */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		9227F3C72D6D1E31004C71FF /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				9227F3C12D6D1E31004C71FF /* Documentation */,
+				9227F3C22D6D1E31004C71FF /* Bugs.html */,
+				9227F3C32D6D1E31004C71FF /* MIT-LICENSE */,
+				9227F3C42D6D1E31004C71FF /* Read Me.html */,
+				9227F3C52D6D1E31004C71FF /* Release Notes.html */,
+				9227F3C62D6D1E31004C71FF /* To Do.html */,
+			);
+			path = misc;
+			sourceTree = "<group>";
+		};
+		9227F3DF2D6D1E31004C71FF /* PYMIDI */ = {
+			isa = PBXGroup;
+			children = (
+				9227F3C72D6D1E31004C71FF /* misc */,
+				9227F3C82D6D1E31004C71FF /* PYMIDI.h */,
+				9227F3C92D6D1E31004C71FF /* PYMIDIEndpoint.h */,
+				9227F3CA2D6D1E31004C71FF /* PYMIDIEndpoint.m */,
+				9227F3CB2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.h */,
+				9227F3CC2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m */,
+				9227F3CD2D6D1E31004C71FF /* PYMIDIEndpointSet.h */,
+				9227F3CE2D6D1E31004C71FF /* PYMIDIEndpointSet.m */,
+				9227F3CF2D6D1E31004C71FF /* PYMIDIManager.h */,
+				9227F3D02D6D1E31004C71FF /* PYMIDIManager.m */,
+				9227F3D12D6D1E31004C71FF /* PYMIDIRealDestination.h */,
+				9227F3D22D6D1E31004C71FF /* PYMIDIRealDestination.m */,
+				9227F3D32D6D1E31004C71FF /* PYMIDIRealEndpoint.h */,
+				9227F3D42D6D1E31004C71FF /* PYMIDIRealEndpoint.m */,
+				9227F3D52D6D1E31004C71FF /* PYMIDIRealSource.h */,
+				9227F3D62D6D1E31004C71FF /* PYMIDIRealSource.m */,
+				9227F3D72D6D1E31004C71FF /* PYMIDIUtils.h */,
+				9227F3D82D6D1E31004C71FF /* PYMIDIUtils.m */,
+				9227F3D92D6D1E31004C71FF /* PYMIDIVirtualDestination.h */,
+				9227F3DA2D6D1E31004C71FF /* PYMIDIVirtualDestination.m */,
+				9227F3DB2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.h */,
+				9227F3DC2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m */,
+				9227F3DD2D6D1E31004C71FF /* PYMIDIVirtualSource.h */,
+				9227F3DE2D6D1E31004C71FF /* PYMIDIVirtualSource.m */,
+			);
+			path = PYMIDI;
 			sourceTree = "<group>";
 		};
 		DA17E2E82A04F2F300419CB8 /* libsidplayfp */ = {
@@ -1702,6 +1916,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9227F3E02D6D1E31004C71FF /* index.html in Resources */,
+				9227F3E12D6D1E31004C71FF /* PYMIDIManager.html in Resources */,
+				9227F3E22D6D1E31004C71FF /* PYMIDIVirtualSource.html in Resources */,
+				9227F3E32D6D1E31004C71FF /* overview.html in Resources */,
+				9227F3E42D6D1E31004C71FF /* toc.html in Resources */,
+				9227F3E52D6D1E31004C71FF /* PYMIDIEndpoint.html in Resources */,
+				9227F3E62D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html in Resources */,
+				9227F3E72D6D1E31004C71FF /* sending.html in Resources */,
+				9227F3E82D6D1E31004C71FF /* Read Me.html in Resources */,
+				9227F3E92D6D1E31004C71FF /* receiving.html in Resources */,
+				9227F3EA2D6D1E31004C71FF /* descriptors.html in Resources */,
+				9227F3EB2D6D1E31004C71FF /* PYMIDIEndpointSet.html in Resources */,
+				9227F3EC2D6D1E31004C71FF /* PYMIDIVirtualDestination.html in Resources */,
+				9227F3ED2D6D1E31004C71FF /* selection.html in Resources */,
+				9227F3EE2D6D1E31004C71FF /* endpoints.html in Resources */,
+				9227F3EF2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html in Resources */,
+				9227F3F02D6D1E31004C71FF /* PYMIDIRealEndpoint.html in Resources */,
+				9227F3F12D6D1E31004C71FF /* archiving.html in Resources */,
+				9227F3F22D6D1E31004C71FF /* PYMIDIRealDestination.html in Resources */,
+				9227F3F32D6D1E31004C71FF /* manager.html in Resources */,
+				9227F3F42D6D1E31004C71FF /* Release Notes.html in Resources */,
+				9227F3F52D6D1E31004C71FF /* MIT-LICENSE in Resources */,
+				9227F3F62D6D1E31004C71FF /* PYMIDIRealSource.html in Resources */,
+				9227F3F72D6D1E31004C71FF /* To Do.html in Resources */,
+				9227F3F82D6D1E31004C71FF /* notification.html in Resources */,
+				9227F3F92D6D1E31004C71FF /* Bugs.html in Resources */,
 				1FD3B2841BF15A000051A741 /* remixRating5@2x.png in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1F5173E20CF9A9BD0064AFA2 /* InfoWindow.xib in Resources */,
@@ -1762,6 +2002,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA557D5C2AC6E9F000C02288 /* PreviewViewController.xib in Resources */,
+				9227F4052D6D1E31004C71FF /* index.html in Resources */,
+				9227F4062D6D1E31004C71FF /* PYMIDIManager.html in Resources */,
+				9227F4072D6D1E31004C71FF /* PYMIDIVirtualSource.html in Resources */,
+				9227F4082D6D1E31004C71FF /* overview.html in Resources */,
+				9227F4092D6D1E31004C71FF /* toc.html in Resources */,
+				9227F40A2D6D1E31004C71FF /* PYMIDIEndpoint.html in Resources */,
+				9227F40B2D6D1E31004C71FF /* PYMIDIVirtualEndpoint.html in Resources */,
+				9227F40C2D6D1E31004C71FF /* sending.html in Resources */,
+				9227F40D2D6D1E31004C71FF /* Read Me.html in Resources */,
+				9227F40E2D6D1E31004C71FF /* receiving.html in Resources */,
+				9227F40F2D6D1E31004C71FF /* descriptors.html in Resources */,
+				9227F4102D6D1E31004C71FF /* PYMIDIEndpointSet.html in Resources */,
+				9227F4112D6D1E31004C71FF /* PYMIDIVirtualDestination.html in Resources */,
+				9227F4122D6D1E31004C71FF /* selection.html in Resources */,
+				9227F4132D6D1E31004C71FF /* endpoints.html in Resources */,
+				9227F4142D6D1E31004C71FF /* PYMIDIEndpointDescriptor.html in Resources */,
+				9227F4152D6D1E31004C71FF /* PYMIDIRealEndpoint.html in Resources */,
+				9227F4162D6D1E31004C71FF /* archiving.html in Resources */,
+				9227F4172D6D1E31004C71FF /* PYMIDIRealDestination.html in Resources */,
+				9227F4182D6D1E31004C71FF /* manager.html in Resources */,
+				9227F4192D6D1E31004C71FF /* Release Notes.html in Resources */,
+				9227F41A2D6D1E31004C71FF /* MIT-LICENSE in Resources */,
+				9227F41B2D6D1E31004C71FF /* PYMIDIRealSource.html in Resources */,
+				9227F41C2D6D1E31004C71FF /* To Do.html in Resources */,
+				9227F41D2D6D1E31004C71FF /* notification.html in Resources */,
+				9227F41E2D6D1E31004C71FF /* Bugs.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1803,6 +2069,17 @@
 				1FCC68700CF07344005AFA9A /* MD5.cpp in Sources */,
 				1FCC68730CF07344005AFA9A /* SongLength.mm in Sources */,
 				1FCC687D0CF073A7005AFA9A /* SongLengthDatabase.m in Sources */,
+				9227F3FA2D6D1E31004C71FF /* PYMIDIRealDestination.m in Sources */,
+				9227F3FB2D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m in Sources */,
+				9227F3FC2D6D1E31004C71FF /* PYMIDIEndpointSet.m in Sources */,
+				9227F3FD2D6D1E31004C71FF /* PYMIDIEndpoint.m in Sources */,
+				9227F3FE2D6D1E31004C71FF /* PYMIDIRealSource.m in Sources */,
+				9227F3FF2D6D1E31004C71FF /* PYMIDIRealEndpoint.m in Sources */,
+				9227F4002D6D1E31004C71FF /* PYMIDIUtils.m in Sources */,
+				9227F4012D6D1E31004C71FF /* PYMIDIManager.m in Sources */,
+				9227F4022D6D1E31004C71FF /* PYMIDIVirtualSource.m in Sources */,
+				9227F4032D6D1E31004C71FF /* PYMIDIVirtualDestination.m in Sources */,
+				9227F4042D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m in Sources */,
 				1FCC6AE20CF2264E005AFA9A /* SPStatusDisplayView.m in Sources */,
 				1FEE59950CF8231D006A04B0 /* SPPreferencesController.m in Sources */,
 				1FEE5AB50CF88604006A04B0 /* SPCollectionUtilities.m in Sources */,
@@ -1827,6 +2104,7 @@
 				DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */,
 				1FAE8CF90D31945C009D1F9D /* SPExporter.m in Sources */,
 				1FAE8DBD0D32CDEB009D1F9D /* SPExportOptionsPanel.m in Sources */,
+				9227F42D2D6D1E40004C71FF /* ASID_MIDI.m in Sources */,
 				1F2EC4BE0D36020A002DA711 /* SPExportTaskWindow.m in Sources */,
 				1F543C920D36ADB500637B8A /* SPExportController.m in Sources */,
 				1F207ADA0D414B5400BBEF40 /* SPSimplePlaylist.m in Sources */,
@@ -1927,10 +2205,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9227F42C2D6D1E40004C71FF /* ASID_MIDI.m in Sources */,
 				DA557D562AC6E9F000C02288 /* PreviewViewController.m in Sources */,
 				DA557D592AC6E9F000C02288 /* PreviewProvider.m in Sources */,
 				DA557D672AC720CC00C02288 /* PlayerWrapper.mm in Sources */,
 				DA557D6D2ACAB6A300C02288 /* PVScopeView.m in Sources */,
+				9227F41F2D6D1E31004C71FF /* PYMIDIRealDestination.m in Sources */,
+				9227F4202D6D1E31004C71FF /* PYMIDIEndpointDescriptor.m in Sources */,
+				9227F4212D6D1E31004C71FF /* PYMIDIEndpointSet.m in Sources */,
+				9227F4222D6D1E31004C71FF /* PYMIDIEndpoint.m in Sources */,
+				9227F4232D6D1E31004C71FF /* PYMIDIRealSource.m in Sources */,
+				9227F4242D6D1E31004C71FF /* PYMIDIRealEndpoint.m in Sources */,
+				9227F4252D6D1E31004C71FF /* PYMIDIUtils.m in Sources */,
+				9227F4262D6D1E31004C71FF /* PYMIDIManager.m in Sources */,
+				9227F4272D6D1E31004C71FF /* PYMIDIVirtualSource.m in Sources */,
+				9227F4282D6D1E31004C71FF /* PYMIDIVirtualDestination.m in Sources */,
+				9227F4292D6D1E31004C71FF /* PYMIDIVirtualEndpoint.m in Sources */,
 				DA557D6E2ACAF62300C02288 /* AudioCoreDriverNew.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

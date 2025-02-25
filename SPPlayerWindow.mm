@@ -18,11 +18,15 @@
 #import "AudioCoreDriverNew.h"
 #include <new>
 
+#import "ASID_MIDI.h"
+
 NSString* SPTuneChangedNotification = @"SPTuneChangedNotification";
 NSString* SPPlayerInitializedNotification = @"SPPlayerInitializedNotification";
 
 NSString* SPUrlRequestUserAgentString = nil;
 AudioCoreDriverNew* audioDriver = nil;
+
+ASID_MIDI *asidMIDI;
 
 @implementation SPPlayerWindow
 
@@ -131,6 +135,8 @@ AudioCoreDriverNew* audioDriver = nil;
             [splitView setPosition:position ofDividerAtIndex:i];
         }
     }
+
+    asidMIDI = [[ASID_MIDI alloc] init];
 }
 
 // ----------------------------------------------------------------------------
@@ -245,6 +251,8 @@ AudioCoreDriverNew* audioDriver = nil;
 // ----------------------------------------------------------------------------
 - (void) setPlayPauseButtonToPause:(BOOL)pause
 {
+    [asidMIDI pause:pause ? 0 : 1]; // TK: seems to be inverted (e.g. pause button displayed if pause != 0, but SID sequence starts to play)
+
     if (pause)
     {
         playPauseButton.image = [NSImage imageNamed:@"SIDhud_pause.pause"];

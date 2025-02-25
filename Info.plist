@@ -154,7 +154,7 @@
 	<key>CFBundleExecutable</key>
 	<string>SIDPLAY</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Version 5.1, Copyright 2022-2025 Alexander Coers</string>
+	<string>Version 5.1 (ASID), Copyright 2022-2025 Alexander Coers</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
