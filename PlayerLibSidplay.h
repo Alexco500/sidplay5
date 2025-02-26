@@ -5,6 +5,7 @@
 
 #include <vector>
 #include "AudioDriver.h"
+#include "PlaybackSettings.h"
 
 class sidplayfp;
 class ReSIDfpBuilder;
@@ -16,50 +17,12 @@ class HardSIDSBBuilder;
 #endif
 typedef int_fast64_t event_clock_t;
 
-enum SPFilterType
-{
-	SID_FILTER_6581_Resid = 0,
-	SID_FILTER_6581R3,
-	SID_FILTER_6581_Galway,
-	SID_FILTER_6581R4,
-	SID_FILTER_8580,
-	SID_FILTER_CUSTOM
-};
-
 // for PopupSIDSelector
 enum SIDmodelsGUI
 {
     M_UNKNOWN = 0,
     M_6581,
     M_8580
-};
-
-struct PlaybackSettings
-{
-	int				mFrequency;
-	int				mBits;
-	int				mStereo;
-
-	int				mOversampling;
-	int				mSidModel;
-	bool			mForceSidModel;
-	int				mClockSpeed;
-	int				mOptimization;
-	
-	float			mFilterKinkiness;
-	float			mFilterBaseLevel;
-	float			mFilterOffset;
-	float			mFilterSteepness;
-	float			mFilterRolloff;
-	SPFilterType	mFilterType;
-	
-	int				mEnableFilterDistortion;
-	int				mDistortionRate;
-	int				mDistortionHeadroom;
-    // manual override
-    bool            SIDselectorOverrideActive;
-    int             SIDselectorOverrideModel;
-	
 };
 
 struct SidRegisterFrame

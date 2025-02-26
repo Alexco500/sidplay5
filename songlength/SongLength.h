@@ -17,29 +17,23 @@
 #ifndef XSIDPLAY_SONGLENGTH_H
 #define XSIDPLAY_SONGLENGTH_H
 
-class SidTuneWrapper;
-    
-#include "File.h"
+#include "SidTuneWrapper.h"
+#include "Item.h"
 
-class SongLength
+@interface SongLength : NSObject
 {
- public:
-    static bool init(const char* fileName);
-    static bool init(char* databaseBuffer, int databaseSize);
-
-    static bool getItem(SidTuneWrapper*, int songNum, SongLengthDBitem& item);
-    static bool getItem(const char*, const char*, int songNum, SongLengthDBitem& item);
-    static bool isAvailable();
-    static const char* getErrorStr();
-    static bool getStatus();
     
- protected:
-    static SongLengthFile db;  // the database
-    static bool initStatus;
-    
- private:
-    SongLength();
-    ~SongLength();
-};
+}
 
+- (id) initWithFile:(const char*) fileName;
+- (id) initWithDB:(char*) databaseBuffer andSize:(int) databaseSize;
+    
+-(BOOL) getItem:(SidTuneWrapper*) pSidLoader number:(int) songNum item:(struct SongLengthDBitem *) item;
+-(BOOL) getItem:(const char*) rootPath file:(const char*) fileName song:(int) songNum item:(struct SongLengthDBitem*) item;
+-(BOOL) isAvailable;
+- (const char*) getErrorStr;
+- (BOOL) getStatus;
+
+
+@end
 #endif  /* XSIDPLAY_SONGLENGTH_H */

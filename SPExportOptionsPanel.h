@@ -26,7 +26,7 @@
 	IBOutlet NSButton* useCompressionButton;
 	
 	SPExportController* exportController;
-	ExportSettings exportSettings;
+	ExportSettings* exportSettings;
 }
 
 @property (NS_NONATOMIC_IOSONLY, strong) SPExportController *exportController;
@@ -35,7 +35,7 @@
 - (void) updateFileSizeTextField;
 - (void) updateFileListTextView:(NSArray*)exportItems;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) ExportSettings exportSettings;
+@property (NS_NONATOMIC_IOSONLY, readonly) ExportSettings* exportSettings;
 
 - (IBAction) clickTimeStepper:(id)sender;
 - (IBAction) timeChanged:(id)sender;

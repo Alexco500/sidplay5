@@ -17,6 +17,7 @@
 #ifndef SONGLENGTHDB_ITEM_H
 #define SONGLENGTHDB_ITEM_H
 
+/*
 class SongLengthDBitem
 {
  public:
@@ -28,6 +29,11 @@ class SongLengthDBitem
 	{
 		playtime = 0;
 	}
+};
+ */
+struct SongLengthDBitem
+{
+    int playtime;
 };
 
 #endif  /* SONGLENGTHDB_ITEM_H */
