@@ -4,11 +4,11 @@
         <title>SIDPLAY</title>
         <item>
             <title>5.1.0</title>
-            <pubDate>Thu, 14 Nov 2024 16:22:11 +0100</pubDate>
-            <sparkle:version>95</sparkle:version>
+            <pubDate>Mon, 24 Mar 2025 11:44:40 +0100</pubDate>
+            <sparkle:version>125</sparkle:version>
             <sparkle:shortVersionString>5.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
-            <sparkle:releaseNotesLink>https://github.com/Alexco500/sidplay5/releases/tag/v5.1.0_95</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink>https://github.com/Alexco500/sidplay5/releases/tag/v5.1.0_111</sparkle:releaseNotesLink>
             <link>https://github.com/Alexco500/sidplay5/releases</link>
         </item>
     </channel>
