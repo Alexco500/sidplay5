@@ -371,7 +371,10 @@ static inline float approximate_dac(int x, float kinkiness)
     mBuilder_reSID->filter(true);
     mBuilder_reSID->bias(bias);
     
-    mBuilder->filter(false);
+    mBuilder->filter(true);
+    mBuilder->filter6581Range(0.5f);
+    mBuilder->filter6581Curve(0.3f);
+    mBuilder->filter8580Curve(0.3f);
     //    mBuilder->filter(&mFilterSettings);
     //    mBuilder->sampling(cfg.frequency);
     if (mExtUSBDeviceActive)
