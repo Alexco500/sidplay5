@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -925,7 +925,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="333" y="173" width="1269" height="633"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="940" height="450"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="1269" height="633"/>
@@ -998,7 +998,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="uZp-yr-OUR">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="23" indentationPerLevel="14" outlineTableColumn="475" id="473" customClass="SPSourceListView">
                                                     <rect key="frame" x="0.0" y="0.0" width="500" height="604"/>
@@ -1052,7 +1052,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="Lau-qN-6GF">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="590"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="SidPlayBrowser" rowHeight="15" headerView="460" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="461" id="459" customClass="SPBrowserView">
                                                     <rect key="frame" x="0.0" y="0.0" width="832" height="567"/>
@@ -1172,7 +1172,6 @@
                                                         <outlet property="dataSource" destination="501" id="502"/>
                                                         <outlet property="delegate" destination="501" id="503"/>
                                                         <outlet property="playlistContextMenu" destination="1126" id="1134"/>
-                                                        <outlet property="sharedCollectionContextMenu" destination="2130" id="2142"/>
                                                         <outlet property="smartPlaylistContextMenu" destination="2055" id="2078"/>
                                                         <outlet property="spotlightResultContextMenu" destination="2026" id="2040"/>
                                                     </connections>
@@ -1500,7 +1499,7 @@
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="172" y="829" width="506" height="63"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="131" height="63"/>
             <value key="maxSize" type="size" width="506" height="63"/>
             <view key="contentView" id="1889">
@@ -1677,7 +1676,7 @@
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="645" y="539" width="389" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="389" height="144"/>
             <value key="maxSize" type="size" width="389" height="800"/>
             <view key="contentView" id="847">
@@ -1782,7 +1781,7 @@
             <windowStyleMask key="styleMask" titled="YES" documentModal="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="383" width="642" height="127"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="869">
                 <rect key="frame" x="0.0" y="0.0" width="642" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2110,7 +2109,6 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        
         <menu title="Playlist Context Menu" id="1126">
             <items>
                 <menuItem title="Show In Finder" id="1129">
@@ -2421,7 +2419,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" documentModal="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="683" y="656" width="415" height="124"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1211">
                 <rect key="frame" x="0.0" y="0.0" width="415" height="124"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2501,7 +2499,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="323" width="466" height="210"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1240">
                 <rect key="frame" x="0.0" y="0.0" width="466" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2618,7 +2616,7 @@ DQ
                         <rect key="frame" x="114" y="136" width="101" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="1 (default)" bezelStyle="rounded" alignment="left" lineBreakMode="charWrapping" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="2169" id="2161">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" title="OtherViews" id="2162">
                                 <items>
                                     <menuItem title="1 (default)" state="on" id="2169">
@@ -2707,7 +2705,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="361" y="485" width="522" height="317"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="522" height="276"/>
             <view key="contentView" id="1446">
                 <rect key="frame" x="0.0" y="0.0" width="522" height="317"/>
@@ -2861,7 +2859,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="218" y="406" width="492" height="306"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1277">
                 <rect key="frame" x="0.0" y="0.0" width="492" height="306"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2947,7 +2945,7 @@ DQ
                         <rect key="frame" x="105" y="144" width="161" height="27"/>
                         <popUpButtonCell key="cell" type="push" title="128 kbps" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="128" inset="2" selectedItem="1305" id="1297">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" title="OtherViews" id="1298">
                                 <items>
                                     <menuItem title="64 kbps" tag="64" id="1299"/>
@@ -3065,7 +3063,7 @@ http://lame.sourceforge.net/</string>
                         <rect key="frame" x="115" y="234" width="101" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="1 (default)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="2175" id="2173">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" title="OtherViews" id="2174">
                                 <items>
                                     <menuItem title="1 (default)" state="on" id="2175">
@@ -3181,7 +3179,7 @@ http://lame.sourceforge.net/</string>
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="121" width="516" height="389"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="516" height="369"/>
             <view key="contentView" id="1627">
                 <rect key="frame" x="0.0" y="0.0" width="516" height="389"/>
@@ -3226,7 +3224,7 @@ DQ
                         <rect key="frame" x="124" y="125" width="96" height="27"/>
                         <popUpButtonCell key="cell" type="push" title="128 kbps" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="128" inset="2" selectedItem="1656" id="1653">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" title="OtherViews" id="1654">
                                 <items>
                                     <menuItem title="64 kbps" tag="64" id="1660"/>
@@ -3456,7 +3454,7 @@ http://lame.sourceforge.net/</string>
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="325" width="545" height="185"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1760">
                 <rect key="frame" x="0.0" y="0.0" width="545" height="185"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3558,7 +3556,7 @@ http://psid64.sourceforge.net/</string>
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="180" width="545" height="330"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1798">
                 <rect key="frame" x="0.0" y="0.0" width="545" height="330"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3691,7 +3689,7 @@ http://psid64.sourceforge.net/</string>
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="60" y="458" width="338" height="463"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="338" height="200"/>
             <view key="contentView" id="1371">
                 <rect key="frame" x="0.0" y="0.0" width="338" height="463"/>
@@ -4060,7 +4058,7 @@ http://psid64.sourceforge.net/</string>
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="162" width="591" height="348"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="1961">
                 <rect key="frame" x="0.0" y="0.0" width="591" height="348"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -4162,7 +4160,7 @@ If you're new to Commodore 64 music, SIDPLAY can download the HVSC automatically
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="113" width="610" height="397"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <value key="minSize" type="size" width="516" height="369"/>
             <view key="contentView" id="2192">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="397"/>
@@ -4333,7 +4331,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="140" y="178" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
             <view key="contentView" id="6oN-ua-32c" customClass="SPBigOscilloscopeView">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -4344,10 +4342,10 @@ Gw
     </objects>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
-        <image name="NSGoLeftTemplate" width="12" height="16"/>
-        <image name="NSGoRightTemplate" width="12" height="16"/>
-        <image name="NSRevealFreestandingTemplate" width="19" height="19"/>
-        <image name="NSStopProgressFreestandingTemplate" width="19" height="19"/>
+        <image name="NSGoLeftTemplate" width="12" height="17"/>
+        <image name="NSGoRightTemplate" width="12" height="17"/>
+        <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
+        <image name="NSStopProgressFreestandingTemplate" width="20" height="20"/>
         <image name="SIDadd.plus" width="17" height="17"/>
         <image name="SIDallSubSongs" width="17" height="17"/>
         <image name="SIDchip.memorchip" width="128" height="128"/>
