@@ -1489,6 +1489,9 @@ ASID_MIDI *asidMIDI;
     }
     
     [statusDisplay prepareForQuit];
+    if ([self audioDriverIsPlaying]) {
+        [self audioDriverStopPlaying];
+    }
     
     return NSTerminateNow;
 }
