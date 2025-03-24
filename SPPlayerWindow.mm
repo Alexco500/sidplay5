@@ -1481,6 +1481,9 @@ AudioCoreDriverNew* audioDriver = nil;
     }
     
     [statusDisplay prepareForQuit];
+    if ([self audioDriverIsPlaying]) {
+        [self audioDriverStopPlaying];
+    }
     
     return NSTerminateNow;
 }
