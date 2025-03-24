@@ -179,7 +179,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>https://github.com/Alexco500/sidplay5/raw/main/sparkle/sidplay_appcast.xml</string>
+	<string>https://github.com/Alexco500/sidplay5/raw/main/sparkle/sidplay-asid_appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>FbmKVPIY+HMp5lOOBS3jHBkOBXe2016h8+054MjD+Qc=</string>
 </dict>
