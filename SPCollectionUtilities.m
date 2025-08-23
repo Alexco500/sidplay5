@@ -25,8 +25,6 @@ static SPCollectionUtilities* sharedInstance = nil;
     {
         rootPath = nil;
         
-        ryncMirrorListData = nil;
-        rsyncMirrorListUrlConnection = nil;
         rsyncMirrorList = [[NSMutableArray alloc] init];
     }
     return self;
@@ -220,69 +218,47 @@ static NSString* SPHvscRsyncMirrorsUrlString = @"http://www.sidmusic.org/hvsc_rs
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
     
-    rsyncMirrorListUrlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (rsyncMirrorListUrlConnection != nil)
-        ryncMirrorListData = [NSMutableData data];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
-{
-    if (ryncMirrorListData == nil)
-        return;
-    
-    ryncMirrorListData.length = 0;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-{
-    if (ryncMirrorListData == nil)
-        return;
-    
-    [ryncMirrorListData appendData:data];
-}
-
-// ----------------------------------------------------------------------------
-- (void) connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
-{
-    [rsyncMirrorList removeAllObjects];
-    if (rsyncMirrorListNotificationTarget != nil && rsyncMirrorListNotificationSelector != 0)
-        [rsyncMirrorListNotificationTarget performSelector:rsyncMirrorListNotificationSelector];
-}
-
-// ----------------------------------------------------------------------------
-- (void) connectionDidFinishLoading:(NSURLConnection*)connection
-{
-    if (ryncMirrorListData == nil)
-        return;
-    
-    NSString* rsyncMirrorsListString = [[NSString alloc] initWithData:ryncMirrorListData encoding:NSASCIIStringEncoding];
-    
-    if (rsyncMirrorsListString == nil)
-        return;
-    
-    NSArray* rsyncMirrors = [rsyncMirrorsListString componentsSeparatedByString:@"\n"];
-    
-    [rsyncMirrorList removeAllObjects];
-    
-    for (NSString* rsyncMirror in rsyncMirrors)
-    {
-        if (rsyncMirror.length == 0 || [rsyncMirror characterAtIndex:0] == '#')
-            continue;
+    NSURLSessionDataTask* dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* data, NSURLResponse* response, NSError* error) {
+        if (error != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->rsyncMirrorList removeAllObjects];
+                if (self->rsyncMirrorListNotificationTarget != nil && self->rsyncMirrorListNotificationSelector != 0)
+                    [self->rsyncMirrorListNotificationTarget performSelector:self->rsyncMirrorListNotificationSelector];
+            });
+            return;
+        }
         
-        [rsyncMirrorList addObject:rsyncMirror];
-    }
-    // add a fixd mirror
-    [rsyncMirrorList addObject:@"rsync://mos6581.de/mirror/hvsc"];
-    ryncMirrorListData = nil;
-    rsyncMirrorListUrlConnection = nil;
+        if (data == nil)
+            return;
+            
+        NSString* rsyncMirrorsListString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        
+        if (rsyncMirrorsListString == nil)
+            return;
+        
+        NSArray* rsyncMirrors = [rsyncMirrorsListString componentsSeparatedByString:@"\n"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->rsyncMirrorList removeAllObjects];
+            
+            for (NSString* rsyncMirror in rsyncMirrors)
+            {
+                if (rsyncMirror.length == 0 || [rsyncMirror characterAtIndex:0] == '#')
+                    continue;
+                
+                [self->rsyncMirrorList addObject:rsyncMirror];
+            }
+            // add a fixed mirror
+            [self->rsyncMirrorList addObject:@"rsync://mos6581.de/mirror/hvsc"];
+            
+            if (self->rsyncMirrorListNotificationTarget != nil && self->rsyncMirrorListNotificationSelector != 0)
+                [self->rsyncMirrorListNotificationTarget performSelector:self->rsyncMirrorListNotificationSelector];
+        });
+    }];
     
-    if (rsyncMirrorListNotificationTarget != nil && rsyncMirrorListNotificationSelector != 0)
-        [rsyncMirrorListNotificationTarget performSelector:rsyncMirrorListNotificationSelector];
+    [dataTask resume];
 }
+
 
 @end
 
