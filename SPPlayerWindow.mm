@@ -181,6 +181,7 @@ ASID_MIDI *asidMIDI;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
     
     urlDownloadSubtuneIndex = subtuneIndex;
+    urlDownloadData = [NSMutableData data];
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
@@ -195,7 +196,9 @@ ASID_MIDI *asidMIDI;
             NSLog(@"Error: %@", error.localizedDescription);
         } else {
             [self->urlDownloadData appendData:data];
-            [self connectionDidFinishLoading];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self connectionDidFinishLoading];
+            });
         }
     }];
     
