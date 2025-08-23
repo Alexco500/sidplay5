@@ -46,11 +46,6 @@ enum SPSyncInterval
     BOOL                mSyncAutomatically;
     NSDate*                mLastSyncTime;
     enum SPSyncInterval    mSyncInterval;
-    BOOL                mSearchForSharedCollections;
-    BOOL                mPublishSharedCollection;
-    NSString*            mSharedCollectionPath;
-    BOOL                mShareAllPlaylists;
-    NSMutableArray*        mSharedPlaylists;
     int                    mUpdateRevision;
     struct PlaybackSettings    mPlaybackSettings;
     struct PlaybackSettings    mCustomFilterSettings;
@@ -77,11 +72,6 @@ enum SPSyncInterval
 @property	BOOL				mSyncAutomatically;
 @property	NSDate*				mLastSyncTime;
 @property	enum SPSyncInterval	mSyncInterval;
-@property	BOOL				mSearchForSharedCollections;
-@property	BOOL				mPublishSharedCollection;
-@property	NSString*			mSharedCollectionPath;
-@property	BOOL				mShareAllPlaylists;
-@property	NSMutableArray*		mSharedPlaylists;
 @property	int					mUpdateRevision;
 - (void)    initializeDefaults;
 - (void)    resetFilterDefaults;
@@ -117,7 +107,6 @@ enum SPPreferencePane
     PREFS_GENERAL = 0,
     PREFS_PLAYBACK,
     PREFS_SYNC,
-    PREFS_SHARING,
     
     NUM_PREF_PANES
 };
@@ -131,7 +120,6 @@ enum SPPreferencePane
     
     NSTask* rebuildSpotlightTask;
     
-    BOOL sharedPlaylistsChanged;
     
     IBOutlet NSToolbar* prefsToolbar;
     IBOutlet NSToolbarItem* defaultPrefsPaneItem;
@@ -139,7 +127,6 @@ enum SPPreferencePane
     IBOutlet NSView* generalPreferencePane;
     IBOutlet NSView* playbackPreferencePane;
     IBOutlet NSView* syncPreferencePane;
-    IBOutlet NSView* sharingPreferencePane;
     
     // general pref pane
     IBOutlet NSProgressIndicator* rebuiltSpotlightProgressIndicator;
@@ -160,12 +147,6 @@ enum SPPreferencePane
     IBOutlet NSPopUpButton* autoSyncIntervalPopup;
     IBOutlet NSPopUpButton* syncUrlPopup;
     
-    // sharing pref pane
-    IBOutlet NSButton* searchForSharedCollectionsButton;
-    IBOutlet NSButton* publishSharedCollectionButton;
-    IBOutlet NSPopUpButton* sharedCollectionsPopup;
-    IBOutlet NSMatrix* playlistSharingRadioButton;
-    IBOutlet NSTableView* sharedPlaylistsTableView;
 }
 
 - (void) setOwnerWindow:(SPPlayerWindow*)window;
@@ -193,20 +174,9 @@ enum SPPreferencePane
 - (IBAction) clickAutoSyncButton:(id)sender;
 - (IBAction) selectAutoSyncInterval:(id)sender;
 
-- (void) fillSharedCollectionsPopup;
-- (IBAction) selectCollectionToShare:(id)sender;
-- (IBAction) clickSearchForSharedCollectionsButton:(id)sender;
-- (IBAction) clickPublishSharedCollectionButton:(id)sender;
-- (IBAction) clickShareAllPlaylistsRadioButton:(id)sender;
 
 @end
 
 
-@interface SPSharedPlaylistsTableView : NSTableView
-{
-    
-}
-
-@end;
 
 

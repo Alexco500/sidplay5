@@ -175,28 +175,6 @@
 }
 
 
-// ----------------------------------------------------------------------------
-+ (SPSimplePlaylist*) playlistFromSharedSmartPlaylistData:(NSData*)data
-// ----------------------------------------------------------------------------
-{
-	// Shared smart playlist data is just a list of relative path strings
-	
-	NSString* playlistString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSArray* playlistPaths = [playlistString componentsSeparatedByString:@"\n"];
-
-	SPSimplePlaylist* playlist = [[SPSimplePlaylist alloc] init];
-	
-	for (NSString* playlistPath in playlistPaths)
-	{
-		if (playlistPath.length > 1)
-		{
-			SPPlaylistItem* item = [[SPPlaylistItem alloc] initWithPath:playlistPath andSubtuneIndex:0 andLoopCount:1];
-			[playlist addItem:item];
-		}
-	}
-	
-	return playlist;
-}
 
 // ----------------------------------------------------------------------------
 + (SPSimplePlaylist*) playlistFromFile:(NSString*)path

@@ -6,18 +6,16 @@
 @class SPBrowserDataSource;
 @class SPPlaylist;
 @class SPSmartPlaylist;
-@class HTTPServer;
 
 extern NSString* SPSourceListCollectionItemPBoardType;
 
 
-@interface SPSourceListDataSource : NSObject <NSNetServiceBrowserDelegate>
+@interface SPSourceListDataSource : NSObject
 {
 	IBOutlet NSTableColumn *tableColumn;
 	
 	NSMutableArray* rootItems;
 	SPSourceListItem* collectionsContainerItem;
-	SPSourceListItem* sharedCollectionsContainerItem;
 	SPSourceListItem* playlistsContainerItem;
 	SPSourceListItem* tasksContainerItem;
 	
@@ -26,10 +24,6 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 	volatile BOOL rsyncMirrorsListDownloaded;
 	NSArray* draggedItems;
 	
-	HTTPServer* httpServer;
-	NSNetServiceBrowser* serviceBrowser;
-	NSNetService* currentSharedCollectionService;
-	NSNetService* serviceBeingResolved;
 	NSInteger updateRevision;
 	
 	IBOutlet SPSourceListView* sourceListView;
@@ -53,7 +47,6 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (void) initSourceListItems;
 - (SPSourceListItem*) addHeaderItemWithName:(NSString*)name atIndex:(NSInteger)index;
 - (SPSourceListItem*) addCollectionItemForPath:(NSString*)path atIndex:(NSInteger)index withImage:(NSImage*)image;
-- (SPSourceListItem*) addSharedCollectionItemForService:(NSNetService*)service atIndex:(NSInteger)index;
 - (SPSourceListItem*) addPlaylistItemForPath:(NSString*)path toContainerItem:(SPSourceListItem*)containerItem atIndex:(NSInteger)index withPlaylist:(SPPlaylist*)playlist isSmart:(BOOL)isSmartPlaylist;
 + (SPSourceListItem*) addSourceListItemToItem:(SPSourceListItem*)containerItem atIndex:(NSInteger)index forPath:(NSString*)path withName:(NSString*)name withImage:(NSImage*)image;
 + (SPSourceListItem*) addSourceListItemToItem:(SPSourceListItem*)containerItem atIndex:(NSInteger)index forPath:(NSString*)path withName:(NSString*)name;
@@ -87,15 +80,6 @@ extern NSString* SPSourceListCollectionItemPBoardType;
 - (void) addSavedSearchSmartPlaylist:(SPSmartPlaylist*)smartPlaylist;
 - (void) addSongToPlaylist:(NSString *)song withSubtune:(int) subtune;
 
-//- (NSNetService*) currentSharedCollectionService;
-//- (void) setCurrentSharedCollectionService:(NSNetService*)service;
-//- (void) publishSharedCollectionWithPath:(NSString*)collectionPath;
-//- (void) publishSharedCollection:(SPSourceListItem*) collectionItem;
-//- (void) searchForSharedCollections:(BOOL)enableSearching;
-//- (void) sharedPlaylistsIndexDownloaded:(NSNotification *)notification;
-//- (NSInteger) updateRevision;
-//- (void) bumpUpdateRevision;
-//- (void) checkForRemoteUpdateRevisionChange;
 
 - (IBAction) removeSelectedSourceListItem:(id)sender;
 

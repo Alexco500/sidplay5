@@ -275,14 +275,6 @@ static SPStilBrowserController* sharedInstance = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) displaySharedCollectionMessage
-{
-    NSDictionary* defaultAttributes = @{NSFontAttributeName: [NSFont fontWithName:@"Monaco" size:9.0f]};
-    NSMutableAttributedString* attributedMessageString = [[NSMutableAttributedString alloc] initWithString:@"No STIL information for shared collection files" attributes:defaultAttributes];
-    [textView.textStorage setAttributedString:attributedMessageString];
-    lastResult = attributedMessageString;
-}
 
 // ----------------------------------------------------------------------------
 - (NSSearchField*) searchField

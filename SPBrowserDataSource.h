@@ -27,12 +27,9 @@ enum ColumnType
 enum BrowserMode
 {
 	BROWSER_MODE_COLLECTION = 0,
-	BROWSER_MODE_SHARED_COLLECTION,
 	BROWSER_MODE_SPOTLIGHT_RESULT,
 	BROWSER_MODE_PLAYLIST,
 	BROWSER_MODE_SMART_PLAYLIST,
-	BROWSER_MODE_SHARED_PLAYLIST,
-	BROWSER_MODE_SHARED_SMART_PLAYLIST,
     BROWSER_MODE_DRAGGED_FILELIST
 };
 
@@ -43,7 +40,6 @@ enum BrowserMode
 	IBOutlet NSMenu* playlistContextMenu;
 	IBOutlet NSMenu* smartPlaylistContextMenu;
 	IBOutlet NSMenu* spotlightResultContextMenu;
-	IBOutlet NSMenu* sharedCollectionContextMenu;
 }
 
 - (void) awakeFromNib;
@@ -66,11 +62,6 @@ enum BrowserMode
 	SPPlaylist* playlist;
 	enum BrowserMode browserMode;
 	
-	NSString* currentSharedCollection;
-	NSString* currentSharedCollectionRoot;
-	NSString* currentSharedCollectionName;
-    NSMutableData* indexData;
-    NSURLConnection* indexDownloadConnection;
 	
 	NSArray* draggedItems;
 	NSMutableArray* unfilteredPlaylistItems;
@@ -115,13 +106,10 @@ enum BrowserMode
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) SPPlaylist *playlist;
 - (void) switchToPlaylist:(SPPlaylist*)thePlaylist;
-- (void) switchToSharedPlaylist:(SPPlaylist*)thePlaylist withService:(NSNetService*)service isSmartPlaylist:(BOOL)smartPlaylist;
 
 - (void) setPlaylistModeBrowserColumns:(BOOL)playlistMode;
 - (void) enableSmartPlaylistEditor:(BOOL)enable;
 
-- (void) switchToSharedCollectionURL:(NSString*)urlString withServiceName:(NSString*)serviceName;
-- (void) setSharedCollectionRootPath:(NSString*)urlString withServiceName:(NSString*)serviceName;
 
 @property (NS_NONATOMIC_IOSONLY, copy) NSString *rootPath;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *currentPath;
@@ -156,9 +144,6 @@ enum BrowserMode
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *toolbarSearchField;
 @property (NS_NONATOMIC_IOSONLY, getter=isSmartPlaylist, readonly) BOOL smartPlaylist;
 @property (NS_NONATOMIC_IOSONLY, getter=isSpotlightResult, readonly) BOOL spotlightResult;
-@property (NS_NONATOMIC_IOSONLY, getter=isSharedCollection, readonly) BOOL sharedCollection;
-@property (NS_NONATOMIC_IOSONLY, getter=isSharedPlaylist, readonly) BOOL sharedPlaylist;
-@property (NS_NONATOMIC_IOSONLY, getter=isSharedSmartPlaylist, readonly) BOOL sharedSmartPlaylist;
 @property (NS_NONATOMIC_IOSONLY) enum BrowserMode browserMode;
 
 - (IBAction) clickNavigateControl:(id)sender;
