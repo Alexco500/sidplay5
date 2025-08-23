@@ -1,6 +1,5 @@
 #import "SPBrowserDataSource.h"
 #import "SPBrowserItem.h"
-#import "SPHttpBrowserItem.h"
 #import "SPPlayerWindow.h"
 #import "SongLengthDatabase.h"
 #import "SPCollectionUtilities.h"
@@ -44,9 +43,6 @@ NSDate* fillStart = nil;
         currentShuffleIndex = 0;
 		playlist = nil;
 		browserMode = BROWSER_MODE_COLLECTION;
-		currentSharedCollection = nil;
-		currentSharedCollectionRoot = nil;
-		currentSharedCollectionName = nil;
 		
 		spotlightSearchTypeSubViewVisible = NO;
 		limitSpotlightScopeToCurrentFolder = NO;
@@ -58,8 +54,7 @@ NSDate* fillStart = nil;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchQueryNotification:) name:nil object:searchQuery];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(smartPlaylistUpdatedNotification:) name:SPSmartPlaylistChangedNotification object:nil];
 
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(httpBrowserItemInfoDownloaded:) name:SPHttpBrowserItemInfoDownloadedNotification object:nil];	
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(httpBrowserItemIndexDownloaded:) name:SPHttpBrowserItemIndexDownloadedNotification object:nil];	
+	
 		
 		rootPath = nil;
 	}
@@ -123,8 +118,6 @@ NSDate* fillStart = nil;
 	if (currentItem == nil)
 		return;
 
-	if ([self isSharedCollection])
-		return;
 	
 	NSInteger loopCount = [currentItem loopCount];
 	BOOL loopsForever = (loopCount == 0);
@@ -254,7 +247,6 @@ NSDate* fillStart = nil;
 	[self stopSearchAndClearSearchString];
 	[rootItems removeAllObjects];
 
-	currentSharedCollection = nil;
 	[self setBrowserMode:isSmartPlaylist ? BROWSER_MODE_SMART_PLAYLIST : BROWSER_MODE_PLAYLIST];
     // disable or enable AddSongMenu item
     if ([self browserMode] == BROWSER_MODE_PLAYLIST)
@@ -281,53 +273,6 @@ NSDate* fillStart = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) switchToSharedPlaylist:(SPPlaylist*)thePlaylist withService:(NSNetService*)service isSmartPlaylist:(BOOL)smartPlaylist
-// ----------------------------------------------------------------------------
-{
-    BOOL inNormalBrowserMode = (browserMode == BROWSER_MODE_COLLECTION);
-	
-	playlist = thePlaylist;
-	if (playlist == nil)
-		return;
-	
-	BOOL isSmartPlaylist = smartPlaylist;
-	
-	[self setInProgress:YES];
-    if (inNormalBrowserMode)
-        [self saveBrowserState];
-	[self stopSearchAndClearSearchString];
-    
-    if (browserMode == BROWSER_MODE_SHARED_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST || browserMode == BROWSER_MODE_SHARED_COLLECTION)
-    {
-        for (SPHttpBrowserItem* item in rootItems)
-            [item cancelDownload];
-    }
-    
-	[rootItems removeAllObjects];
-	
-	currentSharedCollection = nil;
-	currentSharedCollectionName = [service name];
-	[self setBrowserMode:isSmartPlaylist ? BROWSER_MODE_SHARED_SMART_PLAYLIST : BROWSER_MODE_SHARED_PLAYLIST];
-	
-	NSString* host = [service hostName];
-	NSInteger port = [service port];
-	NSString* urlString = nil;
-	if (port != -1)
-		urlString = [NSString stringWithFormat:@"http://%@:%ld", host, (long)port];
-	
-    fillStart = [NSDate date];
-    
-	[SPHttpBrowserItem fillArray:rootItems withSharedPlaylist:playlist fromUrl:urlString];
-	
-	[browserView reloadData];
-	[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-    [browserView scrollRowToVisible:0];
-	
-	[self updatePathControlForPlaylistMode:NO];
-	[self clearBrowseHistory];
-	[self setInProgress:NO];
-}
 
 
 // ----------------------------------------------------------------------------
@@ -438,132 +383,8 @@ NSDate* fillStart = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) switchToSharedCollectionURL:(NSString*)urlString withServiceName:(NSString*)serviceName
-// ----------------------------------------------------------------------------
-{
-	if (urlString == nil)
-		return;
-	
-	[self setBrowserMode:BROWSER_MODE_SHARED_COLLECTION];
-
-	if (currentSharedCollection == nil)
-	{
-		[self clearBrowseHistory];
-		currentSharedCollectionRoot = urlString;
-	}
-
-	currentSharedCollection = urlString;
-	
-	if (serviceName != nil)
-		currentSharedCollectionName = serviceName;
-	
-	[self setInProgress:YES];
-	[self stopSearchAndClearSearchString];
-	
-	currentPath = nil;
-	playlist = nil;
-	[rootItems removeAllObjects];
-
-	NSURL* url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
-    indexData = [NSMutableData data];
-     /*
-     // moved from NSURLConnection to NSURLSession, according to
-     // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
-      */
-     NSURLSession* databaseDownloadSession = [NSURLSession sharedSession];
-     NSURLSessionDataTask *dwnTask = [databaseDownloadSession dataTaskWithRequest:request
-                                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-         if (error) {
-             NSLog(@"Error: %@", error.localizedDescription);
-         } else {
-             [self->indexData appendData:data];
-             [self connectionDidFinishLoading];
-         }
-     }];
-     
-     [dwnTask resume];
-  
-	//NSLog(@"Downloading index of shared collection dir at: %@\n", urlString);
-}
 
 
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading
-// ----------------------------------------------------------------------------
-{
-    NSString* indexDataString = [[NSString alloc] initWithData:indexData encoding:NSUTF8StringEncoding];
-    if (indexData == nil)
-        return;
-	
-    NSArray* indexDataItems = [indexDataString componentsSeparatedByString:@"\n"];
-    
-    [SPHttpBrowserItem fillArray:rootItems withIndexDataItems:indexDataItems fromUrl:currentSharedCollection andParent:nil];
-	
-	[rootItems sortUsingDescriptors:[browserView sortDescriptors]];
-	[browserView reloadData];
-	[browserView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-	[browserView scrollRowToVisible:0];
-	
-	NSString* relativeUrlString = [[NSURL URLWithString:currentSharedCollection] relativePath];
-    NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-	NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/%@", escapedCollectionName, relativeUrlString];
-	//NSLog(@"%@ %@ %@ %@\n", currentSharedCollection, relativeUrlString, escapedCollectionName, pathControlUrlString);
-	[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
-	
-	NSImage* folderIcon = [[NSWorkspace sharedWorkspace] iconForFile:@"/bin"];
-	NSArray* pathComponentCells = [pathControl pathComponentCells];
-	for (int i = 1; i < [pathComponentCells count]; i++)
-	{
-		NSPathComponentCell* componentCell = [pathComponentCells objectAtIndex:i];
-		[componentCell setImage:(i > 1) ? folderIcon : [SPSourceListItem sharedCollectionIcon]];
-	}
-	
-	[self setInProgress:NO];
-
-	indexData = nil;
-	indexDownloadConnection = nil;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) httpBrowserItemInfoDownloaded:(NSNotification *)notification
-// ----------------------------------------------------------------------------
-{
-	SPHttpBrowserItem* item = (SPHttpBrowserItem*) [notification object];
-	[browserView reloadItem:item];
-    
-    bool allValid = true;
-    for (SPHttpBrowserItem* checkItem in rootItems)
-    {
-        if (![checkItem isValid])
-        {
-            //NSLog(@"item %@ not valid: %@\n", checkItem, [checkItem path]);
-            allValid = false;
-            break;
-        }
-    }
-    
-    if (allValid)
-    {
-        //NSDate* fillEnd = [NSDate date];
-        //NSLog(@"Filling took %f seconds\n", [fillEnd timeIntervalSinceDate:fillStart]);
-    }
-    
-    
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) httpBrowserItemIndexDownloaded:(NSNotification *)notification
-// ----------------------------------------------------------------------------
-{
-	//SPHttpBrowserItem* item = (SPHttpBrowserItem*) [notification object];
-	[browserView reloadData];
-}
 
 
 // ----------------------------------------------------------------------------
@@ -594,24 +415,6 @@ NSDate* fillStart = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) setSharedCollectionRootPath:(NSString*)urlString withServiceName:(NSString*)serviceName
-// ----------------------------------------------------------------------------
-{
-	BOOL rootPathChanged = ![rootPath isEqualToString:urlString];
-	rootPath = urlString;
-	playlist = nil;
-	
-	if (rootPathChanged)
-	{
-		SongLengthDatabase* database = [[SongLengthDatabase alloc] initWithRootUrlString:rootPath];
-		[SongLengthDatabase setSharedInstance:database];
-		//[[SPCollectionUtilities sharedInstance] setRootPath:rootPath];
-	}
-	
-	[self switchToSharedCollectionURL:urlString withServiceName:serviceName];
-	[self clearBrowseHistory];
-}
 
 
 // ----------------------------------------------------------------------------
@@ -630,7 +433,7 @@ NSDate* fillStart = nil;
 - (void) browseToPath:(NSString*)path
 // ----------------------------------------------------------------------------
 {
-	NSString* previousPath = (browserMode == BROWSER_MODE_SHARED_COLLECTION) ? currentSharedCollection : currentPath;
+	NSString* previousPath = currentPath;
 	
 	if ([browseHistory count] == 0)
 	{
@@ -650,10 +453,7 @@ NSDate* fillStart = nil;
 
 	//NSLog(@"browse to %@, history: %@, index: %d\n", path, browseHistory, browseHistoryIndex);
 
-	if (browserMode != BROWSER_MODE_SHARED_COLLECTION)
-		[self switchToPath:path];
-	else
-		[self switchToSharedCollectionURL:path withServiceName:nil];
+	[self switchToPath:path];
 }
 
 
@@ -664,7 +464,6 @@ NSDate* fillStart = nil;
 	[self setInProgress:YES];
 	[self stopSearchAndClearSearchString];
 	
-	currentSharedCollection = nil;
 	[self setBrowserMode:BROWSER_MODE_COLLECTION];
 
 	currentPath = path;
@@ -712,10 +511,7 @@ NSDate* fillStart = nil;
 	if (browseHistoryIndex > 0)
 	{
 		browseHistoryIndex--;
-		if (browserMode != BROWSER_MODE_SHARED_COLLECTION)
-			[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
-		else
-			[self switchToSharedCollectionURL:[browseHistory objectAtIndex:browseHistoryIndex] withServiceName:nil];
+		[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
 		
 		if (browseHistoryIndex == 0)
 			[navigationControl setEnabled:NO forSegment:0];
@@ -737,10 +533,7 @@ NSDate* fillStart = nil;
 	if (browseHistoryIndex < ([browseHistory count] - 1))
 	{
 		browseHistoryIndex++;
-		if (browserMode != BROWSER_MODE_SHARED_COLLECTION)
-			[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
-		else
-			[self switchToSharedCollectionURL:[browseHistory objectAtIndex:browseHistoryIndex] withServiceName:nil];
+		[self switchToPath:[browseHistory objectAtIndex:browseHistoryIndex]];
 		
 		if (browseHistoryIndex == ([browseHistory count] - 1))
 		{
@@ -772,31 +565,15 @@ NSDate* fillStart = nil;
 // ----------------------------------------------------------------------------
 {
 	NSString* escapedPlaylistName = [[playlist name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-	if (browserMode == BROWSER_MODE_SHARED_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST)
-	{
-		BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST;
-		NSString* escapedCollectionName = [currentSharedCollectionName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-		NSString* pathControlUrlString = [NSString stringWithFormat:@"http://dummy/SHARED/%@/PLAYLISTS/%@%%20(%lu%%20songs)", escapedCollectionName, escapedPlaylistName, (unsigned long)[rootItems count]];
+	BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SMART_PLAYLIST;
 
-		[pathControl setURL:[NSURL URLWithString:pathControlUrlString]];
-
-		NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:1];
-		[componentCell setImage:[SPSourceListItem sharedCollectionIcon]];
-		componentCell = [[pathControl pathComponentCells] objectAtIndex:3];
-		[componentCell setImage:isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon]];
-	}
+	if (isCaching)
+		[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(caching%%2c%%20please%%20wait%%2e%%2e%%2e)", escapedPlaylistName]]];
 	else
-	{
-		BOOL isSmartPlaylist = browserMode == BROWSER_MODE_SMART_PLAYLIST;
+		[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(%lu%%20songs)", escapedPlaylistName, (unsigned long)[rootItems count]]]];
 
-		if (isCaching)
-			[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(caching%%2c%%20please%%20wait%%2e%%2e%%2e)", escapedPlaylistName]]];
-		else
-			[pathControl setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://dummy/PLAYLISTS/%@%%20(%lu%%20songs)", escapedPlaylistName, (unsigned long)[rootItems count]]]];
-
-		NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:1];
-		[componentCell setImage:isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon]];
-	}
+	NSPathComponentCell* componentCell = [[pathControl pathComponentCells] objectAtIndex:1];
+	[componentCell setImage:isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon]];
 }
 
 
@@ -828,27 +605,10 @@ NSDate* fillStart = nil;
 	NSPathComponentCell* cell = [sender clickedPathComponentCell];
 	NSString* path = [[cell URL] relativePath];
 	
-	if (browserMode == BROWSER_MODE_SHARED_COLLECTION)
-	{
-		NSMutableArray* pathComponents = [[path pathComponents] mutableCopy];
-		// strip away any leading http URL stuff
-		[pathComponents removeObjectsInRange:NSMakeRange(0, 3)];
-		NSString* relativePath = [NSString pathWithComponents:pathComponents];
-		NSString* newURLString;
-		if ([relativePath length] == 0)
-			newURLString = currentSharedCollectionRoot;
-		else
-			newURLString = [NSString stringWithFormat:@"%@%@/", currentSharedCollectionRoot, relativePath];
-		//NSLog(@"url: %@\nrelativePath: %@\ncurrentSharedCollectionRoot: %@\nnewURLString: %@\n\n", [cell URL], relativePath, currentSharedCollectionRoot, newURLString);
-		[self browseToPath:newURLString];
-	}
-	else
-	{
-		if ([[path pathComponents] count] < [[rootPath pathComponents] count])
-			return;
-		
-		[self browseToPath:path];
-	}
+	if ([[path pathComponents] count] < [[rootPath pathComponents] count])
+		return;
+
+	[self browseToPath:path];
 }
 
 
@@ -858,12 +618,9 @@ NSDate* fillStart = nil;
 {
 	SPPlayerWindow* window = (SPPlayerWindow*) [browserView window];
     int subtune = 1;
-	if ([item class] == [SPHttpBrowserItem class])
-		[window playTuneAtURL:[item path] subtune:[item defaultSubTune]];
-	else
-        if (!gPreferences.mAllSubSongsActive)
-            subtune = [item defaultSubTune];
-		[window playTuneAtPath:[item path] subtune:subtune];
+    if (!gPreferences.mAllSubSongsActive)
+        subtune = [item defaultSubTune];
+	[window playTuneAtPath:[item path] subtune:subtune];
 
 	currentItem = item;
 }
@@ -1083,8 +840,8 @@ NSDate* fillStart = nil;
     
 	NSString* searchString = [sender stringValue];
 
-	if (browserMode == BROWSER_MODE_PLAYLIST || browserMode == BROWSER_MODE_SHARED_PLAYLIST || 
-		browserMode == BROWSER_MODE_SMART_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST)
+	if (browserMode == BROWSER_MODE_PLAYLIST || 
+		browserMode == BROWSER_MODE_SMART_PLAYLIST)
 	{
 		[self searchInPlaylist:searchString];
 		return;
@@ -1465,29 +1222,6 @@ NSDate* fillStart = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (BOOL) isSharedCollection
-// ----------------------------------------------------------------------------
-{
-	return browserMode == BROWSER_MODE_SHARED_COLLECTION;
-}
-
-
-// ----------------------------------------------------------------------------
-- (BOOL) isSharedPlaylist
-// ----------------------------------------------------------------------------
-{
-	return browserMode == BROWSER_MODE_SHARED_PLAYLIST;
-}
-
-
-// ----------------------------------------------------------------------------
-- (BOOL) isSharedSmartPlaylist
-// ----------------------------------------------------------------------------
-{
-	return browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST;
-}
-
 
 // ----------------------------------------------------------------------------
 - (enum BrowserMode) browserMode
@@ -1516,22 +1250,12 @@ NSDate* fillStart = nil;
 			[toolbarSearchField setEnabled:YES];
 			[tableColumns[COLUMN_TIME] setHidden:NO];
 			break;
-		case BROWSER_MODE_SHARED_COLLECTION:
-			[self setPlaylistModeBrowserColumns:NO];
-			[toolbarSearchField setEnabled:NO];
-			[tableColumns[COLUMN_TIME] setHidden:NO];
-			break;
 		case BROWSER_MODE_PLAYLIST:
 		case BROWSER_MODE_SMART_PLAYLIST:
 			[self setPlaylistModeBrowserColumns:YES];
 			[toolbarSearchField setEnabled:YES];
 			[tableColumns[COLUMN_TIME] setHidden:NO];
 			break;
-		case BROWSER_MODE_SHARED_PLAYLIST:
-		case BROWSER_MODE_SHARED_SMART_PLAYLIST:
-			[self setPlaylistModeBrowserColumns:YES];
-			[toolbarSearchField setEnabled:YES];
-			[tableColumns[COLUMN_TIME] setHidden:NO];
 	}
 }
 
@@ -1899,7 +1623,7 @@ NSDate* fillStart = nil;
 - (IBAction) deleteSelectedItems:(id)sender
 // ----------------------------------------------------------------------------
 {
-	if (browserMode == BROWSER_MODE_SMART_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST)
+	if (browserMode == BROWSER_MODE_SMART_PLAYLIST)
 		return;
 		
 	SPSimplePlaylist* simplePlaylist = (SPSimplePlaylist*) playlist;
@@ -2201,7 +1925,7 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	if (item == nil)
 		return;
 
-	if (browserMode == BROWSER_MODE_SMART_PLAYLIST || browserMode == BROWSER_MODE_SHARED_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST )
+	if (browserMode == BROWSER_MODE_SMART_PLAYLIST)
 		return;
 	
 	SPBrowserItem* browserItem = (SPBrowserItem*) item;
@@ -2330,7 +2054,7 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	if ([firstItem isFolder])
 		return NO;
 
-	if (browserMode == BROWSER_MODE_SHARED_COLLECTION || browserMode == BROWSER_MODE_SHARED_PLAYLIST || browserMode == BROWSER_MODE_SHARED_SMART_PLAYLIST)
+	if (false)
 		return NO;
 	
 	draggedItems = items;
@@ -2691,25 +2415,16 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 - (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend
 // ----------------------------------------------------------------------------
 {
-    SPBrowserDataSource* dataSource = (SPBrowserDataSource*)[self dataSource];
-
 	[super selectRowIndexes:indexes byExtendingSelection:extend];
 
-	if ([dataSource isSharedCollection] || [dataSource isSharedPlaylist] || [dataSource isSharedSmartPlaylist])
+	if ([indexes count] == 1)
 	{
-		[[SPStilBrowserController sharedInstance] displaySharedCollectionMessage];
-	}
-	else
-	{
-		if ([indexes count] == 1)
+		SPBrowserItem* item = [self itemAtRow:[indexes firstIndex]];
+		if (item != nil)
 		{
-			SPBrowserItem* item = [self itemAtRow:[indexes firstIndex]];
-			if (item != nil)
-			{
-				NSString* absolutePath = [item path];
-				NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:absolutePath];
-				[[SPStilBrowserController sharedInstance] displayEntryForRelativePath:relativePath];
-			}
+			NSString* absolutePath = [item path];
+			NSString* relativePath = [[SPCollectionUtilities sharedInstance] makePathRelativeToCollectionRoot:absolutePath];
+			[[SPStilBrowserController sharedInstance] displayEntryForRelativePath:relativePath];
 		}
 	}
 }
@@ -2755,7 +2470,7 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	else if (character == 63272 || character == 127)
 	{
 		SPPlaylist* playlist = [dataSource playlist];
-		if (playlist != nil && ![dataSource isSharedPlaylist] && ![dataSource isSmartPlaylist])
+		if (playlist != nil && ![dataSource isSmartPlaylist])
 		{
 			[dataSource deleteSelectedItems:self];
 			return;
@@ -2909,8 +2624,6 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	{
 		if ([dataSource isSmartPlaylist])
 			return smartPlaylistContextMenu;
-		else if ([dataSource isSharedPlaylist] || [dataSource isSharedSmartPlaylist])
-			return sharedCollectionContextMenu;
 		else
 			return playlistContextMenu;
 	}
@@ -2918,8 +2631,6 @@ static NSImage* SPRepeatSingleButtonImage = nil;
 	{
 		if ([dataSource isSpotlightResult])
 			return spotlightResultContextMenu;
-		else if ([dataSource isSharedCollection])
-			return sharedCollectionContextMenu;
 		else
 			return browserContextMenu;
 	}

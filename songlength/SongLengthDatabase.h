@@ -11,8 +11,6 @@
 	NSString* databasePath;
     NewMD5SongLengthDatabase* newMD5db;
 	
-	NSMutableData* downloadData;
-    NSURLSession* downloadConnection;
     SongLength* songLength;
 }
 
@@ -20,7 +18,6 @@
 + (void) setSharedInstance:(SongLengthDatabase*)database;
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithRootPath:(NSString*)rootPath NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithRootUrlString:(NSString*)urlString NS_DESIGNATED_INITIALIZER;
 
 - (int) getSongLengthByPath:(NSString*)path andSubtune:(int)subtune;
 - (int) getSongLengthFromBuffer:(void*)buffer withBufferLength:(int)length andSubtune:(int)subtune;

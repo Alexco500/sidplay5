@@ -28,11 +28,6 @@ static NSString* SPDefaultKeySyncUrl						= @"SyncUrl";
 static NSString* SPDefaultKeyAutoSync						= @"SyncAutomatically";
 static NSString* SPDefaultKeyLastSyncTime					= @"LastSyncTime";
 static NSString* SPDefaultKeySyncInterval					= @"SyncInterval";
-static NSString* SPDefaultKeySearchForSharedCollections		= @"SearchForSharedCollections";
-static NSString* SPDefaultKeyPublishSharedCollection		= @"PublishSharedCollection";
-static NSString* SPDefaultKeySharedCollectionPath			= @"SharedCollectionPath";
-static NSString* SPDefaultKeyShareAllPlaylists				= @"ShareAllPlaylists";
-static NSString* SPDefaultKeySharedPlaylists				= @"SharedPlaylists";
 static NSString* SPDefaultKeyUpdateRevision					= @"UpdateRevision";
 
 static NSString* SPDefaultKeyEnableFilterDistortion			= @"EnableFilterDistortion";
@@ -77,11 +72,6 @@ Preferences*	gPreferences;
 @synthesize    mSyncAutomatically;
 @synthesize       mLastSyncTime;
 @synthesize       mSyncInterval;
-@synthesize    mSearchForSharedCollections;
-@synthesize    mPublishSharedCollection;
-@synthesize     mSharedCollectionPath;
-@synthesize    mShareAllPlaylists;
-@synthesize       mSharedPlaylists;
 @synthesize       mUpdateRevision;
 
 
@@ -114,11 +104,6 @@ Preferences*	gPreferences;
     mLastSyncTime = [NSDate date];
     mSyncInterval = SYNC_WEEKLY;
 
-    mSearchForSharedCollections = NO; //YES;
-    mPublishSharedCollection = NO;
-    mSharedCollectionPath = [[NSMutableString alloc] init];
-    mShareAllPlaylists = NO; //YES;
-    mSharedPlaylists = [[NSMutableArray alloc] init];
     mUpdateRevision = 0;
 
     // These three are not modifiable
@@ -367,11 +352,6 @@ static SPPreferencesController* sharedInstance = nil;
     appDefaults[SPDefaultKeyLastSyncTime] = gPreferences.mLastSyncTime;
     appDefaults[SPDefaultKeySyncInterval] = [NSNumber numberWithInt:gPreferences.mSyncInterval];
 
-    appDefaults[SPDefaultKeySearchForSharedCollections] = @(gPreferences.mSearchForSharedCollections);
-    appDefaults[SPDefaultKeyPublishSharedCollection] = @(gPreferences.mPublishSharedCollection);
-    appDefaults[SPDefaultKeySharedCollectionPath] = @"";
-    appDefaults[SPDefaultKeyShareAllPlaylists] = @(gPreferences.mShareAllPlaylists);
-    appDefaults[SPDefaultKeySharedPlaylists] = [[NSArray alloc] init];
     appDefaults[SPDefaultKeyUpdateRevision] = @(gPreferences.mUpdateRevision);
 
     struct PlaybackSettings dummySettings;
@@ -453,11 +433,6 @@ static SPPreferencesController* sharedInstance = nil;
     gPreferences.mLastSyncTime = [defaults objectForKey:SPDefaultKeyLastSyncTime];
     gPreferences.mSyncInterval = (enum SPSyncInterval) [defaults integerForKey:SPDefaultKeySyncInterval];
 
-    gPreferences.mSearchForSharedCollections = [defaults boolForKey:SPDefaultKeySearchForSharedCollections];
-    gPreferences.mPublishSharedCollection = [defaults boolForKey:SPDefaultKeyPublishSharedCollection];
-    gPreferences.mSharedCollectionPath = [[defaults stringForKey:SPDefaultKeySharedCollectionPath] mutableCopy];
-    gPreferences.mShareAllPlaylists = [defaults boolForKey:SPDefaultKeyShareAllPlaylists];
-    gPreferences.mSharedPlaylists = [[defaults arrayForKey:SPDefaultKeySharedPlaylists] mutableCopy];
     gPreferences.mUpdateRevision = (int)[defaults integerForKey:SPDefaultKeyUpdateRevision];
 
     struct PlaybackSettings dummy;
@@ -513,11 +488,6 @@ static SPPreferencesController* sharedInstance = nil;
     [defaults setObject:gPreferences.mLastSyncTime forKey:SPDefaultKeyLastSyncTime];
     [defaults setInteger:gPreferences.mSyncInterval forKey:SPDefaultKeySyncInterval];
 
-    [defaults setBool:gPreferences.mSearchForSharedCollections forKey:SPDefaultKeySearchForSharedCollections];
-    [defaults setBool:gPreferences.mPublishSharedCollection forKey:SPDefaultKeyPublishSharedCollection];
-    [defaults setObject:gPreferences.mSharedCollectionPath forKey:SPDefaultKeySharedCollectionPath];
-    [defaults setBool:gPreferences.mShareAllPlaylists forKey:SPDefaultKeyShareAllPlaylists];
-    [defaults setObject:gPreferences.mSharedPlaylists forKey:SPDefaultKeySharedPlaylists];
     [defaults setInteger:gPreferences.mUpdateRevision forKey:SPDefaultKeyUpdateRevision];
 
     struct PlaybackSettings dummy;
@@ -647,7 +617,6 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
     @"General",
     @"Playback",
     @"Collection Sync",
-    @"Sharing",
 };
 
 
@@ -658,7 +627,6 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
     preferencePanes[PREFS_GENERAL] = generalPreferencePane;
     preferencePanes[PREFS_PLAYBACK] = playbackPreferencePane;
     preferencePanes[PREFS_SYNC] = syncPreferencePane;
-    preferencePanes[PREFS_SHARING] = sharingPreferencePane;
 
     struct PlaybackSettings dummy;
     [gPreferences getPlaybackSettings:&dummy];
@@ -690,12 +658,6 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
     autoSyncButton.state = gPreferences.mSyncAutomatically ? NSOnState : NSOffState;
     [autoSyncIntervalPopup selectItemWithTag:gPreferences.mSyncInterval];
 
-    [self fillSharedCollectionsPopup];
-    searchForSharedCollectionsButton.state = gPreferences.mSearchForSharedCollections ? NSOnState : NSOffState;
-    publishSharedCollectionButton.state = gPreferences.mPublishSharedCollection ? NSOnState : NSOffState;
-    sharedCollectionsPopup.enabled = gPreferences.mPublishSharedCollection;
-    [playlistSharingRadioButton selectCellWithTag:gPreferences.mShareAllPlaylists];
-    sharedPlaylistsTableView.enabled = !gPreferences.mShareAllPlaylists;
 }
 
 
@@ -719,8 +681,6 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 - (IBAction) showWindow:(id)sender
 // ----------------------------------------------------------------------------
 {
-    [self fillSharedCollectionsPopup];
-
     [super showWindow:sender];
 }
 
@@ -998,200 +958,12 @@ static NSString* SPPreferencePaneNames[NUM_PREF_PANES] =
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) fillSharedCollectionsPopup
-// ----------------------------------------------------------------------------
-{
-    BOOL preferredCollectionExists = NO;
-
-    NSMenu* menu = [[NSMenu alloc] initWithTitle:@""];
-    SPSourceListItem* collectionsContainer = [sourceListDataSource collectionsContainerItem];
-    if (collectionsContainer == nil)
-        return;
-
-    NSMutableArray* collectionItems = [collectionsContainer children];
-    if (collectionItems.count == 0)
-    {
-        sharedCollectionsPopup.menu = menu;
-        return;
-    }
-
-    for (SPSourceListItem* collectionItem in collectionItems)
-    {
-        NSMenuItem* menuItem = [[NSMenuItem alloc] initWithTitle:[collectionItem name].string action:@selector(selectCollectionToShare:) keyEquivalent:@""];
-
-        menuItem.target = self;
-        menuItem.representedObject = collectionItem;
-
-        if ([[collectionItem path] caseInsensitiveCompare:gPreferences.mSharedCollectionPath] == NSOrderedSame)
-        {
-            preferredCollectionExists = YES;
-            menuItem.tag = 1;
-        }
-
-        [menu addItem:menuItem];
-    }
-
-    sharedCollectionsPopup.menu = menu;
-    if (preferredCollectionExists)
-        [sharedCollectionsPopup selectItemWithTag:1];
-    else
-    {
-        [sharedCollectionsPopup selectItemAtIndex:0];
-        gPreferences.mSharedCollectionPath = [[sharedCollectionsPopup itemAtIndex:0].representedObject path];
-    }
-}
 
 
-// ----------------------------------------------------------------------------
-- (IBAction) selectCollectionToShare:(id)sender
-// ----------------------------------------------------------------------------
-{
-    SPSourceListItem* collectionItem = [sender representedObject];
-    if (collectionItem == nil)
-        return;
-
-    //gPreferences.mSharedCollectionPath = [collectionItem path];
-    //[sourceListDataSource publishSharedCollection:collectionItem];
-}
 
 
-// ----------------------------------------------------------------------------
-- (IBAction) clickSearchForSharedCollectionsButton:(id)sender
-// ----------------------------------------------------------------------------
-{
-    //gPreferences.mSearchForSharedCollections = [sender state] == NSOnState;
-    //[sourceListDataSource searchForSharedCollections:gPreferences.mSearchForSharedCollections];
-}
-
-
-// ----------------------------------------------------------------------------
-- (IBAction) clickPublishSharedCollectionButton:(id)sender
-// ----------------------------------------------------------------------------
-{
-    //	gPreferences.mPublishSharedCollection = [sender state] == NSOnState;
-    //	if (gPreferences.mPublishSharedCollection)
-    //		[sourceListDataSource publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
-    //	else
-    //		[sourceListDataSource publishSharedCollectionWithPath:nil];
-
-    sharedCollectionsPopup.enabled = gPreferences.mPublishSharedCollection;
-}
-
-
-// ----------------------------------------------------------------------------
-- (IBAction) clickShareAllPlaylistsRadioButton:(id)sender
-// ----------------------------------------------------------------------------
-{
-    //	gPreferences.mShareAllPlaylists = [[sender selectedCell] tag];
-    //	[sharedPlaylistsTableView setEnabled:!gPreferences.mShareAllPlaylists];
-    //
-    //	[sourceListDataSource bumpUpdateRevision];
-}
-
-
-#pragma mark -
-#pragma mark data source methods
-
-// ----------------------------------------------------------------------------
-- (int)numberOfRowsInTableView:(NSTableView*)tableView
-// ----------------------------------------------------------------------------
-{
-    SPSourceListItem* playlistsContainerItem = [sourceListDataSource playlistsContainerItem];
-
-    return (int)[playlistsContainerItem children].count;
-}
-
-
-// ----------------------------------------------------------------------------
-- (id)tableView:(NSTableView*)tableView objectValueForTableColumn:(NSTableColumn*)tableColumn row:(int)rowIndex
-// ----------------------------------------------------------------------------
-{
-    SPSourceListItem* playlistsContainerItem = [sourceListDataSource playlistsContainerItem];
-    SPSourceListItem* playlistItem = [playlistsContainerItem childAtIndex:rowIndex];
-    SPPlaylist* playlist = [playlistItem playlist];
-    if (playlist == nil)
-        return @"";
-
-    if ([tableColumn.identifier isEqualToString:@"checkbox"])
-    {
-        //NSLog(@"shared: %@\n", gPreferences.mSharedPlaylists);
-        BOOL isShared = [gPreferences.mSharedPlaylists containsObject:[playlist identifier]];
-        return [NSNumber numberWithInt:isShared ? NSOnState : NSOffState];
-    }
-    else if ([tableColumn.identifier isEqualToString:@"playlistname"])
-    {
-        if (playlist != nil)
-            return [playlist name];
-    }
-
-    return @"";
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
-// ----------------------------------------------------------------------------
-{
-    if ([tableColumn.identifier isEqualToString:@"checkbox"])
-    {
-        SPSourceListItem* playlistsContainerItem = [sourceListDataSource playlistsContainerItem];
-        SPSourceListItem* playlistItem = [playlistsContainerItem childAtIndex:(int)rowIndex];
-        SPPlaylist* playlist = [playlistItem playlist];
-        NSString* identifier = [playlist identifier];
-
-        if ([anObject boolValue])
-        {
-            if (![gPreferences.mSharedPlaylists containsObject:identifier])
-                [gPreferences.mSharedPlaylists addObject:identifier];
-        }
-        else
-            [gPreferences.mSharedPlaylists removeObject:identifier];
-
-        //[sourceListDataSource bumpUpdateRevision];
-    }
-}
-
-
-// ----------------------------------------------------------------------------
-- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex
-// ----------------------------------------------------------------------------
-{
-    if ([tableColumn.identifier isEqualToString:@"checkbox"])
-        return YES;
-    else
-        return NO;
-}
 
 
 @end
 
 
-@implementation SPSharedPlaylistsTableView
-
-// ----------------------------------------------------------------------------
-- (id)_highlightColorForCell:(NSCell *)cell
-// ----------------------------------------------------------------------------
-{
-    return [NSColor whiteColor];
-}
-
-
-/*
- // ----------------------------------------------------------------------------
- - (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend
- // ----------------------------------------------------------------------------
- {
- [super selectRowIndexes:indexes byExtendingSelection:extend];
-
- if ([indexes count] == 1)
- {
- NSTableColumn* column = [self tableColumnWithIdentifier:@"checkbox"];
- BOOL currentValue = [[[self dataSource] tableView:self objectValueForTableColumn:column row:[indexes firstIndex]] boolValue];
- NSNumber* value = [NSNumber numberWithBool:!currentValue];
- [[self dataSource] tableView:self setObjectValue:value forTableColumn:column row:[indexes firstIndex]];
- }
- }
- */
-
-@end

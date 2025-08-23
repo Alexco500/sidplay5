@@ -38,12 +38,10 @@
 		1F5176630CFB72020064AFA2 /* SPInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F5174250CF9B7870064AFA2 /* SPInfoView.m */; };
 		1F51769B0CFB73260064AFA2 /* SPOscilloscopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F51741C0CF9AD6A0064AFA2 /* SPOscilloscopeView.m */; };
 		1F543C920D36ADB500637B8A /* SPExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F543C910D36ADB500637B8A /* SPExportController.m */; };
-		1F571B580E8B6DD8001F3425 /* SPURLConnectionScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F571B570E8B6DD8001F3425 /* SPURLConnectionScheduler.m */; };
 		1F5920500FA4B02C00B84DDC /* waveform_side.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F59204F0FA4B02C00B84DDC /* waveform_side.png */; };
 		1F5D1A530D144FBA00BB2D17 /* notfound.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F5D1A520D144FBA00BB2D17 /* notfound.png */; };
 		1F723C7F1BBC8F8800D69348 /* SIDMusic.mdimporter in Copy Spotlight Plugin */ = {isa = PBXBuildFile; fileRef = 1F4E75A40CEF9DAC00A5A695 /* SIDMusic.mdimporter */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F932CE30F8DC7B900BC8A4F /* SPSynchronizedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F932CE20F8DC7B900BC8A4F /* SPSynchronizedScrollView.m */; };
-		1F9C78A40E4F4BBC0075F535 /* SPHttpBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9C78A20E4F4BBC0075F535 /* SPHttpBrowserItem.m */; };
 		1FAE8CF90D31945C009D1F9D /* SPExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAE8CF80D31945B009D1F9D /* SPExporter.m */; };
 		1FAE8DBD0D32CDEB009D1F9D /* SPExportOptionsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAE8DBC0D32CDEB009D1F9D /* SPExportOptionsPanel.m */; };
 		1FB8FE040D17107000945D64 /* SPPredicateEditorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8FE030D17107000945D64 /* SPPredicateEditorController.m */; };
@@ -447,14 +445,10 @@
 		1F5174280CF9BA810064AFA2 /* SPInfoContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPInfoContainerView.m; sourceTree = "<group>"; };
 		1F543C900D36ADB500637B8A /* SPExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPExportController.h; sourceTree = "<group>"; };
 		1F543C910D36ADB500637B8A /* SPExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPExportController.m; sourceTree = "<group>"; };
-		1F571B560E8B6DD8001F3425 /* SPURLConnectionScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPURLConnectionScheduler.h; sourceTree = "<group>"; };
-		1F571B570E8B6DD8001F3425 /* SPURLConnectionScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPURLConnectionScheduler.m; sourceTree = "<group>"; };
 		1F59204F0FA4B02C00B84DDC /* waveform_side.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waveform_side.png; path = Resources/waveform_side.png; sourceTree = "<group>"; };
 		1F5D1A520D144FBA00BB2D17 /* notfound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = notfound.png; path = Resources/notfound.png; sourceTree = "<group>"; };
 		1F932CE10F8DC7B900BC8A4F /* SPSynchronizedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSynchronizedScrollView.h; sourceTree = "<group>"; };
 		1F932CE20F8DC7B900BC8A4F /* SPSynchronizedScrollView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = SPSynchronizedScrollView.m; sourceTree = "<group>"; };
-		1F9C78A20E4F4BBC0075F535 /* SPHttpBrowserItem.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = SPHttpBrowserItem.m; sourceTree = "<group>"; };
-		1F9C78A30E4F4BBC0075F535 /* SPHttpBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPHttpBrowserItem.h; sourceTree = "<group>"; };
 		1FAE8CF70D31945B009D1F9D /* SPExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPExporter.h; sourceTree = "<group>"; };
 		1FAE8CF80D31945B009D1F9D /* SPExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPExporter.m; sourceTree = "<group>"; };
 		1FAE8DBB0D32CDEB009D1F9D /* SPExportOptionsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPExportOptionsPanel.h; sourceTree = "<group>"; };
@@ -946,8 +940,6 @@
 				1FEE5AB30CF88604006A04B0 /* SPCollectionUtilities.h */,
 				1FEF90520D02E5550014D7B2 /* SPColorProvider.m */,
 				1FEF90510D02E5550014D7B2 /* SPColorProvider.h */,
-				1F571B570E8B6DD8001F3425 /* SPURLConnectionScheduler.m */,
-				1F571B560E8B6DD8001F3425 /* SPURLConnectionScheduler.h */,
 				1FEB2ADA0FB5C14900AD9F79 /* SPRemixKwedOrgController.m */,
 				1FEB2AD90FB5C14900AD9F79 /* SPRemixKwedOrgController.h */,
 				1F3896690CEE37C200942B17 /* Browser */,
@@ -1081,8 +1073,6 @@
 				1F38966A0CEE37DF00942B17 /* SPBrowserDataSource.h */,
 				1F38966E0CEE383900942B17 /* SPBrowserItem.m */,
 				1F38966D0CEE383900942B17 /* SPBrowserItem.h */,
-				1F9C78A20E4F4BBC0075F535 /* SPHttpBrowserItem.m */,
-				1F9C78A30E4F4BBC0075F535 /* SPHttpBrowserItem.h */,
 				1F14E3F30D83F3F9001BAB20 /* SPBrowserState.m */,
 				1F14E3F20D83F3F9001BAB20 /* SPBrowserState.h */,
 			);
@@ -2122,8 +2112,6 @@
 				1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */,
 				1F14E3F40D83F3F9001BAB20 /* SPBrowserState.m in Sources */,
 				DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */,
-				1F9C78A40E4F4BBC0075F535 /* SPHttpBrowserItem.m in Sources */,
-				1F571B580E8B6DD8001F3425 /* SPURLConnectionScheduler.m in Sources */,
 				1F932CE30F8DC7B900BC8A4F /* SPSynchronizedScrollView.m in Sources */,
 				DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */,
 				1F4CA9680FA342A800B56AB6 /* SPCachedView.m in Sources */,

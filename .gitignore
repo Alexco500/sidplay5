@@ -35,3 +35,9 @@ Temporary Items
 *.mode1v3
 *.mode2v3
 **/xcuserdata
+
+# Build artifacts and derived data
+build/
+DerivedData/
+*/build/
+**/ExplicitPrecompiledModules/

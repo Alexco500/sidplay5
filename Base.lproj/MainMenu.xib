@@ -2110,15 +2110,7 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <menu title="Shared Collection Context Menu" id="2130">
-            <items>
-                <menuItem title="Copy URL" id="2132">
-                    <connections>
-                        <action selector="copyPathOfSelectedItemToClipboard:" target="501" id="2143"/>
-                    </connections>
-                </menuItem>
-            </items>
-        </menu>
+        
         <menu title="Playlist Context Menu" id="1126">
             <items>
                 <menuItem title="Show In Finder" id="1129">
