@@ -15,6 +15,7 @@
 #import "SPGradientBox.h"
 #import "SPMiniPlayerWindow.h"
 
+#import <MediaPlayer/MediaPlayer.h>
 #import "AudioCoreDriverNew.h"
 #include <new>
 
@@ -68,6 +69,8 @@ ASID_MIDI *asidMIDI;
      player->setFilterSettings(&filterSettings);
      */
     [[NSNotificationCenter defaultCenter] postNotificationName:SPPlayerInitializedNotification object:self];
+    
+    [self setupRemoteCommandCenter];
     
     volumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
     miniVolumeSlider.floatValue = gPreferences.mPlaybackVolume * 100.0f;
@@ -137,6 +140,47 @@ ASID_MIDI *asidMIDI;
     }
 
     asidMIDI = [[ASID_MIDI alloc] init];
+}
+
+// ----------------------------------------------------------------------------
+- (void)setupRemoteCommandCenter {
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+
+    // Enable commands
+    commandCenter.playCommand.enabled = YES;
+    commandCenter.pauseCommand.enabled = YES;
+    commandCenter.togglePlayPauseCommand.enabled = YES;
+    commandCenter.nextTrackCommand.enabled = YES;
+    commandCenter.previousTrackCommand.enabled = YES;
+
+    [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self clickPlayPauseButton:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self clickPlayPauseButton:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [commandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self clickPlayPauseButton:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [commandCenter.nextTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self nextSubtune:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    [commandCenter.previousTrackCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self previousSubtune:nil];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+
+    // To register in Now Playing, we have to set to 'Playing' once – but we're actually stopped.
+    [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
+    [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStateStopped;
 }
 
 // ----------------------------------------------------------------------------
@@ -259,6 +303,8 @@ ASID_MIDI *asidMIDI;
         
         miniPlayPauseButton.image = [NSImage imageNamed:@"SIDhud_pause.pause"];
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
+
+        [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
     }
     else
     {
@@ -267,6 +313,8 @@ ASID_MIDI *asidMIDI;
         
         miniPlayPauseButton.image = [NSImage imageNamed:@"SIDhud_play.play"];
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
+
+        [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePaused;
     }
 }
 
@@ -317,6 +365,13 @@ ASID_MIDI *asidMIDI;
     [statusDisplay setPlaybackSeconds:seconds];
     [miniStatusDisplay setPlaybackSeconds:seconds];
     [browserDataSource updateCurrentSong:seconds];
+    
+    // update elapsed time for media controls
+    NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
+    if (nowPlayingInfo) {
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @(seconds);
+        [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
+    }
     
     if (player != NULL && [NSRunLoop currentRunLoop].currentMode != NSEventTrackingRunLoopMode)
     {
@@ -516,6 +571,13 @@ ASID_MIDI *asidMIDI;
         item.tag = i;
     }
     
+    // update Now Playing Info for media controls
+    NSMutableDictionary *nowPlayingInfo = [NSMutableDictionary dictionary];
+    nowPlayingInfo[MPMediaItemPropertyTitle] = title;
+    nowPlayingInfo[MPMediaItemPropertyArtist] = author;
+    nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = @(currentTuneLengthInSeconds);
+    nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = @([player getPlaybackSeconds]);
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
 }
 #pragma mark Audio Driver helper functions
 - (BOOL) audioDriverIsAvailable
