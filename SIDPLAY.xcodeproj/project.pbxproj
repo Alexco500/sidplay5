@@ -119,6 +119,7 @@
 		DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF22A178FE80096847B /* OpenGL.framework */; };
 		DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF42A178FF10096847B /* Foundation.framework */; };
 		DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */; };
+		DAEE5F5E2A57F20E00F912CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */; };
 		DA056EF82A1790310096847B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
 		DA056EF92A17907A0096847B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0DD2A07D74100233549 /* IOKit.framework */; };
 		DA056EFC2A2674580096847B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EFB2A2674580096847B /* AudioUnit.framework */; };
@@ -714,6 +715,7 @@
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = AudioCoreDriverNew.cpp; sourceTree = "<group>"; };
 		DAA731AC29E4AF4A00B274D5 /* AudioCoreDriverNew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioCoreDriverNew.h; sourceTree = "<group>"; };
 		DAA731AE29E763A300B274D5 /* SPGradientBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGradientBox.h; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				DA056EFC2A2674580096847B /* AudioUnit.framework in Frameworks */,
 				DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */,
 				DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */,
+				DAEE5F5E2A57F20E00F912CE /* MediaPlayer.framework in Frameworks */,
 				DAC0509A2D369DCC009892D4 /* Sparkle.framework in Frameworks */,
 				DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */,
 				DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */,
@@ -1120,6 +1123,7 @@
 				DA056EFB2A2674580096847B /* AudioUnit.framework */,
 				DA056EEE2A178FD60096847B /* AppKit.framework */,
 				DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */,
+				DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */,
 				DA056EEC2A178FCA0096847B /* Cocoa.framework */,
 				DA056EF02A178FE00096847B /* CoreAudio.framework */,
 				DA056EF42A178FF10096847B /* Foundation.framework */,
