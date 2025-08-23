@@ -5,8 +5,6 @@
 {
     NSString* rootPath;
     
-    NSMutableData* ryncMirrorListData;
-    NSURLConnection* rsyncMirrorListUrlConnection;
     NSMutableArray* rsyncMirrorList;
     id rsyncMirrorListNotificationTarget;
     SEL rsyncMirrorListNotificationSelector;
