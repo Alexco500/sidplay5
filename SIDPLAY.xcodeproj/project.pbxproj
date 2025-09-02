@@ -194,7 +194,6 @@
 		DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF22A178FE80096847B /* OpenGL.framework */; };
 		DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF42A178FF10096847B /* Foundation.framework */; };
 		DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */; };
-		DAEE5F5E2A57F20E00F912CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */; };
 		DA056EF82A1790310096847B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
 		DA056EF92A17907A0096847B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B0DD2A07D74100233549 /* IOKit.framework */; };
 		DA056EFC2A2674580096847B /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EFB2A2674580096847B /* AudioUnit.framework */; };
@@ -243,7 +242,6 @@
 		DA17E5502A04F7C000419CB8 /* iniParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4102A04F36000419CB8 /* iniParser.cpp */; };
 		DA17E5512A04F7CD00419CB8 /* stil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E4132A04F36000419CB8 /* stil.cpp */; };
 		DA17E5522A04F7D600419CB8 /* SidDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E41C2A04F36000419CB8 /* SidDatabase.cpp */; };
-		DA17E5582A05068F00419CB8 /* PlayerLibSidplayfp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */; };
 		DA17E5722A050B7700419CB8 /* siddefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E55A2A050B7700419CB8 /* siddefs.h */; };
 		DA17E5732A050B7700419CB8 /* SidConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E55B2A050B7700419CB8 /* SidConfig.cpp */; };
 		DA17E5742A050B7700419CB8 /* sidbuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = DA17E55C2A050B7700419CB8 /* sidbuilder.h */; };
@@ -283,6 +281,8 @@
 		DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC686A0CF07344005AFA9A /* SidTuneWrapper.mm */; };
 		DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC68680CF07344005AFA9A /* SidTuneMod.cpp */; };
 		DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DA74323D2E66FB5F009420D6 /* simpleMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */; };
+		DA74323E2E66FB5F009420D6 /* simpleMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = DA74323B2E66FB5F009420D6 /* simpleMixer.h */; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
 		DAA731B029E763A300B274D5 /* SPGradientBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AF29E763A300B274D5 /* SPGradientBox.m */; };
 		DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB81A1E28686C670075CB8E /* Images.xcassets */; };
@@ -307,6 +307,7 @@
 		DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */; };
 		DAE237642AD851C800418090 /* SIDBlaster.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEE5F502A56DB6A00F912CE /* SIDBlaster.m */; };
 		DAE2376A2AD895C100418090 /* filter8580new.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3812A04F36000419CB8 /* filter8580new.cc */; };
+		DAEE5F5E2A57F20E00F912CE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,7 +432,6 @@
 		1F40A5F20D3A364200AD3B5D /* psid64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = psid64; path = Resources/psid64; sourceTree = "<group>"; };
 		1F40A9560D3AAFC300AD3B5D /* minus.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = minus.tiff; path = Resources/minus.tiff; sourceTree = "<group>"; };
 		1F46266A0D9AEE5000C12916 /* SPBrowserDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBrowserDataSource.m; sourceTree = "<group>"; };
-		1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLibSidplay.h; sourceTree = "<group>"; };
 		1F4CA9660FA342A800B56AB6 /* SPCachedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCachedView.h; sourceTree = "<group>"; };
 		1F4CA9670FA342A800B56AB6 /* SPCachedView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = SPCachedView.m; sourceTree = "<group>"; };
 		1F4E759E0CEF9DAC00A5A695 /* sidmdplugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sidmdplugin.xcodeproj; path = sidmdplugin/sidmdplugin.xcodeproj; sourceTree = "<group>"; };
@@ -793,7 +793,6 @@
 		DA17E4522A04F36100419CB8 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = libsidplayfp/config.h; sourceTree = "<group>"; };
 		DA17E4542A04F36100419CB8 /* reloc65.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reloc65.cpp; path = libsidplayfp/reloc65.cpp; sourceTree = "<group>"; };
 		DA17E5262A04F5F200419CB8 /* libsidplayfp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsidplayfp.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerLibSidplayfp.cpp; sourceTree = "<group>"; };
 		DA17E55A2A050B7700419CB8 /* siddefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = siddefs.h; sourceTree = "<group>"; };
 		DA17E55B2A050B7700419CB8 /* SidConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SidConfig.cpp; sourceTree = "<group>"; };
 		DA17E55C2A050B7700419CB8 /* sidbuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sidbuilder.h; sourceTree = "<group>"; };
@@ -831,6 +830,8 @@
 		DA557D6C2ACAB6A300C02288 /* PVScopeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVScopeView.m; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = SIDBlaster/libftd2xx.dylib; sourceTree = "<group>"; };
+		DA74323B2E66FB5F009420D6 /* simpleMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = simpleMixer.h; path = libsidplayfp/simpleMixer.h; sourceTree = "<group>"; };
+		DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = simpleMixer.cpp; path = libsidplayfp/simpleMixer.cpp; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DA9BC68D27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA9BC69527E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -838,7 +839,6 @@
 		DA9BC69727E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StilBrowser.xib; sourceTree = "<group>"; };
 		DA9BC69827E88A2E0027C659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = AudioCoreDriverNew.cpp; sourceTree = "<group>"; };
 		DAA731AC29E4AF4A00B274D5 /* AudioCoreDriverNew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioCoreDriverNew.h; sourceTree = "<group>"; };
 		DAA731AE29E763A300B274D5 /* SPGradientBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGradientBox.h; sourceTree = "<group>"; };
@@ -860,6 +860,7 @@
 		DAEE5F542A56DB6A00F912CE /* SIDBlasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SIDBlasterController.h; path = SIDBlaster/SIDBlasterController.h; sourceTree = "<group>"; };
 		DAEE5F552A56DB6A00F912CE /* hardsidsb-builderObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "hardsidsb-builderObjC.mm"; path = "SIDBlaster/hardsidsb-builderObjC.mm"; sourceTree = "<group>"; };
 		DAEE5F5D2A57F10E00F912CE /* sidblaster-emuObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "sidblaster-emuObjC.mm"; path = "SIDBlaster/sidblaster-emuObjC.mm"; sourceTree = "<group>"; };
+		DAEE5F5F2A57F20E00F912CE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1083,10 +1084,8 @@
 			isa = PBXGroup;
 			children = (
 				DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */,
-				DA17E5562A05004B00419CB8 /* PlayerLibSidplayfp.cpp */,
 				DA10945D2CE696C9001433DC /* PlayerLibSidplayWrapper.mm */,
 				DA1094612CE69776001433DC /* PlayerLibSidplayWrapper.h */,
-				1F4C4FC60D79EFD800214775 /* PlayerLibSidplay.h */,
 				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				1FD084D40CEF2B8B0075D3A1 /* Audio Drivers */,
 			);
@@ -1344,6 +1343,8 @@
 		DA17E2E82A04F2F300419CB8 /* libsidplayfp */ = {
 			isa = PBXGroup;
 			children = (
+				DA74323B2E66FB5F009420D6 /* simpleMixer.h */,
+				DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */,
 				DA17E5592A050B7700419CB8 /* sidplayfp */,
 				DA17E32C2A04F36000419CB8 /* builders */,
 				DA17E2E92A04F36000419CB8 /* c64 */,
@@ -1747,6 +1748,7 @@
 				DA17E57D2A050B7700419CB8 /* SidInfo.h in Headers */,
 				DA1094622CE69776001433DC /* PlayerLibSidplayWrapper.h in Headers */,
 				DA17E5742A050B7700419CB8 /* sidbuilder.h in Headers */,
+				DA74323E2E66FB5F009420D6 /* simpleMixer.h in Headers */,
 				DA17E5752A050B7700419CB8 /* SidTune.h in Headers */,
 				DA17E5782A050B7700419CB8 /* SidConfig.h in Headers */,
 				DA17E57C2A050B7700419CB8 /* SidTuneInfo.h in Headers */,
@@ -1856,7 +1858,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					DA17E5252A04F5F200419CB8 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -2136,7 +2138,6 @@
 				DA17E5352A04F70E00419CB8 /* Filter6581.cpp in Sources */,
 				DA17E52A2A04F6C800419CB8 /* residfp-builder.cpp in Sources */,
 				DA056ED82A177EF60096847B /* envelope.cc in Sources */,
-				DA17E5582A05068F00419CB8 /* PlayerLibSidplayfp.cpp in Sources */,
 				DA17E53A2A04F70E00419CB8 /* Filter.cpp in Sources */,
 				DA10945E2CE696C9001433DC /* PlayerLibSidplayWrapper.mm in Sources */,
 				DA59B0C12A05224900233549 /* tod.cpp in Sources */,
@@ -2146,6 +2147,7 @@
 				DA17E5382A04F70E00419CB8 /* Integrator6581.cpp in Sources */,
 				DA17E57E2A050B7700419CB8 /* SidTune.cpp in Sources */,
 				DA17E5322A04F70E00419CB8 /* Integrator8580.cpp in Sources */,
+				DA74323D2E66FB5F009420D6 /* simpleMixer.cpp in Sources */,
 				DA17E5512A04F7CD00419CB8 /* stil.cpp in Sources */,
 				DA17E53D2A04F73600419CB8 /* version.cc in Sources */,
 				DA17E52D2A04F6DD00419CB8 /* SincResampler.cpp in Sources */,
@@ -2322,7 +2324,6 @@
 				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(USER_LIBRARY_DIR)/Frameworks",
@@ -2390,7 +2391,6 @@
 				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(USER_LIBRARY_DIR)/Frameworks",
@@ -2480,6 +2480,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -2548,6 +2549,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -2605,7 +2607,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2663,7 +2664,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2722,7 +2722,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2776,7 +2775,6 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2831,7 +2829,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2867,7 +2864,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L6WTAR259W;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

@@ -1,7 +1,7 @@
 /*
  * This file is part of libsidplayfp, a SID player engine.
  *
- * Copyright 2011-2024 Leandro Nini <drfiemost@users.sourceforge.net>
+ * Copyright 2011-2025 Leandro Nini <drfiemost@users.sourceforge.net>
  * Copyright 2007-2010 Antti Lankila
  * Copyright 2004 Dag Lem <resid@nimrod.no>
  *
@@ -42,6 +42,11 @@ namespace reSIDfp
 constexpr unsigned int ENV_DAC_BITS = 8;
 constexpr unsigned int OSC_DAC_BITS = 12;
 
+#if 0
+Note: this needs more in-depth analysis.
+With the implementation of the 6581 DC drift the digis become too loud.
+Also there is no evidence in the schematics for a DC offset in the 8580.
+
 /**
  * The waveform D/A converter introduces a DC offset in the signal
  * to the envelope multiplying D/A converter. The "zero" level of
@@ -72,7 +77,7 @@ constexpr unsigned int OSC_DAC_BITS = 12;
  *
  *        ldx #$00
  *        lda #$38        ; Tweak this to find the "zero" level
- *l       cmp $d41b
+ * l      cmp $d41b
  *        bne l
  *        stx $d40e        ; Stop frequency counter - freeze waveform output
  *        brk
@@ -110,6 +115,7 @@ constexpr unsigned int OSC_DAC_BITS = 12;
 constexpr unsigned int OFFSET_6581 = 0x380;
 constexpr unsigned int OFFSET_8580 = 0x9c0;
 //@}
+#endif
 
 /**
  * Bus value stays alive for some time after each operation.
@@ -139,6 +145,10 @@ SID::SID() :
     resampler(nullptr),
     cws(AVERAGE)
 {
+    voice[0].setOtherVoices(voice[2], voice[1]);
+    voice[1].setOtherVoices(voice[0], voice[2]);
+    voice[2].setOtherVoices(voice[1], voice[0]);
+
     setChipModel(MOS8580);
     reset();
 }
@@ -177,7 +187,7 @@ void SID::voiceSync(bool sync)
         // Synchronize the 3 waveform generators.
         for (int i = 0; i < 3; i++)
         {
-            voice[i].wave()->synchronize(voice[(i + 1) % 3].wave(), voice[(i + 2) % 3].wave());
+            voice[i].wave()->synchronize();
         }
     }
 
@@ -189,7 +199,7 @@ void SID::voiceSync(bool sync)
         WaveformGenerator* const wave = voice[i].wave();
         const unsigned int freq = wave->readFreq();
 
-        if (wave->readTest() || freq == 0 || !voice[(i + 1) % 3].wave()->readSync())
+        if (wave->readTest() || freq == 0 || !voice[i].wave()->readFollowingVoiceSync())
         {
             continue;
         }
@@ -249,11 +259,11 @@ void SID::setChipModel(ChipModel model)
         dacBuilder.kinkedDac(model);
 
         //const double offset = dacBuilder.getOutput(is6581 ? OFFSET_6581 : OFFSET_8580);
-        const double offset = dacBuilder.getOutput(0x7ff);
+        const double offset = dacBuilder.getOutput(0x7ff, is6581);
 
         for (unsigned int i = 0; i < (1 << OSC_DAC_BITS); i++)
         {
-            const double dacValue = dacBuilder.getOutput(i);
+            const double dacValue = dacBuilder.getOutput(i, is6581);
             oscDAC[i] = static_cast<float>(dacValue - offset);
         }
     }
@@ -510,9 +520,9 @@ void SID::clockSilent(unsigned int cycles)
                 voice[1].wave()->clock();
                 voice[2].wave()->clock();
 
-                voice[0].wave()->output(voice[2].wave());
-                voice[1].wave()->output(voice[0].wave());
-                voice[2].wave()->output(voice[1].wave());
+                voice[0].wave()->output();
+                voice[1].wave()->output();
+                voice[2].wave()->output();
 
                 // clock ENV3 only
                 voice[2].envelope()->clock();

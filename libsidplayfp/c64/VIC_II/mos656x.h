@@ -55,14 +55,14 @@ public:
     };
 
 private:
-    typedef event_clock_t (MOS656X::*ClockFunc)();
+    using ClockFunc = event_clock_t (MOS656X::*)();
 
-    typedef struct
+    using model_data_t = struct
     {
         unsigned int rasterLines;
         unsigned int cyclesPerLine;
         ClockFunc clock;
-    } model_data_t;
+    };
 
 private:
     static const model_data_t modelData[];
@@ -125,14 +125,14 @@ private:
     /// masks for the IRQ flags
     uint8_t irqMask;
 
+    /// memory for chip registers
+    uint8_t regs[0x40] = {0};
+
     /// Light pen
     Lightpen lp;
 
     /// the 8 sprites data
     Sprites sprites;
-
-    /// memory for chip registers
-    uint8_t regs[0x40];
 
     EventCallback<MOS656X> badLineStateChangeEvent;
 

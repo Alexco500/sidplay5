@@ -26,8 +26,17 @@
 #endif
 
 
+#ifdef HAVE_CXX23
+#  define HAVE_CXX20
+#endif
+
 #ifdef HAVE_CXX20
 #  define HAVE_CXX17
+#  define LIKELY    [[ likely ]]
+#  define UNLIKELY  [[ unlikely ]]
+#else
+#  define LIKELY
+#  define UNLIKELY
 #endif
 
 #ifdef HAVE_CXX17
