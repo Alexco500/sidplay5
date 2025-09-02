@@ -175,6 +175,7 @@ AudioCoreDriverNew* audioDriver = nil;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
     
     urlDownloadSubtuneIndex = subtuneIndex;
+    urlDownloadData = [NSMutableData data];
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
@@ -187,9 +188,20 @@ AudioCoreDriverNew* audioDriver = nil;
                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error.localizedDescription);
+			dispatch_async(dispatch_get_main_queue(), ^{
+				NSAlert *alert = [[NSAlert alloc] init];
+				[alert setMessageText:@"Download failed"];
+				[alert setInformativeText:error.localizedDescription];
+				[alert setAlertStyle:NSAlertStyleInformational];
+				[alert addButtonWithTitle:@"OK"];
+
+				[alert runModal];
+			});
         } else {
             [self->urlDownloadData appendData:data];
-            [self connectionDidFinishLoading];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self connectionDidFinishLoading];
+            });
         }
     }];
     
@@ -227,19 +239,6 @@ AudioCoreDriverNew* audioDriver = nil;
     
     urlDownloadData = nil;
     urlDownloadConnection = nil;
-}
-
-// ----------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-// ----------------------------------------------------------------------------
-{
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:@"Download failed"];
-    [alert setInformativeText:@"The connection to the server failed, please check the URL or try again later."];
-    [alert setAlertStyle:NSAlertStyleInformational]; // or NSAlertStyleWarning, or NSAlertStyleCritical
-    [alert addButtonWithTitle:@"OK"];
-    
-    [alert runModal];
 }
 
 // ----------------------------------------------------------------------------
