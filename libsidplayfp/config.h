@@ -125,7 +125,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "2.16.1"
+#define VERSION "2.15.0"
 
 /* Path to VICE testsuite. */
 /* #undef VICE_TESTSUITE */

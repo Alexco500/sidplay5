@@ -25,11 +25,7 @@
 #define SIMPLEMIXER_H
 
 #include <vector>
-#ifdef __has_include
-#  if __has_include(<version>)
-#    include <version>
-#  endif
-#endif
+#include <version>
 #include <cstdint>
 
 #ifdef __cpp_lib_math_constants
