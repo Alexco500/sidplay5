@@ -6,9 +6,7 @@
 
 @implementation SPSourceListItem
 
-NSString* SPSharedPlaylistIndexDownloaded = @"SPSharedPlaylistIndexDownloaded";
 
-static NSImage* sharedCollectionIcon = nil;
 static NSImage* sPlaylistIcon = nil;
 static NSImage* sSmartPlaylistIcon = nil;
 
@@ -29,11 +27,8 @@ static NSImage* sSmartPlaylistIcon = nil;
 		path = thePath;
 		icon = theIcon;
 		playlist = nil;
-		service = nil;
 		isPathValid = NO;
-		isPlaylistShared = NO;
 		children = nil;
-		currentRemoveUpdateRevision = -1;
     }
     return self;
 }
@@ -66,27 +61,6 @@ static NSImage* sSmartPlaylistIcon = nil;
 	[coder encodeObject:path forKey:@"path"];
 	[coder encodeObject:icon forKey:@"icon"];
 	[coder encodeObject:children forKey:@"children"];
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) dealloc
-// ----------------------------------------------------------------------------
-{
-    // changed finalize back to dealloc
-	if (playlistIndexDownloadConnection != nil)
-	{
-        [playlistIndexDownloadConnection invalidateAndCancel];
-		playlistIndexDownloadConnection = nil;
-	}
-
-	if (playlistDownloadConnection != nil)
-	{
-        [playlistDownloadConnection invalidateAndCancel];
-		playlistDownloadConnection = nil;
-	}
-	
-	//[super finalize];
 }
 
 
@@ -168,19 +142,6 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (NSNetService*) service
-// ----------------------------------------------------------------------------
-{
-	return service;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) setService:(NSNetService*)theService
-// ----------------------------------------------------------------------------
-{
-	service = theService;
-}
 
 
 // ----------------------------------------------------------------------------
@@ -197,8 +158,6 @@ static NSImage* sSmartPlaylistIcon = nil;
 {
 	type = theType;
 	
-	if (type == SOURCELIST_SHAREDCOLLECTION)
-		[self downloadSharedPlaylists];
 }
 
 // ----------------------------------------------------------------------------
@@ -234,27 +193,6 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-- (BOOL) isSharedCollectionItem
-// ----------------------------------------------------------------------------
-{
-	return type == SOURCELIST_SHAREDCOLLECTION;
-}
-
-
-// ----------------------------------------------------------------------------
-- (BOOL) isSharedPlaylistItem
-// ----------------------------------------------------------------------------
-{
-	return type == SOURCELIST_SHAREDPLAYLIST;
-}
-
-
-// ----------------------------------------------------------------------------
-- (BOOL) isSharedSmartPlaylistItem
-// ----------------------------------------------------------------------------
-{
-	return type == SOURCELIST_SHAREDSMARTPLAYLIST;
-}
 
 
 // ----------------------------------------------------------------------------
@@ -335,191 +273,13 @@ static NSImage* sSmartPlaylistIcon = nil;
 }
 
 
-// ----------------------------------------------------------------------------
-- (BOOL) isPlaylistShared
-// ----------------------------------------------------------------------------
-{
-	return isPlaylistShared;
-}
 
 
-// ----------------------------------------------------------------------------
-- (void) setIsPlaylistShared:(BOOL)isShared
-// ----------------------------------------------------------------------------
-{
-	isPlaylistShared = isShared;
-}
 
 
-// ----------------------------------------------------------------------------
-- (void) checkForRemoteUpdateRevisionChange
-// ----------------------------------------------------------------------------
-{
-	NSString* updateRevisionUrlString = [path stringByAppendingString:@"_UPDATE/"];
-	
-	NSURL* url = [NSURL URLWithString:updateRevisionUrlString];
-	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
-	[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
-	updateRevisionData = [NSMutableData data];
-
-    /*
-    // moved from NSURLConnection to NSURLSession, according to
-    // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
-     */
-    updateRevisionConnection = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dwnTask = [updateRevisionConnection dataTaskWithRequest:request
-                                                               completionHandler:
-                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            [self->updateRevisionData appendData:data];
-            [self connectionDidFinishLoading:self->updateRevisionConnection];
-        }
-    }];
-    
-    [dwnTask resume];
-}
 
 
-// ----------------------------------------------------------------------------
-- (void) downloadSharedPlaylists
-// ----------------------------------------------------------------------------
-{
-	children = [[NSMutableArray alloc] init];
-	
-	// get playlists from server
-	if (path != nil)
-	{
-		NSString* urlString = path;
-		NSString* playlistIndexURLString = [urlString stringByAppendingFormat:@"_PLAYLISTS/"];
-		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:playlistIndexURLString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
-		[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
-		playlistIndexDownloadData = [NSMutableData data];
 
-		//NSLog(@"Downloading playlist index: %@\n", playlistIndexURLString);
-        
-        /*
-        // moved from NSURLConnection to NSURLSession, according to
-        // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
-         */
-        playlistIndexDownloadConnection = [NSURLSession sharedSession];
-        NSURLSessionDataTask *dwnTask = [playlistIndexDownloadConnection dataTaskWithRequest:request
-                                                                   completionHandler:
-                                         ^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error) {
-                NSLog(@"Error: %@", error.localizedDescription);
-            } else {
-                [self->updateRevisionData appendData:data];
-                [self connectionDidFinishLoading:self->playlistIndexDownloadConnection];
-            }
-        }];
-        
-        [dwnTask resume];
-	}
-	
-}
-// ----------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLSession *)connection
-// ----------------------------------------------------------------------------
-{
-	if (connection == playlistIndexDownloadConnection)
-	{
-		NSString* playlistIndexString = [[NSString alloc] initWithData:playlistIndexDownloadData encoding:NSUTF8StringEncoding];
-		NSArray* playlistIndexItems = [playlistIndexString componentsSeparatedByString:@"\n"];
-		
-		for (NSString* playlistIndexItem in playlistIndexItems)
-		{
-			NSArray* playlistIndexItemComponents = [playlistIndexItem componentsSeparatedByString:@":"];
-			if (playlistIndexItemComponents.count == 3)
-			{
-				NSString* playlistIndexSpecifier = playlistIndexItemComponents[0];
-				NSInteger playlistIndex = playlistIndexSpecifier.integerValue;
-				
-				NSString* playlistTypeSpecifier = playlistIndexItemComponents[1];
-				if (playlistTypeSpecifier.length == 1)
-				{
-					BOOL isSmartPlaylist = [playlistTypeSpecifier isEqualToString:@"S"];
-					NSString* playlistName = playlistIndexItemComponents[2];
-
-					NSString* urlString = path;
-					NSString* playlistURLString = [urlString stringByAppendingFormat:@"_PLAYLISTS/%ld", (long)playlistIndex];
-					
-					NSImage* sourceListIcon = isSmartPlaylist ? [SPSourceListItem smartPlaylistIcon] : [SPSourceListItem playlistIcon];
-					SPSourceListItem* playlistItem = [SPSourceListDataSource addSourceListItemToItem:self atIndex:-1 forPath:playlistURLString withName:playlistName withImage:sourceListIcon];
-					[playlistItem setType:(isSmartPlaylist ? SOURCELIST_SHAREDSMARTPLAYLIST : SOURCELIST_SHAREDPLAYLIST)];
-					[playlistItem setService:service];
-					[playlistItem setPlaylist:nil];
-					[playlistItem downloadSharedPlaylistFromUrl:playlistURLString];
-				}
-			}
-		}
-		
-		[[NSNotificationCenter defaultCenter] postNotificationName:SPSharedPlaylistIndexDownloaded object:self];
-		
-		playlistIndexDownloadData = nil;
-		playlistIndexDownloadConnection = nil;
-	}
-	else if (connection == playlistDownloadConnection)
-	{
-		if (type == SOURCELIST_SHAREDSMARTPLAYLIST)
-		{
-			playlist = [SPSimplePlaylist playlistFromSharedSmartPlaylistData:playlistDownloadData];
-			[playlist setName:name.string];
-		}
-		else
-			playlist = [SPSimplePlaylist playlistFromData:playlistDownloadData];
-
-		playlistDownloadData = nil;
-		playlistDownloadConnection = nil;
-	}	
-	else if (connection == updateRevisionConnection)
-	{
-		NSString* updateRevisionDataString = [[NSString alloc] initWithData:updateRevisionData encoding:NSUTF8StringEncoding];
-		NSInteger remoteUpdateRevision = updateRevisionDataString.integerValue;
-		//NSLog(@"update revision of %@: %d\n", [name string], remoteUpdateRevision);
-		
-		if (currentRemoveUpdateRevision == -1)
-			currentRemoveUpdateRevision = remoteUpdateRevision;
-		else if (currentRemoveUpdateRevision != remoteUpdateRevision)
-		{
-			currentRemoveUpdateRevision = remoteUpdateRevision;
-			//NSLog(@"update revision of %@: changed, getting new playlists\n", [name string], remoteUpdateRevision);
-			[self downloadSharedPlaylists];
-		}
-			
-		updateRevisionData = nil;
-		updateRevisionConnection = nil;
-	}
-}
-
-// ----------------------------------------------------------------------------
-- (void) downloadSharedPlaylistFromUrl:(NSString*)urlString
-// ----------------------------------------------------------------------------
-{
-	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
-	[request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
-	playlistDownloadData = [NSMutableData data];
-
-	//NSLog(@"Downloading playlist: %@\n", urlString);
-    /*
-    // moved from NSURLConnection to NSURLSession, according to
-    // https://www.objc.io/issues/5-ios7/from-nsurlconnection-to-nsurlsession/
-     */
-    playlistDownloadConnection = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dwnTask = [playlistDownloadConnection dataTaskWithRequest:request
-                                                               completionHandler:
-                                     ^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            [self->updateRevisionData appendData:data];
-            [self connectionDidFinishLoading:self->playlistDownloadConnection];
-        }
-    }];
-    
-    [dwnTask resume];
-}
 
 
 // ----------------------------------------------------------------------------
@@ -531,14 +291,6 @@ static NSImage* sSmartPlaylistIcon = nil;
 
 
 // ----------------------------------------------------------------------------
-+ (NSImage*) sharedCollectionIcon
-// ----------------------------------------------------------------------------
-{
-	if (sharedCollectionIcon == nil)
-		sharedCollectionIcon = [NSImage imageNamed:@"SIDshared_collection.rectangle.stack.badge.person.crop"];
-	
-	return sharedCollectionIcon;
-}
 
 
 // ----------------------------------------------------------------------------

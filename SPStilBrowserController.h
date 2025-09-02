@@ -31,7 +31,6 @@
 - (void) indexingFinished:(id)object;
 
 - (void) displayEntryForRelativePath:(NSString*)relativePath;
-- (void) displaySharedCollectionMessage;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSSearchField *searchField;
 

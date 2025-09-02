@@ -19,7 +19,6 @@ NSString* SPSourceListCollectionItemPBoardType = @"SPSourceListCollectionItemPBo
 
 static NSString* SPDefaultKeyDontShowDeletePlaylistAlert = @"SPDefaultKeyDontShowDeletePlaylistAlert";
 
-static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 
 
 // ----------------------------------------------------------------------------
@@ -35,12 +34,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		draggedItems = nil;
 		rsyncTask = nil;
 		rsyncMirrorsListDownloaded = NO;
-		
-		httpServer = nil;
-		serviceBrowser = [[NSNetServiceBrowser alloc] init];
-        serviceBrowser.delegate = self;
-		currentSharedCollectionService = nil;
-		serviceBeingResolved = nil;
 	}
 	
 	return self;
@@ -56,7 +49,7 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	[sourceListView registerForDraggedTypes:@[NSFilenamesPboardType, NSStringPboardType, SPSourceListCollectionItemPBoardType, SPBrowserItemPBoardType]];
 	[sourceListView setVerticalMotionCanBeginDrag:YES];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sharedPlaylistsIndexDownloaded:) name:SPSharedPlaylistIndexDownloaded object:nil];	
+	
 	
 	NSRect frame = syncProgressDialog.frame;
 	frame.size.height = syncProgressDialog.minSize.height;
@@ -67,7 +60,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	// Add the container headers
 	collectionsContainerItem = [self addHeaderItemWithName:@"COLLECTIONS" atIndex:0];
 	playlistsContainerItem = [self addHeaderItemWithName:@"PLAYLISTS" atIndex:1];
-	sharedCollectionsContainerItem = nil;
 
 	// download mirror list to get up-to-date default mirror
 	rsyncMirrorsListDownloaded = NO;
@@ -95,12 +87,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	
 	[self checkForAutoSync];
 	
-	/*
-	if (gPreferences.mPublishSharedCollection)
-		[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
-	
-	[self searchForSharedCollections:gPreferences.mSearchForSharedCollections];
-	*/
 }
 
 
@@ -380,33 +366,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 }
 
 
-// ----------------------------------------------------------------------------
-- (SPSourceListItem*) addSharedCollectionItemForService:(NSNetService*)service atIndex:(NSInteger)index
-// ----------------------------------------------------------------------------
-{
-	if (service == nil)
-		return nil;
-	
-	if (sharedCollectionsContainerItem == nil)
-	{
-		sharedCollectionsContainerItem = [self addHeaderItemWithName:@"SHARED" atIndex:1];
-		//NSLog(@"Added sharedCollectionsContainerItem: %@\n", sharedCollectionsContainerItem);
-	}
-	
-	NSString* host = service.hostName;
-	NSInteger port = service.port;
-	NSString* urlString = nil;
-	if (port != -1)
-		urlString = [NSString stringWithFormat:@"http://%@:%d/", host, (int)port];
-		
-	SPSourceListItem* item = [SPSourceListDataSource addSourceListItemToItem:sharedCollectionsContainerItem atIndex:index forPath:urlString withName:service.name withImage:[SPSourceListItem sharedCollectionIcon]];
-	[item setType:SOURCELIST_SHAREDCOLLECTION];
-	[item setService:service];
-
-	//NSLog(@"Added item: %@\n", item);
-
-	return item;
-}
 
 
 // ----------------------------------------------------------------------------
@@ -479,22 +438,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		
 		itemWasRemoved = YES;
 	}
-	else if ([item isSharedCollectionItem])
-	{
-		container = sharedCollectionsContainerItem;
-		if (container != nil)
-		{
-			[[container children] removeObject:item];
-			
-			if ([container children].count < 1)
-			{
-				[rootItems removeObject:container];
-				sharedCollectionsContainerItem = nil;
-			}
-		}
-		
-		itemWasRemoved = YES;
-	}
 	else if ([item isPlaylistItem] || [item isSmartPlaylistItem])
 	{
 		BOOL suppressAlert = [[NSUserDefaults standardUserDefaults] boolForKey:SPDefaultKeyDontShowDeletePlaylistAlert];
@@ -536,7 +479,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			itemWasRemoved = YES;
 			
 			[self bumpUpdateRevision];
-			//[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
 		}
 	}
 
@@ -675,120 +617,8 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
     [browserDataSource switchToPlaylist:currentPlaylist];
 }
 
-#pragma mark -
-#pragma mark collection sharing methods
-
-#if 0
-// ----------------------------------------------------------------------------
-- (void) publishSharedCollectionWithPath:(NSString*)collectionPath
-// ----------------------------------------------------------------------------
-{
-	if (collectionPath == nil)
-	{
-		[self publishSharedCollection:nil];
-		return;
-	}
-	
-	SPSourceListItem* sharedCollectionItem = [self findItemWithPath:collectionPath inParentItem:collectionsContainerItem];
-	if (sharedCollectionItem != nil)
-		[self publishSharedCollection:sharedCollectionItem];
-}
 
 
-// ----------------------------------------------------------------------------
-- (void) publishSharedCollection:(SPSourceListItem*)collectionItem
-// ----------------------------------------------------------------------------
-{
-	if (collectionItem == nil)
-	{
-		if (httpServer != nil)
-		{
-			[httpServer stop];
-			httpServer = nil;
-		}
-		return;
-	}
-	
-	if (httpServer == nil)
-		httpServer = [[HTTPServer alloc] init];
-	else
-	{
-		[httpServer stop];
-		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0f]];
-	}
-
-	if (![collectionItem isPathValid])
-		return;
-	
-	[httpServer setType:SPSharedCollectionServiceType];
-	[httpServer setPort:6581];
-	[httpServer setName:[NSString stringWithFormat:@"%@ on %@", [[collectionItem name] string], (__bridge NSString*) CSCopyMachineName()]];
-	[httpServer setDocumentRoot:[NSURL fileURLWithPath:[collectionItem path]]];
-	[httpServer setSourceListDataSource:self];
-	
-	NSError* error;
-	/*BOOL success =*/ [httpServer start:&error];
-	
-	//if(!success)
-		//NSLog(@"Error starting HTTP Server: %@", error);
-}
-#endif
-
-// ----------------------------------------------------------------------------
-- (void) searchForSharedCollections:(BOOL)enableSearching
-// ----------------------------------------------------------------------------
-{
-    if (serviceBrowser == nil)
-        return;
-	
-	[serviceBrowser stop];
-	if (enableSearching)
-		[serviceBrowser searchForServicesOfType:SPSharedCollectionServiceType inDomain:@"local"];
-	else
-	{
-		NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-		long count = sharedCollectionItems.count;
-		int index = 0;
-		for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
-		{
-			[self netServiceBrowser:serviceBrowser didRemoveService:[sharedCollectionItem service] moreComing:(index != (count - 1))];
-			index++;
-		}
-	}
-}
-
-
-// ----------------------------------------------------------------------------
-- (NSNetService*) currentSharedCollectionService
-// ----------------------------------------------------------------------------
-{
-	return currentSharedCollectionService;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) setCurrentSharedCollectionService:(NSNetService*)service
-// ----------------------------------------------------------------------------
-{
-	currentSharedCollectionService = service;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void) sharedPlaylistsIndexDownloaded:(NSNotification *)notification
-// ----------------------------------------------------------------------------
-{
-	[sourceListView reloadData];
-	
-	NSInteger selectedRow = sourceListView.selectedRow;
-	if (selectedRow != -1)
-	{
-		SPSourceListItem* firstCollectionItem = [collectionsContainerItem childAtIndex:0];
-		NSInteger row = [sourceListView rowForItem:firstCollectionItem];
-		if (row != -1)
-			[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-	}
-}
 
 
 // ----------------------------------------------------------------------------
@@ -807,17 +637,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 }
 
 
-// ----------------------------------------------------------------------------
-- (void) checkForRemoteUpdateRevisionChange
-// ----------------------------------------------------------------------------
-{
-	if (sharedCollectionsContainerItem == nil || ![sharedCollectionsContainerItem hasChildren])
-		return;
-	
-	NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-	for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
-		[sharedCollectionItem checkForRemoteUpdateRevisionChange];
-}
 
 
 #pragma mark -
@@ -867,7 +686,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	[self createNewPlaylistWithName:@"untitled playlist" andSelectInSourceList:YES];
 
 	[self bumpUpdateRevision];
-	//[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
 }
 
 
@@ -895,7 +713,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	}
 	
 	[self bumpUpdateRevision];
-	//[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
 }
 
 
@@ -935,7 +752,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	}
 	
 	[self bumpUpdateRevision];
-	//[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
 }
 
 
@@ -1448,8 +1264,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	if (item == nil)
 		return;
 	
-	if ([item isSharedPlaylistItem] || [item isSharedSmartPlaylistItem])
-		return;
 	
 	SPSourceListItem* sourceListItem = (SPSourceListItem*) item;
 	SPPlaylist* playlist = [sourceListItem playlist];
@@ -1471,7 +1285,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	[sourceListView reloadData];
 	
 	[self bumpUpdateRevision];
-	//[self publishSharedCollectionWithPath:gPreferences.mSharedCollectionPath];
 	
     NSInteger newRow = [sourceListView rowForItem:item];
 	if (newRow >= 0)
@@ -1688,152 +1501,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 }
 
 
-#pragma mark -
-#pragma mark netservice browser delegate methods
-
-
-// ----------------------------------------------------------------------------
-- (void)netServiceBrowser:(NSNetServiceBrowser*)netServiceBrowser didFindService:(NSNetService*)service moreComing:(BOOL)moreComing
-// ----------------------------------------------------------------------------
-{
-	//NSLog(@"Found service: %@\n", service);
-	
-	// Ignore local service
-    /*
-	if ([[service name] isEqualToString:[[httpServer netService] name]])
-	{
-		if (!moreComing)
-			[sourceListView reloadData];
-
-		return;
-	}
-    */
-     
-	while (serviceBeingResolved != nil)
-		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
-	
-	service.delegate = (id<NSNetServiceDelegate>)self;
-	[service resolveWithTimeout:10.0f];
-	serviceBeingResolved = service;
-}	
-
-
-// ----------------------------------------------------------------------------
-- (void)netServiceBrowser:(NSNetServiceBrowser*)netServiceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing
-// ----------------------------------------------------------------------------
-{
-	//NSLog(@"Removing service: %@\n", service);
-	NSMutableArray* itemsToRemove = [[NSMutableArray alloc] init];
-	
-	if (sharedCollectionsContainerItem == nil || ![sharedCollectionsContainerItem hasChildren])
-		return;
-	
-	NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-	for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
-	{
-		if ([[sharedCollectionItem service] isEqualTo:service])
-			[itemsToRemove addObject:sharedCollectionItem];
-	}
-
-	SPSourceListItem* itemToRemove = itemsToRemove[0]; 
-	
-	if ([service isEqualTo:currentSharedCollectionService] && [collectionsContainerItem hasChildren])
-	{
-		currentSharedCollectionService = nil;
-
-		// Check if the service is currently selected in the list, if so jump to the first normal collection item
-		SPSourceListItem* firstCollectionItem = [collectionsContainerItem childAtIndex:0];
-		NSInteger row = [sourceListView rowForItem:firstCollectionItem];
-		if (row != -1)
-			[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-
-		[self removeSourceListItem:itemToRemove];
-
-		if (!moreComing)
-			[sourceListView reloadData];
-	}
-	else
-	{
-		// If something else is selected, preserve the selection
-		SPSourceListItem* selectedItem = nil;
-		NSInteger selectedRow = sourceListView.selectedRow;
-		if (selectedRow != -1)
-			selectedItem = [sourceListView itemAtRow:selectedRow];
-		
-		[self removeSourceListItem:itemToRemove];
-		if (!moreComing)
-		{
-			[sourceListView reloadData];
-	
-			if (selectedItem != nil)
-			{
-				NSInteger newRow = [sourceListView rowForItem:selectedItem];
-				[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
-			}
-		}
-	}
-}	
-
-
-// ----------------------------------------------------------------------------
-- (BOOL)addressesComplete:(NSArray *)addresses forServiceType:(NSString *)serviceType
-// ----------------------------------------------------------------------------
-{
-    // Perform appropriate logic to ensure that [netService addresses]
-    // contains the appropriate information to connect to the service
-    return YES;
-}
-
-
-
-// ----------------------------------------------------------------------------
-- (void)netServiceDidResolveAddress:(NSNetService*)service
-// ----------------------------------------------------------------------------
-{
-	//NSLog(@"Resolved service: %@\n", service);
-	
-	// Preserve the current selection
-	SPSourceListItem* selectedItem = nil;
-	NSInteger selectedRow = sourceListView.selectedRow;
-	if (selectedRow != -1)
-		selectedItem = [sourceListView itemAtRow:selectedRow];
-	
-	// If a service came online, add it to the list
-	NSMutableArray* sharedCollectionItems = [sharedCollectionsContainerItem children];
-	for (SPSourceListItem* sharedCollectionItem in sharedCollectionItems)
-	{
-		if ([[sharedCollectionItem service].hostName isEqualToString:service.hostName])
-		{
-			serviceBeingResolved = nil;
-			return;
-		}
-	}
-	
-	long sharedServiceCount = sharedCollectionItems != nil ? sharedCollectionItems.count : 0;
-	[self addSharedCollectionItemForService:service atIndex:sharedServiceCount];
-	
-	[sourceListView reloadData];
-		
-	if (selectedItem != nil)
-	{
-		NSInteger newRow = [sourceListView rowForItem:selectedItem];
-		[sourceListView selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
-	}
-	
-	serviceBeingResolved = nil;
-}
-
-
-// ----------------------------------------------------------------------------
-- (void)netService:(NSNetService*)service didNotResolve:(NSDictionary *)errorDict
-// ----------------------------------------------------------------------------
-{
-	//NSLog(@"Failed to resolve service: %@\n", service);
-	serviceBeingResolved = nil;
-
-    //[self handleError:[errorDict objectForKey:NSNetServicesErrorCode]];
-    //[services removeObject:netService];
-}
 
 
 @end
@@ -1928,7 +1595,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 	{
 		case SOURCELIST_COLLECTION:
 		{
-			[dataSource setCurrentSharedCollectionService:nil];
 			NSString* rootPath = [browserDataSource rootPath];
 			BOOL rootPathChanged = rootPath == nil || ![rootPath isEqualToString:[selectedItem path]];
 			
@@ -1955,33 +1621,11 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 			
 			if ([selectedItem playlist] != currentPlaylist || currentPlaylist == nil)
 			{
-				[dataSource setCurrentSharedCollectionService:nil];
 				[browserDataSource switchToPlaylist:[selectedItem playlist]];
                 [browserDataSource activateLastPlayedItem];
 			}
 		break;
 			
-		case SOURCELIST_SHAREDCOLLECTION:
-		{
-			NSNetService* service = [selectedItem service];
-			if (service != nil)
-			{
-				[dataSource setCurrentSharedCollectionService:service];
-				[browserDataSource setSharedCollectionRootPath:[selectedItem path] withServiceName:service.name];
-			}
-		}
-		break;
-			
-		case SOURCELIST_SHAREDPLAYLIST:
-		case SOURCELIST_SHAREDSMARTPLAYLIST:
-			
-			if ([selectedItem playlist] != currentPlaylist || currentPlaylist == nil)
-			{
-				BOOL smartPlaylist = type == SOURCELIST_SHAREDSMARTPLAYLIST;
-				[browserDataSource switchToSharedPlaylist:[selectedItem playlist] withService:[selectedItem service] isSmartPlaylist:smartPlaylist];
-				[dataSource setCurrentSharedCollectionService:[selectedItem service]];
-			}
-		break;
 			
 		default:
 			break;
@@ -2058,8 +1702,6 @@ static NSString* SPSharedCollectionServiceType = @"_sidmusic._tcp";
 		return nil;
 
 	if ([item isCollectionItem])
-		return collectionItemMenu;
-	else if ([item isSharedCollectionItem])
 		return collectionItemMenu;
 	else if ([item isPlaylistItem])
 		return playlistItemMenu;

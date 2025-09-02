@@ -23,7 +23,6 @@
 
 + (NSString*) fileExtension;
 + (SPSimplePlaylist*) playlistFromData:(NSData*)data;
-+ (SPSimplePlaylist*) playlistFromSharedSmartPlaylistData:(NSData*)data;
 + (SPSimplePlaylist*) playlistFromFile:(NSString*)path;
 + (SPSimplePlaylist*) playlistFromSidplay3File:(NSString*)path;
 
