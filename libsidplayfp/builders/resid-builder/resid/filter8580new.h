@@ -23,6 +23,7 @@
 #include "resid-config.h"
 
 #include <cassert>
+#include <cstdlib>
 
 namespace reSID
 {
@@ -648,6 +649,23 @@ protected:
   static model_filter_t model_filter[2];
 
 friend class SID;
+
+private:
+    class Randomnoise
+    {
+    private:
+        int buffer[1024];
+        mutable int index = 0;
+    public:
+        Randomnoise()
+        {
+            for (int i=0; i<1024; i++)
+                buffer[i] = rand() % (1<<19);
+        }
+        int getNoise() const { index = (index + 1) & 0x3ff; return buffer[index]; }
+    };
+
+    Randomnoise rnd;
 };
 
 
@@ -667,9 +685,9 @@ void Filter::clock(int voice1, int voice2, int voice3)
 {
   model_filter_t& f = model_filter[sid_model];
 
-  v1 = (voice1*f.voice_scale_s14 >> 18) + f.voice_DC;
-  v2 = (voice2*f.voice_scale_s14 >> 18) + f.voice_DC;
-  v3 = (voice3*f.voice_scale_s14 >> 18) + f.voice_DC;
+  v1 = ((voice1*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
+  v2 = ((voice2*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
+  v3 = ((voice3*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
 
   // Sum inputs routed into the filter.
   int Vi = 0;
@@ -768,9 +786,9 @@ void Filter::clock(cycle_count delta_t, int voice1, int voice2, int voice3)
 {
   model_filter_t& f = model_filter[sid_model];
 
-  v1 = (voice1*f.voice_scale_s14 >> 18) + f.voice_DC;
-  v2 = (voice2*f.voice_scale_s14 >> 18) + f.voice_DC;
-  v3 = (voice3*f.voice_scale_s14 >> 18) + f.voice_DC;
+  v1 = ((voice1*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
+  v2 = ((voice2*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
+  v3 = ((voice3*f.voice_scale_s14 + rnd.getNoise()) >> 18) + f.voice_DC;
 
   // Enable filter on/off.
   // This is not really part of SID, but is useful for testing.
@@ -1887,7 +1905,7 @@ int Filter::solve_integrate_8580(int dt, int vi, int& vx, int& vc, model_filter_
   unsigned int Vgdt = (vi < nVgt) ? nVgt - vi : 0;  // triode/saturation mode
 
   // Dac current, scaled by (1/m)*2^13*m*2^16*m*2^16*2^-15 = m*2^30
-  int n_I_rfc = n_dac*(int(Vgst*Vgst - Vgdt*Vgdt) >> 15);
+  int n_I_rfc = (n_dac*(int(Vgst*Vgst - Vgdt*Vgdt) >> 15)) >> 4;
 
   // Change in capacitor charge.
   vc -= n_I_rfc*dt;

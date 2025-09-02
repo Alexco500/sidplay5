@@ -7,9 +7,6 @@
 /* Define for threaded driver */
 /* #undef EXSID_THREADED */
 
-/* Define to 1 if you have the <arm_neon.h> header file. */
-/* #undef HAVE_ARM_NEON_H */
-
 /* define if the compiler supports basic C++11 syntax */
 /* #undef HAVE_CXX11 */
 
@@ -20,7 +17,10 @@
 /* #undef HAVE_CXX17 */
 
 /* define if the compiler supports basic C++20 syntax */
-#define HAVE_CXX20 1
+/* #undef HAVE_CXX20 */
+
+/* define if the compiler supports basic C++23 syntax */
+#define HAVE_CXX23 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
@@ -43,14 +43,14 @@
 /* Define to 1 if you have libgcrypt (-lgcrypt). */
 /* #undef HAVE_LIBGCRYPT */
 
+/* Define if you have POSIX threads libraries and header files. */
+#define HAVE_PTHREAD 1
+
 /* Define to 1 if you have pthread.h */
 /* #undef HAVE_PTHREAD_H */
 
 /* Have PTHREAD_PRIO_INHERIT. */
-/* #undef HAVE_PTHREAD_PRIO_INHERIT */
-
-/* Define to 1 if you have the <smmintrin.h> header file. */
-/* #undef HAVE_SMMINTRIN_H */
+#define HAVE_PTHREAD_PRIO_INHERIT 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -95,7 +95,7 @@
 #define PACKAGE_NAME "libsidplayfp"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libsidplayfp 2.11.0"
+#define PACKAGE_STRING "libsidplayfp 2.15.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libsidplayfp"
@@ -104,7 +104,7 @@
 #define PACKAGE_URL "https://github.com/libsidplayfp/libsidplayfp/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.11.0"
+#define PACKAGE_VERSION "2.15.0"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
@@ -125,7 +125,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "2.11.0"
+#define VERSION "2.15.0"
 
 /* Path to VICE testsuite. */
 /* #undef VICE_TESTSUITE */

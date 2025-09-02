@@ -28,18 +28,18 @@
 namespace libsidplayfp
 {
 
-typedef struct
+using model_data_t = struct
 {
     double colorBurst;         ///< Colorburst frequency in Herz
     double divider;            ///< Clock frequency divider
     double powerFreq;          ///< Power line frequency in Herz
     MOS656X::model_t vicModel; ///< Video chip model
-} model_data_t;
+};
 
-typedef struct
+using cia_model_data_t = struct
 {
     MOS652X::model_t ciaModel; ///< CIA chip model
-} cia_model_data_t;
+};
 
 /*
  * Color burst frequencies:
@@ -154,14 +154,14 @@ void c64::setBaseSid(c64sid *s)
 bool c64::addExtraSid(c64sid *s, int address)
 {
     // Check for valid address in the IO area range ($dxxx)
-    if ((address & 0xf000) != 0xd000)
+    if ((address & 0xf000) != 0xd000) UNLIKELY
         return false;
 
     const int idx = (address >> 8) & 0xf;
 
     // Only allow second SID chip in SID area ($d400-$d7ff)
     // or IO Area ($de00-$dfff)
-    if ((idx < 0x4) || ((idx > 0x7) && (idx < 0xe)))
+    if ((idx < 0x4) || ((idx > 0x7) && (idx < 0xe))) UNLIKELY
         return false;
 
     // Add new SID bank
@@ -182,12 +182,25 @@ bool c64::addExtraSid(c64sid *s, int address)
     return true;
 }
 
-c64::~c64()
+unsigned int c64::installedSIDs() const
+{
+    unsigned int sids = 1;
+    for (auto sidBank: extraSidBanks)
+        sids += sidBank.second->installedSIDs();
+    return sids;
+}
+
+void c64::deleteSids(sidBankMap_t &extraSidBanks)
 {
     for (auto sidBank: extraSidBanks)
         delete sidBank.second;
 
     extraSidBanks.clear();
+}
+
+c64::~c64()
+{
+    deleteSids(extraSidBanks);
 }
 
 void c64::clearSids()
@@ -196,10 +209,7 @@ void c64::clearSids()
 
     resetIoBank();
 
-    for (auto sidBank: extraSidBanks)
-        delete sidBank.second;
-
-    extraSidBanks.clear();
+    deleteSids(extraSidBanks);
 }
 
 }

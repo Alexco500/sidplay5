@@ -37,7 +37,7 @@ namespace libsidplayfp
 class ExtraSidBank final : public Bank
 {
 private:
-    typedef std::vector<c64sid*> sids_t;
+    using sids_t = std::vector<c64sid*>;
 
 private:
     /**
@@ -65,7 +65,7 @@ public:
     void reset()
     {
         for (c64sid* sid: sids)
-            sid->reset(0xf);
+            sid->reset();
     }
 
     void resetSIDMapper(Bank *bank)
@@ -95,6 +95,8 @@ public:
         sids.push_back(s);
         mapper[mapperIndex(address)] = s;
     }
+
+    unsigned int installedSIDs() const { return sids.size(); }
 };
 
 }
