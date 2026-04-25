@@ -109,6 +109,7 @@ struct SidRegisterFrame
 // for popoverSIDSelector
 - (int) getSIDModelFromTune;
 - (struct PlaybackSettings*) getCurrentPlaybackSettings;
+- (BOOL) isUsbDeviceActive;
 
 - (struct SidRegisterFrame*) getCurrentSidRegisters;
 - (void) sidRegisterFrameHasChanged:(void*) inInstance inFrame:(struct SidRegisterFrame *) inRegisterFrame;

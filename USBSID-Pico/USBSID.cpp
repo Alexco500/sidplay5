@@ -119,8 +119,8 @@ int USBSID_Class::USBSID_Init(bool start_threaded, bool with_cycles)
       if (threaded) {
         rc = USBSID_InitThread();
       }
-        USBSID_GetClockRate();  /* Once on init */
         us_PortIsOpen = true;
+        USBSID_GetClockRate();  /* Once on init */
         USBSID_Mute();
         USBSID_ClearBus();
         USBSID_UnMute();

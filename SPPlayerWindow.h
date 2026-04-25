@@ -110,6 +110,8 @@ extern NSString* SPUrlRequestUserAgentString;
     __weak IBOutlet NSTextField *ExtText;
     __weak IBOutlet NSBox *ExtLine2;
         
+    __weak IBOutlet NSButton *sidPopup;
+    
     SPInfoWindowController* infoWindowController;
 	SPStilBrowserController* stilBrowserController;
 	SPPreferencesWindowController* prefsWindowController;

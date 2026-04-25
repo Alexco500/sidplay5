@@ -362,6 +362,12 @@ AudioCoreDriverNew* audioDriver = nil;
     [statusDisplay setPlaybackSeconds:seconds];
     [miniStatusDisplay setPlaybackSeconds:seconds];
     [browserDataSource updateCurrentSong:seconds];
+    if ([player isUsbDeviceActive]) {
+        [sidPopup setEnabled:FALSE];
+    } else
+        [sidPopup setEnabled:TRUE];
+    [sidPopup setNeedsDisplay:TRUE];
+    [sidPopup.superview displayIfNeeded];
     
     // update elapsed time for media controls
     NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
@@ -859,7 +865,10 @@ AudioCoreDriverNew* audioDriver = nil;
     }
     
     if (showPlayButton) {
-        [player resumePlayback];
+        if ([player isPlaying])
+            [player resumePlayback];
+        else
+            [player startPlayback];
         [self setPlayPauseButtonToPause:YES];
     } else {
         [player pausePlayback];
@@ -1357,7 +1366,6 @@ AudioCoreDriverNew* audioDriver = nil;
     [stackViewExternal2 setHidden:!enable_ext2];
     [stackViewExternal3 setHidden:!enable_ext3];
     [stackViewExternal4 setHidden:!enable_ext4];
-    
 }
 // ----------------------------------------------------------------------------
 - (IBAction) SIDSelectorButtonPressed:(id)sender

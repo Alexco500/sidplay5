@@ -855,6 +855,10 @@ static inline float approximate_dac(int x, float kinkiness)
     }
     return M_UNKNOWN;
 }
+- (BOOL) isUsbDeviceActive
+{
+    return mExtUSBDeviceActive;
+}
 - (char*) getTuneBuffer:(int *)outTuneLength
 {
     *outTuneLength = mTuneLength;

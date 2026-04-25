@@ -36,14 +36,12 @@
 - (void)pause {
     [self.cond lock];
     self.paused = YES;
-    isPlaying = false;
     [self.cond unlock];
 }
 
 - (void)resume {
     [self.cond lock];
     self.paused = NO;
-    isPlaying = true;
     [self.cond signal];
     [self.cond unlock];
 }
