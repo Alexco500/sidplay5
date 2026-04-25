@@ -16,6 +16,7 @@
 #include "PlaybackSettings.h"
 
 typedef int_fast64_t event_clock_t;
+@class PlayerUsbWorker;
 
 NS_ASSUME_NONNULL_BEGIN
 // for PopupSIDSelector
@@ -53,7 +54,7 @@ struct SidRegisterFrame
     int  mPreviousOversamplingFactor;
     char* mOversamplingBuffer;
 }
-
+@property (nonatomic, strong) PlayerUsbWorker *usbWorker;
 @property (NS_NONATOMIC_IOSONLY, readonly) const char* sChipModel6581;
 @property (NS_NONATOMIC_IOSONLY, readonly) const char* sChipModel8580;
 @property (NS_NONATOMIC_IOSONLY, readonly) const char* sChipModelUnknown;
@@ -71,6 +72,12 @@ struct SidRegisterFrame
 - (BOOL) startNextSubtune;
 - (BOOL) startSubtune:(int) which;
 - (BOOL) initCurrentSubtune;
+- (void) fillBufferUSB;
+- (void) startPlayback;
+- (void) pausePlayback;
+- (void) resumePlayback;
+- (void) stopPlayback;
+- (BOOL) isPlaying;
 - (void) fillBuffer:(void*) buffer withLen: (int) len;
 - (int) getTempo;       //    { return mCurrentTempo; }
 - (void) setTempo:(int)tempo;

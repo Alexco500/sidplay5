@@ -110,7 +110,6 @@
 		DA056EDE2A177F1D0096847B /* extfilt.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3972A04F36000419CB8 /* extfilt.cc */; };
 		DA056EDF2A177F1F0096847B /* wave.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3992A04F36000419CB8 /* wave.cc */; };
 		DA056EE02A177F250096847B /* version.cc in Sources */ = {isa = PBXBuildFile; fileRef = DA17E39D2A04F36000419CB8 /* version.cc */; };
-		DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; };
 		DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEC2A178FCA0096847B /* Cocoa.framework */; };
 		DA056EEF2A178FD60096847B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EEE2A178FD60096847B /* AppKit.framework */; };
 		DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF02A178FE00096847B /* CoreAudio.framework */; };
@@ -181,6 +180,18 @@
 		DA17E57F2A050B7700419CB8 /* SidTuneInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E5712A050B7700419CB8 /* SidTuneInfo.cpp */; };
 		DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4C27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m */; };
 		DA212D5127F70C1F00038CDE /* StringAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = DA212D4F27F70C1F00038CDE /* StringAddons.m */; };
+		DA529C9A2F99064000FD8AC7 /* usbSid-builderObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA529C852F99064000FD8AC7 /* usbSid-builderObjC.mm */; };
+		DA529CA62F9A081900FD8AC7 /* libftd2xx.1.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA529CA52F9A081000FD8AC7 /* libftd2xx.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DA529CA72F9A08AE00FD8AC7 /* libftd2xx.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA529CA52F9A081000FD8AC7 /* libftd2xx.1.dylib */; };
+		DA529CAC2F9A15BC00FD8AC7 /* USBSIDInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CAA2F9A15BC00FD8AC7 /* USBSIDInterface.h */; };
+		DA529CAD2F9A15BC00FD8AC7 /* USBSID.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CA82F9A15BC00FD8AC7 /* USBSID.h */; };
+		DA529CAE2F9A15BC00FD8AC7 /* USBSIDInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA529CAB2F9A15BC00FD8AC7 /* USBSIDInterface.cpp */; };
+		DA529CAF2F9A15BC00FD8AC7 /* USBSID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA529CA92F9A15BC00FD8AC7 /* USBSID.cpp */; };
+		DA529CB22F9A293A00FD8AC7 /* usbSid-emuObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA529CB12F9A293A00FD8AC7 /* usbSid-emuObjC.mm */; };
+		DA529CBD2F9C162D00FD8AC7 /* PlayerUsbWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */; };
+		DA529CBE2F9C162D00FD8AC7 /* PlayerUsbWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */; };
+		DA529CC02F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */; };
+		DA529CC12F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */; };
 		DA5578112CDE2063005C2A42 /* SPBigOscilloscopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.m */; };
 		DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5578132CDE20ED005C2A42 /* SPOscilloscopeWindowController.m */; };
 		DA557D522AC6E9F000C02288 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
@@ -203,7 +214,6 @@
 		DA59B0C42A05224900233549 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3122A04F36000419CB8 /* timer.cpp */; };
 		DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC686A0CF07344005AFA9A /* SidTuneWrapper.mm */; };
 		DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC68680CF07344005AFA9A /* SidTuneMod.cpp */; };
-		DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA59B1022A0A763C00233549 /* libftd2xx.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DA74323D2E66FB5F009420D6 /* simpleMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */; };
 		DA74323E2E66FB5F009420D6 /* simpleMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = DA74323B2E66FB5F009420D6 /* simpleMixer.h */; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
@@ -293,7 +303,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA59B1042A0A764800233549 /* libftd2xx.dylib in Embed Frameworks */,
+				DA529CA62F9A081900FD8AC7 /* libftd2xx.1.dylib in Embed Frameworks */,
 				DAB81A26286870160075CB8E /* LAME.framework in Embed Frameworks */,
 				DAC0509B2D369DE2009892D4 /* Sparkle.framework in Embed Frameworks */,
 			);
@@ -682,6 +692,25 @@
 		DA212D4E27F6F30900038CDE /* NewMD5SongLengthDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMD5SongLengthDatabase.h; sourceTree = "<group>"; };
 		DA212D4F27F70C1F00038CDE /* StringAddons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringAddons.m; sourceTree = "<group>"; };
 		DA212D5027F70C1F00038CDE /* StringAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringAddons.h; sourceTree = "<group>"; };
+		DA529C852F99064000FD8AC7 /* usbSid-builderObjC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "usbSid-builderObjC.mm"; path = "USBSID-Pico/usbSid-builderObjC.mm"; sourceTree = "<group>"; };
+		DA529C9F2F990D0600FD8AC7 /* libusb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libusb.h; path = "USBSID-Pico/libusb.h"; sourceTree = "<group>"; };
+		DA529CA02F991D9B00FD8AC7 /* usbsid_builder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = usbsid_builder.h; path = "USBSID-Pico/usbsid_builder.h"; sourceTree = "<group>"; };
+		DA529CA12F9964C100FD8AC7 /* SIDPLAY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SIDPLAY.entitlements; path = SIDPLAY/SIDPLAY.entitlements; sourceTree = "<group>"; };
+		DA529CA52F9A081000FD8AC7 /* libftd2xx.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.1.dylib; path = SIDBlaster/libftd2xx.1.dylib; sourceTree = "<group>"; };
+		DA529CA82F9A15BC00FD8AC7 /* USBSID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = USBSID.h; path = "USBSID-Pico/USBSID.h"; sourceTree = "<group>"; };
+		DA529CA92F9A15BC00FD8AC7 /* USBSID.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = USBSID.cpp; path = "USBSID-Pico/USBSID.cpp"; sourceTree = "<group>"; };
+		DA529CAA2F9A15BC00FD8AC7 /* USBSIDInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = USBSIDInterface.h; path = "USBSID-Pico/USBSIDInterface.h"; sourceTree = "<group>"; };
+		DA529CAB2F9A15BC00FD8AC7 /* USBSIDInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = USBSIDInterface.cpp; path = "USBSID-Pico/USBSIDInterface.cpp"; sourceTree = "<group>"; };
+		DA529CB02F9A16EA00FD8AC7 /* usbSid-emuObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "usbSid-emuObjC.h"; path = "USBSID-Pico/usbSid-emuObjC.h"; sourceTree = "<group>"; };
+		DA529CB12F9A293A00FD8AC7 /* usbSid-emuObjC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "usbSid-emuObjC.mm"; path = "USBSID-Pico/usbSid-emuObjC.mm"; sourceTree = "<group>"; };
+		DA529CB32F9BEFFB00FD8AC7 /* USBSID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USBSID.h; sourceTree = "<group>"; };
+		DA529CB42F9BEFFB00FD8AC7 /* USBSID.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = USBSID.cpp; sourceTree = "<group>"; };
+		DA529CB72F9BEFFB00FD8AC7 /* usbsid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = usbsid.h; sourceTree = "<group>"; };
+		DA529CB82F9BEFFB00FD8AC7 /* usbsid-builder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "usbsid-builder.cpp"; sourceTree = "<group>"; };
+		DA529CB92F9BEFFB00FD8AC7 /* usbsid-emu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "usbsid-emu.h"; sourceTree = "<group>"; };
+		DA529CBA2F9BEFFB00FD8AC7 /* usbsid-emu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "usbsid-emu.cpp"; sourceTree = "<group>"; };
+		DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerUsbWorker.m; sourceTree = "<group>"; };
+		DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerUsbWorker.h; sourceTree = "<group>"; };
 		DA55780F2CDE2063005C2A42 /* SPBigOscilloscopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPBigOscilloscopeView.h; sourceTree = "<group>"; };
 		DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = SPBigOscilloscopeView.m; sourceTree = "<group>"; };
 		DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPOscilloscopeWindowController.h; sourceTree = "<group>"; };
@@ -700,7 +729,6 @@
 		DA557D6B2ACAB6A300C02288 /* PVScopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVScopeView.h; sourceTree = "<group>"; };
 		DA557D6C2ACAB6A300C02288 /* PVScopeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVScopeView.m; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		DA59B1022A0A763C00233549 /* libftd2xx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libftd2xx.dylib; path = SIDBlaster/libftd2xx.dylib; sourceTree = "<group>"; };
 		DA74323B2E66FB5F009420D6 /* simpleMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = simpleMixer.h; path = libsidplayfp/simpleMixer.h; sourceTree = "<group>"; };
 		DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = simpleMixer.cpp; path = libsidplayfp/simpleMixer.cpp; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -751,9 +779,9 @@
 				DA056EF32A178FE80096847B /* OpenGL.framework in Frameworks */,
 				DA056EF82A1790310096847B /* Quartz.framework in Frameworks */,
 				DAB81A25286870160075CB8E /* LAME.framework in Frameworks */,
-				DAC0A7332CFF66640081B57D /* libsidplayfp.a in Frameworks */,
 				DAE237112AD3EC6000418090 /* libsidplayfp_USB.a in Frameworks */,
-				DA056EE12A178D230096847B /* libftd2xx.dylib in Frameworks */,
+				DAC0A7332CFF66640081B57D /* libsidplayfp.a in Frameworks */,
+				DA529CA72F9A08AE00FD8AC7 /* libftd2xx.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,9 +978,12 @@
 		1F38967C0CEE3C6500942B17 /* Playback Engine */ = {
 			isa = PBXGroup;
 			children = (
-				DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */,
 				DA10945D2CE696C9001433DC /* PlayerLibSidplayWrapper.mm */,
 				DA1094612CE69776001433DC /* PlayerLibSidplayWrapper.h */,
+				DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */,
+				DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */,
+				DA529C822F99060900FD8AC7 /* USBSID-PicoObjC */,
+				DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */,
 				DA17E2E82A04F2F300419CB8 /* libsidplayfp */,
 				1FD084D40CEF2B8B0075D3A1 /* Audio Drivers */,
 			);
@@ -1063,6 +1094,7 @@
 		29B97314FDCFA39411CA2CEA /* SIDPLAY */ = {
 			isa = PBXGroup;
 			children = (
+				DA529CA12F9964C100FD8AC7 /* SIDPLAY.entitlements */,
 				1F0FF5C20CF645B3000DAD6D /* notes.txt */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1109,6 +1141,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA529CA52F9A081000FD8AC7 /* libftd2xx.1.dylib */,
 				DA056EFB2A2674580096847B /* AudioUnit.framework */,
 				DA056EEE2A178FD60096847B /* AppKit.framework */,
 				DAA731A929E4AEBA00B274D5 /* AudioToolbox.framework */,
@@ -1119,7 +1152,6 @@
 				DA59B0DD2A07D74100233549 /* IOKit.framework */,
 				DA056EF22A178FE80096847B /* OpenGL.framework */,
 				DA056EF72A1790310096847B /* Quartz.framework */,
-				DA59B1022A0A763C00233549 /* libftd2xx.dylib */,
 				DAC050992D369DCC009892D4 /* Sparkle.framework */,
 				DAACB1D22804C92F0029ED3C /* LAME.framework */,
 			);
@@ -1246,6 +1278,7 @@
 		DA17E32C2A04F36000419CB8 /* builders */ = {
 			isa = PBXGroup;
 			children = (
+				DA529CBB2F9BEFFB00FD8AC7 /* usbsid-builder */,
 				DA17E32D2A04F36000419CB8 /* hardsid-builder */,
 				DA17E35D2A04F36000419CB8 /* resid-builder */,
 				DA17E3A62A04F36000419CB8 /* residfp-builder */,
@@ -1486,6 +1519,51 @@
 			path = libsidplayfp/sidplayfp;
 			sourceTree = "<group>";
 		};
+		DA529C822F99060900FD8AC7 /* USBSID-PicoObjC */ = {
+			isa = PBXGroup;
+			children = (
+				DA529CA82F9A15BC00FD8AC7 /* USBSID.h */,
+				DA529CA92F9A15BC00FD8AC7 /* USBSID.cpp */,
+				DA529CAA2F9A15BC00FD8AC7 /* USBSIDInterface.h */,
+				DA529CAB2F9A15BC00FD8AC7 /* USBSIDInterface.cpp */,
+				DA529C852F99064000FD8AC7 /* usbSid-builderObjC.mm */,
+				DA529CA02F991D9B00FD8AC7 /* usbsid_builder.h */,
+				DA529CB12F9A293A00FD8AC7 /* usbSid-emuObjC.mm */,
+				DA529CB02F9A16EA00FD8AC7 /* usbSid-emuObjC.h */,
+				DA529C9F2F990D0600FD8AC7 /* libusb.h */,
+			);
+			name = "USBSID-PicoObjC";
+			sourceTree = "<group>";
+		};
+		DA529CB52F9BEFFB00FD8AC7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				DA529CB32F9BEFFB00FD8AC7 /* USBSID.h */,
+				DA529CB42F9BEFFB00FD8AC7 /* USBSID.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		DA529CB62F9BEFFB00FD8AC7 /* driver */ = {
+			isa = PBXGroup;
+			children = (
+				DA529CB52F9BEFFB00FD8AC7 /* src */,
+			);
+			path = driver;
+			sourceTree = "<group>";
+		};
+		DA529CBB2F9BEFFB00FD8AC7 /* usbsid-builder */ = {
+			isa = PBXGroup;
+			children = (
+				DA529CB62F9BEFFB00FD8AC7 /* driver */,
+				DA529CB72F9BEFFB00FD8AC7 /* usbsid.h */,
+				DA529CB82F9BEFFB00FD8AC7 /* usbsid-builder.cpp */,
+				DA529CB92F9BEFFB00FD8AC7 /* usbsid-emu.h */,
+				DA529CBA2F9BEFFB00FD8AC7 /* usbsid-emu.cpp */,
+			);
+			path = "usbsid-builder";
+			sourceTree = "<group>";
+		};
 		DA557D532AC6E9F000C02288 /* SIDTuneViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1530,6 +1608,7 @@
 			files = (
 				DA17E5722A050B7700419CB8 /* siddefs.h in Headers */,
 				DA17E57A2A050B7700419CB8 /* sidplayfp.h in Headers */,
+				DA529CC02F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */,
 				DA17E57B2A050B7700419CB8 /* sidversion.h in Headers */,
 				DA17E57D2A050B7700419CB8 /* SidInfo.h in Headers */,
 				DA1094622CE69776001433DC /* PlayerLibSidplayWrapper.h in Headers */,
@@ -1545,6 +1624,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA529CC12F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */,
+				DA529CAC2F9A15BC00FD8AC7 /* USBSIDInterface.h in Headers */,
+				DA529CAD2F9A15BC00FD8AC7 /* USBSID.h in Headers */,
 				DAE237162AD7E14100418090 /* siddefs.h in Headers */,
 				DAE2371D2AD7E15A00418090 /* sidplayfp.h in Headers */,
 				DAE2371E2AD7E15D00418090 /* sidversion.h in Headers */,
@@ -1856,6 +1938,7 @@
 				DA056EDA2A177F0A0096847B /* voice.cc in Sources */,
 				DA17E54B2A04F79E00419CB8 /* PSID.cpp in Sources */,
 				DA59B0C02A05224900233549 /* SerialPort.cpp in Sources */,
+				DA529CBE2F9C162D00FD8AC7 /* PlayerUsbWorker.m in Sources */,
 				DA17E52F2A04F6F100419CB8 /* Dac.cpp in Sources */,
 				DA17E5352A04F70E00419CB8 /* Filter6581.cpp in Sources */,
 				DA17E52A2A04F6C800419CB8 /* residfp-builder.cpp in Sources */,
@@ -1933,7 +2016,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA529CBD2F9C162D00FD8AC7 /* PlayerUsbWorker.m in Sources */,
 				DAE237632AD851BF00418090 /* sidblaster-emuObjC.mm in Sources */,
+				DA529CB22F9A293A00FD8AC7 /* usbSid-emuObjC.mm in Sources */,
+				DA529C9A2F99064000FD8AC7 /* usbSid-builderObjC.mm in Sources */,
+				DA529CAE2F9A15BC00FD8AC7 /* USBSIDInterface.cpp in Sources */,
+				DA529CAF2F9A15BC00FD8AC7 /* USBSID.cpp in Sources */,
 				DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */,
 				DAE237642AD851C800418090 /* SIDBlaster.m in Sources */,
 				DA10945F2CE696C9001433DC /* PlayerLibSidplayWrapper.mm in Sources */,
@@ -2025,16 +2113,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				AUTOMATION_APPLE_EVENTS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = SIDPLAY/SIDPLAY.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(USER_LIBRARY_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
@@ -2075,13 +2174,19 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay;
 				PRODUCT_NAME = SIDPLAY;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = YES;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = macosx;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
@@ -2093,15 +2198,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				AUTOMATION_APPLE_EVENTS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = SIDPLAY/SIDPLAY.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(USER_LIBRARY_DIR)/Frameworks",
 					"$(PROJECT_DIR)",
@@ -2142,7 +2258,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2157,6 +2273,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.sidmusic.sidplay;
 				PRODUCT_NAME = SIDPLAY;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = YES;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = macosx;
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = app;
@@ -2191,6 +2313,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_RESOURCE_ACCESS_USB = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -2224,7 +2347,7 @@
 					"$(SRCROOT)",
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/SIDBlaster";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/";
@@ -2260,6 +2383,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = L6WTAR259W;
+				ENABLE_RESOURCE_ACCESS_USB = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -2293,7 +2417,7 @@
 					"$(SRCROOT)",
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/SIDBlaster";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/";
@@ -2348,7 +2472,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/sidblasterUSB",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2404,7 +2527,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/sidblasterUSB",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2428,6 +2550,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SIDTuneViewer/SIDTuneViewer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 10;
@@ -2456,7 +2579,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2481,6 +2604,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SIDTuneViewer/SIDTuneViewer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 10;
@@ -2507,7 +2631,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2551,7 +2675,21 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/libsidplayfp",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder/resid",
+					"$(SRCROOT)/libsidplayfp/sidplayfp",
+					"$(SRCROOT)/libsidplayfp/sidtune",
+					"$(SRCROOT)/libsidplayfp/utils",
+					"$(SRCROOT)/libsidplayfp/utils/MD5",
+					"$(SRCROOT)/libsidplayfp/utils/STILview",
+					"$(SRCROOT)/SIDBlaster",
+					"$(SRCROOT)/USBSID-Pico",
+					"$(SRCROOT)",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2585,7 +2723,21 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/libsidplayfp",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder",
+					"$(SRCROOT)/libsidplayfp/builders/residfp-builder/residfp",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder",
+					"$(SRCROOT)/libsidplayfp/builders/resid-builder/resid",
+					"$(SRCROOT)/libsidplayfp/sidplayfp",
+					"$(SRCROOT)/libsidplayfp/sidtune",
+					"$(SRCROOT)/libsidplayfp/utils",
+					"$(SRCROOT)/libsidplayfp/utils/MD5",
+					"$(SRCROOT)/libsidplayfp/utils/STILview",
+					"$(SRCROOT)/SIDBlaster",
+					"$(SRCROOT)/USBSID-Pico",
+					"$(SRCROOT)",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;

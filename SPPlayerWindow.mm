@@ -15,6 +15,8 @@
 #import "SPGradientBox.h"
 #import "SPMiniPlayerWindow.h"
 
+#import "PlayerLibSidplayWrapper.h"
+
 #import <MediaPlayer/MediaPlayer.h>
 #import "AudioCoreDriverNew.h"
 #include <new>
@@ -84,6 +86,7 @@ AudioCoreDriverNew* audioDriver = nil;
     
     [exportController setOwnerWindow:self];
     
+    showPlayButton = YES;
     //disable Update item for now
     //[checkForUpdatesMenuItem setEnabled:FALSE];
     
@@ -297,6 +300,7 @@ AudioCoreDriverNew* audioDriver = nil;
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
 
         [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
+        showPlayButton = false;
     }
     else
     {
@@ -307,6 +311,7 @@ AudioCoreDriverNew* audioDriver = nil;
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
 
         [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePaused;
+        showPlayButton = true;
     }
 }
 
@@ -382,7 +387,7 @@ AudioCoreDriverNew* audioDriver = nil;
         if (audioDriver->getBufferUnderrunDetected())
         {
             updatesWithNoBufferUnderrun = 0;
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             audioDriver->setBufferUnderrunDetected(false);
             [self setPlayPauseButtonToPause:NO];
             
@@ -581,13 +586,11 @@ AudioCoreDriverNew* audioDriver = nil;
 }
 - (void) audioDriverStartPlaying
 {
-    if (audioDriver)
-        audioDriver->startPlayback();
+    [player startPlayback];
 }
 - (void) audioDriverStopPlaying
 {
-    if (audioDriver)
-        audioDriver->stopPlayback();
+    [player stopPlayback];
 }
 - (short*) audioDriverSampleBuffer
 {
@@ -855,15 +858,12 @@ AudioCoreDriverNew* audioDriver = nil;
         return;
     }
     
-    if (audioDriver->getIsPlaying())
-    {
-        audioDriver->stopPlayback();
-        [self setPlayPauseButtonToPause:NO];
-    }
-    else
-    {
-        audioDriver->startPlayback();
+    if (showPlayButton) {
+        [player resumePlayback];
         [self setPlayPauseButtonToPause:YES];
+    } else {
+        [player pausePlayback];
+        [self setPlayPauseButtonToPause:NO];
     }
     
     [[SPPreferencesController sharedInstance] save];
@@ -886,7 +886,7 @@ AudioCoreDriverNew* audioDriver = nil;
     if (audioDriver == NULL)
         return;
     
-    audioDriver->stopPlayback();
+    [player stopPlayback];
     [self setPlayPauseButtonToPause:NO];
     
     [player initCurrentSubtune];
@@ -1391,11 +1391,11 @@ AudioCoreDriverNew* audioDriver = nil;
         [gPreferences getPlaybackSettings:&dummySettings];
         dummySettings.SIDselectorOverrideActive = YES;
         dummySettings.SIDselectorOverrideModel = 0;
-        if (audioDriver->getIsPlaying())
+        if ([player isPlaying])
         {
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             [player initEmuEngineWithSettings:&dummySettings];
-            audioDriver->startPlayback();
+            [player startPlayback];
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1428,11 +1428,11 @@ AudioCoreDriverNew* audioDriver = nil;
         dummySettings.SIDselectorOverrideModel = 1;
         
         [gPreferences copyPlaybackSettings:&dummySettings];
-        if (audioDriver->getIsPlaying())
+        if ([player isPlaying])
         {
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             [player initEmuEngineWithSettings:&dummySettings];
-            audioDriver->startPlayback();
+            [player startPlayback];
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1451,11 +1451,11 @@ AudioCoreDriverNew* audioDriver = nil;
     dummySettings.SIDselectorOverrideActive = NO;
     dummySettings.SIDselectorOverrideModel = 0;
     // reconfigure replayer
-    if (audioDriver->getIsPlaying())
+    if ([player isPlaying])
     {
-        audioDriver->stopPlayback();
+        [player stopPlayback];
         [player initEmuEngineWithSettings:&dummySettings];
-        audioDriver->startPlayback();
+        [player startPlayback];
     } else {
         [player initEmuEngineWithSettings:&dummySettings];
     }

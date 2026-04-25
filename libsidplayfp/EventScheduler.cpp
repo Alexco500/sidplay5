@@ -44,6 +44,8 @@ void EventScheduler::cancel(Event &event)
             break;
         }
         scan = &((*scan)->next);
+        if (*scan == firstEvent)
+            break; // if we went through the list and could not find the event
     }
 }
 
@@ -57,6 +59,8 @@ bool EventScheduler::isPending(Event &event) const
             return true;
         }
         scan = scan->next;
+        if (scan == firstEvent)
+            break; // if we went through the list and could not find the event
     }
     return false;
 }

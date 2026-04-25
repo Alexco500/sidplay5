@@ -231,7 +231,6 @@ public:
      * @param clockFrequency System clock frequency at Hz
      * @param method sampling method to use
      * @param samplingFrequency Desired output sampling rate
-     * @param highestAccurateFrequency
      * @throw SIDError
      */
     void setSamplingParameters(
@@ -297,8 +296,6 @@ public:
 #include <algorithm>
 
 #include "Filter.h"
-#include "ExternalFilter.h"
-#include "Voice.h"
 #include "resample/Resampler.h"
 
 namespace reSIDfp

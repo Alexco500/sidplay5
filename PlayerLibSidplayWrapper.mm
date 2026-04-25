@@ -25,6 +25,7 @@
 #ifndef NO_USB_SUPPORT
 // SIDBlaster USB support
 #include "hardsidsb.h"
+#include "usbsid_builder.h"
 #endif
 
 // bins
@@ -32,7 +33,7 @@
 #include "bin/b.h"
 #include "bin/k.h"
 
-
+#import "PlayerUsbWorker.h"
 
 @implementation PlayerLibSidplayWrapper
 @synthesize sChipModel6581;
@@ -57,7 +58,11 @@ std::unique_ptr<ReSIDBuilder> mBuilder_reSID;
 // SIDblaster USB
 #ifndef NO_USB_SUPORT
 class HardSIDSBBuilder;
+class USBSIDBuilder;
+
 HardSIDSBBuilder*   mSIDBlasterUSBbuilder;
+USBSIDBuilder*  mUSBSIDPicoBuilder;
+
 #endif
 
 
@@ -93,7 +98,15 @@ AudioCoreDriverNew*        mAudioDriver;
     mOversamplingBuffer = nil;
 #ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder = nil;
+    mUSBSIDPicoBuilder  = nil;
 #endif
+    _usbWorker = [[PlayerUsbWorker alloc] init];
+
+    __weak id weakSelf = self;
+
+    self.usbWorker.iterationBlock = ^{
+        [weakSelf fillBufferUSB];
+    };
     mBuilder_reSID = nil;
     mBuilder = nil;
     mExtUSBDeviceActive = false;
@@ -179,6 +192,21 @@ AudioCoreDriverNew*        mAudioDriver;
                 break;
         }
     }
+    if (mUSBSIDPicoBuilder) {
+        libsidplayfp::SidTuneInfoImpl *mSidInfo = (libsidplayfp::SidTuneInfoImpl *)mSidTune->getInfo();
+        switch (mSidInfo->getClockSpeed())
+        {
+            case SidTuneInfo::CLOCK_NTSC:
+                mUSBSIDPicoBuilder->setClockToPAL(false);
+                break;
+            case SidTuneInfo::CLOCK_UNKNOWN:
+            case SidTuneInfo::CLOCK_ANY:
+            case SidTuneInfo::CLOCK_PAL:
+                mUSBSIDPicoBuilder->setClockToPAL(true);
+                break;
+        }
+    }
+    
 #endif
     [self setupSIDInfo];
     
@@ -235,16 +263,6 @@ static inline float approximate_dac(int x, float kinkiness)
     if (mBuilder_reSID == NULL)
         mBuilder_reSID = std::unique_ptr<ReSIDBuilder>(new ReSIDBuilder("reSID"));
     
-#ifndef NO_USB_SUPPORT
-    // Set up a SIDblasterUSB builder
-    if (mSIDBlasterUSBbuilder != NULL) {
-        delete mSIDBlasterUSBbuilder;
-        mSIDBlasterUSBbuilder = NULL;
-    }
-    if (mSIDBlasterUSBbuilder == NULL) {
-        mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
-    }
-#endif
     // set bins
     mSidEmuEngine->setRoms(kernalr, basicr, charr);
     
@@ -342,29 +360,64 @@ static inline float approximate_dac(int x, float kinkiness)
     mBuilder->create(maxsids);
     mBuilder_reSID->create(maxsids);
 #ifndef NO_USB_SUPPORT
-    mSIDBlasterUSBbuilder->create(maxsids);
-    
-    int count  = mSIDBlasterUSBbuilder->availDevices();
-    // Check if builder is ok
-    if ((!mSIDBlasterUSBbuilder->getStatus()) && (count >0))
-    {
-        printf("SIDBlasterUSB configure error: %s\n", mSIDBlasterUSBbuilder->error());
-    } else {
-        mExtUSBDeviceActive = true;
+    // Set up a SIDblasterUSB builder
+    /*
+    if (mSIDBlasterUSBbuilder != NULL) {
+        delete mSIDBlasterUSBbuilder;
+        mSIDBlasterUSBbuilder = NULL;
     }
-#else
-    mExtUSBDeviceActive = false;
+     */
+    if (mSIDBlasterUSBbuilder == NULL) {
+        mSIDBlasterUSBbuilder = new HardSIDSBBuilder("SIDBlaster");
+        mSIDBlasterUSBbuilder->create(maxsids);
+        
+        int count  = mSIDBlasterUSBbuilder->availDevices();
+        // Check if builder is ok
+        if ((!mSIDBlasterUSBbuilder->getStatus()) || (count == 0))
+        {
+            printf("SIDBlasterUSB configure error: %s\n", mSIDBlasterUSBbuilder->error());
+            delete mSIDBlasterUSBbuilder;
+            mSIDBlasterUSBbuilder = NULL;
+        } else {
+            mExtUSBDeviceActive = true;
+        }
+    }
+    /*
+    if (mUSBSIDPicoBuilder != NULL) {
+        delete mUSBSIDPicoBuilder;
+        mUSBSIDPicoBuilder = NULL;
+    }
+    */
+    if (mUSBSIDPicoBuilder == NULL) {
+        mUSBSIDPicoBuilder = new USBSIDBuilder("USBSID-Pico");
+        mUSBSIDPicoBuilder->create(maxsids);
+        
+        int count  = mUSBSIDPicoBuilder->availDevices();
+        // Check if builder is ok
+        if ((!mUSBSIDPicoBuilder->getStatus()) || (count == 0))
+        {
+            printf("USBSID-Pico configure error: %s\n", mUSBSIDPicoBuilder->error());
+            delete mUSBSIDPicoBuilder;
+            mUSBSIDPicoBuilder = NULL;
+        } else {
+            mExtUSBDeviceActive = true;
+        }
+        if (!mUSBSIDPicoBuilder && !mSIDBlasterUSBbuilder)
+            mExtUSBDeviceActive = false;
+    }
+    
 #endif
+    
     // Check if builder is ok
     if (!mBuilder->getStatus())
     {
-        printf("configure error: %s\n", mBuilder->error());
+        printf("configure error reSIDfp: %s\n", mBuilder->error());
         return;
     }
     // Check if builder is ok
     if (!mBuilder_reSID->getStatus())
     {
-        printf("configure error: %s\n", mBuilder_reSID->error());
+        printf("configure error reSID: %s\n", mBuilder_reSID->error());
         return;
     }
     
@@ -377,10 +430,16 @@ static inline float approximate_dac(int x, float kinkiness)
     mBuilder->filter8580Curve(0.3f);
     //    mBuilder->filter(&mFilterSettings);
     //    mBuilder->sampling(cfg.frequency);
-    if (mExtUSBDeviceActive)
-        cfg.sidEmulation   = (sidbuilder*)mSIDBlasterUSBbuilder;
-    else
-        cfg.sidEmulation   = mBuilder.get();
+    // always configure a builder
+
+    if (mExtUSBDeviceActive) {
+        if (mSIDBlasterUSBbuilder)
+            cfg.sidEmulation   = (sidbuilder*)mSIDBlasterUSBbuilder;
+        if (mUSBSIDPicoBuilder)
+            cfg.sidEmulation   = (sidbuilder*)mUSBSIDPicoBuilder;
+    } else
+        cfg.sidEmulation   = mBuilder.get();  // default residfp
+        
     
     cfg.frequency      = mPlaybackSettings.mFrequency;
     cfg.samplingMethod = SidConfig::RESAMPLE_INTERPOLATE;
@@ -405,7 +464,7 @@ static inline float approximate_dac(int x, float kinkiness)
 - (BOOL) playTuneByPath:(const char *)filename subtune:(int) subtune withSettings:(struct PlaybackSettings *)settings
 {
     //printf("loading file: %s\n", filename);
-    mAudioDriver->stopPlayback();
+    self.stopPlayback;
     
     bool success = [self loadTuneByPath: filename subtune:subtune withSettings:settings];
     
@@ -417,8 +476,11 @@ static inline float approximate_dac(int x, float kinkiness)
         if (mSIDBlasterUSBbuilder) {
             mSIDBlasterUSBbuilder->reset(0x0f);
         }
+        if (mUSBSIDPicoBuilder) {
+            mUSBSIDPicoBuilder->reset(0x0f);
+        }
 #endif
-        mAudioDriver->startPlayback();
+        self.startPlayback;
     }
     return success;
 }
@@ -427,8 +489,7 @@ static inline float approximate_dac(int x, float kinkiness)
 {
     //printf( "buffer: 0x%08x, len: %d, subtune: %d\n", (int) buffer, length, subtune );
     //printf( "buffer: %c %c %c %c\n", buffer[0], buffer[1], buffer[2], buffer[3] );
-    mAudioDriver->stopPlayback();
-    
+    self.stopPlayback;
     
     bool success = [self loadTuneFromBuffer: buffer withLength: length subtune:subtune withSettings:settings];
     
@@ -437,8 +498,11 @@ static inline float approximate_dac(int x, float kinkiness)
         if (mSIDBlasterUSBbuilder) {
             mSIDBlasterUSBbuilder->reset(0x0f);
         }
+        if (mUSBSIDPicoBuilder) {
+            mUSBSIDPicoBuilder->reset(0x0f);
+        }
 #endif
-        mAudioDriver->startPlayback();
+        self.startPlayback;
     }
     return success;
 }
@@ -491,11 +555,9 @@ static inline float approximate_dac(int x, float kinkiness)
         mCurrentSubtune--;
     else
         return true;
-    mAudioDriver->stopPlayback();
-    
+    self.stopPlayback;
     [self initCurrentSubtune];
-    mAudioDriver->startPlayback();
-    
+    self.startPlayback;
     return true;
 }
 
@@ -506,11 +568,11 @@ static inline float approximate_dac(int x, float kinkiness)
     else
         return true;
     
-    mAudioDriver->stopPlayback();
+    self.stopPlayback;
     
     [self initCurrentSubtune];
     
-    mAudioDriver->startPlayback();
+    self.startPlayback;
     
     return true;
 }
@@ -522,11 +584,11 @@ static inline float approximate_dac(int x, float kinkiness)
     else
         return true;
     
-    mAudioDriver->stopPlayback();
+    self.stopPlayback;
     
     [self initCurrentSubtune];
     
-    mAudioDriver->startPlayback();
+    self.startPlayback;
     
     return true;
 }
@@ -622,6 +684,53 @@ static inline float approximate_dac(int x, float kinkiness)
     
     return(mSidEmuEngine->time());// / 10);
 }
+- (void) fillBufferUSB
+{
+    // USB devices do not fill buffer, but need to be triggerd
+    short buffer[20]; // 20 Bytes safety...
+    if (mExtUSBDeviceActive) {
+        for (int i = 0;i<50;i++)
+            if (self.isPlaying)
+                mSidEmuEngine->play(buffer, 0);
+        
+        return;
+    }
+}
+- (void) startPlayback
+{
+    if (mExtUSBDeviceActive)
+        self.usbWorker.start;
+    //else
+        mAudioDriver->startPlayback();
+}
+- (void) pausePlayback
+{
+    if (mExtUSBDeviceActive)
+        self.usbWorker.pause;
+    //else
+        mAudioDriver->stopPlayback();
+}
+- (void) resumePlayback
+{
+    if (mExtUSBDeviceActive)
+        self.usbWorker.resume;
+    //else
+        mAudioDriver->startPlayback();
+}
+- (void) stopPlayback
+{
+    if (mExtUSBDeviceActive)
+        self.usbWorker.stop;
+    //else
+        mAudioDriver->stopPlayback();
+}
+- (BOOL) isPlaying
+{
+    if (mExtUSBDeviceActive)
+        return self.usbWorker.isPlaying;
+    else
+        return mAudioDriver->getIsPlaying();
+}
 
 //FIXME: we have void* defined, but use now short*
 - (void) fillBuffer:(void*) buffer withLen: (int) len
@@ -630,15 +739,10 @@ static inline float approximate_dac(int x, float kinkiness)
         return;
     //libsidplayfp uses number of 16-Bit samples (short), not bytes for buffer count
     int count16 = len/2;
-    if (mExtUSBDeviceActive) {
-        for (int i = 0;i<50;i++)
-            mSidEmuEngine->play((short *)buffer, 0);
-        
-        return;
-    }
     
     if (mPlaybackSettings.mOversampling == 1)
-        mSidEmuEngine->play((short *)buffer, count16);
+        if (!mExtUSBDeviceActive)
+            mSidEmuEngine->play((short *)buffer, count16);
     else
     {
         if (mPlaybackSettings.mOversampling != mPreviousOversamplingFactor)
@@ -649,7 +753,8 @@ static inline float approximate_dac(int x, float kinkiness)
         }
         
         // calculate n times as much sample data
-        mSidEmuEngine->play((short *)mOversamplingBuffer, (count16 * mPlaybackSettings.mOversampling)/2);
+        if (!mExtUSBDeviceActive)
+            mSidEmuEngine->play((short *)mOversamplingBuffer, (count16 * mPlaybackSettings.mOversampling)/2);
         
         short *oversampleBuffer = (short*) mOversamplingBuffer;
         short *outputBuffer = (short*) buffer;

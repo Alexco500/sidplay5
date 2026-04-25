@@ -73,12 +73,13 @@ extern NSString* SPUrlRequestUserAgentString;
 	IBOutlet NSMenuItem* exportTaskWindowMenuItem;
 	
     PlayerLibSidplayWrapper* player;
-	//AudioDriver* audioDriver;
+
 	NSString* currentTunePath;
 	NSInteger currentTuneLengthInSeconds;
 	CGFloat currentVolume;
 	BOOL volumeIsMuted;
 	BOOL fadeOutInProgress;
+    BOOL showPlayButton;
 	float fadeOutVolume;
 	
 	NSDate* lastBufferUnderrunCheckReset;
