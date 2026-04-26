@@ -213,6 +213,9 @@ namespace USBSID_NS
   static struct libusb_device_handle *devh = NULL;
   static struct libusb_transfer *transfer_out = NULL;  /* OUT-going transfers (OUT from host PC to USB-device) */
   static struct libusb_transfer *transfer_in = NULL;  /* IN-coming transfers (IN to host PC from USB-device) */
+static bool transfer_out_pending = false;   /* for better transfer sync */
+static bool transfer_in_pending = false;
+
   static libusb_context *ctx = NULL;
   static bool in_buffer_dma = false;
   static bool out_buffer_dma = false;
