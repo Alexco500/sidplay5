@@ -192,6 +192,11 @@
 		DA529CBE2F9C162D00FD8AC7 /* PlayerUsbWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */; };
 		DA529CC02F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */; };
 		DA529CC12F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */; };
+		DA529CC42F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CC32F9E250400FD8AC7 /* USBDeviceWatcher.m */; };
+		DA529CC52F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CC32F9E250400FD8AC7 /* USBDeviceWatcher.m */; };
+		DA529CC62F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DA529CC32F9E250400FD8AC7 /* USBDeviceWatcher.m */; };
+		DA529CC82F9E250E00FD8AC7 /* USBDeviceWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CC72F9E250C00FD8AC7 /* USBDeviceWatcher.h */; };
+		DA529CC92F9E250E00FD8AC7 /* USBDeviceWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DA529CC72F9E250C00FD8AC7 /* USBDeviceWatcher.h */; };
 		DA5578112CDE2063005C2A42 /* SPBigOscilloscopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.m */; };
 		DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5578132CDE20ED005C2A42 /* SPOscilloscopeWindowController.m */; };
 		DA557D522AC6E9F000C02288 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA056EF72A1790310096847B /* Quartz.framework */; };
@@ -711,6 +716,8 @@
 		DA529CBA2F9BEFFB00FD8AC7 /* usbsid-emu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "usbsid-emu.cpp"; sourceTree = "<group>"; };
 		DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerUsbWorker.m; sourceTree = "<group>"; };
 		DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerUsbWorker.h; sourceTree = "<group>"; };
+		DA529CC32F9E250400FD8AC7 /* USBDeviceWatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USBDeviceWatcher.m; sourceTree = "<group>"; };
+		DA529CC72F9E250C00FD8AC7 /* USBDeviceWatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USBDeviceWatcher.h; sourceTree = "<group>"; };
 		DA55780F2CDE2063005C2A42 /* SPBigOscilloscopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPBigOscilloscopeView.h; sourceTree = "<group>"; };
 		DA5578102CDE2063005C2A42 /* SPBigOscilloscopeView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = SPBigOscilloscopeView.m; sourceTree = "<group>"; };
 		DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPOscilloscopeWindowController.h; sourceTree = "<group>"; };
@@ -981,6 +988,8 @@
 				DA10945D2CE696C9001433DC /* PlayerLibSidplayWrapper.mm */,
 				DA1094612CE69776001433DC /* PlayerLibSidplayWrapper.h */,
 				DA529CBC2F9C162D00FD8AC7 /* PlayerUsbWorker.m */,
+				DA529CC32F9E250400FD8AC7 /* USBDeviceWatcher.m */,
+				DA529CC72F9E250C00FD8AC7 /* USBDeviceWatcher.h */,
 				DA529CBF2F9C195200FD8AC7 /* PlayerUsbWorker.h */,
 				DA529C822F99060900FD8AC7 /* USBSID-PicoObjC */,
 				DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */,
@@ -1607,6 +1616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA17E5722A050B7700419CB8 /* siddefs.h in Headers */,
+				DA529CC82F9E250E00FD8AC7 /* USBDeviceWatcher.h in Headers */,
 				DA17E57A2A050B7700419CB8 /* sidplayfp.h in Headers */,
 				DA529CC02F9C195B00FD8AC7 /* PlayerUsbWorker.h in Headers */,
 				DA17E57B2A050B7700419CB8 /* sidversion.h in Headers */,
@@ -1631,6 +1641,7 @@
 				DAE2371D2AD7E15A00418090 /* sidplayfp.h in Headers */,
 				DAE2371E2AD7E15D00418090 /* sidversion.h in Headers */,
 				DAE237202AD7E16200418090 /* SidInfo.h in Headers */,
+				DA529CC92F9E250E00FD8AC7 /* USBDeviceWatcher.h in Headers */,
 				DA1094632CE69776001433DC /* PlayerLibSidplayWrapper.h in Headers */,
 				DAE237172AD7E14700418090 /* sidbuilder.h in Headers */,
 				DAE237182AD7E14A00418090 /* SidTune.h in Headers */,
@@ -1884,6 +1895,7 @@
 				1FCC6AE20CF2264E005AFA9A /* SPStatusDisplayView.m in Sources */,
 				1FEE59950CF8231D006A04B0 /* SPPreferencesController.m in Sources */,
 				1FEE5AB50CF88604006A04B0 /* SPCollectionUtilities.m in Sources */,
+				DA529CC62F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */,
 				1F5173E80CF9A9F30064AFA2 /* SPInfoWindowController.m in Sources */,
 				1F5176620CFB72010064AFA2 /* SPInfoContainerView.m in Sources */,
 				DA212D4D27F6F2CF00038CDE /* NewMD5SongLengthDatabase.m in Sources */,
@@ -1933,6 +1945,7 @@
 				DA17E54F2A04F7B900419CB8 /* MD5.cpp in Sources */,
 				DA17E54D2A04F79E00419CB8 /* p00.cpp in Sources */,
 				DA17E53C2A04F71500419CB8 /* Filter8580.cpp in Sources */,
+				DA529CC52F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */,
 				DA056EDE2A177F1D0096847B /* extfilt.cc in Sources */,
 				DA59B0BE2A05223D00233549 /* c64.cpp in Sources */,
 				DA056EDA2A177F0A0096847B /* voice.cc in Sources */,
@@ -2023,6 +2036,7 @@
 				DA529CAE2F9A15BC00FD8AC7 /* USBSIDInterface.cpp in Sources */,
 				DA529CAF2F9A15BC00FD8AC7 /* USBSID.cpp in Sources */,
 				DAE237622AD851BB00418090 /* hardsidsb-builderObjC.mm in Sources */,
+				DA529CC42F9E250400FD8AC7 /* USBDeviceWatcher.m in Sources */,
 				DAE237642AD851C800418090 /* SIDBlaster.m in Sources */,
 				DA10945F2CE696C9001433DC /* PlayerLibSidplayWrapper.mm in Sources */,
 			);
