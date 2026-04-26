@@ -15,19 +15,17 @@
 #import "SPGradientBox.h"
 #import "SPMiniPlayerWindow.h"
 
+#import "PlayerLibSidplayWrapper.h"
+
 #import <MediaPlayer/MediaPlayer.h>
 #import "AudioCoreDriverNew.h"
 #include <new>
-
-#import "ASID_MIDI.h"
 
 NSString* SPTuneChangedNotification = @"SPTuneChangedNotification";
 NSString* SPPlayerInitializedNotification = @"SPPlayerInitializedNotification";
 
 NSString* SPUrlRequestUserAgentString = nil;
 AudioCoreDriverNew* audioDriver = nil;
-
-ASID_MIDI *asidMIDI;
 
 @implementation SPPlayerWindow
 
@@ -88,6 +86,7 @@ ASID_MIDI *asidMIDI;
     
     [exportController setOwnerWindow:self];
     
+    showPlayButton = YES;
     //disable Update item for now
     //[checkForUpdatesMenuItem setEnabled:FALSE];
     
@@ -138,8 +137,6 @@ ASID_MIDI *asidMIDI;
             [splitView setPosition:position ofDividerAtIndex:i];
         }
     }
-
-    asidMIDI = [[ASID_MIDI alloc] init];
 }
 
 // ----------------------------------------------------------------------------
@@ -225,6 +222,7 @@ ASID_MIDI *asidMIDI;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
     
     urlDownloadSubtuneIndex = subtuneIndex;
+    urlDownloadData = [NSMutableData data];
     
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setValue:SPUrlRequestUserAgentString forHTTPHeaderField:@"User-Agent"];
@@ -248,7 +246,9 @@ ASID_MIDI *asidMIDI;
 			});
         } else {
             [self->urlDownloadData appendData:data];
-            [self connectionDidFinishLoading];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self connectionDidFinishLoading];
+            });
         }
     }];
     
@@ -291,8 +291,6 @@ ASID_MIDI *asidMIDI;
 // ----------------------------------------------------------------------------
 - (void) setPlayPauseButtonToPause:(BOOL)pause
 {
-    [asidMIDI pause:pause ? 0 : 1]; // TK: seems to be inverted (e.g. pause button displayed if pause != 0, but SID sequence starts to play)
-
     if (pause)
     {
         playPauseButton.image = [NSImage imageNamed:@"SIDhud_pause.pause"];
@@ -302,6 +300,7 @@ ASID_MIDI *asidMIDI;
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"pause_pressed"]];
 
         [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePlaying;
+        showPlayButton = false;
     }
     else
     {
@@ -312,6 +311,7 @@ ASID_MIDI *asidMIDI;
         //[miniPlayPauseButton setAlternateImage:[NSImage imageNamed:@"play_pressed"]];
 
         [MPNowPlayingInfoCenter defaultCenter].playbackState = MPNowPlayingPlaybackStatePaused;
+        showPlayButton = true;
     }
 }
 
@@ -362,6 +362,14 @@ ASID_MIDI *asidMIDI;
     [statusDisplay setPlaybackSeconds:seconds];
     [miniStatusDisplay setPlaybackSeconds:seconds];
     [browserDataSource updateCurrentSong:seconds];
+
+    // disable sidPopup menu in case of USB player
+    if ([player isUsbDeviceActive]) {
+        [sidPopup setEnabled:FALSE];
+    } else
+        [sidPopup setEnabled:TRUE];
+    [sidPopup setNeedsDisplay:TRUE];
+    [sidPopup.superview displayIfNeeded];
     
     // update elapsed time for media controls
     NSMutableDictionary *nowPlayingInfo = [[MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo mutableCopy];
@@ -387,7 +395,7 @@ ASID_MIDI *asidMIDI;
         if (audioDriver->getBufferUnderrunDetected())
         {
             updatesWithNoBufferUnderrun = 0;
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             audioDriver->setBufferUnderrunDetected(false);
             [self setPlayPauseButtonToPause:NO];
             
@@ -416,6 +424,16 @@ ASID_MIDI *asidMIDI;
 {
     if (infoWindowController != nil)
         [[infoWindowController containerView] updateAnimatedViews];
+    if ([player usbError]) {
+        // in case of USB issues stop
+        [self clickStopButton:self];
+        [player releaseUSBDevices];
+        // restart everything.
+        player = [[PlayerLibSidplayWrapper alloc] init];
+        audioDriver->initialize(player);
+        [player setAudioDriver:audioDriver];
+        return;
+    }
     
     if (fadeOutInProgress)
     {
@@ -586,13 +604,11 @@ ASID_MIDI *asidMIDI;
 }
 - (void) audioDriverStartPlaying
 {
-    if (audioDriver)
-        audioDriver->startPlayback();
+    [player startPlayback];
 }
 - (void) audioDriverStopPlaying
 {
-    if (audioDriver)
-        audioDriver->stopPlayback();
+    [player stopPlayback];
 }
 - (short*) audioDriverSampleBuffer
 {
@@ -860,15 +876,15 @@ ASID_MIDI *asidMIDI;
         return;
     }
     
-    if (audioDriver->getIsPlaying())
-    {
-        audioDriver->stopPlayback();
-        [self setPlayPauseButtonToPause:NO];
-    }
-    else
-    {
-        audioDriver->startPlayback();
+    if (showPlayButton) {
+        if ([player isPlaying])
+            [player resumePlayback];
+        else
+            [player startPlayback];
         [self setPlayPauseButtonToPause:YES];
+    } else {
+        [player pausePlayback];
+        [self setPlayPauseButtonToPause:NO];
     }
     
     [[SPPreferencesController sharedInstance] save];
@@ -891,7 +907,7 @@ ASID_MIDI *asidMIDI;
     if (audioDriver == NULL)
         return;
     
-    audioDriver->stopPlayback();
+    [player stopPlayback];
     [self setPlayPauseButtonToPause:NO];
     
     [player initCurrentSubtune];
@@ -1362,7 +1378,6 @@ ASID_MIDI *asidMIDI;
     [stackViewExternal2 setHidden:!enable_ext2];
     [stackViewExternal3 setHidden:!enable_ext3];
     [stackViewExternal4 setHidden:!enable_ext4];
-    
 }
 // ----------------------------------------------------------------------------
 - (IBAction) SIDSelectorButtonPressed:(id)sender
@@ -1396,11 +1411,11 @@ ASID_MIDI *asidMIDI;
         [gPreferences getPlaybackSettings:&dummySettings];
         dummySettings.SIDselectorOverrideActive = YES;
         dummySettings.SIDselectorOverrideModel = 0;
-        if (audioDriver->getIsPlaying())
+        if ([player isPlaying])
         {
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             [player initEmuEngineWithSettings:&dummySettings];
-            audioDriver->startPlayback();
+            [player startPlayback];
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1433,11 +1448,11 @@ ASID_MIDI *asidMIDI;
         dummySettings.SIDselectorOverrideModel = 1;
         
         [gPreferences copyPlaybackSettings:&dummySettings];
-        if (audioDriver->getIsPlaying())
+        if ([player isPlaying])
         {
-            audioDriver->stopPlayback();
+            [player stopPlayback];
             [player initEmuEngineWithSettings:&dummySettings];
-            audioDriver->startPlayback();
+            [player startPlayback];
         } else {
             [player initEmuEngineWithSettings:&dummySettings];
         }
@@ -1456,11 +1471,11 @@ ASID_MIDI *asidMIDI;
     dummySettings.SIDselectorOverrideActive = NO;
     dummySettings.SIDselectorOverrideModel = 0;
     // reconfigure replayer
-    if (audioDriver->getIsPlaying())
+    if ([player isPlaying])
     {
-        audioDriver->stopPlayback();
+        [player stopPlayback];
         [player initEmuEngineWithSettings:&dummySettings];
-        audioDriver->startPlayback();
+        [player startPlayback];
     } else {
         [player initEmuEngineWithSettings:&dummySettings];
     }
@@ -1547,6 +1562,9 @@ ASID_MIDI *asidMIDI;
     }
     
     [statusDisplay prepareForQuit];
+    if ([self audioDriverIsPlaying]) {
+        [self audioDriverStopPlaying];
+    }
     
     return NSTerminateNow;
 }
