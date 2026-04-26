@@ -161,7 +161,10 @@ static void USBDeviceDetached(void *refCon, io_iterator_t iterator)
     }
 
     /*
-     clear iterator, so that already attached device show up
+     Wichtig:
+     Der Iterator muss einmal geleert werden, damit spätere Notifications
+     ausgelöst werden. Bei kIOMatchedNotification kommen dadurch auch bereits
+     angeschlossene Geräte sofort als "attached".
      */
     callback((__bridge void *)self, iterator);
 
