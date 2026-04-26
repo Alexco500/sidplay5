@@ -474,10 +474,10 @@ unsigned char USBSID_Class::USBSID_SingleRead(uint8_t reg)
   if (!us_PortIsOpen) return 0;
   int actual_length;
   unsigned char buff[3] = {(READ << 6), reg, 0};
-  if (libusb_bulk_transfer(devh, EP_OUT_ADDR, buff, 3, &actual_length, 0) < 0) {
+  if (libusb_bulk_transfer(devh, EP_OUT_ADDR, buff, 3, &actual_length, 1000) < 0) {
     USBERR(stderr, "[USBSID] Error while sending write command for reading\n");
   }
-  rc = libusb_bulk_transfer(devh, EP_IN_ADDR, result, 1, &actual_length, 0);
+  rc = libusb_bulk_transfer(devh, EP_IN_ADDR, result, 1, &actual_length, 1000);
   if (rc == LIBUSB_ERROR_TIMEOUT) {
     USBERR(stderr, "[USBSID] Timeout error while reading (%d)\n", actual_length);
     return 0;
@@ -787,6 +787,8 @@ void USBSID_Class::USBSID_RestartThread(bool with_cycles)
   /* First check if not already running */
   USBSID_StopThread();
   /* Stop any active transfers */
+  transfer_in_pending = false;
+  transfer_out_pending = false;
   LIBUSB_StopTransfers();
   /* Free all buffers */
   LIBUSB_FreeOutBuffer();
@@ -1230,7 +1232,7 @@ int USBSID_Class::LIBUSB_ConfigureDevice(void)
   }
 
   /* set line encoding here */  // NOTE: NOT USED FOR CDC
-  rc = libusb_control_transfer(devh, 0x21, 0x20, 0, 0, encoding, sizeof(encoding), 0);
+  rc = libusb_control_transfer(devh, 0x21, 0x20, 0, 0, encoding, sizeof(encoding), 1000);
   if (rc < 0 || rc != 7) {  /* should return 7 for the encoding size */
     USBERR(stderr, "[USBSID] Error configuring line encoding during control transfer: %d, %s: %s\r\n", rc, libusb_error_name(rc), libusb_strerror(rc));
     rc = -1;
@@ -1254,7 +1256,7 @@ void USBSID_Class::LIBUSB_InitOutBuffer(void)
   USBDBG(stdout, "[USBSID] Alloc out_buffer complete\r\n");
   transfer_out = libusb_alloc_transfer(0);
   USBDBG(stdout, "[USBSID] Alloc transfer_out complete\r\n");
-  libusb_fill_bulk_transfer(transfer_out, devh, EP_OUT_ADDR, out_buffer, len_out_buffer, usb_out, NULL, 0);
+  libusb_fill_bulk_transfer(transfer_out, devh, EP_OUT_ADDR, out_buffer, len_out_buffer, usb_out, NULL, 1000);
   USBDBG(stdout, "[USBSID] libusb_fill_bulk_transfer transfer_out complete\r\n");
 
   if (thread_buffer == NULL) {
@@ -1304,7 +1306,7 @@ void USBSID_Class::LIBUSB_InitInBuffer(void)
   USBDBG(stdout, "[USBSID] Alloc in_buffer complete\r\n");
   transfer_in = libusb_alloc_transfer(0);
   USBDBG(stdout, "[USBSID] Alloc transfer_in complete\r\n");
-  libusb_fill_bulk_transfer(transfer_in, devh, EP_IN_ADDR, in_buffer, LEN_IN_BUFFER, usb_in, this, 0);
+  libusb_fill_bulk_transfer(transfer_in, devh, EP_IN_ADDR, in_buffer, LEN_IN_BUFFER, usb_in, this, 1000);
   USBDBG(stdout, "[USBSID] libusb_fill_bulk_transfer transfer_in complete\r\n");
 
   if (result == NULL) {
@@ -1445,6 +1447,8 @@ int USBSID_Class::LIBUSB_Exit(void)
     #ifdef US_RESET_ON_EXIT
     USBSID_Reset();
     #endif
+    transfer_in_pending = false;
+    transfer_out_pending = false;
     LIBUSB_StopTransfers();
     LIBUSB_FreeInBuffer();
     LIBUSB_FreeOutBuffer();

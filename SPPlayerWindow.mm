@@ -362,6 +362,8 @@ AudioCoreDriverNew* audioDriver = nil;
     [statusDisplay setPlaybackSeconds:seconds];
     [miniStatusDisplay setPlaybackSeconds:seconds];
     [browserDataSource updateCurrentSong:seconds];
+
+    // disable sidPopup menu in case of USB player
     if ([player isUsbDeviceActive]) {
         [sidPopup setEnabled:FALSE];
     } else
@@ -422,6 +424,16 @@ AudioCoreDriverNew* audioDriver = nil;
 {
     if (infoWindowController != nil)
         [[infoWindowController containerView] updateAnimatedViews];
+    if ([player usbError]) {
+        // in case of USB issues stop
+        [self clickStopButton:self];
+        [player releaseUSBDevices];
+        // restart everything.
+        player = [[PlayerLibSidplayWrapper alloc] init];
+        audioDriver->initialize(player);
+        [player setAudioDriver:audioDriver];
+        return;
+    }
     
     if (fadeOutInProgress)
     {

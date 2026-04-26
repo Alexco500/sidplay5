@@ -27,13 +27,17 @@
 #include "hardsidsb.h"
 #include "usbsid_builder.h"
 #endif
+// always needed
+#import "PlayerUsbWorker.h"
+#import "USBDeviceWatcher.h"
+
 
 // bins
 #include "bin/c.h"
 #include "bin/b.h"
 #include "bin/k.h"
 
-#import "PlayerUsbWorker.h"
+
 
 @implementation PlayerLibSidplayWrapper
 @synthesize sChipModel6581;
@@ -99,7 +103,7 @@ AudioCoreDriverNew*        mAudioDriver;
 #ifndef NO_USB_SUPPORT
     mSIDBlasterUSBbuilder = nil;
     mUSBSIDPicoBuilder  = nil;
-#endif
+
     _usbWorker = [[PlayerUsbWorker alloc] init];
 
     __weak id weakSelf = self;
@@ -107,6 +111,28 @@ AudioCoreDriverNew*        mAudioDriver;
     self.usbWorker.iterationBlock = ^{
         [weakSelf fillBufferUSB];
     };
+    
+    self.usbWatcher = [[USBDeviceWatcher alloc] initWithDevices:@[
+        @{ @"vid": @(USBSIB_PICO_VENDOR_ID), @"pid": @(USBSIB_PICO_PRODUCT_ID) },
+        @{ @"vid": @(0x1234), @"pid": @(0x0002) }
+    ] handler:^(USBDeviceEvent event, uint16_t vid, uint16_t pid) {
+
+        __strong id strSelf = weakSelf;
+        if (!strSelf) return;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (event) {
+                case USBDeviceEventAttached:
+                    [strSelf reconnectVendorId:vid productId:pid];
+                    break;
+
+                case USBDeviceEventDetached:
+                    [strSelf disconnectVendorId:vid productId:pid];
+                    break;
+            }
+        });
+    }];
+#endif
     mBuilder_reSID = nil;
     mBuilder = nil;
     mExtUSBDeviceActive = false;
@@ -115,6 +141,17 @@ AudioCoreDriverNew*        mAudioDriver;
 }
 - (void) dealloc
 {
+#ifndef NO_USB_SUPPORT
+    // kill USB so that libusb gets freed
+    if (mSIDBlasterUSBbuilder) {
+        delete mSIDBlasterUSBbuilder;
+        mSIDBlasterUSBbuilder = nil;
+    }
+    if (mUSBSIDPicoBuilder) {
+        delete mUSBSIDPicoBuilder;
+        mUSBSIDPicoBuilder  = nil;
+    }
+#endif
     // empty at the moment...
 }
 
@@ -464,7 +501,7 @@ static inline float approximate_dac(int x, float kinkiness)
 - (BOOL) playTuneByPath:(const char *)filename subtune:(int) subtune withSettings:(struct PlaybackSettings *)settings
 {
     //printf("loading file: %s\n", filename);
-    self.stopPlayback;
+    [self stopPlayback];
     
     bool success = [self loadTuneByPath: filename subtune:subtune withSettings:settings];
     
@@ -480,7 +517,7 @@ static inline float approximate_dac(int x, float kinkiness)
             mUSBSIDPicoBuilder->reset(0x0f);
         }
 #endif
-        self.startPlayback;
+        [self startPlayback];
     }
     return success;
 }
@@ -489,7 +526,7 @@ static inline float approximate_dac(int x, float kinkiness)
 {
     //printf( "buffer: 0x%08x, len: %d, subtune: %d\n", (int) buffer, length, subtune );
     //printf( "buffer: %c %c %c %c\n", buffer[0], buffer[1], buffer[2], buffer[3] );
-    self.stopPlayback;
+    [self stopPlayback];
     
     bool success = [self loadTuneFromBuffer: buffer withLength: length subtune:subtune withSettings:settings];
     
@@ -502,7 +539,7 @@ static inline float approximate_dac(int x, float kinkiness)
             mUSBSIDPicoBuilder->reset(0x0f);
         }
 #endif
-        self.startPlayback;
+        [self startPlayback];
     }
     return success;
 }
@@ -555,9 +592,9 @@ static inline float approximate_dac(int x, float kinkiness)
         mCurrentSubtune--;
     else
         return true;
-    self.stopPlayback;
+    [self stopPlayback];
     [self initCurrentSubtune];
-    self.startPlayback;
+    [self startPlayback];
     return true;
 }
 
@@ -568,11 +605,11 @@ static inline float approximate_dac(int x, float kinkiness)
     else
         return true;
     
-    self.stopPlayback;
+    [self stopPlayback];
     
     [self initCurrentSubtune];
     
-    self.startPlayback;
+    [self startPlayback];
     
     return true;
 }
@@ -584,11 +621,11 @@ static inline float approximate_dac(int x, float kinkiness)
     else
         return true;
     
-    self.stopPlayback;
+    [self stopPlayback];
     
     [self initCurrentSubtune];
     
-    self.startPlayback;
+    [self startPlayback];
     
     return true;
 }
@@ -698,38 +735,76 @@ static inline float approximate_dac(int x, float kinkiness)
 }
 - (void) startPlayback
 {
+#ifndef NO_USB_SUPPORT
     if (mExtUSBDeviceActive)
-        self.usbWorker.start;
-    //else
+        [self.usbWorker start];
+#endif
         mAudioDriver->startPlayback();
 }
 - (void) pausePlayback
 {
+#ifndef NO_USB_SUPPORT
     if (mExtUSBDeviceActive)
-        self.usbWorker.pause;
-    //else
+        [self.usbWorker pause];
+#endif
         mAudioDriver->stopPlayback();
 }
 - (void) resumePlayback
 {
+#ifndef NO_USB_SUPPORT
     if (mExtUSBDeviceActive)
-        self.usbWorker.resume;
-    //else
+        [self.usbWorker resume];
+#endif
         mAudioDriver->startPlayback();
 }
 - (void) stopPlayback
 {
+#ifndef NO_USB_SUPPORT
     if (mExtUSBDeviceActive)
-        self.usbWorker.stop;
-    //else
+        [self.usbWorker stop];
+#endif
         mAudioDriver->stopPlayback();
 }
 - (BOOL) isPlaying
 {
+#ifndef NO_USB_SUPPORT
     if (mExtUSBDeviceActive)
         return self.usbWorker.isPlaying;
-    else
+#endif
         return mAudioDriver->getIsPlaying();
+}
+- (BOOL) usbError
+{
+    return mUsbErrorDetectedPico | mUsbErrorDetectedSB;
+}
+- (void)reconnectVendorId:(uint16_t)vid productId:(uint16_t)pid
+{
+    NSLog(@"USB Device pid=0x%x, vid=0x%x connected", pid, vid);
+    // at the moment we do not support auto config
+}
+- (void)disconnectVendorId:(uint16_t)vid productId:(uint16_t)pid
+{
+    NSLog(@"USB Device pid=0x%x, vid=0x%x disconnected", pid, vid);
+    if ((pid == USBSIB_PICO_PRODUCT_ID) && (vid == USBSIB_PICO_VENDOR_ID)) {
+        // USBSID-Pico lost
+        if (mUSBSIDPicoBuilder) {
+            self->mUsbErrorDetectedPico = TRUE;
+            [self.usbWorker stop];
+            mSidEmuEngine->stop();
+        }
+    }
+}
+- (void)releaseUSBDevices
+{
+    // we try to remove libusb devices
+    if (mUSBSIDPicoBuilder) {
+        delete mUSBSIDPicoBuilder;
+        mUSBSIDPicoBuilder = nil;
+    }
+    if (mSIDBlasterUSBbuilder) {
+        delete mSIDBlasterUSBbuilder;
+        mSIDBlasterUSBbuilder = nil;
+    }
 }
 
 //FIXME: we have void* defined, but use now short*
@@ -740,10 +815,10 @@ static inline float approximate_dac(int x, float kinkiness)
     //libsidplayfp uses number of 16-Bit samples (short), not bytes for buffer count
     int count16 = len/2;
     
-    if (mPlaybackSettings.mOversampling == 1)
+    if (mPlaybackSettings.mOversampling == 1) {
         if (!mExtUSBDeviceActive)
             mSidEmuEngine->play((short *)buffer, count16);
-    else
+    }else
     {
         if (mPlaybackSettings.mOversampling != mPreviousOversamplingFactor)
         {
