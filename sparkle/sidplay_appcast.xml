@@ -5,10 +5,10 @@
         <item>
             <title>5.1.0</title>
             <pubDate>Sat, 6 Sep 2025 19:52:00 +0100</pubDate>
-            <sparkle:version>123</sparkle:version>
+            <sparkle:version>130</sparkle:version>
             <sparkle:shortVersionString>5.1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.13</sparkle:minimumSystemVersion>
-            <sparkle:releaseNotesLink>https://github.com/Alexco500/sidplay5/releases/tag/v5.1.0_123</sparkle:releaseNotesLink>
+            <sparkle:minimumSystemVersion>10.15</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://github.com/Alexco500/sidplay5/releases/tag/v5.1.0_131</sparkle:releaseNotesLink>
             <link>https://github.com/Alexco500/sidplay5/releases</link>
         </item>
     </channel>
