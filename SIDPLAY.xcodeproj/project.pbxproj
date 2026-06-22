@@ -215,6 +215,83 @@
 		DA59B0C42A05224900233549 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA17E3122A04F36000419CB8 /* timer.cpp */; };
 		DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC686A0CF07344005AFA9A /* SidTuneWrapper.mm */; };
 		DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC68680CF07344005AFA9A /* SidTuneMod.cpp */; };
+		DA6C925A2FE9340600EB4758 /* PYMIDIRealEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924E2FE9340600EB4758 /* PYMIDIRealEndpoint.m */; };
+		DA6C925B2FE9340600EB4758 /* PYMIDIRealSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92502FE9340600EB4758 /* PYMIDIRealSource.m */; };
+		DA6C925C2FE9340600EB4758 /* PYMIDIEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92442FE9340600EB4758 /* PYMIDIEndpoint.m */; };
+		DA6C925D2FE9340600EB4758 /* PYMIDIEndpointDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92462FE9340600EB4758 /* PYMIDIEndpointDescriptor.m */; };
+		DA6C925E2FE9340600EB4758 /* PYMIDIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92522FE9340600EB4758 /* PYMIDIUtils.m */; };
+		DA6C925F2FE9340600EB4758 /* PYMIDIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924A2FE9340600EB4758 /* PYMIDIManager.m */; };
+		DA6C92602FE9340600EB4758 /* PYMIDIRealDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924C2FE9340600EB4758 /* PYMIDIRealDestination.m */; };
+		DA6C92612FE9340600EB4758 /* PYMIDIVirtualDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92542FE9340600EB4758 /* PYMIDIVirtualDestination.m */; };
+		DA6C92622FE9340600EB4758 /* PYMIDIVirtualEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92562FE9340600EB4758 /* PYMIDIVirtualEndpoint.m */; };
+		DA6C92632FE9340600EB4758 /* PYMIDIVirtualSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92582FE9340600EB4758 /* PYMIDIVirtualSource.m */; };
+		DA6C92642FE9340600EB4758 /* PYMIDIEndpointSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92482FE9340600EB4758 /* PYMIDIEndpointSet.m */; };
+		DA6C92652FE9340600EB4758 /* toc.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923A2FE9340600EB4758 /* toc.html */; };
+		DA6C92662FE9340600EB4758 /* PYMIDIRealEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922A2FE9340600EB4758 /* PYMIDIRealEndpoint.html */; };
+		DA6C92672FE9340600EB4758 /* To Do.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92402FE9340600EB4758 /* To Do.html */; };
+		DA6C92682FE9340600EB4758 /* PYMIDIEndpointDescriptor.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92262FE9340600EB4758 /* PYMIDIEndpointDescriptor.html */; };
+		DA6C92692FE9340600EB4758 /* Read Me.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923E2FE9340600EB4758 /* Read Me.html */; };
+		DA6C926A2FE9340600EB4758 /* receiving.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92372FE9340600EB4758 /* receiving.html */; };
+		DA6C926B2FE9340600EB4758 /* MIT-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923D2FE9340600EB4758 /* MIT-LICENSE */; };
+		DA6C926C2FE9340600EB4758 /* Bugs.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923C2FE9340600EB4758 /* Bugs.html */; };
+		DA6C926D2FE9340600EB4758 /* notification.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92352FE9340600EB4758 /* notification.html */; };
+		DA6C926E2FE9340600EB4758 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92332FE9340600EB4758 /* index.html */; };
+		DA6C926F2FE9340600EB4758 /* selection.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92382FE9340600EB4758 /* selection.html */; };
+		DA6C92702FE9340600EB4758 /* PYMIDIManager.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92282FE9340600EB4758 /* PYMIDIManager.html */; };
+		DA6C92712FE9340600EB4758 /* PYMIDIVirtualDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922C2FE9340600EB4758 /* PYMIDIVirtualDestination.html */; };
+		DA6C92722FE9340600EB4758 /* Release Notes.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923F2FE9340600EB4758 /* Release Notes.html */; };
+		DA6C92732FE9340600EB4758 /* sending.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92392FE9340600EB4758 /* sending.html */; };
+		DA6C92742FE9340600EB4758 /* PYMIDIEndpointSet.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92272FE9340600EB4758 /* PYMIDIEndpointSet.html */; };
+		DA6C92752FE9340600EB4758 /* endpoints.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92322FE9340600EB4758 /* endpoints.html */; };
+		DA6C92762FE9340600EB4758 /* overview.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92362FE9340600EB4758 /* overview.html */; };
+		DA6C92772FE9340600EB4758 /* descriptors.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92312FE9340600EB4758 /* descriptors.html */; };
+		DA6C92782FE9340600EB4758 /* manager.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92342FE9340600EB4758 /* manager.html */; };
+		DA6C92792FE9340600EB4758 /* PYMIDIVirtualSource.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922E2FE9340600EB4758 /* PYMIDIVirtualSource.html */; };
+		DA6C927A2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922D2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html */; };
+		DA6C927B2FE9340600EB4758 /* PYMIDIRealSource.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922B2FE9340600EB4758 /* PYMIDIRealSource.html */; };
+		DA6C927C2FE9340600EB4758 /* PYMIDIRealDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92292FE9340600EB4758 /* PYMIDIRealDestination.html */; };
+		DA6C927D2FE9340600EB4758 /* PYMIDIEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92252FE9340600EB4758 /* PYMIDIEndpoint.html */; };
+		DA6C927E2FE9340600EB4758 /* archiving.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92302FE9340600EB4758 /* archiving.html */; };
+		DA6C927F2FE9340600EB4758 /* toc.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923A2FE9340600EB4758 /* toc.html */; };
+		DA6C92802FE9340600EB4758 /* PYMIDIRealEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922A2FE9340600EB4758 /* PYMIDIRealEndpoint.html */; };
+		DA6C92812FE9340600EB4758 /* To Do.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92402FE9340600EB4758 /* To Do.html */; };
+		DA6C92822FE9340600EB4758 /* PYMIDIEndpointDescriptor.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92262FE9340600EB4758 /* PYMIDIEndpointDescriptor.html */; };
+		DA6C92832FE9340600EB4758 /* Read Me.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923E2FE9340600EB4758 /* Read Me.html */; };
+		DA6C92842FE9340600EB4758 /* receiving.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92372FE9340600EB4758 /* receiving.html */; };
+		DA6C92852FE9340600EB4758 /* MIT-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923D2FE9340600EB4758 /* MIT-LICENSE */; };
+		DA6C92862FE9340600EB4758 /* Bugs.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923C2FE9340600EB4758 /* Bugs.html */; };
+		DA6C92872FE9340600EB4758 /* notification.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92352FE9340600EB4758 /* notification.html */; };
+		DA6C92882FE9340600EB4758 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92332FE9340600EB4758 /* index.html */; };
+		DA6C92892FE9340600EB4758 /* selection.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92382FE9340600EB4758 /* selection.html */; };
+		DA6C928A2FE9340600EB4758 /* PYMIDIManager.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92282FE9340600EB4758 /* PYMIDIManager.html */; };
+		DA6C928B2FE9340600EB4758 /* PYMIDIVirtualDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922C2FE9340600EB4758 /* PYMIDIVirtualDestination.html */; };
+		DA6C928C2FE9340600EB4758 /* Release Notes.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C923F2FE9340600EB4758 /* Release Notes.html */; };
+		DA6C928D2FE9340600EB4758 /* sending.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92392FE9340600EB4758 /* sending.html */; };
+		DA6C928E2FE9340600EB4758 /* PYMIDIEndpointSet.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92272FE9340600EB4758 /* PYMIDIEndpointSet.html */; };
+		DA6C928F2FE9340600EB4758 /* endpoints.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92322FE9340600EB4758 /* endpoints.html */; };
+		DA6C92902FE9340600EB4758 /* overview.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92362FE9340600EB4758 /* overview.html */; };
+		DA6C92912FE9340600EB4758 /* descriptors.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92312FE9340600EB4758 /* descriptors.html */; };
+		DA6C92922FE9340600EB4758 /* manager.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92342FE9340600EB4758 /* manager.html */; };
+		DA6C92932FE9340600EB4758 /* PYMIDIVirtualSource.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922E2FE9340600EB4758 /* PYMIDIVirtualSource.html */; };
+		DA6C92942FE9340600EB4758 /* PYMIDIVirtualEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922D2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html */; };
+		DA6C92952FE9340600EB4758 /* PYMIDIRealSource.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C922B2FE9340600EB4758 /* PYMIDIRealSource.html */; };
+		DA6C92962FE9340600EB4758 /* PYMIDIRealDestination.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92292FE9340600EB4758 /* PYMIDIRealDestination.html */; };
+		DA6C92972FE9340600EB4758 /* PYMIDIEndpoint.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92252FE9340600EB4758 /* PYMIDIEndpoint.html */; };
+		DA6C92982FE9340600EB4758 /* archiving.html in Resources */ = {isa = PBXBuildFile; fileRef = DA6C92302FE9340600EB4758 /* archiving.html */; };
+		DA6C92992FE9340600EB4758 /* PYMIDIRealEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924E2FE9340600EB4758 /* PYMIDIRealEndpoint.m */; };
+		DA6C929A2FE9340600EB4758 /* PYMIDIRealSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92502FE9340600EB4758 /* PYMIDIRealSource.m */; };
+		DA6C929B2FE9340600EB4758 /* PYMIDIEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92442FE9340600EB4758 /* PYMIDIEndpoint.m */; };
+		DA6C929C2FE9340600EB4758 /* PYMIDIEndpointDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92462FE9340600EB4758 /* PYMIDIEndpointDescriptor.m */; };
+		DA6C929D2FE9340600EB4758 /* PYMIDIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92522FE9340600EB4758 /* PYMIDIUtils.m */; };
+		DA6C929E2FE9340600EB4758 /* PYMIDIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924A2FE9340600EB4758 /* PYMIDIManager.m */; };
+		DA6C929F2FE9340600EB4758 /* PYMIDIRealDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C924C2FE9340600EB4758 /* PYMIDIRealDestination.m */; };
+		DA6C92A02FE9340600EB4758 /* PYMIDIVirtualDestination.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92542FE9340600EB4758 /* PYMIDIVirtualDestination.m */; };
+		DA6C92A12FE9340600EB4758 /* PYMIDIVirtualEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92562FE9340600EB4758 /* PYMIDIVirtualEndpoint.m */; };
+		DA6C92A22FE9340600EB4758 /* PYMIDIVirtualSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92582FE9340600EB4758 /* PYMIDIVirtualSource.m */; };
+		DA6C92A32FE9340600EB4758 /* PYMIDIEndpointSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92482FE9340600EB4758 /* PYMIDIEndpointSet.m */; };
+		DA6C92A62FE9342400EB4758 /* ASID_MIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92A52FE9342400EB4758 /* ASID_MIDI.m */; };
+		DA6C92A72FE9342400EB4758 /* ASID_MIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C92A52FE9342400EB4758 /* ASID_MIDI.m */; };
+		DA6C92A92FE934A500EB4758 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C92A82FE934A500EB4758 /* CoreMIDI.framework */; };
 		DA74323D2E66FB5F009420D6 /* simpleMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */; };
 		DA74323E2E66FB5F009420D6 /* simpleMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = DA74323B2E66FB5F009420D6 /* simpleMixer.h */; };
 		DAA731AD29E4AF6600B274D5 /* AudioCoreDriverNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAA731AB29E4AF4A00B274D5 /* AudioCoreDriverNew.cpp */; };
@@ -732,6 +809,58 @@
 		DA557D6B2ACAB6A300C02288 /* PVScopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVScopeView.h; sourceTree = "<group>"; };
 		DA557D6C2ACAB6A300C02288 /* PVScopeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVScopeView.m; sourceTree = "<group>"; };
 		DA59B0DD2A07D74100233549 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		DA6C92252FE9340600EB4758 /* PYMIDIEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpoint.html; sourceTree = "<group>"; };
+		DA6C92262FE9340600EB4758 /* PYMIDIEndpointDescriptor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpointDescriptor.html; sourceTree = "<group>"; };
+		DA6C92272FE9340600EB4758 /* PYMIDIEndpointSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIEndpointSet.html; sourceTree = "<group>"; };
+		DA6C92282FE9340600EB4758 /* PYMIDIManager.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIManager.html; sourceTree = "<group>"; };
+		DA6C92292FE9340600EB4758 /* PYMIDIRealDestination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealDestination.html; sourceTree = "<group>"; };
+		DA6C922A2FE9340600EB4758 /* PYMIDIRealEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealEndpoint.html; sourceTree = "<group>"; };
+		DA6C922B2FE9340600EB4758 /* PYMIDIRealSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIRealSource.html; sourceTree = "<group>"; };
+		DA6C922C2FE9340600EB4758 /* PYMIDIVirtualDestination.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualDestination.html; sourceTree = "<group>"; };
+		DA6C922D2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualEndpoint.html; sourceTree = "<group>"; };
+		DA6C922E2FE9340600EB4758 /* PYMIDIVirtualSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = PYMIDIVirtualSource.html; sourceTree = "<group>"; };
+		DA6C92302FE9340600EB4758 /* archiving.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = archiving.html; sourceTree = "<group>"; };
+		DA6C92312FE9340600EB4758 /* descriptors.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = descriptors.html; sourceTree = "<group>"; };
+		DA6C92322FE9340600EB4758 /* endpoints.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = endpoints.html; sourceTree = "<group>"; };
+		DA6C92332FE9340600EB4758 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = index.html; sourceTree = "<group>"; };
+		DA6C92342FE9340600EB4758 /* manager.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = manager.html; sourceTree = "<group>"; };
+		DA6C92352FE9340600EB4758 /* notification.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = notification.html; sourceTree = "<group>"; };
+		DA6C92362FE9340600EB4758 /* overview.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = overview.html; sourceTree = "<group>"; };
+		DA6C92372FE9340600EB4758 /* receiving.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = receiving.html; sourceTree = "<group>"; };
+		DA6C92382FE9340600EB4758 /* selection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = selection.html; sourceTree = "<group>"; };
+		DA6C92392FE9340600EB4758 /* sending.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = sending.html; sourceTree = "<group>"; };
+		DA6C923A2FE9340600EB4758 /* toc.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = toc.html; sourceTree = "<group>"; };
+		DA6C923C2FE9340600EB4758 /* Bugs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Bugs.html; sourceTree = "<group>"; };
+		DA6C923D2FE9340600EB4758 /* MIT-LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
+		DA6C923E2FE9340600EB4758 /* Read Me.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Read Me.html"; sourceTree = "<group>"; };
+		DA6C923F2FE9340600EB4758 /* Release Notes.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Release Notes.html"; sourceTree = "<group>"; };
+		DA6C92402FE9340600EB4758 /* To Do.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "To Do.html"; sourceTree = "<group>"; };
+		DA6C92422FE9340600EB4758 /* PYMIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDI.h; sourceTree = "<group>"; };
+		DA6C92432FE9340600EB4758 /* PYMIDIEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpoint.h; sourceTree = "<group>"; };
+		DA6C92442FE9340600EB4758 /* PYMIDIEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpoint.m; sourceTree = "<group>"; };
+		DA6C92452FE9340600EB4758 /* PYMIDIEndpointDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpointDescriptor.h; sourceTree = "<group>"; };
+		DA6C92462FE9340600EB4758 /* PYMIDIEndpointDescriptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpointDescriptor.m; sourceTree = "<group>"; };
+		DA6C92472FE9340600EB4758 /* PYMIDIEndpointSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIEndpointSet.h; sourceTree = "<group>"; };
+		DA6C92482FE9340600EB4758 /* PYMIDIEndpointSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIEndpointSet.m; sourceTree = "<group>"; };
+		DA6C92492FE9340600EB4758 /* PYMIDIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIManager.h; sourceTree = "<group>"; };
+		DA6C924A2FE9340600EB4758 /* PYMIDIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIManager.m; sourceTree = "<group>"; };
+		DA6C924B2FE9340600EB4758 /* PYMIDIRealDestination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealDestination.h; sourceTree = "<group>"; };
+		DA6C924C2FE9340600EB4758 /* PYMIDIRealDestination.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealDestination.m; sourceTree = "<group>"; };
+		DA6C924D2FE9340600EB4758 /* PYMIDIRealEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealEndpoint.h; sourceTree = "<group>"; };
+		DA6C924E2FE9340600EB4758 /* PYMIDIRealEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealEndpoint.m; sourceTree = "<group>"; };
+		DA6C924F2FE9340600EB4758 /* PYMIDIRealSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIRealSource.h; sourceTree = "<group>"; };
+		DA6C92502FE9340600EB4758 /* PYMIDIRealSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIRealSource.m; sourceTree = "<group>"; };
+		DA6C92512FE9340600EB4758 /* PYMIDIUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIUtils.h; sourceTree = "<group>"; };
+		DA6C92522FE9340600EB4758 /* PYMIDIUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIUtils.m; sourceTree = "<group>"; };
+		DA6C92532FE9340600EB4758 /* PYMIDIVirtualDestination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualDestination.h; sourceTree = "<group>"; };
+		DA6C92542FE9340600EB4758 /* PYMIDIVirtualDestination.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualDestination.m; sourceTree = "<group>"; };
+		DA6C92552FE9340600EB4758 /* PYMIDIVirtualEndpoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualEndpoint.h; sourceTree = "<group>"; };
+		DA6C92562FE9340600EB4758 /* PYMIDIVirtualEndpoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualEndpoint.m; sourceTree = "<group>"; };
+		DA6C92572FE9340600EB4758 /* PYMIDIVirtualSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMIDIVirtualSource.h; sourceTree = "<group>"; };
+		DA6C92582FE9340600EB4758 /* PYMIDIVirtualSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMIDIVirtualSource.m; sourceTree = "<group>"; };
+		DA6C92A42FE9342400EB4758 /* ASID_MIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASID_MIDI.h; sourceTree = SOURCE_ROOT; };
+		DA6C92A52FE9342400EB4758 /* ASID_MIDI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASID_MIDI.m; sourceTree = SOURCE_ROOT; };
+		DA6C92A82FE934A500EB4758 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		DA74323B2E66FB5F009420D6 /* simpleMixer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = simpleMixer.h; path = libsidplayfp/simpleMixer.h; sourceTree = "<group>"; };
 		DA74323C2E66FB5F009420D6 /* simpleMixer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = simpleMixer.cpp; path = libsidplayfp/simpleMixer.cpp; sourceTree = "<group>"; };
 		DA9BC68C27E88A280027C659 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -775,6 +904,7 @@
 				DA056EF62A1790140096847B /* AudioToolbox.framework in Frameworks */,
 				DAEE5F5E2A57F20E00F912CE /* MediaPlayer.framework in Frameworks */,
 				DAC0509A2D369DCC009892D4 /* Sparkle.framework in Frameworks */,
+				DA6C92A92FE934A500EB4758 /* CoreMIDI.framework in Frameworks */,
 				DA056EED2A178FCA0096847B /* Cocoa.framework in Frameworks */,
 				DA056EF12A178FE00096847B /* CoreAudio.framework in Frameworks */,
 				DA056EF52A178FF10096847B /* Foundation.framework in Frameworks */,
@@ -819,6 +949,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DA6C92A52FE9342400EB4758 /* ASID_MIDI.m */,
+				DA6C92A42FE9342400EB4758 /* ASID_MIDI.h */,
+				DA6C92592FE9340600EB4758 /* PYMIDI */,
 				DA1094592CE66290001433DC /* PlaybackSettings.h */,
 				DA5578152CDE3878005C2A42 /* PlayerInfoProtocol.h */,
 				DA5578122CDE20ED005C2A42 /* SPOscilloscopeWindowController.h */,
@@ -1146,6 +1279,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA6C92A82FE934A500EB4758 /* CoreMIDI.framework */,
 				DA529CA52F9A081000FD8AC7 /* libftd2xx.1.dylib */,
 				DA056EFB2A2674580096847B /* AudioUnit.framework */,
 				DA056EEE2A178FD60096847B /* AppKit.framework */,
@@ -1587,6 +1721,86 @@
 			path = SIDTuneViewer;
 			sourceTree = "<group>";
 		};
+		DA6C922F2FE9340600EB4758 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C92252FE9340600EB4758 /* PYMIDIEndpoint.html */,
+				DA6C92262FE9340600EB4758 /* PYMIDIEndpointDescriptor.html */,
+				DA6C92272FE9340600EB4758 /* PYMIDIEndpointSet.html */,
+				DA6C92282FE9340600EB4758 /* PYMIDIManager.html */,
+				DA6C92292FE9340600EB4758 /* PYMIDIRealDestination.html */,
+				DA6C922A2FE9340600EB4758 /* PYMIDIRealEndpoint.html */,
+				DA6C922B2FE9340600EB4758 /* PYMIDIRealSource.html */,
+				DA6C922C2FE9340600EB4758 /* PYMIDIVirtualDestination.html */,
+				DA6C922D2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html */,
+				DA6C922E2FE9340600EB4758 /* PYMIDIVirtualSource.html */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DA6C923B2FE9340600EB4758 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C922F2FE9340600EB4758 /* Classes */,
+				DA6C92302FE9340600EB4758 /* archiving.html */,
+				DA6C92312FE9340600EB4758 /* descriptors.html */,
+				DA6C92322FE9340600EB4758 /* endpoints.html */,
+				DA6C92332FE9340600EB4758 /* index.html */,
+				DA6C92342FE9340600EB4758 /* manager.html */,
+				DA6C92352FE9340600EB4758 /* notification.html */,
+				DA6C92362FE9340600EB4758 /* overview.html */,
+				DA6C92372FE9340600EB4758 /* receiving.html */,
+				DA6C92382FE9340600EB4758 /* selection.html */,
+				DA6C92392FE9340600EB4758 /* sending.html */,
+				DA6C923A2FE9340600EB4758 /* toc.html */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
+		DA6C92412FE9340600EB4758 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C923B2FE9340600EB4758 /* Documentation */,
+				DA6C923C2FE9340600EB4758 /* Bugs.html */,
+				DA6C923D2FE9340600EB4758 /* MIT-LICENSE */,
+				DA6C923E2FE9340600EB4758 /* Read Me.html */,
+				DA6C923F2FE9340600EB4758 /* Release Notes.html */,
+				DA6C92402FE9340600EB4758 /* To Do.html */,
+			);
+			path = misc;
+			sourceTree = "<group>";
+		};
+		DA6C92592FE9340600EB4758 /* PYMIDI */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C92412FE9340600EB4758 /* misc */,
+				DA6C92422FE9340600EB4758 /* PYMIDI.h */,
+				DA6C92432FE9340600EB4758 /* PYMIDIEndpoint.h */,
+				DA6C92442FE9340600EB4758 /* PYMIDIEndpoint.m */,
+				DA6C92452FE9340600EB4758 /* PYMIDIEndpointDescriptor.h */,
+				DA6C92462FE9340600EB4758 /* PYMIDIEndpointDescriptor.m */,
+				DA6C92472FE9340600EB4758 /* PYMIDIEndpointSet.h */,
+				DA6C92482FE9340600EB4758 /* PYMIDIEndpointSet.m */,
+				DA6C92492FE9340600EB4758 /* PYMIDIManager.h */,
+				DA6C924A2FE9340600EB4758 /* PYMIDIManager.m */,
+				DA6C924B2FE9340600EB4758 /* PYMIDIRealDestination.h */,
+				DA6C924C2FE9340600EB4758 /* PYMIDIRealDestination.m */,
+				DA6C924D2FE9340600EB4758 /* PYMIDIRealEndpoint.h */,
+				DA6C924E2FE9340600EB4758 /* PYMIDIRealEndpoint.m */,
+				DA6C924F2FE9340600EB4758 /* PYMIDIRealSource.h */,
+				DA6C92502FE9340600EB4758 /* PYMIDIRealSource.m */,
+				DA6C92512FE9340600EB4758 /* PYMIDIUtils.h */,
+				DA6C92522FE9340600EB4758 /* PYMIDIUtils.m */,
+				DA6C92532FE9340600EB4758 /* PYMIDIVirtualDestination.h */,
+				DA6C92542FE9340600EB4758 /* PYMIDIVirtualDestination.m */,
+				DA6C92552FE9340600EB4758 /* PYMIDIVirtualEndpoint.h */,
+				DA6C92562FE9340600EB4758 /* PYMIDIVirtualEndpoint.m */,
+				DA6C92572FE9340600EB4758 /* PYMIDIVirtualSource.h */,
+				DA6C92582FE9340600EB4758 /* PYMIDIVirtualSource.m */,
+			);
+			path = PYMIDI;
+			sourceTree = "<group>";
+		};
 		DAEE5F4D2A56DB3800F912CE /* SIDBlasterObjC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1821,6 +2035,32 @@
 				1FD3B2771BF1588D0051A741 /* fingerCursor@2x.png in Resources */,
 				1FD3B2761BF1588D0051A741 /* fingerCursor.png in Resources */,
 				1FCE7F1D1BEEA6CA00BA374A /* display_middle.png in Resources */,
+				DA6C92652FE9340600EB4758 /* toc.html in Resources */,
+				DA6C92662FE9340600EB4758 /* PYMIDIRealEndpoint.html in Resources */,
+				DA6C92672FE9340600EB4758 /* To Do.html in Resources */,
+				DA6C92682FE9340600EB4758 /* PYMIDIEndpointDescriptor.html in Resources */,
+				DA6C92692FE9340600EB4758 /* Read Me.html in Resources */,
+				DA6C926A2FE9340600EB4758 /* receiving.html in Resources */,
+				DA6C926B2FE9340600EB4758 /* MIT-LICENSE in Resources */,
+				DA6C926C2FE9340600EB4758 /* Bugs.html in Resources */,
+				DA6C926D2FE9340600EB4758 /* notification.html in Resources */,
+				DA6C926E2FE9340600EB4758 /* index.html in Resources */,
+				DA6C926F2FE9340600EB4758 /* selection.html in Resources */,
+				DA6C92702FE9340600EB4758 /* PYMIDIManager.html in Resources */,
+				DA6C92712FE9340600EB4758 /* PYMIDIVirtualDestination.html in Resources */,
+				DA6C92722FE9340600EB4758 /* Release Notes.html in Resources */,
+				DA6C92732FE9340600EB4758 /* sending.html in Resources */,
+				DA6C92742FE9340600EB4758 /* PYMIDIEndpointSet.html in Resources */,
+				DA6C92752FE9340600EB4758 /* endpoints.html in Resources */,
+				DA6C92762FE9340600EB4758 /* overview.html in Resources */,
+				DA6C92772FE9340600EB4758 /* descriptors.html in Resources */,
+				DA6C92782FE9340600EB4758 /* manager.html in Resources */,
+				DA6C92792FE9340600EB4758 /* PYMIDIVirtualSource.html in Resources */,
+				DA6C927A2FE9340600EB4758 /* PYMIDIVirtualEndpoint.html in Resources */,
+				DA6C927B2FE9340600EB4758 /* PYMIDIRealSource.html in Resources */,
+				DA6C927C2FE9340600EB4758 /* PYMIDIRealDestination.html in Resources */,
+				DA6C927D2FE9340600EB4758 /* PYMIDIEndpoint.html in Resources */,
+				DA6C927E2FE9340600EB4758 /* archiving.html in Resources */,
 				DAB81A1F28686C670075CB8E /* Images.xcassets in Resources */,
 				1FCE7F1E1BEEA6CA00BA374A /* display_middle@2x.png in Resources */,
 				1FCE7F1B1BEEA6CA00BA374A /* display_left.png in Resources */,
@@ -1845,6 +2085,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA557D5C2AC6E9F000C02288 /* PreviewViewController.xib in Resources */,
+				DA6C927F2FE9340600EB4758 /* toc.html in Resources */,
+				DA6C92802FE9340600EB4758 /* PYMIDIRealEndpoint.html in Resources */,
+				DA6C92812FE9340600EB4758 /* To Do.html in Resources */,
+				DA6C92822FE9340600EB4758 /* PYMIDIEndpointDescriptor.html in Resources */,
+				DA6C92832FE9340600EB4758 /* Read Me.html in Resources */,
+				DA6C92842FE9340600EB4758 /* receiving.html in Resources */,
+				DA6C92852FE9340600EB4758 /* MIT-LICENSE in Resources */,
+				DA6C92862FE9340600EB4758 /* Bugs.html in Resources */,
+				DA6C92872FE9340600EB4758 /* notification.html in Resources */,
+				DA6C92882FE9340600EB4758 /* index.html in Resources */,
+				DA6C92892FE9340600EB4758 /* selection.html in Resources */,
+				DA6C928A2FE9340600EB4758 /* PYMIDIManager.html in Resources */,
+				DA6C928B2FE9340600EB4758 /* PYMIDIVirtualDestination.html in Resources */,
+				DA6C928C2FE9340600EB4758 /* Release Notes.html in Resources */,
+				DA6C928D2FE9340600EB4758 /* sending.html in Resources */,
+				DA6C928E2FE9340600EB4758 /* PYMIDIEndpointSet.html in Resources */,
+				DA6C928F2FE9340600EB4758 /* endpoints.html in Resources */,
+				DA6C92902FE9340600EB4758 /* overview.html in Resources */,
+				DA6C92912FE9340600EB4758 /* descriptors.html in Resources */,
+				DA6C92922FE9340600EB4758 /* manager.html in Resources */,
+				DA6C92932FE9340600EB4758 /* PYMIDIVirtualSource.html in Resources */,
+				DA6C92942FE9340600EB4758 /* PYMIDIVirtualEndpoint.html in Resources */,
+				DA6C92952FE9340600EB4758 /* PYMIDIRealSource.html in Resources */,
+				DA6C92962FE9340600EB4758 /* PYMIDIRealDestination.html in Resources */,
+				DA6C92972FE9340600EB4758 /* PYMIDIEndpoint.html in Resources */,
+				DA6C92982FE9340600EB4758 /* archiving.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1916,12 +2182,24 @@
 				1F207ADD0D414B6100BBEF40 /* SPSmartPlaylist.m in Sources */,
 				1F2822460D469EA100AAB993 /* SPPlaylistItem.m in Sources */,
 				1F05AA7D0D511BEF004725C5 /* SPVisualizerView.m in Sources */,
+				DA6C925A2FE9340600EB4758 /* PYMIDIRealEndpoint.m in Sources */,
+				DA6C925B2FE9340600EB4758 /* PYMIDIRealSource.m in Sources */,
+				DA6C925C2FE9340600EB4758 /* PYMIDIEndpoint.m in Sources */,
+				DA6C925D2FE9340600EB4758 /* PYMIDIEndpointDescriptor.m in Sources */,
+				DA6C925E2FE9340600EB4758 /* PYMIDIUtils.m in Sources */,
+				DA6C925F2FE9340600EB4758 /* PYMIDIManager.m in Sources */,
+				DA6C92602FE9340600EB4758 /* PYMIDIRealDestination.m in Sources */,
+				DA6C92612FE9340600EB4758 /* PYMIDIVirtualDestination.m in Sources */,
+				DA6C92622FE9340600EB4758 /* PYMIDIVirtualEndpoint.m in Sources */,
+				DA6C92632FE9340600EB4758 /* PYMIDIVirtualSource.m in Sources */,
+				DA6C92642FE9340600EB4758 /* PYMIDIEndpointSet.m in Sources */,
 				DA5578142CDE20ED005C2A42 /* SPOscilloscopeWindowController.m in Sources */,
 				1F41C6050D5F58E20070C628 /* SPSidRegisterView.m in Sources */,
 				1F42425A0D70967D003FB09F /* SPColorProvider.m in Sources */,
 				1FDD6E7A0D82E40E00489870 /* SPMiniPlayerWindow.m in Sources */,
 				1FDD6E7B0D82E40E00489870 /* SPPlayerWindow.mm in Sources */,
 				1F14E3F40D83F3F9001BAB20 /* SPBrowserState.m in Sources */,
+				DA6C92A62FE9342400EB4758 /* ASID_MIDI.m in Sources */,
 				DA59B0C52A053D1B00233549 /* SidTuneWrapper.mm in Sources */,
 				1F932CE30F8DC7B900BC8A4F /* SPSynchronizedScrollView.m in Sources */,
 				DA59B0C62A053D2300233549 /* SidTuneMod.cpp in Sources */,
@@ -2009,10 +2287,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA6C92A72FE9342400EB4758 /* ASID_MIDI.m in Sources */,
 				DA557D562AC6E9F000C02288 /* PreviewViewController.m in Sources */,
 				DA557D592AC6E9F000C02288 /* PreviewProvider.m in Sources */,
 				DA557D672AC720CC00C02288 /* PlayerWrapper.mm in Sources */,
 				DA557D6D2ACAB6A300C02288 /* PVScopeView.m in Sources */,
+				DA6C92992FE9340600EB4758 /* PYMIDIRealEndpoint.m in Sources */,
+				DA6C929A2FE9340600EB4758 /* PYMIDIRealSource.m in Sources */,
+				DA6C929B2FE9340600EB4758 /* PYMIDIEndpoint.m in Sources */,
+				DA6C929C2FE9340600EB4758 /* PYMIDIEndpointDescriptor.m in Sources */,
+				DA6C929D2FE9340600EB4758 /* PYMIDIUtils.m in Sources */,
+				DA6C929E2FE9340600EB4758 /* PYMIDIManager.m in Sources */,
+				DA6C929F2FE9340600EB4758 /* PYMIDIRealDestination.m in Sources */,
+				DA6C92A02FE9340600EB4758 /* PYMIDIVirtualDestination.m in Sources */,
+				DA6C92A12FE9340600EB4758 /* PYMIDIVirtualEndpoint.m in Sources */,
+				DA6C92A22FE9340600EB4758 /* PYMIDIVirtualSource.m in Sources */,
+				DA6C92A32FE9340600EB4758 /* PYMIDIEndpointSet.m in Sources */,
 				DA557D6E2ACAF62300C02288 /* AudioCoreDriverNew.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

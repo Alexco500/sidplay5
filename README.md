@@ -20,14 +20,14 @@ It still needs [midi_patchbay](https://github.com/rio-rattenrudel/midi_patchbay/
 * power on your SID device and play sid tunes in Sidplay5 (emulator and data transfer run simultaneously)
 
 # implemented changes
-* 64 Bit binary, runs on macOS 10.9 or higher
+* 64 Bit binary, runs on macOS 10.15 or higher
 * supports Intel and Apple Silicon
 * code compiles now on latest Xcode
 * auto-update feature disabled (for now)
 * supports new song length database format
 * expanded toolbar (old Mac OS X look&feel)
 * SIDBlaster USB support (still not complete, digi songs will have issues)
-* uses now libsidplayerfp
+* uses now libsidplayerfp (https://github.com/libsidplayfp/libsidplayfp)
 
 # still need to fix
 * Xcode still complains about missing UI constraints and OpenGL

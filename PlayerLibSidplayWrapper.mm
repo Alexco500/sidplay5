@@ -475,7 +475,7 @@ static inline float approximate_dac(int x, float kinkiness)
         if (mUSBSIDPicoBuilder)
             cfg.sidEmulation   = (sidbuilder*)mUSBSIDPicoBuilder;
     } else
-        cfg.sidEmulation   = mBuilder.get();  // default residfp
+        cfg.sidEmulation   = mBuilder_reSID.get();  // default resid for ASID version
         
     
     cfg.frequency      = mPlaybackSettings.mFrequency;
