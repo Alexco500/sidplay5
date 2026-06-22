@@ -21,7 +21,7 @@ const char* USBSID::getCredits()
 {
     return
         "USBSID V" VERSION " Engine:\n"
-        "\t(C) 2024-2025 LouD\n";
+        "\t(C) 2024-2026 LouD\n";
 }
 
 
