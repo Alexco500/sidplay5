@@ -2180,7 +2180,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -2264,7 +2263,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2585,7 +2583,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2637,7 +2634,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SIDBlaster",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "";
 				MARKETING_VERSION = 5.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
